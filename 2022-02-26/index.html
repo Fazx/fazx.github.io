@@ -15,25 +15,32 @@
 
 
 
-<meta name="description" content="-">
-<meta name="keywords" content="开发">
+<meta name="description" content="无需NFC手机与MIFARE Classic Tool (MCT)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android开发实践之计算器&amp;记事助手">
-<meta property="og:url" content="0sec.com.cn/2019-05-14/index.html">
+<meta property="og:title" content="RFID初探之M1卡分析与使用PN532复制">
+<meta property="og:url" content="0sec.com.cn/2022-02-26/index.html">
 <meta property="og:site_name" content="Cosmic Fragments">
-<meta property="og:description" content="-">
+<meta property="og:description" content="无需NFC手机与MIFARE Classic Tool (MCT)">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190518203530.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190519163647.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190519172600.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190519173527.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190519173921.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190519174344.png">
-<meta property="og:updated_time" content="2019-05-28T08:01:35.187Z">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220224212702.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220220193212.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220220200459.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220220200636.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220220204855.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220220205107.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220223235502.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220226115129.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220226115339.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220127164335.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220127163554.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220224213339.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220224215236.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220224215826.png">
+<meta property="og:updated_time" content="2022-02-26T12:04:28.438Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android开发实践之计算器&amp;记事助手">
-<meta name="twitter:description" content="-">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20190518203530.png">
+<meta name="twitter:title" content="RFID初探之M1卡分析与使用PN532复制">
+<meta name="twitter:description" content="无需NFC手机与MIFARE Classic Tool (MCT)">
+<meta name="twitter:image" content="http://0blog.test.upcdn.net/20220224212702.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -65,7 +72,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Android开发实践之计算器&amp;记事助手 | Cosmic Fragments</title>
+<title>RFID初探之M1卡分析与使用PN532复制 | Cosmic Fragments</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -224,11 +231,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Android开发实践之计算器-记事助手" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-RFID初探之M1卡分析与使用PN532复制" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019-05-14/" class="article-date">
-      <time datetime="2019-05-14T11:23:22.000Z" itemprop="datePublished">2019-05-14</time>
+      <a href="/2022-02-26/" class="article-date">
+      <time datetime="2022-02-26T12:03:32.000Z" itemprop="datePublished">2022-02-26</time>
 </a>
 
 
@@ -243,7 +250,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Android开发实践之计算器&amp;记事助手
+      RFID初探之M1卡分析与使用PN532复制
     </h1>
   
 
@@ -253,10 +260,6 @@
         
 
         
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发/">开发</a></li></ul>
-    </div>
-
         <div class="clearfix"></div>
       </div>
       
@@ -264,53 +267,121 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>-<br><a id="more"></a></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>这是移动应用开发入门课程的两个小项目，作为安卓开发入门是合适的。然而该老师在检查程序时居然发问“为什么要从零开始敲代码而不是找别人的成品修改”，看功能演示而不管代码实现(虽然他自己也不会Java)。我不明白一个入门课程为什么要追求功能的华丽，而对基础不管不顾。</p>
-<blockquote>
-<p>技术领域大多数牛人靠自学成才，但不能否认的是自学中踩坑与探索的过程非常消耗时间，合适的引导能让人的效率大大提高。</p>
-</blockquote>
-<h2 id="计算器"><a href="#计算器" class="headerlink" title="计算器"></a>计算器</h2><p><img src="http://0blog.test.upcdn.net/20190518203530.png" alt=""></p>
-<h3 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h3><p>文件结构作为Android而不是Project进行解析后如图很清晰：第一个(也就是main而非android或test路径下)的<code>/java/com.example.calc/</code>中为后端处理逻辑的Java类。<code>/res/layout/activity_main.xml</code>是主要的样式文件，资源文件可以放到<code>/drawable</code>、<code>/values</code>中进行引用。</p>
-<h3 id="UI开发"><a href="#UI开发" class="headerlink" title="UI开发"></a>UI开发</h3><p>Android布局主要有：</p>
+        <p><img src="http://0blog.test.upcdn.net/20220224212702.png" alt=""><br>无需NFC手机与MIFARE Classic Tool (MCT)<br><a id="more"></a></p>
+<h2 id="基础概念梳理：RFID、NFC、IC卡与ID卡"><a href="#基础概念梳理：RFID、NFC、IC卡与ID卡" class="headerlink" title="基础概念梳理：RFID、NFC、IC卡与ID卡"></a>基础概念梳理：RFID、NFC、IC卡与ID卡</h2><p>RFID (Radio Frequency Identification，射频识别) 技术分为无源RFID、有源RFID与半有源RFID三种类别，其中</p>
 <ul>
-<li>RelativeLayout 相对布局(默认)</li>
-<li>LinearLayout 线性布局：<code>&lt;LinearLayout&gt;&lt;/LinearLayout&gt;</code>控件垂直和水平排列，父控件<code>layout_width=&quot;match_parent&quot;</code>后按权重获得控件占比()</li>
-<li>FrameLayout 帧布局：按顺序重叠摆放</li>
-<li>TableLayout 表格布局：界面划分为多个单元格</li>
-<li>GridLayout 网格布局，4.0后引入，比表格布局更加好用</li>
-<li>AbsoluteLayout 绝对布局：指定xy坐标表示位置，由于屏幕尺寸和分辨率的不同非常低效，基本淘汰。</li>
+<li><strong>有源RFID</strong>的应用场景主要有高速上的ETC（车载的OBU设备是供电的，很好理解），因为有源所以传输距离长、速度快</li>
+<li><strong>半有源RFID</strong>是加了一个休眠机制的有源RFID，功耗低又传输强</li>
+<li><strong>无源RFID</strong>是本文讨论重点，因为无需供电，成本低、使用广，但只能做近距离的无线传输，工作在包括但不仅限于125KHz、13.56MHz的低频段（这里的低频是相对于有源RFID频段）</li>
 </ul>
-<p>在这里我在线性布局中嵌套了网格布局，属性看这个图就一目了然(图源菜鸟教程)：</p>
-<p><img src="http://0blog.test.upcdn.net/20190519163647.png" alt=""></p>
-<p><code>GridLayout</code>的属性是这样的：</p>
-<pre><code>&lt;GridLayout
-    android:layout_width=&quot;match_parent&quot;
-    android:layout_height=&quot;match_parent&quot;
-    android:background=&quot;#191919&quot;
-    android:columnCount=&quot;4&quot;
-    android:rowCount=&quot;5&quot;&gt;
-</code></pre><p>结合按钮“零”的属性来解释：</p>
-<pre><code>&lt;Button
-    android:id=&quot;@+id/btn_0&quot;
-    android:layout_width=&quot;0dp&quot;
-    android:layout_rowWeight=&quot;1&quot;
-    android:layout_columnSpan=&quot;2&quot;
-    android:layout_columnWeight=&quot;1&quot;
-    android:background=&quot;@drawable/frame&quot;
-    android:text=&quot;零&quot;
-    android:textColor=&quot;#FFFFFF&quot;
-    android:textSize=&quot;30sp&quot; /&gt;
-</code></pre><p>网格被设置成了五行(row)四列(column)，button0占一行、横跨两列，<code>layout_width</code>设为0，背景资源从<code>drawable</code>中调用添加1dp边框后的版本。</p>
-<h3 id="后端实现"><a href="#后端实现" class="headerlink" title="后端实现"></a>后端实现</h3><p>创建<code>MainActivity</code>继承自<code>AppCompatActivity</code>，并重写了<code>OnCreate()</code>方法，初始化生命周期：</p>
-<p><img src="http://0blog.test.upcdn.net/20190519172600.png" alt=""></p>
-<p><code>initViews()</code>初始化按键布局，<code>initButtons</code>使用<code>HashMap</code>建立了一个键值映射：</p>
-<p><img src="http://0blog.test.upcdn.net/20190519173527.png" alt=""></p>
-<p>退格和等号的处理，这里的异常处理相当于利用了Java的异常，简洁有效：</p>
-<p><img src="http://0blog.test.upcdn.net/20190519173921.png" alt=""></p>
-<p>运算逻辑处理写在DoCalc中，建立了一个伪的“元组”存储运算表达式，判断运算符or数字并进行强制类型转换，相比<strong>运算栈</strong>要简单但是只能支持双目运算：</p>
-<p><img src="http://0blog.test.upcdn.net/20190519174344.png" alt=""></p>
-<p><strong>BigBang</strong>这个类名取自 Smartisan OS 中的大爆炸功能，有些异曲同工之妙。之后就是进行拼接和计算操作，并处理除以零的异常，不再赘述。</p>
-<h2 id="记事助手"><a href="#记事助手" class="headerlink" title="记事助手"></a>记事助手</h2><p>待开发</p>
+<p>而NFC(Near-field communication，近场通信) 技术是RFID技术的<strong>子集</strong>，NFC只工作在13.56MHz这一个频率。你想，有源RFID的传输距离那么远，当然也就不能叫“近场通信”了。这里放一张好图：</p>
+<p><img src="http://0blog.test.upcdn.net/20220220193212.png" alt=""></p>
+<p>而IC卡 (Integrated Circuit Card，集成电路卡，智能卡) 和ID卡 (Identification Card，身份识别卡) 就属于无源RFID的应用。其中IC卡只工作在13.56MHz频率，这点看起来没有争议。但<strong>ID卡不只工作在125KHz</strong>，实际上有三个主要频率：</p>
+<p><img src="http://0blog.test.upcdn.net/20220220200459.png" alt=""></p>
+<p>并且我搜到了一个UHF(超高频) ID Card的<a href="http://two-red-cells.com/products/rfid/tags/id%20cards/CS6820" target="_blank" rel="noopener">实际应用</a>，挂在脖子上据称可以最远11米外识别：</p>
+<p><img src="http://0blog.test.upcdn.net/20220220200636.png" alt=""></p>
+<p>因此，</p>
+<ul>
+<li>将ID卡称为“低频卡”、IC卡称为“高频卡”是不准确的</li>
+<li>NFC技术仅工作在13.56MHz，因此无法识别125KHz的ID卡(绝大部分ID卡都是125KHz)</li>
+<li>上面那条也是为什么手环、手机的NFC模块不可能复制某些门禁卡(125KHz ID卡)</li>
+</ul>
+<p>搜到SMZDM有人用手环复制了ID卡：<br><img src="http://0blog.test.upcdn.net/20220220204855.png" alt=""></p>
+<p>结果是钻开表带把线圈塞进去了。。。<br><img src="http://0blog.test.upcdn.net/20220220205107.png" alt=""></p>
+<p>此外，</p>
+<ul>
+<li>ID卡只能一次性写入，而IC卡可以反复读写</li>
+<li>125KHz ID卡虽然不能用NFC读写，但可以用低频读卡器读出来复制到另一张卡。事实上由于ID卡只存储了一个ID号而没有加密算法，其安全性是更低的。</li>
+<li>所谓的“CPU卡”是一种带COS(芯片操作系统)的IC卡</li>
+<li>二代身份证是一种Type B标准的IC卡：<a href="https://wiki.nfc.im/books/%E6%99%BA%E8%83%BD%E5%8D%A1%E6%89%8B%E5%86%8C/page/%E4%BA%8C%E4%BB%A3%E5%B1%85%E6%B0%91%E8%BA%AB%E4%BB%BD%E8%AF%81" target="_blank" rel="noopener">https://wiki.nfc.im/books/%E6%99%BA%E8%83%BD%E5%8D%A1%E6%89%8B%E5%86%8C/page/%E4%BA%8C%E4%BB%A3%E5%B1%85%E6%B0%91%E8%BA%AB%E4%BB%BD%E8%AF%81</a></li>
+</ul>
+<h2 id="M1卡分析"><a href="#M1卡分析" class="headerlink" title="M1卡分析"></a>M1卡分析</h2><ul>
+<li>本文要模拟的卡片类型是13.56MHZ Mifare Classic S50卡，即M1卡</li>
+<li>Mifare是日本NXP公司的一个商标，Mifare卡是全球使用最广泛的IC卡，但这种技术也已经被广泛破解</li>
+<li>MF1卡又分为S50与S70，他们的存储空间与认证过程有略微差异，本文研究S50</li>
+</ul>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><p>S50卡有16个扇区，1K的存储空间 (64x16=1024)：</p>
+<p><img src="http://0blog.test.upcdn.net/20220223235502.png" alt=""></p>
+<ul>
+<li>0扇区0区块：厂商块</li>
+<li>0-15扇区3区块：控制块</li>
+<li>其他区块：数据块</li>
+</ul>
+<p>从结构图中可以看出，0扇区0区块存放着卡号与厂商信息，在标准Mifare卡中这部分内容是固定不可修改的，但据说是中国人制作出了0扇区0区块可写的魔卡（白卡/UID卡/CUID卡），这也是本文实现卡复制的基础。</p>
+<p><img src="http://0blog.test.upcdn.net/20220226115129.png" alt=""></p>
+<h3 id="认证流程"><a href="#认证流程" class="headerlink" title="认证流程"></a>认证流程</h3><p><img src="http://0blog.test.upcdn.net/20220226115339.png" alt=""><br>来源：<a href="https://www.blackhat.com/docs/sp-14/materials/arsenal/sp-14-Almeida-Hacking-MIFARE-Classic-Cards-Slides.pdf" target="_blank" rel="noopener">BlackHat 2014 - Hacking Mifare Classic Cards</a></p>
+<p>图中Tag指卡片0扇区存储的信息标签（UID），它接收到读卡器发来的校验请求后：</p>
+<ol>
+<li>发送UID号给读卡器，进入防冲突循环，防止读卡器同时读到多张卡片</li>
+<li>读卡器返回认证请求</li>
+<li>Tag产生一个（伪）随机数nT以明文方式发送给读卡器</li>
+<li>读卡器在自身数据库中根据nT找到对应加密key，自身再产生一个随机数nR，使用key将nT与nR加密后分别返回给卡片</li>
+<li>卡片使用自己的key验证返回值，若正确则响应一个新的校验值，认证流程结束。</li>
+</ol>
+<p>破解的关键就在于，最后一步如果卡片验证失败，则会直接返回异常。而M1卡的校验是写死在卡片存储中的，无法实现CPU卡的一些额外逻辑操作，因此可以重放密钥对M1卡进行暴力破解。</p>
+<p>当然以上的认证流程、破解部分都是通过成熟的工具完成的，对其有个大概了解，下文的复制不是重点内容。</p>
+<h2 id="M1卡复制"><a href="#M1卡复制" class="headerlink" title="M1卡复制"></a>M1卡复制</h2><p>整体思路：小米手环对存在加密区的卡片默认无法模拟，因此需要一张白卡做中转。先复制一张非加密卡到手环，再将加密部分直接通过PN532写入手环。</p>
+<h3 id="道具"><a href="#道具" class="headerlink" title="道具"></a>道具</h3><p><img src="http://0blog.test.upcdn.net/20220127164335.png" alt=""></p>
+<p>PN532模块 + USB2TTL(CH340模块) + 杜邦线 + UID/CUID卡(T5577)</p>
+<h3 id="接线"><a href="#接线" class="headerlink" title="接线"></a>接线</h3><p><img src="http://0blog.test.upcdn.net/20220127163554.png" alt=""></p>
+<p>使用杜邦线连接PN532模块与USB2TTL(CH340)：</p>
+<table>
+<thead>
+<tr>
+<th>PN532</th>
+<th>CH340</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>VCC</td>
+<td>5V</td>
+</tr>
+<tr>
+<td>SDA</td>
+<td>RXD</td>
+</tr>
+<tr>
+<td>SCL</td>
+<td>TXD</td>
+</tr>
+</tbody>
+</table>
+<p>黄色跳线帽不用管。接线接错使用模块可能会烧掉。</p>
+<h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><p>模块接入电脑后在设备管理器中可以看到，可以将波特率调高一些：</p>
+<p><img src="http://0blog.test.upcdn.net/20220224213339.png" alt=""></p>
+<p>我用的WIN10虚拟机无需安装驱动，直接使用经典的NFC上位机软件即可读卡：</p>
+<p><img src="http://0blog.test.upcdn.net/20220224215236.png" alt=""></p>
+<ol>
+<li>点击左上三角将整个卡存为dump文件，再额外记录下0扇区0区块（厂商块）的内容备用</li>
+<li>读一张白卡（UID或CUID），将第1步中0扇区0区块的内容填进去，再把整个卡dump出来。</li>
+<li>把第2步的dump数据写进空卡，<strong>这一步相当于得到了一张只有卡号、厂商信息的非加密卡</strong>。</li>
+<li>使用小米手环自己的功能复制第3步得到的卡，由于是非加密卡所以可以直接复制。这一步复制成功的卡还是不能使用的，手环上只有基础的UID信息（厂商块）。</li>
+<li>使用<code>nfc-mfclassic</code>工具将数据块信息直接写入手环：</li>
+</ol>
+<pre><code>nfc-mfclassic.exe w A xxxxx.dump # 这是第1步的dump文件
+</code></pre><p><img src="http://0blog.test.upcdn.net/20220224215826.png" alt=""></p>
+<p>同目录下还需要有配置文件libnfc.conf：</p>
+<pre><code>allow_autoscan = true
+log_level=2
+# 0sec.com.cn
+allow_intrusive_scan = true
+device.name=&quot;PN532Reader&quot;
+# 设置端口和波特率
+device.connstring=&quot;pn532_uart:COM3:115200&quot;
+</code></pre><p>手环的位置不太好读取到，可以多次尝试，我的验证是把手环侧放在模块上面可以识别到。</p>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>本来对RFID这一领域毫无涉猎，跟着网上文章复制一张门禁卡后，为了明白自己做的是什么，才去了解到这些东西。搜集资料过程中发现互联网上各种说法定义五花八门，各路大神众说纷纭，本文也一定有不准确的地方，作为RFID初探。</p>
+<p>RFID技术的众多应用，说到底就是一个认证授权的过程，只是将令牌信息写死在了硬件中。类比Web应用的认证流程，可以将其想象成前端js加密，破解加密后可以看到明文的HTTP请求内容（所有扇区数据），任何人可以复用此payload（复制卡）。如果服务端不将信息存在数据库中做校验，完全信任客户端发送的信息，则可以任意声明客户端的属性（修改饭卡水卡金额）。</p>
+<p>因此提高RFID技术应用的安全性就可以从<strong>加密方式和零信任</strong>两个地方做抓手赋能，形成闭环：</p>
+<ul>
+<li>防止扇区数据被解密 - 强密钥</li>
+<li>添加锁定策略防止暴力破解 - CPU卡</li>
+<li>服务端数据库存储数据 - 后端校验</li>
+</ul>
 
       
     </div>
@@ -322,16 +393,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019-08-21/">
-                    深入了解子域名挖掘tricks
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019-04-13/">
-                    用Origin请求头防御CSRF攻击(译文)
+                <a href="/2022-02-13/">
+                    Websocket渗透测试指北
                 </a>
             </div>
         
@@ -343,7 +408,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#引言"><span class="toc-number">1.</span> <span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算器"><span class="toc-number">2.</span> <span class="toc-text">计算器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文件结构"><span class="toc-number">2.1.</span> <span class="toc-text">文件结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UI开发"><span class="toc-number">2.2.</span> <span class="toc-text">UI开发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后端实现"><span class="toc-number">2.3.</span> <span class="toc-text">后端实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#记事助手"><span class="toc-number">3.</span> <span class="toc-text">记事助手</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基础概念梳理：RFID、NFC、IC卡与ID卡"><span class="toc-number">1.</span> <span class="toc-text">基础概念梳理：RFID、NFC、IC卡与ID卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#M1卡分析"><span class="toc-number">2.</span> <span class="toc-text">M1卡分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#结构"><span class="toc-number">2.1.</span> <span class="toc-text">结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#认证流程"><span class="toc-number">2.2.</span> <span class="toc-text">认证流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#M1卡复制"><span class="toc-number">3.</span> <span class="toc-text">M1卡复制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#道具"><span class="toc-number">3.1.</span> <span class="toc-text">道具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接线"><span class="toc-number">3.2.</span> <span class="toc-text">接线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#具体步骤"><span class="toc-number">3.3.</span> <span class="toc-text">具体步骤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思考"><span class="toc-number">4.</span> <span class="toc-text">思考</span></a></li></ol>
         
     </div>
     <style>
@@ -379,7 +444,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Android开发实践之计算器&记事助手　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"RFID初探之M1卡分析与使用PN532复制　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -399,15 +464,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019-08-21/" title="上一篇: 深入了解子域名挖掘tricks">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019-04-13/" title="下一篇: 用Origin请求头防御CSRF攻击(译文)">
+            <a href="/2022-02-13/" title="下一篇: Websocket渗透测试指北">
                 <i class="fa fa-angle-right"></i>
             </a>
         
