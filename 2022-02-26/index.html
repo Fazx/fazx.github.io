@@ -15,16 +15,32 @@
 
 
 
+<meta name="description" content="无需NFC手机与MIFARE Classic Tool (MCT)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="「Web向」XCTF联赛2018年度考点知识总结">
-<meta property="og:url" content="0sec.com.cn/2018-05-16/index.html">
+<meta property="og:title" content="RFID初探之M1卡的分析与复制（使用PN532模块）">
+<meta property="og:url" content="0sec.com.cn/2022-02-26/index.html">
 <meta property="og:site_name" content="Cosmic Fragments">
+<meta property="og:description" content="无需NFC手机与MIFARE Classic Tool (MCT)">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195917.png">
-<meta property="og:updated_time" content="2019-05-05T12:00:11.402Z">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220226203544.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220220193212.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220220200459.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220220200636.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220220204855.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220220205107.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220223235502.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220226115129.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220226115339.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220127164335.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220127163554.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220224213339.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220224215236.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20220224215826.png">
+<meta property="og:updated_time" content="2022-02-26T12:36:22.040Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="「Web向」XCTF联赛2018年度考点知识总结">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20190505195917.png">
+<meta name="twitter:title" content="RFID初探之M1卡的分析与复制（使用PN532模块）">
+<meta name="twitter:description" content="无需NFC手机与MIFARE Classic Tool (MCT)">
+<meta name="twitter:image" content="http://0blog.test.upcdn.net/20220226203544.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +72,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>「Web向」XCTF联赛2018年度考点知识总结 | Cosmic Fragments</title>
+<title>RFID初探之M1卡的分析与复制（使用PN532模块） | Cosmic Fragments</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -215,11 +231,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-「Web向」XCTF联赛2018年度考点知识总结-持续更新" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-RFID初探之M1卡的分析与复制（使用PN532模块）" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018-05-16/" class="article-date">
-      <time datetime="2018-05-16T10:36:39.000Z" itemprop="datePublished">2018-05-16</time>
+      <a href="/2022-02-26/" class="article-date">
+      <time datetime="2022-02-26T12:03:32.000Z" itemprop="datePublished">2022-02-26</time>
 </a>
 
 
@@ -234,7 +250,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      「Web向」XCTF联赛2018年度考点知识总结
+      RFID初探之M1卡的分析与复制（使用PN532模块）
     </h1>
   
 
@@ -251,82 +267,122 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><img src="http://0blog.test.upcdn.net/20190505195917.png" alt=""><br><a id="more"></a></p>
-<h2 id="3-10-N1CTF"><a href="#3-10-N1CTF" class="headerlink" title="3.10 N1CTF"></a>3.10 N1CTF</h2><h3 id="Easy-amp-amp-Hard-Php"><a href="#Easy-amp-amp-Hard-Php" class="headerlink" title="Easy&amp;&amp;Hard Php :"></a><a href="https://xz.aliyun.com/t/2148#toc-0" target="_blank" rel="noopener">Easy&amp;&amp;Hard Php</a> :</h3><p><code>allow_diff_ip</code> = 0，无法异地登录，需要绕过 <code>$_SERVER[&#39;REMOTE_ADDR&#39;]</code></p>
-<p>利用<a href="http://php.net/manual/en/class.soapclient.php" target="_blank" rel="noopener">SoapClient类</a>发送请求时<a href="https://prakharprasad.com/crlf-injection-http-response-splitting-explained/" target="_blank" rel="noopener">User-Agent存在CRLF</a>控制整个POST报文构造SSRF</p>
-<p>利用短标签<a href="http://php.net/manual/zh/ini.core.php" target="_blank" rel="noopener">short_open_tag</a>上传<a href="https://www.0dayhack.com/post-840.html" target="_blank" rel="noopener">绕过检测</a>getshell</p>
-<p><strong>非预期解1 session.upload</strong> ：上传文件时POST一个与php.ini中设置的<code>session.upload_progress.name</code>同名变量</p>
-<p>通过Session Upload Progress来设置session，配合LFI getshell</p>
-<p><code>session.upload_progress.cleanup</code> = On时，需<a href="http://iwenhu.cn/2018/04/07/Race-Condition/" target="_blank" rel="noopener">条件竞争</a>。</p>
-<p><strong>非预期解2 Xdebug</strong> </p>
-<p>利用LFI包含/var/www/phpinfo/index.php</p>
-<p>之后<a href="http://0sec.com.cn/2018-05-10/">利用Xdebug攻击</a></p>
-<p><strong>非预期解3 <a href="http://dann.com.br/php-winning-the-race-condition-vs-temporary-file-upload-alternative-way-to-easy_php-n1ctf2018/" target="_blank" rel="noopener">/tmp/临时文件竞争</a></strong></p>
-<h2 id="4-11-HITB-XCTF"><a href="#4-11-HITB-XCTF" class="headerlink" title="4.11 HITB-XCTF"></a>4.11 HITB-XCTF</h2><h3 id="upload"><a href="#upload" class="headerlink" title="upload"></a>upload</h3><p>上传页面可返回图片宽度和高度，猜测是用了PHP中的<a href="http://www.freebuf.com/column/164698.html" target="_blank" rel="noopener"><code>getimagesize()</code>函数</a>。而<code>getimagesize</code> 方法调用了Windows API里的<code>FindFirstFileExW()</code>，未对特殊字符进行处理，导致以下特性：</p>
-<blockquote>
-<p>大于号(&gt;)相等于通配符问号(?)</p>
-<p>小于号(&lt;)相当于通配符星号(<code>*</code>)</p>
-<p>双引号(“)相当于点字符(.)</p>
-</blockquote>
-<p>因此可以利用<code>pic.php?file=../a&lt;/test.png</code>这样的方式观察是否得到图片长宽回显，从而爆破上传路径。</p>
-<p>Windows+IIS7.0环境下利用<a href="http://0sec.com.cn/2018-05-12/">NTFS ADS特性</a>绕过上传对后缀的检测。之后直接读文件即可。</p>
-<h3 id="Baby-Baby"><a href="#Baby-Baby" class="headerlink" title="Baby Baby"></a>Baby Baby</h3><p><a href="https://ricterz.me/posts/Security%20Issues%20of%20Kubelet%20HTTP%28s%29%20Server" target="_blank" rel="noopener">10250端口利用</a></p>
-<h3 id="Baby-Nya"><a href="#Baby-Nya" class="headerlink" title="Baby Nya"></a>Baby Nya</h3><p><a href="https://ionize.com.au/exploiting-apache-tomcat-port-8009-using-apache-jserv-protocol/" target="_blank" rel="noopener">8009端口利用</a></p>
-<p>访问Tomcat，<a href="https://ricterz.me/posts/Exploiting%20Jolokia%20Agent%20with%20Java%20EE%20Servers" target="_blank" rel="noopener">通过Jolokia</a>获取管理员权限。</p>
-<h2 id="4-21-Star-CTF"><a href="#4-21-Star-CTF" class="headerlink" title="4.21 Star CTF"></a>4.21 <a href="https://www.xctf.org.cn/library/details/starctf-writeup/" target="_blank" rel="noopener">Star CTF</a></h2><p>…</p>
-<h2 id="5-19-RCTF"><a href="#5-19-RCTF" class="headerlink" title="5.19 RCTF"></a>5.19 <a href="https://www.xctf.org.cn/media/infoattach/b805a17b85c54091975aab3709b7a5bb.pdf" target="_blank" rel="noopener">RCTF</a></h2><h3 id="AMP"><a href="#AMP" class="headerlink" title="AMP"></a>AMP</h3><p>利用AMP特性绕过CSP打Cookie</p>
-<p><a href="https://zh.wikipedia.org/zh-hans/Accelerated_Mobile_Pages" target="_blank" rel="noopener">AMP标准</a></p>
-<p><a href="https://www.ampproject.org/zh_cn/docs/fundamentals/spec" target="_blank" rel="noopener">AMP规范</a></p>
-<p><a href="https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md#client-id/" target="_blank" rel="noopener">AMP获取Cookie的方法</a></p>
-<h3 id="r-cursive"><a href="#r-cursive" class="headerlink" title="r-cursive"></a>r-cursive</h3><pre><code>&lt;?php
-sha1($_SERVER[&#39;REMOTE_ADDR&#39;]) === &#39;45ae51496b4a30e6be55f646c10c694c3feb946f&#39; ?: die();
-&#39;;&#39; === preg_replace(&#39;/[^\W_]+\((?R)?\)/&#39;, NULL, $_GET[&#39;cmd&#39;]) ? eval($_GET[&#39;cmd&#39;]) : show_source(__FILE__);
-</code></pre><p>一个php沙箱，正则告诉我们这里只能执行格式为<code>xxxx();</code>的函数，可以递归执行函数，不允许带参数。</p>
-<pre><code>?cmd=print(readdir(opendir(getcwd()))); 可以列目录
-?cmd=print(readfile(readdir(opendir(getcwd())))); 读文件
-?cmd=print(dirname(dirname(getcwd()))); print出/var/www
-</code></pre><p><code>getallheaders()</code>函数会返回所有的http请求头，因为header可控，所以可执行任意命令。</p>
-<p>沙盒逃逸</p>
-<h3 id="backdoor"><a href="#backdoor" class="headerlink" title="backdoor"></a>backdoor</h3><p>主要就是一个利用php伪协议(此处phar://或zip://)的<a href="https://chybeta.github.io/2017/10/08/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/" target="_blank" rel="noopener">文件包含</a></p>
-<h2 id="5-26-SUCTF"><a href="#5-26-SUCTF" class="headerlink" title="5.26 SUCTF"></a>5.26 <a href="https://www.xctf.org.cn/library/details/2ff21f569a791e21cbd6ce0d4675a9de5ec2373a/" target="_blank" rel="noopener">SUCTF</a></h2><h3 id="Anonymous"><a href="#Anonymous" class="headerlink" title="Anonymous"></a>Anonymous</h3><p>create_function产生匿名函数，动态函数执行。</p>
-<p><a href="https://lorexxar.cn/2017/11/10/hitcon2017-writeup/#baby-h-master-php-2017" target="_blank" rel="noopener">HITCON-2017题目</a></p>
-<h3 id="Getshell"><a href="#Getshell" class="headerlink" title="Getshell"></a>Getshell</h3><p>编码ISO-8859-15中可以<a href="http://www.hack80.com/forum.php?mod=viewthread&amp;tid=46962&amp;extra=page%3D1" target="_blank" rel="noopener">用~进行取反生成所需字符</a>。</p>
-<p><a href="https://www.leavesongs.com/PENETRATION/webshell-without-alphanum.html" target="_blank" rel="noopener">取反符~和不可见字符写shell</a>。</p>
-<h3 id="Multisql"><a href="#Multisql" class="headerlink" title="Multisql"></a>Multisql</h3><p>预期解：变量预处理 <code>mysqli_multi_query()</code>造成多语句执行</p>
-<pre><code>http://web.suctf.asuri.org:85/user/user.php?id=22727;set @s=CHAR(115,101,108,101,99,116,32,39,60,63,112,104,112,32,101,118,97,108,40,36,95,80,79,83,84,91,98,100,119,93,41,59,63,62,39,32,105,110,116,111,32,111,117,116,102,105,108,101,32,39,47,118,97,114,47,119,119,119,47,104,116,109,108,47,102,97,118,105,99,111,110,47,109,121,115,104,101,108,108,46,112,104,112,39,59);prepare s2 from @s;execute s2;
-</code></pre><p>非预期解：username二次注入。</p>
-<h3 id="HateIt"><a href="#HateIt" class="headerlink" title="HateIt"></a>HateIt</h3><h3 id="Homework"><a href="#Homework" class="headerlink" title="Homework"></a>Homework</h3><h2 id="6-19-SCTF"><a href="#6-19-SCTF" class="headerlink" title="6.19 SCTF"></a>6.19 <a href="https://www.xctf.org.cn/static/viewer/web/viewer.html?file=/media/infoattach/38405dd3f67e4d3e93c5d5042ff14909.pdf" target="_blank" rel="noopener">SCTF</a></h2><h3 id="新的建议板"><a href="#新的建议板" class="headerlink" title="新的建议板"></a>新的建议板</h3><p>页面包含angluar angluar-route两个js。</p>
-<p><a href="https://portswigger.net/blog/xss-without-html-client-side-template-injection-with-angularjs" target="_blank" rel="noopener">angluar模板注⼊</a></p>
-<p>使⽤js编码来绕过 使⽤\u16进制绕过</p>
-<pre><code>{{'a'.constructor.prototype.charAt=[].join;$eval('x=1} }
-};\u0061\u006c\u0065\u0072\u0074\u0028\u0031\u0029//');}}
-</code></pre><p>从angluar-route中找到被弃⽤的前端路由测试js⽂件。</p>
-<p>XSS读后台页面用户名，结合API得到文件管理密码，从而得到flag文件。</p>
-<h3 id="Nginx的秘密"><a href="#Nginx的秘密" class="headerlink" title="Nginx的秘密"></a>Nginx的秘密</h3><ul>
-<li>利用目录穿越漏洞下载nginx.conf，发现<code>proxy_cache</code>的配置发生改变。</li>
-<li>扫目录推断后台路由逻辑。</li>
+        <p><img src="http://0blog.test.upcdn.net/20220226203544.png" alt=""><br>无需NFC手机与MIFARE Classic Tool (MCT)<br><a id="more"></a></p>
+<h2 id="基础概念梳理：RFID、NFC、IC卡与ID卡"><a href="#基础概念梳理：RFID、NFC、IC卡与ID卡" class="headerlink" title="基础概念梳理：RFID、NFC、IC卡与ID卡"></a>基础概念梳理：RFID、NFC、IC卡与ID卡</h2><p>RFID (Radio Frequency Identification，射频识别) 技术分为无源RFID、有源RFID与半有源RFID三种类别，其中</p>
+<ul>
+<li><strong>有源RFID</strong>的应用场景主要有高速上的ETC（车载的OBU设备是供电的，很好理解），因为有源所以传输距离长、速度快</li>
+<li><strong>半有源RFID</strong>是加了一个休眠机制的有源RFID，功耗低又传输强</li>
+<li><strong>无源RFID</strong>是本文讨论重点，因为无需供电，成本低、使用广，但只能做近距离的无线传输，工作在包括但不仅限于125KHz、13.56MHz的低频段（这里的低频是相对于有源RFID频段）</li>
 </ul>
-<p>。。后面从触发web缓存漏洞开始就看不懂了。。。</p>
-<h3 id="Zhuanxv"><a href="#Zhuanxv" class="headerlink" title="Zhuanxv"></a>Zhuanxv</h3><p>资源加载<code>./loadimage?fileName=web_login_bg.jpg</code>存在任意文件下载。</p>
-<p>从GitHub中的commit记录中获取信息，进行绕过过滤的HQL注入。</p>
-<h3 id="phpmyadmin"><a href="#phpmyadmin" class="headerlink" title="phpmyadmin"></a>phpmyadmin</h3><p>通过<code>/phpMyAdmin/index.php?lang[]=1</code>报错得到网站路径。</p>
-<p>修改<code>general log file</code>，将<code>general log</code>的值改为ON。</p>
-<p>通过日志log文件写shell连接。</p>
-<h3 id="BabySyc-Simple-PHP-Web"><a href="#BabySyc-Simple-PHP-Web" class="headerlink" title="BabySyc - Simple PHP Web"></a>BabySyc - Simple PHP Web</h3><ul>
-<li>PHP代码混淆</li>
-<li>…</li>
+<p>而NFC(Near-field communication，近场通信) 技术是RFID技术的<strong>子集</strong>，NFC只工作在13.56MHz这一个频率。你想，有源RFID的传输距离那么远，当然也就不能叫“近场通信”了。这里放一张好图：</p>
+<p><img src="http://0blog.test.upcdn.net/20220220193212.png" alt=""></p>
+<p>而IC卡 (Integrated Circuit Card，集成电路卡，智能卡) 和ID卡 (Identification Card，身份识别卡) 就属于无源RFID的应用。其中IC卡只工作在13.56MHz频率，这点看起来没有争议。但<strong>ID卡不只工作在125KHz</strong>，实际上有三个主要频率：</p>
+<p><img src="http://0blog.test.upcdn.net/20220220200459.png" alt=""></p>
+<p>并且我搜到了一个UHF(超高频) ID Card的<a href="http://two-red-cells.com/products/rfid/tags/id%20cards/CS6820" target="_blank" rel="noopener">实际应用</a>，挂在脖子上据称可以最远11米外识别：</p>
+<p><img src="http://0blog.test.upcdn.net/20220220200636.png" alt=""></p>
+<p>因此，</p>
+<ul>
+<li>将ID卡称为“低频卡”、IC卡称为“高频卡”是不准确的</li>
+<li>NFC技术仅工作在13.56MHz，因此无法识别125KHz的ID卡(绝大部分ID卡都是125KHz)</li>
+<li>上面那条也是为什么手环、手机的NFC模块不可能复制某些门禁卡(125KHz ID卡)</li>
 </ul>
-<h3 id="BabyIntranet"><a href="#BabyIntranet" class="headerlink" title="BabyIntranet"></a>BabyIntranet</h3><ul>
-<li>Rails</li>
-<li>域渗透</li>
-<li>MS-NLMP协议</li>
-<li>SMB签名</li>
-<li>…</li>
+<p>搜到SMZDM有人用手环复制了ID卡：<br><img src="http://0blog.test.upcdn.net/20220220204855.png" alt=""></p>
+<p>结果是钻开表带把线圈塞进去了。。。<br><img src="http://0blog.test.upcdn.net/20220220205107.png" alt=""></p>
+<p>此外，</p>
+<ul>
+<li>ID卡只能一次性写入，而IC卡可以反复读写</li>
+<li>125KHz ID卡虽然不能用NFC读写，但可以用低频读卡器读出来复制到另一张卡。事实上由于ID卡只存储了一个ID号而没有加密算法，其安全性是更低的。</li>
+<li>所谓的“CPU卡”是一种带COS(芯片操作系统)的IC卡</li>
+<li>二代身份证是一种Type B标准的IC卡：<a href="https://wiki.nfc.im/books/%E6%99%BA%E8%83%BD%E5%8D%A1%E6%89%8B%E5%86%8C/page/%E4%BA%8C%E4%BB%A3%E5%B1%85%E6%B0%91%E8%BA%AB%E4%BB%BD%E8%AF%81" target="_blank" rel="noopener">https://wiki.nfc.im/books/%E6%99%BA%E8%83%BD%E5%8D%A1%E6%89%8B%E5%86%8C/page/%E4%BA%8C%E4%BB%A3%E5%B1%85%E6%B0%91%E8%BA%AB%E4%BB%BD%E8%AF%81</a></li>
 </ul>
-<blockquote>
-<p>SCTF的Misc中加入了⼯控协议、侧信道相关的内容。</p>
-</blockquote>
-<h2 id="7-14-QCTF"><a href="#7-14-QCTF" class="headerlink" title="7.14 QCTF"></a>7.14 QCTF</h2>
+<h2 id="M1卡分析"><a href="#M1卡分析" class="headerlink" title="M1卡分析"></a>M1卡分析</h2><ul>
+<li>本文要模拟的卡片类型是13.56MHZ Mifare Classic S50卡，即M1卡</li>
+<li>Mifare是日本NXP公司的一个商标，Mifare卡是全球使用最广泛的IC卡，但这种技术也已经被广泛破解</li>
+<li>MF1卡又分为S50与S70，他们的存储空间与认证过程有略微差异，本文研究S50</li>
+</ul>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><p>S50卡有16个扇区，1K的存储空间 (64x16=1024)：</p>
+<p><img src="http://0blog.test.upcdn.net/20220223235502.png" alt=""></p>
+<ul>
+<li>0扇区0区块：厂商块</li>
+<li>0-15扇区3区块：控制块</li>
+<li>其他区块：数据块</li>
+</ul>
+<p>从结构图中可以看出，0扇区0区块存放着卡号与厂商信息，在标准Mifare卡中这部分内容是固定不可修改的，但据说是中国人制作出了0扇区0区块可写的魔卡（白卡/UID卡/CUID卡），这也是本文实现卡复制的基础。</p>
+<p><img src="http://0blog.test.upcdn.net/20220226115129.png" alt=""></p>
+<h3 id="认证流程"><a href="#认证流程" class="headerlink" title="认证流程"></a>认证流程</h3><p><img src="http://0blog.test.upcdn.net/20220226115339.png" alt=""><br>来源：<a href="https://www.blackhat.com/docs/sp-14/materials/arsenal/sp-14-Almeida-Hacking-MIFARE-Classic-Cards-Slides.pdf" target="_blank" rel="noopener">BlackHat 2014 - Hacking Mifare Classic Cards</a></p>
+<p>图中Tag指卡片0扇区存储的信息标签（UID），它接收到读卡器发来的校验请求后：</p>
+<ol>
+<li>发送UID号给读卡器，进入防冲突循环，防止读卡器同时读到多张卡片</li>
+<li>读卡器返回认证请求</li>
+<li>Tag产生一个（伪）随机数nT以明文方式发送给读卡器</li>
+<li>读卡器在自身数据库中根据nT找到对应加密key，自身再产生一个随机数nR，使用key将nT与nR加密后分别返回给卡片</li>
+<li>卡片使用自己的key验证返回值，若正确则响应一个新的校验值，认证流程结束。</li>
+</ol>
+<p>破解的关键就在于，最后一步如果卡片验证失败，则会直接返回异常。而M1卡的校验是写死在卡片存储中的，无法实现CPU卡的一些额外逻辑操作，因此可以重放密钥对M1卡进行暴力破解。</p>
+<p>当然以上的认证流程、破解部分都是通过成熟的工具完成的，对其有个大概了解，下文的复制不是重点内容。</p>
+<h2 id="M1卡复制"><a href="#M1卡复制" class="headerlink" title="M1卡复制"></a>M1卡复制</h2><p>整体思路：小米手环对存在加密区的卡片默认无法模拟，因此需要一张白卡做中转。先复制一张非加密卡到手环，再将加密部分直接通过PN532写入手环。</p>
+<h3 id="道具"><a href="#道具" class="headerlink" title="道具"></a>道具</h3><p><img src="http://0blog.test.upcdn.net/20220127164335.png" alt=""></p>
+<p>PN532模块 + USB2TTL(CH340模块) + 杜邦线 + UID/CUID卡(T5577)</p>
+<h3 id="接线"><a href="#接线" class="headerlink" title="接线"></a>接线</h3><p><img src="http://0blog.test.upcdn.net/20220127163554.png" alt=""></p>
+<p>使用杜邦线连接PN532模块与USB2TTL(CH340)：</p>
+<table>
+<thead>
+<tr>
+<th>PN532</th>
+<th>CH340</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>VCC</td>
+<td>5V</td>
+</tr>
+<tr>
+<td>SDA</td>
+<td>RXD</td>
+</tr>
+<tr>
+<td>SCL</td>
+<td>TXD</td>
+</tr>
+</tbody>
+</table>
+<p>黄色跳线帽不用管。接线接错使用模块可能会烧掉。</p>
+<h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><p>模块接入电脑后在设备管理器中可以看到，可以将波特率调高一些：</p>
+<p><img src="http://0blog.test.upcdn.net/20220224213339.png" alt=""></p>
+<p>我用的WIN10虚拟机无需安装驱动，直接使用经典的NFC上位机软件即可读卡：</p>
+<p><img src="http://0blog.test.upcdn.net/20220224215236.png" alt=""></p>
+<ol>
+<li>点击左上三角将整个卡存为dump文件，再额外记录下0扇区0区块（厂商块）的内容备用</li>
+<li>读一张白卡（UID或CUID），将第1步中0扇区0区块的内容填进去，再把整个卡dump出来。</li>
+<li>把第2步的dump数据写进空卡，<strong>这一步相当于得到了一张只有卡号、厂商信息的非加密卡</strong>。</li>
+<li>使用小米手环自己的功能复制第3步得到的卡，由于是非加密卡所以可以直接复制。这一步复制成功的卡还是不能使用的，手环上只有基础的UID信息（厂商块）。</li>
+<li>使用<code>nfc-mfclassic</code>工具将数据块信息直接写入手环：</li>
+</ol>
+<pre><code>nfc-mfclassic.exe w A xxxxx.dump # 这是第1步的dump文件
+</code></pre><p><img src="http://0blog.test.upcdn.net/20220224215826.png" alt=""></p>
+<p>同目录下还需要有配置文件libnfc.conf：</p>
+<pre><code>allow_autoscan = true
+log_level=2
+# 0sec.com.cn
+allow_intrusive_scan = true
+device.name=&quot;PN532Reader&quot;
+# 设置端口和波特率
+device.connstring=&quot;pn532_uart:COM3:115200&quot;
+</code></pre><p>手环的位置不太好读取到，可以多次尝试，我的验证是把手环侧放在模块上面可以识别到。</p>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>本来对RFID这一领域毫无涉猎，跟着网上文章复制一张门禁卡后，为了明白自己做的是什么，才去了解到这些东西。搜集资料过程中发现互联网上各种说法定义五花八门，各路大神众说纷纭，本文也一定有不准确的地方，作为RFID初探。</p>
+<p>RFID技术的众多应用，说到底就是一个认证授权的过程，只是将令牌信息写死在了硬件中。类比Web应用的认证流程，可以将其想象成前端js加密，破解加密后可以看到明文的HTTP请求内容（所有扇区数据），任何人可以复用此payload（复制卡）。如果服务端不将信息存在数据库中做校验，完全信任客户端发送的信息，则可以任意声明客户端的属性（修改饭卡水卡金额）。</p>
+<p>因此提高RFID技术应用的安全性就可以从<strong>加密方式和零信任</strong>两个地方做抓手赋能，形成闭环：</p>
+<ul>
+<li>防止扇区数据被解密 - 强密钥</li>
+<li>添加锁定策略防止暴力破解 - CPU卡</li>
+<li>服务端数据库存储数据 - 后端校验</li>
+</ul>
+
       
     </div>
     
@@ -337,16 +393,10 @@ sha1($_SERVER[&#39;REMOTE_ADDR&#39;]) === &#39;45ae51496b4a30e6be55f646c10c694c3
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018-05-26/">
-                    《渗透测试实践指南》阅读笔记
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018-05-14/">
-                    「娱乐向」 Hack for Fun
+                <a href="/2022-02-13/">
+                    Websocket渗透测试指北
                 </a>
             </div>
         
@@ -358,7 +408,7 @@ sha1($_SERVER[&#39;REMOTE_ADDR&#39;]) === &#39;45ae51496b4a30e6be55f646c10c694c3
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-10-N1CTF"><span class="toc-number">1.</span> <span class="toc-text">3.10 N1CTF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Easy-amp-amp-Hard-Php"><span class="toc-number">1.1.</span> <span class="toc-text">Easy&amp;&amp;Hard Php :</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-11-HITB-XCTF"><span class="toc-number">2.</span> <span class="toc-text">4.11 HITB-XCTF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#upload"><span class="toc-number">2.1.</span> <span class="toc-text">upload</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Baby-Baby"><span class="toc-number">2.2.</span> <span class="toc-text">Baby Baby</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Baby-Nya"><span class="toc-number">2.3.</span> <span class="toc-text">Baby Nya</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-21-Star-CTF"><span class="toc-number">3.</span> <span class="toc-text">4.21 Star CTF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-19-RCTF"><span class="toc-number">4.</span> <span class="toc-text">5.19 RCTF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AMP"><span class="toc-number">4.1.</span> <span class="toc-text">AMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#r-cursive"><span class="toc-number">4.2.</span> <span class="toc-text">r-cursive</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#backdoor"><span class="toc-number">4.3.</span> <span class="toc-text">backdoor</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-26-SUCTF"><span class="toc-number">5.</span> <span class="toc-text">5.26 SUCTF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Anonymous"><span class="toc-number">5.1.</span> <span class="toc-text">Anonymous</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Getshell"><span class="toc-number">5.2.</span> <span class="toc-text">Getshell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Multisql"><span class="toc-number">5.3.</span> <span class="toc-text">Multisql</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HateIt"><span class="toc-number">5.4.</span> <span class="toc-text">HateIt</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Homework"><span class="toc-number">5.5.</span> <span class="toc-text">Homework</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-19-SCTF"><span class="toc-number">6.</span> <span class="toc-text">6.19 SCTF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#新的建议板"><span class="toc-number">6.1.</span> <span class="toc-text">新的建议板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nginx的秘密"><span class="toc-number">6.2.</span> <span class="toc-text">Nginx的秘密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Zhuanxv"><span class="toc-number">6.3.</span> <span class="toc-text">Zhuanxv</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#phpmyadmin"><span class="toc-number">6.4.</span> <span class="toc-text">phpmyadmin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BabySyc-Simple-PHP-Web"><span class="toc-number">6.5.</span> <span class="toc-text">BabySyc - Simple PHP Web</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BabyIntranet"><span class="toc-number">6.6.</span> <span class="toc-text">BabyIntranet</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-14-QCTF"><span class="toc-number">7.</span> <span class="toc-text">7.14 QCTF</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基础概念梳理：RFID、NFC、IC卡与ID卡"><span class="toc-number">1.</span> <span class="toc-text">基础概念梳理：RFID、NFC、IC卡与ID卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#M1卡分析"><span class="toc-number">2.</span> <span class="toc-text">M1卡分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#结构"><span class="toc-number">2.1.</span> <span class="toc-text">结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#认证流程"><span class="toc-number">2.2.</span> <span class="toc-text">认证流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#M1卡复制"><span class="toc-number">3.</span> <span class="toc-text">M1卡复制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#道具"><span class="toc-number">3.1.</span> <span class="toc-text">道具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接线"><span class="toc-number">3.2.</span> <span class="toc-text">接线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#具体步骤"><span class="toc-number">3.3.</span> <span class="toc-text">具体步骤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思考"><span class="toc-number">4.</span> <span class="toc-text">思考</span></a></li></ol>
         
     </div>
     <style>
@@ -394,7 +444,7 @@ sha1($_SERVER[&#39;REMOTE_ADDR&#39;]) === &#39;45ae51496b4a30e6be55f646c10c694c3
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"「Web向」XCTF联赛2018年度考点知识总结　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"RFID初探之M1卡的分析与复制（使用PN532模块）　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -414,15 +464,13 @@ sha1($_SERVER[&#39;REMOTE_ADDR&#39;]) === &#39;45ae51496b4a30e6be55f646c10c694c3
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018-05-26/" title="上一篇: 《渗透测试实践指南》阅读笔记">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018-05-14/" title="下一篇: 「娱乐向」 Hack for Fun">
+            <a href="/2022-02-13/" title="下一篇: Websocket渗透测试指北">
                 <i class="fa fa-angle-right"></i>
             </a>
         
