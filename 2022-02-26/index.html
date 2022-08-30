@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://0blog.test.upcdn.net/20220224213339.png">
 <meta property="og:image" content="http://0blog.test.upcdn.net/20220224215236.png">
 <meta property="og:image" content="http://0blog.test.upcdn.net/20220224215826.png">
-<meta property="og:updated_time" content="2022-02-26T12:36:22.040Z">
+<meta property="og:updated_time" content="2022-08-30T11:07:07.530Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RFID初探之M1卡的分析与复制（使用PN532模块）">
 <meta name="twitter:description" content="无需NFC手机与MIFARE Classic Tool (MCT)">
@@ -307,9 +307,11 @@
 <li>0-15扇区3区块：控制块</li>
 <li>其他区块：数据块</li>
 </ul>
-<p>从结构图中可以看出，0扇区0区块存放着卡号与厂商信息，在标准Mifare卡中这部分内容是固定不可修改的，但据说是中国人制作出了0扇区0区块可写的魔卡（白卡/UID卡/CUID卡），这也是本文实现卡复制的基础。</p>
+<p>从结构图中可以看出，0扇区0区块存放着卡号与厂商信息，按规范这部分是固定不可修改的只读块，但据说是国内厂商制作出了0扇区0区块可写的魔卡（白卡/UID卡/CUID卡），这也是实现M1卡复制的基础。</p>
+<p>需要强调的是，每个扇区都会有一组独立的密码及访问控制块（在第3区块），而IC卡的UID是不通过密码控制的（也就是0扇区0区块），可以直接通过读卡器获得。</p>
 <p><img src="http://0blog.test.upcdn.net/20220226115129.png" alt=""></p>
-<h3 id="认证流程"><a href="#认证流程" class="headerlink" title="认证流程"></a>认证流程</h3><p><img src="http://0blog.test.upcdn.net/20220226115339.png" alt=""><br>来源：<a href="https://www.blackhat.com/docs/sp-14/materials/arsenal/sp-14-Almeida-Hacking-MIFARE-Classic-Cards-Slides.pdf" target="_blank" rel="noopener">BlackHat 2014 - Hacking Mifare Classic Cards</a></p>
+<h3 id="认证流程"><a href="#认证流程" class="headerlink" title="认证流程"></a>认证流程</h3><p>读写器向卡片发出一组固定频率的电磁波，卡片内有一个LC串联谐振电路，其频率与读写器发射的频率相同，在电磁波的激励下，LC串联谐振电路产生共振，从而使电容内有了电荷。电容另一端接有一个单向导通的电子泵，此电子泵可将电容内的电荷输送到另一个电容内存储。当电容所积累的电荷达到2V时，此电容可作为电源为其他电路提供工作电压，将卡内数据发送出去或接收读写器的数据。（来源；《近源渗透测试》）</p>
+<p><img src="http://0blog.test.upcdn.net/20220226115339.png" alt=""><br>来源：<a href="https://www.blackhat.com/docs/sp-14/materials/arsenal/sp-14-Almeida-Hacking-MIFARE-Classic-Cards-Slides.pdf" target="_blank" rel="noopener">BlackHat 2014 - Hacking Mifare Classic Cards</a></p>
 <p>图中Tag指卡片0扇区存储的信息标签（UID），它接收到读卡器发来的校验请求后：</p>
 <ol>
 <li>发送UID号给读卡器，进入防冲突循环，防止读卡器同时读到多张卡片</li>
@@ -318,8 +320,36 @@
 <li>读卡器在自身数据库中根据nT找到对应加密key，自身再产生一个随机数nR，使用key将nT与nR加密后分别返回给卡片</li>
 <li>卡片使用自己的key验证返回值，若正确则响应一个新的校验值，认证流程结束。</li>
 </ol>
-<p>破解的关键就在于，最后一步如果卡片验证失败，则会直接返回异常。而M1卡的校验是写死在卡片存储中的，无法实现CPU卡的一些额外逻辑操作，因此可以重放密钥对M1卡进行暴力破解。</p>
-<p>当然以上的认证流程、破解部分都是通过成熟的工具完成的，对其有个大概了解，下文的复制不是重点内容。</p>
+<p><del>破解的关键就在于，最后一步如果卡片验证失败，则会直接返回异常。而M1卡的校验是写死在卡片存储中的，无法实现CPU卡的一些额外逻辑操作，因此可以重放密钥对M1卡进行暴力破解。</del></p>
+<p><del>当然以上的认证流程、破解部分都是通过成熟的工具完成的，对其有个大概了解，下文的复制不是重点内容。</del></p>
+<h3 id="攻击方法"><a href="#攻击方法" class="headerlink" title="攻击方法"></a>攻击方法</h3><p>通过分析上面的认证流程，我们知道了扇区数据必须要经过密钥（也就是keyA和keyB）认证才能被读取，下面是破解扇区密钥的三种方法：</p>
+<blockquote>
+<p>默认密钥攻击</p>
+</blockquote>
+<p>很多IC卡并没有更改默认密钥，常见的有：</p>
+<pre><code>ffffffffffff
+000000000000
+a0a1a2a3a4a5
+b0b1b2b3b4b5
+aabbccddeeff
+4d3a99c351dd
+1a982c7e459a
+d3f7d3f7d3f7
+714c5c886e97
+587ee5f9350f
+a0478cc39091
+533cb6c723f6
+8fd0a4f256e9
+</code></pre><blockquote>
+<p>Nested Authentication漏洞攻击</p>
+</blockquote>
+<p>简单来说，在已知16个扇区中任意一个扇区的密钥时，采用Nested Authentication攻击可以获得其他扇区的密钥。</p>
+<p>【TBD】</p>
+<blockquote>
+<p>Dark side攻击</p>
+</blockquote>
+<p>Darkside攻击利用的是M1卡通信验证中算法存在的一个缺陷：当读卡器发送的加密数据中的某8bit全部正确的时候，tag会给读卡器发送一个加密的4bit NACK（否定应答）数据回复，其他任何情况下tag都会直接停止。</p>
+<p>通过这种方式可以猜解密钥，但耗时会比较长。当破解出任意一个扇区的密钥时，就可以使用Nested Authentication攻击继续获得其他扇区的密钥。</p>
 <h2 id="M1卡复制"><a href="#M1卡复制" class="headerlink" title="M1卡复制"></a>M1卡复制</h2><p>整体思路：小米手环对存在加密区的卡片默认无法模拟，因此需要一张白卡做中转。先复制一张非加密卡到手环，再将加密部分直接通过PN532写入手环。</p>
 <h3 id="道具"><a href="#道具" class="headerlink" title="道具"></a>道具</h3><p><img src="http://0blog.test.upcdn.net/20220127164335.png" alt=""></p>
 <p>PN532模块 + USB2TTL(CH340模块) + 杜邦线 + UID/CUID卡(T5577)</p>
@@ -356,6 +386,7 @@
 <p><img src="http://0blog.test.upcdn.net/20220224213339.png" alt=""></p>
 <p>我用的WIN10虚拟机无需安装驱动，直接使用经典的NFC上位机软件即可读卡：</p>
 <p><img src="http://0blog.test.upcdn.net/20220224215236.png" alt=""></p>
+<p>这里NFC上位机软件其实就是用默认密钥碰撞一些扇区，当某些扇区密钥被找到以后，再使用Nested Authentication攻击获取其他扇区的密钥。而像Proxmark3这样更高端的工具会集成Darkside攻击。</p>
 <ol>
 <li>点击左上三角将整个卡存为dump文件，再额外记录下0扇区0区块（厂商块）的内容备用</li>
 <li>读一张白卡（UID或CUID），将第1步中0扇区0区块的内容填进去，再把整个卡dump出来。</li>
@@ -374,7 +405,7 @@ device.name=&quot;PN532Reader&quot;
 # 设置端口和波特率
 device.connstring=&quot;pn532_uart:COM3:115200&quot;
 </code></pre><p>手环的位置不太好读取到，可以多次尝试，我的验证是把手环侧放在模块上面可以识别到。</p>
-<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>本来对RFID这一领域毫无涉猎，跟着网上文章复制一张门禁卡后，为了明白自己做的是什么，才去了解到这些东西。搜集资料过程中发现互联网上各种说法定义五花八门，各路大神众说纷纭，本文也一定有不准确的地方，作为RFID初探。</p>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>本来对RFID这一领域毫无涉猎，跟着网上文章复制一张门禁卡后，为了明白自己做的是什么，才去了解到这些东西。搜集资料过程中发现互联网上各种说法定义五花八门，各路大神众说纷纭，本文也一定有不够准确的地方，作为RFID初探。</p>
 <p>RFID技术的众多应用，说到底就是一个认证授权的过程，只是将令牌信息写死在了硬件中。类比Web应用的认证流程，可以将其想象成前端js加密，破解加密后可以看到明文的HTTP请求内容（所有扇区数据），任何人可以复用此payload（复制卡）。如果服务端不将信息存在数据库中做校验，完全信任客户端发送的信息，则可以任意声明客户端的属性（修改饭卡水卡金额）。</p>
 <p>因此提高RFID技术应用的安全性就可以从<strong>加密方式和零信任</strong>两个地方做抓手赋能，形成闭环：</p>
 <ul>
@@ -414,7 +445,7 @@ device.connstring=&quot;pn532_uart:COM3:115200&quot;
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基础概念梳理：RFID、NFC、IC卡与ID卡"><span class="toc-number">1.</span> <span class="toc-text">基础概念梳理：RFID、NFC、IC卡与ID卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#M1卡分析"><span class="toc-number">2.</span> <span class="toc-text">M1卡分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#结构"><span class="toc-number">2.1.</span> <span class="toc-text">结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#认证流程"><span class="toc-number">2.2.</span> <span class="toc-text">认证流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#M1卡复制"><span class="toc-number">3.</span> <span class="toc-text">M1卡复制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#道具"><span class="toc-number">3.1.</span> <span class="toc-text">道具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接线"><span class="toc-number">3.2.</span> <span class="toc-text">接线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#具体步骤"><span class="toc-number">3.3.</span> <span class="toc-text">具体步骤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思考"><span class="toc-number">4.</span> <span class="toc-text">思考</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基础概念梳理：RFID、NFC、IC卡与ID卡"><span class="toc-number">1.</span> <span class="toc-text">基础概念梳理：RFID、NFC、IC卡与ID卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#M1卡分析"><span class="toc-number">2.</span> <span class="toc-text">M1卡分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#结构"><span class="toc-number">2.1.</span> <span class="toc-text">结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#认证流程"><span class="toc-number">2.2.</span> <span class="toc-text">认证流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#攻击方法"><span class="toc-number">2.3.</span> <span class="toc-text">攻击方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#M1卡复制"><span class="toc-number">3.</span> <span class="toc-text">M1卡复制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#道具"><span class="toc-number">3.1.</span> <span class="toc-text">道具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接线"><span class="toc-number">3.2.</span> <span class="toc-text">接线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#具体步骤"><span class="toc-number">3.3.</span> <span class="toc-text">具体步骤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思考"><span class="toc-number">4.</span> <span class="toc-text">思考</span></a></li></ol>
         
     </div>
     <style>
