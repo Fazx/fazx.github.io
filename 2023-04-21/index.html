@@ -15,25 +15,18 @@
 
 
 
-<meta name="description" content="-">
-<meta name="keywords" content="开发">
+<meta name="description" content="‮">
+<meta name="keywords" content="OSCP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android开发实践之计算器&amp;记事助手">
-<meta property="og:url" content="0sec.com.cn/2019-05-14/index.html">
+<meta property="og:title" content="50台Vulnhub靶机Walkthrough">
+<meta property="og:url" content="0sec.com.cn/2023-04-21/index.html">
 <meta property="og:site_name" content="Cosmic Fragments">
-<meta property="og:description" content="-">
+<meta property="og:description" content="‮">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190518203530.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190519163647.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190519172600.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190519173527.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190519173921.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190519174344.png">
-<meta property="og:updated_time" content="2019-05-28T08:01:35.187Z">
+<meta property="og:updated_time" content="2023-07-21T13:05:09.753Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android开发实践之计算器&amp;记事助手">
-<meta name="twitter:description" content="-">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20190518203530.png">
+<meta name="twitter:title" content="50台Vulnhub靶机Walkthrough">
+<meta name="twitter:description" content="‮">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -65,7 +58,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Android开发实践之计算器&amp;记事助手 | Cosmic Fragments</title>
+<title>50台Vulnhub靶机Walkthrough | Cosmic Fragments</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -224,11 +217,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Android开发实践之计算器-记事助手" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-50台Vulnhub靶机Walkthrough" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019-05-14/" class="article-date">
-      <time datetime="2019-05-14T11:23:22.000Z" itemprop="datePublished">2019-05-14</time>
+      <a href="/2023-04-21/" class="article-date">
+      <time datetime="2023-04-21T13:03:55.000Z" itemprop="datePublished">2023-04-21</time>
 </a>
 
 
@@ -243,7 +236,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Android开发实践之计算器&amp;记事助手
+      50台Vulnhub靶机Walkthrough
     </h1>
   
 
@@ -254,7 +247,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发/">开发</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OSCP/">OSCP</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -264,53 +257,31 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>-<br><a id="more"></a></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>这是移动应用开发入门课程的两个小项目，作为安卓开发入门是合适的。然而该老师在检查程序时居然发问“为什么要从零开始敲代码而不是找别人的成品修改”，看功能演示而不管代码实现(虽然他自己也不会Java)。我不明白一个入门课程为什么要追求功能的华丽，而对基础不管不顾。</p>
-<blockquote>
-<p>技术领域大多数牛人靠自学成才，但不能否认的是自学中踩坑与探索的过程非常消耗时间，合适的引导能让人的效率大大提高。</p>
-</blockquote>
-<h2 id="计算器"><a href="#计算器" class="headerlink" title="计算器"></a>计算器</h2><p><img src="http://0blog.test.upcdn.net/20190518203530.png" alt=""></p>
-<h3 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h3><p>文件结构作为Android而不是Project进行解析后如图很清晰：第一个(也就是main而非android或test路径下)的<code>/java/com.example.calc/</code>中为后端处理逻辑的Java类。<code>/res/layout/activity_main.xml</code>是主要的样式文件，资源文件可以放到<code>/drawable</code>、<code>/values</code>中进行引用。</p>
-<h3 id="UI开发"><a href="#UI开发" class="headerlink" title="UI开发"></a>UI开发</h3><p>Android布局主要有：</p>
-<ul>
-<li>RelativeLayout 相对布局(默认)</li>
-<li>LinearLayout 线性布局：<code>&lt;LinearLayout&gt;&lt;/LinearLayout&gt;</code>控件垂直和水平排列，父控件<code>layout_width=&quot;match_parent&quot;</code>后按权重获得控件占比()</li>
-<li>FrameLayout 帧布局：按顺序重叠摆放</li>
-<li>TableLayout 表格布局：界面划分为多个单元格</li>
-<li>GridLayout 网格布局，4.0后引入，比表格布局更加好用</li>
-<li>AbsoluteLayout 绝对布局：指定xy坐标表示位置，由于屏幕尺寸和分辨率的不同非常低效，基本淘汰。</li>
+        <p>‮<br><a id="more"></a><br>我这里主要记录了一个大概的思路、关键词，方便遇到类似内容的时候检索。<br><br>Vulnhub的内容和OSCP考察点当然不是完全一样的，所以有些脑洞的杂项我就一带而过了，不浪费时间。</p>
+<p><a href="[https://docs.google.com/spreadsheets/u/1/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/htmlview#](https://docs.google.com/spreadsheets/u/1/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/htmlview#">TJnull list</a>)：<br><br>个别靶机获取不到IP：<br><a href="https://blog.csdn.net/qq_57976347/article/details/122772242" target="_blank" rel="noopener">vulnhub靶机获取不到ip_vulnhub靶机扫描不到ip_汉南帝的博客-CSDN博客</a><br><a name="sar2html"></a></p>
+<h3 id="sar2html"><a href="#sar2html" class="headerlink" title="sar2html"></a>sar2html</h3><ul>
+<li>命令注入漏洞</li>
+<li>计划任务提权</li>
 </ul>
-<p>在这里我在线性布局中嵌套了网格布局，属性看这个图就一目了然(图源菜鸟教程)：</p>
-<p><img src="http://0blog.test.upcdn.net/20190519163647.png" alt=""></p>
-<p><code>GridLayout</code>的属性是这样的：</p>
-<pre><code>&lt;GridLayout
-    android:layout_width=&quot;match_parent&quot;
-    android:layout_height=&quot;match_parent&quot;
-    android:background=&quot;#191919&quot;
-    android:columnCount=&quot;4&quot;
-    android:rowCount=&quot;5&quot;&gt;
-</code></pre><p>结合按钮“零”的属性来解释：</p>
-<pre><code>&lt;Button
-    android:id=&quot;@+id/btn_0&quot;
-    android:layout_width=&quot;0dp&quot;
-    android:layout_rowWeight=&quot;1&quot;
-    android:layout_columnSpan=&quot;2&quot;
-    android:layout_columnWeight=&quot;1&quot;
-    android:background=&quot;@drawable/frame&quot;
-    android:text=&quot;零&quot;
-    android:textColor=&quot;#FFFFFF&quot;
-    android:textSize=&quot;30sp&quot; /&gt;
-</code></pre><p>网格被设置成了五行(row)四列(column)，button0占一行、横跨两列，<code>layout_width</code>设为0，背景资源从<code>drawable</code>中调用添加1dp边框后的版本。</p>
-<h3 id="后端实现"><a href="#后端实现" class="headerlink" title="后端实现"></a>后端实现</h3><p>创建<code>MainActivity</code>继承自<code>AppCompatActivity</code>，并重写了<code>OnCreate()</code>方法，初始化生命周期：</p>
-<p><img src="http://0blog.test.upcdn.net/20190519172600.png" alt=""></p>
-<p><code>initViews()</code>初始化按键布局，<code>initButtons</code>使用<code>HashMap</code>建立了一个键值映射：</p>
-<p><img src="http://0blog.test.upcdn.net/20190519173527.png" alt=""></p>
-<p>退格和等号的处理，这里的异常处理相当于利用了Java的异常，简洁有效：</p>
-<p><img src="http://0blog.test.upcdn.net/20190519173921.png" alt=""></p>
-<p>运算逻辑处理写在DoCalc中，建立了一个伪的“元组”存储运算表达式，判断运算符or数字并进行强制类型转换，相比<strong>运算栈</strong>要简单但是只能支持双目运算：</p>
-<p><img src="http://0blog.test.upcdn.net/20190519174344.png" alt=""></p>
-<p><strong>BigBang</strong>这个类名取自 Smartisan OS 中的大爆炸功能，有些异曲同工之妙。之后就是进行拼接和计算操作，并处理除以零的异常，不再赘述。</p>
-<h2 id="记事助手"><a href="#记事助手" class="headerlink" title="记事助手"></a>记事助手</h2><p>待开发</p>
+<p><a href="https://blog.csdn.net/qq_43264813/article/details/113248579" target="_blank" rel="noopener">https://blog.csdn.net/qq_43264813/article/details/113248579</a><br><a name="LiterallyVulnerable"></a></p>
+<h3 id="LiterallyVulnerable"><a href="#LiterallyVulnerable" class="headerlink" title="LiterallyVulnerable"></a>LiterallyVulnerable</h3><ul>
+<li>FTP匿名登录anonymous</li>
+<li>网站样式错误改hosts</li>
+<li>wpscan自定义密码爆破</li>
+<li>Wordpress后台getshell</li>
+<li>SUID提权，控制环境变量</li>
+<li>sudo -l提权</li>
+</ul>
+<p><a href="https://mr-potatoz.github.io/2020/03/20/LiterallyVulnerable/" target="_blank" rel="noopener">https://mr-potatoz.github.io/2020/03/20/LiterallyVulnerable/</a><br><a href="https://lifesfun101.github.io/2019/12/10/LiteraryVulnerable-walkthrough.html#wpscan" target="_blank" rel="noopener">https://lifesfun101.github.io/2019/12/10/LiteraryVulnerable-walkthrough.html#wpscan</a></p>
+<p><a name="Misdirection"></a></p>
+<h3 id="Misdirection"><a href="#Misdirection" class="headerlink" title="Misdirection"></a>Misdirection</h3><ul>
+<li>8080端口web预留后门</li>
+<li>sudo -l</li>
+<li>sudo -u user /bin/bash（需要弹出shell后）</li>
+<li>/etc/passwd可写，openssl passwd evil，su过去</li>
+</ul>
+<p><a href="https://download.vulnhub.com/media/misdirection/Misdirection-Walkthrough.pdf" target="_blank" rel="noopener">https://download.vulnhub.com/media/misdirection/Misdirection-Walkthrough.pdf</a></p>
+<p><a name="prime1"></a></p>
 
       
     </div>
@@ -323,15 +294,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019-08-21/">
-                    深入了解子域名挖掘tricks
+                <a href="/2023-07-21/">
+                    窗口期的OSCP(PEN-200-2023)总结
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019-04-13/">
-                    用Origin请求头防御CSRF攻击(译文)
+                <a href="/2023-02-13/">
+                    Honeypot-Factory: The Use of Deception in ICS/OT Environments
                 </a>
             </div>
         
@@ -343,7 +314,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#引言"><span class="toc-number">1.</span> <span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算器"><span class="toc-number">2.</span> <span class="toc-text">计算器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文件结构"><span class="toc-number">2.1.</span> <span class="toc-text">文件结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UI开发"><span class="toc-number">2.2.</span> <span class="toc-text">UI开发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后端实现"><span class="toc-number">2.3.</span> <span class="toc-text">后端实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#记事助手"><span class="toc-number">3.</span> <span class="toc-text">记事助手</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#sar2html"><span class="toc-number">1.</span> <span class="toc-text">sar2html</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LiterallyVulnerable"><span class="toc-number">2.</span> <span class="toc-text">LiterallyVulnerable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Misdirection"><span class="toc-number">3.</span> <span class="toc-text">Misdirection</span></a></li></ol>
         
     </div>
     <style>
@@ -379,7 +350,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Android开发实践之计算器&记事助手　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"50台Vulnhub靶机Walkthrough　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -399,7 +370,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019-08-21/" title="上一篇: 深入了解子域名挖掘tricks">
+            <a href="/2023-07-21/" title="上一篇: 窗口期的OSCP(PEN-200-2023)总结">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -407,7 +378,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019-04-13/" title="下一篇: 用Origin请求头防御CSRF攻击(译文)">
+            <a href="/2023-02-13/" title="下一篇: Honeypot-Factory: The Use of Deception in ICS/OT Environments">
                 <i class="fa fa-angle-right"></i>
             </a>
         
