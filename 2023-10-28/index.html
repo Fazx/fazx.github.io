@@ -24,9 +24,9 @@
 <meta property="og:description" content="‮">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://0blog.test.upcdn.net/20230721210537.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20231028171100.png">
 <meta property="og:image" content="http://0blog.test.upcdn.net/20230721205638.png">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/228585/1698477125881-011ee687-6617-4c23-83a2-52b886d8d876.png#averageHue=%23eceaee&clientId=ub9cb3284-b114-4&from=paste&height=931&id=u123fdbea&originHeight=931&originWidth=1920&originalType=binary&ratio=1&rotation=0&showTitle=false&size=150434&status=done&style=none&taskId=uda035f18-91a8-4f89-9cc4-9a0c02c0b79&title=&width=1920">
-<meta property="og:updated_time" content="2023-10-28T09:06:34.102Z">
+<meta property="og:updated_time" content="2023-10-28T09:11:11.434Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="窗口期的OSCP(PEN-200-2023)总结">
 <meta name="twitter:description" content="‮">
@@ -271,7 +271,6 @@
 <li>新版LAB Walkthrough、PG Walkthrough，按规定不能公开。</li>
 <li>官方的考试相关手册、FAQ：<a href="https://www.offsec.com/offsec/pen-200-2023/" target="_blank" rel="noopener">PEN-200 (PWK): Updated for 2023</a> <a href="https://help.offsec.com/hc/en-us/articles/360040165632" target="_blank" rel="noopener">OSCP Exam Guide</a> <a href="https://help.offsec.com/hc/en-us/articles/360040165632" target="_blank" rel="noopener">OSCP Exam FAQ</a></li>
 </ul>
-<p><img src="http://0blog.test.upcdn.net/20230721205638.png" alt=""></p>
 <p><a name="h2NOr"></a></p>
 <h2 id="Part-1：要不要参加这个考试，我能收获什么"><a href="#Part-1：要不要参加这个考试，我能收获什么" class="headerlink" title="Part 1：要不要参加这个考试，我能收获什么"></a>Part 1：要不要参加这个考试，我能收获什么</h2><p>OSCP的介绍网上很多我不再赘述，本身它是一个包含了教材（全英）+视频（部分章节内容）+实验环境（考试模拟）形式的考试，通过几个月的自学能收获什么？<br>以我个人来衡量的话，我在之前有一年的渗透+红队工作经验，与考试内容算是有比较大的关联性，所以我会把知识点拆分成具体的小项，用一个表格来对比我在OSCP学习中获得的增益，以0%为完全不了解，100%为完全掌握，做了一个以下的估量：</p>
 <table>
@@ -341,7 +340,7 @@ PipeName    REG_SZ    \.\pipe\MSSQL$SQLEXPRESS\sql\query
 <p>参考：<a href="https://qkxu.github.io/2022/03/16/systemd%E4%B9%8BPrivateTmp.html" target="_blank" rel="noopener">systemd之PrivateTmp</a><br>所以收获也不只是考试范围内容的收获。</p>
 <p><a name="Jo6Ho"></a></p>
 <h2 id="Part-2：对于考试的建议"><a href="#Part-2：对于考试的建议" class="headerlink" title="Part 2：对于考试的建议"></a>Part 2：对于考试的建议</h2><p><strong>1.不要过度准备 - DON’T OVER-PREPARE</strong><br>这是我觉得最重要的一条，就是OSCP并没有那么难。<br>广泛的练习范围决定了你在练习中必然会遇到超纲内容。在Vulhub/PG/LAB中遇到脑洞的、CTF的、超纲的，请记住不要纠结，它们有九成的可能性不会出现在考试中。并且通过考试的分数是有冗余的，你可以有个别机器解不出来。我的一位“考友”同事到考试的时候积累了三十六万字的语雀笔记，他自己也觉得触目惊心并且没有必要。<br>我大概Vulhub+PG+官方LAB一共也就打了100台机器的样子，拿到BONUS的10分就去考试了：</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/228585/1698477125881-011ee687-6617-4c23-83a2-52b886d8d876.png#averageHue=%23eceaee&amp;clientId=ub9cb3284-b114-4&amp;from=paste&amp;height=931&amp;id=u123fdbea&amp;originHeight=931&amp;originWidth=1920&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=150434&amp;status=done&amp;style=none&amp;taskId=uda035f18-91a8-4f89-9cc4-9a0c02c0b79&amp;title=&amp;width=1920" alt="image.png"></p>
+<p><img src="http://0blog.test.upcdn.net/20231028171100.png" alt=""></p>
 <p><strong>2.关于考试软件环境</strong></p>
 <ul>
 <li>不要使用最新版Kali Linux，使用2022.x版本可以避免一些新版本的依赖问题</li>
@@ -350,7 +349,7 @@ PipeName    REG_SZ    \.\pipe\MSSQL$SQLEXPRESS\sql\query
 <li>新版的LAB和考试已经可以裸连，配置代理不再成为必选项。在我经历备考的这段时间被连接问题折磨了无数次，断连、重置、无法停止实例，击溃我的是好多次Pivot到第三台了环境重置了，又要从入口一切重来。。。所以有了offline sec这个称呼和文章开头的那张图。不过升级完成后，我从上海的裸连体验还是比较好的。</li>
 </ul>
 <p>最后我在周六的下午三点开始考试，在晚上9点钟左右达到了可以通过的分数，在24小时内完成了报告，获得了我的OSCP认证：</p>
-<p>![](<a href="http://0blog.test.upcdn.net/20230721205638.png" target="_blank" rel="noopener">http://0blog.test.upcdn.net/20230721205638.png</a></p>
+<p><img src="http://0blog.test.upcdn.net/20230721205638.png" alt=""></p>
 
       
     </div>
