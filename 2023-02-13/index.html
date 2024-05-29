@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Fazx">
+
+
+
+<meta name="description" content="首发于Security Navigator 2023 次发于The Hacker News">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Honeypot-Factory: The Use of Deception in ICS&#x2F;OT Environments">
+<meta property="og:url" content="0sec.com.cn/2023-02-13/index.html">
+<meta property="og:site_name" content="Cosmic Fragments">
+<meta property="og:description" content="首发于Security Navigator 2023 次发于The Hacker News">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2023-02-16T13:03:52.966Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Honeypot-Factory: The Use of Deception in ICS&#x2F;OT Environments">
+<meta name="twitter:description" content="首发于Security Navigator 2023 次发于The Hacker News">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Cosmic Fragments" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Honeypot-Factory: The Use of Deception in ICS/OT Environments | Cosmic Fragments</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?16b144395cc20d4a7b4ab64227601921";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Fazx</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">OSCP,OSWP,Security+,@Orange Cyberdefense,请使用HTTP访问本站以加载图片</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">一个喜欢读和写的伪理科生。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Fazx</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Fazx</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">OSCP,OSWP,Security+,@Orange Cyberdefense,请使用HTTP访问本站以加载图片</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" target="_blank" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Honeypot-Factory-The-Use-of-Deception-in-ICS-OT-Environments" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2023-02-13/" class="article-date">
+      <time datetime="2023-02-13T11:36:33.000Z" itemprop="datePublished">2023-02-13</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Honeypot-Factory: The Use of Deception in ICS/OT Environments
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>首发于<a href="https://www.orangecyberdefense.com/global/security-navigator" target="_blank" rel="noopener">Security Navigator 2023</a></p>
+<p>次发于<a href="https://thehackernews.com/2023/02/honeypot-factory-use-of-deception-in.html" target="_blank" rel="noopener">The Hacker News</a><br><a id="more"></a></p>
+<p>There have been a number of reports of attacks on industrial control systems (ICS) in the past few years. Looking a bit closer, most of the attacks seem to have spilt over from traditional IT. That’s to be expected, as production systems are commonly connected to ordinary corporate networks at this point.</p>
+<p>Though our data does not indicate at this point that a lot of threat actors specifically target industrial systems – in fact, most evidence points to purely opportunistic behaviour – the tide could turn any time, once the added complexity of compromising OT environments promises to pay off. Criminals will take any chance they get to blackmail victims into extortion schemes, and halting production can cause immense damage. It is likely only a matter of time. So cybersecurity for operational technology (OT) is vitally important.</p>
+<p>Deception is an effective option to improve threat detection and response capabilities. However, ICS security differs from traditional IT security in several ways. While deception technology for defensive use like honeypots has progressed, there are still challenges due to fundamental differences like the protocols used. This article is intended to detail the progress and challenges when deception technology transits from traditional IT to ICS security.</p>
+<h2 id="The-value-of-deception-taking-back-the-initiative"><a href="#The-value-of-deception-taking-back-the-initiative" class="headerlink" title="The value of deception: taking back the initiative"></a>The value of deception: taking back the initiative</h2><p>Deception technology is an active security defense method that detects malicious activities effectively. On the one hand, this strategy constructs an environment of false information and simulations to mislead an adversary’s judgment, making unsuspecting attackers fall into a trap to waste their time and energy, increasing the complexity and uncertainty of the intrusion.</p>
+<p>At the same time, the defenders can collect more comprehensive attack logs, deploy countermeasures, trace the source of attackers and monitor their attack behaviors. Recording everything to research the tactics, techniques, and procedures (TTP) an attacker uses is of great help for the security analysts. Deception techniques can give defenders back the initiative.</p>
+<p>With some deception applications, for instance honeypots, the operating environment and configuration can be simulated, thus luring the attacker to penetrate the fake target. By this means, defenders will be able to grab the payloads the attackers drop and get information about the attacker’s hosts or even web browser by JavaScript in web applications. What’s more, it is possible to know the attacker’s social media accounts by JSONP Hijacking as well as countering the attacker through ‘honey files.’ It can be predicted that deception technology will be more mature and widely used in the coming years.</p>
+<p>Recently, the integration of information technology and industrial production has been accelerating with the rapid development of the Industrial Internet and intelligent manufacturing. The connection of massive industrial networks and equipment to IT technology will inevitably lead to increasing security risks in this field.</p>
+<h2 id="Production-at-risk"><a href="#Production-at-risk" class="headerlink" title="Production at risk"></a>Production at risk</h2><p>Frequent security incidents such as ransomware, data breaches, and advanced persistent threats seriously affect industrial enterprises’ production and business operations and threaten the digital society’s security. Generally, these systems are prone to be weak and exploited easily by the attacker due to their simple architecture, which uses low processing power and memory. It is challenging to protect ICS from malicious activities as the components of ICS are unlikely to take any updates or patches due to their simple architecture. Installing endpoint protection agents is usually not possible either. Considering these challenges, deception can be an essential part of the security approach.</p>
+<blockquote>
+<p>Conpot is an open-source low-interactive honeypot that supports various industrial protocols, including IEC 60870-5-104, Building Automation<br>and Control Network (BACnet), Modbus, s7comm, and other protocols such as HTTP, SNMP and TFTP. It is designed to be easy to deploy, modify and extend. The Conpot and Conpot-based honeypot is one of the most popular ICS deception applications that has been used by researchers.</p>
+<p>XPOT is a software-based high-interactive PLC honeypot which can run programs. It simulates Siemens S7-300 series PLCs and allows the attacker to compile, interpret and load PLC programs onto XPOT. XPOT supports S7comm and SNMP protocols and is the first high-interactive PLC honeypot. Since it is software-based, it is very scalable and enables large decoy or sensor networks. XPOT can be connected to a simulated industrial process in order to make adversaries’ experiences comprehensive. </p>
+<p>CryPLH is a high-interactive and virtual Smart-Grid ICS honeypot simulating Siemens Simatic S7-300 PLC. It runs on a Linux-based host and uses MiniWeb HTTP servers to simulate HTTP(S), a Python script to simulate Step 7 ISO-TSAP protocol and a custom SNMP implementation. CryPLH’s interaction ability is gradually increasing from the simulation of ICS protocols to ICS environments.</p>
+</blockquote>
+<p>With the development of cybersecurity technology, deception has been applied in various circumstances like the web, databases, mobile apps, and IoT. Deception technology has been embodied in some ICS honeypot applications in the OT field. For instance, ICS honeypots like Conpot, XPOT, and CryPLH can simulate the Modbus, S7, IEC-104, DNP3 and other protocols.</p>
+<p>Accordingly, deception technology like the honeypot applications above can make up for the low efficiency of detection systems for unknown threats and can play an important role in ensuring the safety of industrial control networks. These applications can help detect cyber attacks on industrial control systems and display a general risk trend. The actual OT vulnerabilities exploited by the attackers can be caught and sent to the security analyst, thus leading to timely patches and intelligence. In addition to this, it is possible to get a prompt alert e.g. before ransomware breaks out and avoid massive losses and a stop in production.</p>
+<h2 id="Challenges"><a href="#Challenges" class="headerlink" title="Challenges"></a>Challenges</h2><p>This is not a ‘silver bullet’, however. In comparison to the sophisticated deception available in traditional IT security, deception in ICS still faces some challenges.</p>
+<p>First and foremost, there are numerous kinds of industrial control devices as well as protocols, and many protocols are proprietary. It is almost impossible to have a deception technology that can be applied to all industrial control devices. Therefore, honeypots and other applications often need to be customized for the emulation of different protocols, which brings a relatively high threshold for implementation in some environments.</p>
+<p>The second problem is that pure virtual industrial control honeypots still have limited simulation capabilities, making them susceptible to hacker identification. The current development and application of purely virtual ICS honeypots only allow the underlying simulation of industrial control protocols, and most of them have been open source, straightforward to be found by search engines such as Shodan or Zoomeye. Collecting adequate attack data and improving ICS honeypots’ simulation capabilities is still challenging for security researchers.</p>
+<p>Last but not least, high-interaction industrial control honeypots consume considerable resources and have high maintenance costs. Apparently, honeypots often require the introduction of physical systems or equipment in order to build a real-run simulation environment. However, industrial control systems and equipment are costly, hard to reuse, and challenging to maintain. Even seemingly similar ICS devices are often remarkably diverse in terms of functionality, protocols and instructions.</p>
+<h2 id="Is-it-worth-it"><a href="#Is-it-worth-it" class="headerlink" title="Is it worth it?"></a>Is it worth it?</h2><p>Based on the above discussion, deception technology for ICS should be considered for integration with new technology. The ability to simulate and interact with a simulated environment strengthens defense technology. Moreover, the attack log captured by the deception application is of great value. Analyzed through AI or Big data tools, it helps to get an in-depth understanding of ICS field intelligence.</p>
+<p>To summarize, deception technology plays a vital role in the rapid development of ICS network security and improves intelligence as well as the ability of defend. However, the technology is still facing challenges and needs a breakthrough.</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2023-04-30/">
+                    50台Vulnhub靶机Walkthrough
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2022-08-21/">
+                    Pass the Hash再思考：场景、补丁与监测
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#The-value-of-deception-taking-back-the-initiative"><span class="toc-number">1.</span> <span class="toc-text">The value of deception: taking back the initiative</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Production-at-risk"><span class="toc-number">2.</span> <span class="toc-text">Production at risk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Challenges"><span class="toc-number">3.</span> <span class="toc-text">Challenges</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Is-it-worth-it"><span class="toc-number">4.</span> <span class="toc-text">Is it worth it?</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-4 i,
+        .toc-level-4 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Honeypot-Factory: The Use of Deception in ICS/OT Environments　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2023-04-30/" title="上一篇: 50台Vulnhub靶机Walkthrough">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2022-08-21/" title="下一篇: Pass the Hash再思考：场景、补丁与监测">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2023-10-28/">窗口期的OSCP(PEN-200-2023)总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-07-14/">OSCP NOTE (Cheatsheet)</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-04-30/">50台Vulnhub靶机Walkthrough</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-02-13/">Honeypot-Factory: The Use of Deception in ICS/OT Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-08-21/">Pass the Hash再思考：场景、补丁与监测</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-26/">RFID初探之M1卡的分析与复制（使用PN532模块）</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-13/">Websocket渗透测试指北</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-12-14/">关于log4j、log4shell的一些记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-11-27/">红队视角下的信息收集（备忘 && 持续收集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-07-30/">Linux Basic for Hackers</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-02-09/">安全相关HTTP响应头解读、配置、示例与检测</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-10-31/">Cobaltstrike Server持久化 & Cobaltstrike与Metasploit相互派生shell</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-08-21/">深入了解子域名挖掘tricks</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-05-14/">Android开发实践之计算器&记事助手</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-13/">用Origin请求头防御CSRF攻击(译文)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-07/">PHP中的随机数安全问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-03-20/">WordPress 5.1.1 CSRF to RCE 跟进分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-02-15/">XML外部实体注入(XXE攻击)小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-01-26/">Django开发小记 & Docker笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-22/">前端安全之CSP、同源策略与跨域请求(JSONP/CORS)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-01/">使用Aircrack-ng破解WPA2协议无线网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-11-11/">PHP博客管理系统开发全记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-10-10/">环境配置踩坑记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-30/">区块链基础[待补充]</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-05/">校园网免流攻略(基于逻辑漏洞、DNS伪装包或IPv6)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-07-11/">基于Scrapy-Redis框架与Mongodb的分布式爬虫-elasticsearch搜索引擎打造</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-26/">《渗透测试实践指南》阅读笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-16/">「Web向」XCTF联赛2018年度考点知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-14/">「娱乐向」 Hack for Fun</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-12/">从一道取证题目谈NTFS交换数据流</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-10/">关于Xdebug的那些事儿</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-26/">PHP弱类型&&md5碰撞总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-24/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2024 Fazx
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+            
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "!!!∑(ﾟДﾟノ)ノ快回来!!!  " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "" + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

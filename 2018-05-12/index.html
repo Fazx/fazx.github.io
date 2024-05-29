@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Fazx">
+
+
+
+<meta name="description" content="这是我出的一道磁盘分析+NTFS数据流隐写的取证题目。">
+<meta name="keywords" content="Misc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从一道取证题目谈NTFS交换数据流">
+<meta property="og:url" content="0sec.com.cn/2018-05-12/index.html">
+<meta property="og:site_name" content="Cosmic Fragments">
+<meta property="og:description" content="这是我出的一道磁盘分析+NTFS数据流隐写的取证题目。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505194923.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505194937.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505194958.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195032.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195043.png">
+<meta property="og:updated_time" content="2019-05-05T11:50:49.238Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从一道取证题目谈NTFS交换数据流">
+<meta name="twitter:description" content="这是我出的一道磁盘分析+NTFS数据流隐写的取证题目。">
+<meta name="twitter:image" content="http://0blog.test.upcdn.net/20190505194923.png">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Cosmic Fragments" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>从一道取证题目谈NTFS交换数据流 | Cosmic Fragments</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?16b144395cc20d4a7b4ab64227601921";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Fazx</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">OSCP,OSWP,Security+,@Orange Cyberdefense,请使用HTTP访问本站以加载图片</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">一个喜欢读和写的伪理科生。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Fazx</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Fazx</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">OSCP,OSWP,Security+,@Orange Cyberdefense,请使用HTTP访问本站以加载图片</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" target="_blank" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-从一道取证题目谈NTFS交换数据流" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018-05-12/" class="article-date">
+      <time datetime="2018-05-12T06:37:04.000Z" itemprop="datePublished">2018-05-12</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      从一道取证题目谈NTFS交换数据流
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/">Misc</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>这是我出的一道磁盘分析+NTFS数据流隐写的取证题目。<br><a id="more"></a></p>
+<p>磁盘分析的部分很简单，知道vmdk是虚拟磁盘格式即可利用VMware直接映射。</p>
+<p><img src="http://0blog.test.upcdn.net/20190505194923.png" alt></p>
+<p><img src="http://0blog.test.upcdn.net/20190505194937.png" alt></p>
+<p>磁盘空间内得到nothing.rar，打开却是空白的nothing.gif。此时需要你很敏锐，意识到以下两个问题：</p>
+<p>1.为什么给的是<strong>rar压缩包</strong>？CTF中大部分见到的都是zip压缩包，虽然由于加密算法的不同rar包的爆破速度远低于zip的爆破速度，但是这道题又没有加密；</p>
+<p>2.查看nothing.gif的基本信息，我们发现GIF图的大小只有3.5KB，但是占用的磁盘空间却达到了44KB，这一点尤为奇怪。</p>
+<p>这就来到了题目的重点，NTFS数据流隐写。注意，它同样能实践于<strong>Web安全及渗透领域</strong>，这点在后文会提到。</p>
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>NTFS交换数据流（alternate data streams，简称ADS）是NTFS磁盘格式的一个特性，在NTFS文件系统下每一个文件，都有着<strong>主文件流和非主文件流</strong>，主文件流能够直接看到；而非主文件流寄宿于主文件流中，无法直接读取，这个非主文件流就是NTFS交换数据流。交换数据流的诞生源于Windows系统与苹果的HFS系统的交互需求，NTFS使用交换数据流来存储文件相关元数据等等。</p>
+<p>ADS的作用在于，它允许一个文件携带着附加的信息。例如，IE浏览器下载文件时，会向文件添加一个数据流，标记该文件来源于外部，即带有风险，那么，在用户打开文件时，就会弹出文件警告提示。再如，在网址收藏中，也会附加一个favicon数据流以存放网站图标。</p>
+<p>创建一个数据交换流文件的方法很简单，只需要这样一条命令：</p>
+<pre><code>type &quot;要隐藏的附加文件&quot;&gt;&quot;宿主文件&quot;:&quot;要隐藏的附加文件&quot;
+</code></pre><p>例如在这道题目中，我就是用这样一条命令向ADS中写入了图像文件：</p>
+<pre><code>type &quot;flag.gif&quot; &gt; &quot;nothing.gif&quot;:&quot;flag.gif&quot;
+</code></pre><p>此时需要注意，尽管可以向文本/图像/可执行文件等各类文件类型的ADS中写入数据，但<strong>最好保持宿主文件和附加文件文件类型的一致性</strong>。我第一次尝试是向png附加gif，结果测试发现这种隐写不够隐蔽，可以直接被foremost察觉并分离…</p>
+<p>另一个要点是，你需要用<strong>WinRAR这样支持NTFS数据流的压缩软件</strong>对压缩包进行操作。如果没有了解到这个点，就一直在坑里找路。WinRAR解压缩不会丢失数据流，但是加压缩时不会默认保存数据流，这一点是我反复尝试失败后，去找pcat师傅求助，才知道压缩高级选项中有保存文件流数据的选项：</p>
+<p><img src="http://0blog.test.upcdn.net/20190505194958.png" alt></p>
+<p>使用WinRAR解压后，我们使用lads.exe执行 /s 递归查询，发现被隐写的flag.gif文件</p>
+<p><img src="http://0blog.test.upcdn.net/20190505195032.png" alt></p>
+<p>提取数据则可以使用Ntfs Streams Editor</p>
+<p><img src="http://0blog.test.upcdn.net/20190505195043.png" alt></p>
+<p>导出得到GIF图，分帧即可看到flag。</p>
+<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><p>这道题目到这里就告一段落了，但是关于NTFS交换数据流的运用还不止如此。</p>
+<p>由于常规的系统命令和文件管理器都检查不到其存在，ADS也被用于<strong>隐藏后门</strong>，大多数防病毒软件默认不会扫描Windows交换数据流，如果启用这个功能，扫描速度会降低90%。隐藏交换数据流还有一个更隐蔽的方式，就是将交换数据流绑定到一个保留设备名中，这样就算使用LDS或streams.exe也无法检测到交换数据流。Windows有很多不应该用作文件名的保留设备名如CON、PRN、COM1、LPT1等等。这些设备名是用来将输出数据发送到周边硬件设备的，但这些保留设备名是“不应该”作为文件名，但并没有禁止使用。</p>
+<p>但是从WindowsXP以后微软就禁止用户从ADS里执行程序了。写入，读出操作都可以，但是不允许执行。可以通过脚本解释器(Wscript.exe)来运行该脚本，详细介绍见</p>
+<p><a href="http://www.freebuf.com/articles/73270.html" target="_blank" rel="noopener">一个用ADS（供选数据流）隐藏Windows后门的方法</a></p>
+<p>在<strong>实战渗透</strong>中也可以利用这种方法隐藏nc，隐藏meterpreter等。</p>
+<p>在<strong>Web安全</strong>方面，涉及到php+Windows+IIS环境的冒号截断绕过黑名单上传，在UDF提权中也有利用：</p>
+<p><a href="https://www.waitalone.cn/php-windows-upload.html" target="_blank" rel="noopener">当php邂逅windows通用上传缺陷</a></p>
+<p><a href="http://www.yunsec.net/a/security/web/jbst/2012/0918/11452.html" target="_blank" rel="noopener">NTFS中的ADS的一些安全问题</a></p>
+<p><strong>此考点出现在了HITB-XCTF 2018的upload一题中。</strong></p>
+<p>参考：</p>
+<p><a href="https://www.cnblogs.com/Chesky/p/ALTERNATE_DATA_STREAMS.html" target="_blank" rel="noopener">https://www.cnblogs.com/Chesky/p/ALTERNATE_DATA_STREAMS.html</a></p>
+<p><a href="http://drops.the404.me/1981.html" target="_blank" rel="noopener">http://drops.the404.me/1981.html</a></p>
+<p>《数据隐藏技术揭秘》</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018-05-14/">
+                    「娱乐向」 Hack for Fun
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018-05-10/">
+                    关于Xdebug的那些事儿
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拓展"><span class="toc-number">2.</span> <span class="toc-text">拓展</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-4 i,
+        .toc-level-4 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"从一道取证题目谈NTFS交换数据流　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018-05-14/" title="上一篇: 「娱乐向」 Hack for Fun">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018-05-10/" title="下一篇: 关于Xdebug的那些事儿">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2023-10-28/">窗口期的OSCP(PEN-200-2023)总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-07-14/">OSCP NOTE (Cheatsheet)</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-04-30/">50台Vulnhub靶机Walkthrough</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-02-13/">Honeypot-Factory: The Use of Deception in ICS/OT Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-08-21/">Pass the Hash再思考：场景、补丁与监测</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-26/">RFID初探之M1卡的分析与复制（使用PN532模块）</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-13/">Websocket渗透测试指北</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-12-14/">关于log4j、log4shell的一些记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-11-27/">红队视角下的信息收集（备忘 && 持续收集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-07-30/">Linux Basic for Hackers</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-02-09/">安全相关HTTP响应头解读、配置、示例与检测</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-10-31/">Cobaltstrike Server持久化 & Cobaltstrike与Metasploit相互派生shell</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-08-21/">深入了解子域名挖掘tricks</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-05-14/">Android开发实践之计算器&记事助手</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-13/">用Origin请求头防御CSRF攻击(译文)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-07/">PHP中的随机数安全问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-03-20/">WordPress 5.1.1 CSRF to RCE 跟进分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-02-15/">XML外部实体注入(XXE攻击)小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-01-26/">Django开发小记 & Docker笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-22/">前端安全之CSP、同源策略与跨域请求(JSONP/CORS)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-01/">使用Aircrack-ng破解WPA2协议无线网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-11-11/">PHP博客管理系统开发全记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-10-10/">环境配置踩坑记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-30/">区块链基础[待补充]</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-05/">校园网免流攻略(基于逻辑漏洞、DNS伪装包或IPv6)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-07-11/">基于Scrapy-Redis框架与Mongodb的分布式爬虫-elasticsearch搜索引擎打造</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-26/">《渗透测试实践指南》阅读笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-16/">「Web向」XCTF联赛2018年度考点知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-14/">「娱乐向」 Hack for Fun</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-12/">从一道取证题目谈NTFS交换数据流</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-10/">关于Xdebug的那些事儿</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-26/">PHP弱类型&&md5碰撞总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-24/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2024 Fazx
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+            
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "!!!∑(ﾟДﾟノ)ノ快回来!!!  " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "" + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

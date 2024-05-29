@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Fazx">
+
+
+
+<meta name="description" content="包含Linux运维/数据库设计/用户权限/安全维护…">
+<meta name="keywords" content="开发,php">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP博客管理系统开发全记录">
+<meta property="og:url" content="0sec.com.cn/2018-11-11/index.html">
+<meta property="og:site_name" content="Cosmic Fragments">
+<meta property="og:description" content="包含Linux运维/数据库设计/用户权限/安全维护…">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210325.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210345.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210400.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210425.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210440.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210453.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210507.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210519.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210539.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210621.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210635.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210650.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210704.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210738.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210751.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210803.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210829.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210841.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210854.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210907.png">
+<meta property="og:updated_time" content="2019-05-19T11:29:30.603Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP博客管理系统开发全记录">
+<meta name="twitter:description" content="包含Linux运维/数据库设计/用户权限/安全维护…">
+<meta name="twitter:image" content="http://0blog.test.upcdn.net/20190505210325.png">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Cosmic Fragments" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>PHP博客管理系统开发全记录 | Cosmic Fragments</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?16b144395cc20d4a7b4ab64227601921";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Fazx</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">OSCP,OSWP,Security+,@Orange Cyberdefense,请使用HTTP访问本站以加载图片</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">一个喜欢读和写的伪理科生。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Fazx</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Fazx</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">OSCP,OSWP,Security+,@Orange Cyberdefense,请使用HTTP访问本站以加载图片</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" target="_blank" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-php博客管理系统开发全记录" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018-11-11/" class="article-date">
+      <time datetime="2018-11-11T11:57:54.000Z" itemprop="datePublished">2018-11-11</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      PHP博客管理系统开发全记录
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发/">开发</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>包含Linux运维/数据库设计/用户权限/安全维护…<br><a id="more"></a></p>
+<p><img src="http://0blog.test.upcdn.net/20190505210325.png" alt></p>
+<p>本项目是Web安全课的课程设计项目，以php语言不依托任何后端框架开发的一个博客管理系统，环境为Ubuntu 16.04TLS + Apache2 + Mysql。实现了基本的博客功能：注册、登录、发表博客、评论、管理博客、封禁用户（管理员）；完善了安全防护措施：可防御SQL注入、XSS攻击、越权攻击、暴力破解；全站使用markdown 编辑器和解析器，主页显示文章分类、最新文章以及博文的预览，进行了简单的搜索引擎优化和移动端美化。</p>
+<blockquote>
+<p><a href="https://github.com/Fazx/SdusterBlog" target="_blank" rel="noopener">Github地址</a></p>
+</blockquote>
+<blockquote>
+<p><a href="http://47.101.56.247" target="_blank" rel="noopener">线上演示地址(暂时开放)</a></p>
+</blockquote>
+<p>本项目与@<a href="https://www.zzzsdust.com/" target="_blank" rel="noopener">zzzskd</a> 共同开发，且其代码比重更大。</p>
+<h1 id="服务端LAMP环境配置、运行与维护"><a href="#服务端LAMP环境配置、运行与维护" class="headerlink" title="服务端LAMP环境配置、运行与维护"></a>服务端LAMP环境配置、运行与维护</h1><ul>
+<li>Ubuntu 16.04 LTS</li>
+<li>Apache2</li>
+<li>Mysql</li>
+<li>php7.0</li>
+</ul>
+<h2 id="Ubuntu-Linux运维"><a href="#Ubuntu-Linux运维" class="headerlink" title="Ubuntu(Linux运维)"></a>Ubuntu(Linux运维)</h2><p>查看已建立的网络连接以及对应进程</p>
+<p><code>netstat -antulp | grep EST</code></p>
+<p><strong>iptables</strong>封杀某个IP或者ip段，如：123.4.5.6</p>
+<pre><code>iptables -I INPUT -s 123.4.5.6 -j DROP
+iptables -I INPUT -s 123.4.5.1/24 -j DROP
+</code></pre><p><code>find / *.php -perm 4777</code>　 //查找777的权限的php文件 </p>
+<p><code>awk -F: &#39;{if($3==0)print $1}&#39; /etc/passwd</code>　　//查看root权限的账号</p>
+<p>查看页面访问排名前十的IP</p>
+<p><code>cat /var/log/apache2/access.log  | cut -f1 -d &quot; &quot; | sort | uniq -c | sort -k 1 -r | head -10</code></p>
+<p><img src="http://0blog.test.upcdn.net/20190505210345.png" alt></p>
+<p>查看页面访问排名前十的URL</p>
+<p><code>cat /var/log/apache2/access.log  | cut -f4 -d &quot; &quot; | sort | uniq -c | sort -k 1 -r | head -10</code></p>
+<p><strong>备份Web目录:</strong></p>
+<p><code>tar -zcvf web.tar.gz /var/www/html/</code></p>
+<h2 id="Mysql"><a href="#Mysql" class="headerlink" title="Mysql"></a>Mysql</h2><p><code>sudo apt-get install mysql-server</code></p>
+<p><strong>关闭Mysql外联:</strong></p>
+<pre><code>UPDATE mysql.user SET HOST = &quot;localhost&quot; WHERE USER = &quot;root&quot;;
+FLUSH PRIVILEGES;
+</code></pre><p><strong>备份mysql数据库:</strong></p>
+<pre><code>mysqldump -u 用户名 -p 密码 数据库名 &gt; back.sql　　//备份指定数据库
+mysqldump --all-databases &gt; back.sql　　　　//备份所有数据库
+</code></pre><p><strong>还原mysql数据库:</strong></p>
+<p><code>mysql -u 用户名 -p 密码 数据库名 &lt; back.sql</code></p>
+<p>避免使用弱密码登录。</p>
+<h2 id="Apache2"><a href="#Apache2" class="headerlink" title="Apache2"></a>Apache2</h2><p><code>sudo apt-get install apache2</code></p>
+<p><strong>关闭列目录：</strong></p>
+<p>配置<code>/etc/apache2/apache2.conf</code></p>
+<pre><code>&lt;Directory /var/www/&gt;
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Require all granted
+&lt;/Directory&gt;
+</code></pre><p>去除<code>Indexes</code>即关闭列目录。</p>
+<p><strong>要善于用Apache日志(/var/log/apache2/error.log)解决网站报错、发现用户恶意行为。</strong></p>
+<p>如图有人在恶意扫描我们的Web目录：</p>
+<p><img src="http://0blog.test.upcdn.net/20190505210400.png" alt></p>
+<h2 id="php7"><a href="#php7" class="headerlink" title="php7"></a>php7</h2><p><code>sudo apt-get install php7.0</code></p>
+<p>安装php7 module进行解析</p>
+<p><code>sudo apt-get install libapache2-mod-php7.0</code></p>
+<h1 id="数据库的设计与操作"><a href="#数据库的设计与操作" class="headerlink" title="数据库的设计与操作"></a>数据库的设计与操作</h1><h2 id="数据库的建立"><a href="#数据库的建立" class="headerlink" title="数据库的建立"></a>数据库的建立</h2><p><code>CREATE DATABASE IF NOT EXISTS blog DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;</code># 设置字符集，避免乱码</p>
+<h2 id="表的建立"><a href="#表的建立" class="headerlink" title="表的建立"></a>表的建立</h2><h3 id="用户表"><a href="#用户表" class="headerlink" title="用户表"></a>用户表</h3><pre><code>CREATE TABLE users(
+    user_id INT(10) UNSIGNED AUTO_INCREMENT,
+    user_name VARCHAR(50) NOT NULL UNIQUE,              # user_name 不能重复
+    user_pass VARCHAR(50) NOT NULL,
+    user_email VARCHAR(50) NOT NULL UNIQUE,
+    user_telno VARCHAR(20) UNIQUE,
+    user_sex ENUM(&#39;男&#39;,&#39;女&#39;)  DEFAULT &#39;男&#39;,
+    user_birthday DATE NOT NULL DEFAULT &#39;0000-01-01&#39;,
+    user_register_datetime DATETIME NOT NULL,
+    user_image_url VARCHAR(255) NOT NULL DEFAULT &#39;&#39;,    # 用户头像地址 只有注册成功后才能设置
+    user_description VARCHAR(255) NOT NULL DEFAULT &#39;&#39;,  # 用户自我描述
+    user_type TINYINT(3) NOT NULL DEFAULT &#39;0&#39;,          # 0 为普通用户，1 为管理员
+    user_lock TINYINT(3) NOT NULL DEFAULT &#39;0&#39;,          # 用户违规，则锁定
+    PRIMARY KEY (user_id),
+    INDEX users_namepass(user_name, user_pass, user_lock)            # 建立索引，加快搜索速度
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 ;                   # 设置引擎和字符集
+</code></pre><h3 id="文章类别表-系统默认-用户不能设置"><a href="#文章类别表-系统默认-用户不能设置" class="headerlink" title="文章类别表 系统默认 用户不能设置"></a>文章类别表 系统默认 用户不能设置</h3><pre><code>CREATE TABLE categories(
+    category_id INT(10) UNSIGNED AUTO_INCREMENT,
+    category_name VARCHAR(50) NOT NULL, 
+    PRIMARY KEY (category_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+</code></pre><h3 id="文章表"><a href="#文章表" class="headerlink" title="文章表"></a>文章表</h3><pre><code>CREATE TABLE articles(
+    article_id INT(10) UNSIGNED AUTO_INCREMENT,
+    article_user_id INT(10) UNSIGNED NOT NULL,
+    article_title VARCHAR(50) NOT NULL,
+    article_details TEXT NOT NULL,
+    article_post_datetime DATETIME NOT NULL,
+    article_modify_datetime DATETIME NOT NULL,
+    article_category_id INT(10) UNSIGNED NOT NULL,
+    article_excerpt VARCHAR(70) NOT NULL,
+    article_click INT(10) NOT NULL DEFAULT &#39;0&#39;,
+    PRIMARY KEY (article_id),
+    FOREIGN KEY (article_user_id) REFERENCES users(user_id), # 外键 
+    FOREIGN KEY (article_category_id) REFERENCES categories(category_id) # 外键
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+</code></pre><h3 id="评论功能数据库设计"><a href="#评论功能数据库设计" class="headerlink" title="评论功能数据库设计"></a>评论功能数据库设计</h3><pre><code>CREATE TABLE comments(
+    comment_id INT(10) UNSIGNED AUTO_INCREMENT,
+    comment_user_id INT(10) UNSIGNED NOT NULL,
+    comment_article_id INT(10) UNSIGNED NOT NULL,
+    comment_details TEXT NOT NULL,
+    comment_post_datetime DATETIME NOT NULL,
+    PRIMARY KEY (comment_id),
+    FOREIGN KEY (comment_user_id) REFERENCES users(user_id), # 外键 
+    FOREIGN KEY (comment_article_id) REFERENCES articles(article_id) # 外键
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+</code></pre><p>文章与评论是一对多的关系。</p>
+<h2 id="表中的插入数据范例"><a href="#表中的插入数据范例" class="headerlink" title="表中的插入数据范例"></a>表中的插入数据范例</h2><h3 id="用户表中插入数据"><a href="#用户表中插入数据" class="headerlink" title="用户表中插入数据"></a>用户表中插入数据</h3><pre><code>INSERT INTO users (user_name, user_pass, user_email, user_regiter_datetime) VALUES (&#39;zzz&#39;, &#39;zzz&#39;, &#39;196413@qq.com&#39;, now());
+
+now() =&gt; YYYY-MM-DD HH:MM:SS
+
+</code></pre><h3 id="向类别表中插入数据"><a href="#向类别表中插入数据" class="headerlink" title="向类别表中插入数据"></a>向类别表中插入数据</h3><p><code>INSERT INTO categories (category_name) VALUES (&#39;程序人生&#39;);</code></p>
+<h3 id="向文章表中插入数据"><a href="#向文章表中插入数据" class="headerlink" title="向文章表中插入数据"></a>向文章表中插入数据</h3><pre><code>INSERT INTO articles (article_user_id, article_title, article_details, article_post_datetime, article_modify_datetime, article_category_id, article_excerpt) VALUES (&#39;1&#39;, &#39;test&#39;, &#39;this is a test&#39;, now(), now(), &#39;1&#39;, &#39;this is an excerpt&#39;);
+
+ALTER TABLE articles ADD article_click INT(10) NOT NULL DEFAULT &#39;0&#39; AFTER article_excerpt; # 修改文章表，添加属性 浏览数目(在article_excerpt之后添加)
+</code></pre><p>修改详情：</p>
+<p>1 只有 InnoDB 引擎支持外键限制，而 MyISMA 引擎不能支持外键限制，因此将三个表的引擎换为 <code>InnoDB(ALTER TABLE users ENGINE=innodb;)</code><br>2 由于外键要求两表中的类型必须一致，因此将 <code>article_category_id INT(10) UNSIGNED NOT NULL</code> 和 <code>article_user_id INT(10) UNSIGNED NOT NULL</code> 添加 UNSIGNED 限定</p>
+<h2 id="数据库的连接"><a href="#数据库的连接" class="headerlink" title="数据库的连接"></a>数据库的连接</h2><p>connect.php组件，代码复用：</p>
+<pre><code>$mysqli = new mysqli(&quot;localhost&quot;, &quot;root&quot;, &quot;root&quot;, &quot;blog&quot;);
+    $mysqli -&gt; set_charset(&#39;utf8&#39;); # 设定字符集
+    if($mysqli -&gt; connect_errno){
+        die(&#39;连接失败：&#39;.$mysqli -&gt; connect_error);
+</code></pre><h2 id="数据库的插入"><a href="#数据库的插入" class="headerlink" title="数据库的插入"></a>数据库的插入</h2><ul>
+<li>在注册页面中(./register.php)有用户表的插入，其插入命令为</li>
+</ul>
+<pre><code>INSERT INTO users (user_name, user_pass, user_email, user_register_datetime) VALUES (&#39;$username&#39;,md5(&#39;$password&#39;),&#39;$email&#39;, now())&quot;;
+        $sql = &quot;INSERT INTO users (user_name, user_pass, user_email)VALUES(?,?,?)
+</code></pre><ul>
+<li>在文章发表页面(./mdeditor.php)的文章表的插入，其插入命令为 </li>
+</ul>
+<pre><code>INSERT INTO articles (article_user_id, article_title, article_details, article_category_id, article_post_datetime, article_modify_datetime,article_excerpt
+) VALUES (&#39;$userid&#39;,&#39;$articletitle&#39;,&#39;$articledetails&#39;, &#39;$articlecategoryid&#39;, now(), now(),&#39;$articleexcerpt&#39;)
+</code></pre><ul>
+<li>类别表的插入，类别表只有超级管理员(网站所有者)才能插入，命令为 <code>INSERT INTO categories (category_name) VALUES (&#39;category_name&#39;);</code></li>
+</ul>
+<h2 id="数据库的查询"><a href="#数据库的查询" class="headerlink" title="数据库的查询"></a>数据库的查询</h2><p>查询命令是最多的，有：</p>
+<ul>
+<li>首页(./index.php) 中 文章粗略的查询命令，按时间倒序排序：</li>
+</ul>
+<p><code>$query = &quot;SELECT user_id, user_name, article_id, article_title, article_post_datetime, article_category_id, category_name, article_excerpt, article_click FROM users, articles, categories WHERE article_user_id=user_id AND article_category_id=category_id ORDER BY article_post_datetime DESC&quot;;</code></p>
+<ul>
+<li><p>./detail.php 中，文章详细的查询…</p>
+</li>
+<li><p>./delete.php 中，按照 联合 session 中user_id的查询</p>
+</li>
+</ul>
+<p><code>$sql_statement = &quot;SELECT article_user_id, article_id, article_title, article_post_datetime, category_name, article_excerpt, article_click  FROM  articles, categories WHERE article_id=&#39;&quot; . $_GET[&#39;articleid&#39;] .&quot;&#39;&quot;. &quot; AND category_id=article_category_id&quot;;</code></p>
+<ul>
+<li><p>./auther.php、./category.php 中按作者、类别的查询…</p>
+</li>
+<li><p>./login.php 中的查询…</p>
+</li>
+<li><p>./mdeditor.php 中，查询文章类别…</p>
+</li>
+<li><p>./search.php 中，模糊查询命令:</p>
+</li>
+</ul>
+<p><code>$query = &quot;SELECT user_id, user_name, article_id, article_title, article_post_datetime, article_category_id, category_name, article_excerpt, article_click FROM users, articles, categories WHERE article_user_id=user_id AND article_category_id=category_id AND (article_title LIKE &#39;%$q%&#39; OR article_excerpt LIKE &#39;%$q%&#39; OR article_details LIKE &#39;%$q%&#39;) ORDER BY article_post_datetime DESC&quot;;</code></p>
+<h2 id="数据库的更新-修改"><a href="#数据库的更新-修改" class="headerlink" title="数据库的更新(修改)"></a>数据库的更新(修改)</h2><p>数据库更新有以下几部分：</p>
+<ul>
+<li>文章详情页中(./detail.php)中，文章点击数更新：</li>
+</ul>
+<p><code>$sql_statement = &quot;UPDATE articles SET article_click=article_click+&#39;1&#39; WHERE article_id = &#39;&quot; . $_GET[&#39;articleid&#39;] .&quot;&#39;&quot;;</code></p>
+<ul>
+<li>管理员封禁、解封用户页面(./includes/ban.php, ./includes/restore.php)中，user_lock 字段更新:</li>
+</ul>
+<p><code>$sql_statement = &quot;UPDATE users SET user_lock=&#39;1&#39; WHERE user_id= &#39;&quot; . $_GET[&#39;userid&#39;] .&quot;&#39;&quot;;</code></p>
+<p><code>$sql_statement = &quot;UPDATE users SET user_lock=&#39;0&#39; WHERE user_id= &#39;&quot; . $_GET[&#39;userid&#39;] .&quot;&#39;&quot;;</code></p>
+<h2 id="数据库的删除"><a href="#数据库的删除" class="headerlink" title="数据库的删除"></a>数据库的删除</h2><p>./includes/deleteresult.php</p>
+<p><code>$sql_statement = &quot;DELETE FROM articles WHERE article_id=&#39;&quot; . $_GET[&#39;articleid&#39;] .&quot;&#39;&quot;;</code></p>
+<h1 id="服务端运维安全"><a href="#服务端运维安全" class="headerlink" title="服务端运维安全"></a>服务端运维安全</h1><p>包含了</p>
+<ul>
+<li>Mysql关闭外联，备份与恢复，避免弱密码</li>
+<li>Apache关闭列目录，关注Apache日志</li>
+<li>Linux进程 端口占用 网络连接 iptables防火墙</li>
+<li>Web目录备份</li>
+</ul>
+<p>以上见<a href="http://47.101.56.247/detail.php?articleid=2" target="_blank" rel="noopener">《服务端LAMP环境配置、运行与维护》</a>。</p>
+<h1 id="代码安全"><a href="#代码安全" class="headerlink" title="代码安全"></a>代码安全</h1><p>主要防止SQL注入和XSS漏洞，防止了简单的越权漏洞，防止暴力破解攻击。<strong>遵循一个原则：不相信用户的任何输入。</strong></p>
+<h2 id="确认用户session防止越权"><a href="#确认用户session防止越权" class="headerlink" title="确认用户session防止越权"></a>确认用户session防止越权</h2><p>大量使用了 <code>$_SESSION</code> 中数据，确定是否为管理员在进行操作，主要有 ./manageuser.php、 ./delete.php、 ./requires/ban.php、 ./requires/restore.php </p>
+<p><img src="http://0blog.test.upcdn.net/20190505210425.png" alt></p>
+<h2 id="防SQL注入"><a href="#防SQL注入" class="headerlink" title="防SQL注入"></a>防SQL注入</h2><p>主要分为确认参数安全，大体分为查询时的安全和插入时的安全，提交参数主要分为两类：</p>
+<h3 id="参数为-int-型"><a href="#参数为-int-型" class="headerlink" title="参数为 int 型"></a>参数为 int 型</h3><p>主要出现在查看文章的URL处<br><code>http://47.101.56.247/detail.php?articleid=16</code><br>此时参数应该为int整形，所以没必要使用复杂的过滤，直接使用 <code>is_numeric()</code> 函数判断即可，如果数据不符合或未提交完成参数， PHP页面返回错误，不进行数据库的操作。</p>
+<pre><code># 如果未带参数跳转则返回首页 
+if(!isset($_GET[&#39;articleid&#39;]) || !$_GET[&#39;articleid&#39;] || !is_numeric($_GET[&#39;articleid&#39;])){
+    header(&quot;Location:index.php&quot;);
+}
+</code></pre><h3 id="参数为-字符串-型"><a href="#参数为-字符串-型" class="headerlink" title="参数为 字符串 型"></a>参数为 字符串 型</h3><p>这里分为两种，注册、登录、修改密码时参数 和 文章内容参数的安全：</p>
+<p><strong>注册、登录、修改密码时参数</strong>:</p>
+<ul>
+<li>去除空白符(<code>trim()</code>函数)；</li>
+<li>在登录和注册页增加SQL过滤函数：</li>
+</ul>
+<p><img src="http://0blog.test.upcdn.net/20190505210440.png" alt></p>
+<p><img src="http://0blog.test.upcdn.net/20190505210453.png" alt></p>
+<ul>
+<li>最后使用 <code>htmlspecialchars(addslashes($yourworld),ENT_QUOTES,&#39;UTF-8&#39;)</code>处理后存入数据库；</li>
+</ul>
+<ul>
+<li>文章内容 和 搜索页面(search.php) 的参数处理 ，直接使用 <code>htmlspecialchars(addslashes($yourworld),ENT_QUOTES,&#39;UTF-8&#39;)</code> 参数进行处理。</li>
+</ul>
+<h2 id="防止-一般姿势的-XSS攻击"><a href="#防止-一般姿势的-XSS攻击" class="headerlink" title="防止(一般姿势的)XSS攻击"></a>防止(一般姿势的)XSS攻击</h2><p>对尖括号&lt;&gt;使用<code>htmlspecialchars()</code>进行转义后存储。</p>
+<pre><code>$articletitle = htmlspecialchars(addslashes($articletitle),ENT_QUOTES,&#39;UTF-8&#39;);
+$articledetails = htmlspecialchars(addslashes($articledetails),ENT_QUOTES,&#39;UTF-8&#39;);
+</code></pre><table>
+<thead>
+<tr>
+<th>字符</th>
+<th>替换后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt; (小于)</td>
+<td><code>&amp;lt;</code></td>
+</tr>
+<tr>
+<td>/&gt; (大于)</td>
+<td><code>&amp;gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>效果验证：</p>
+<p><img src="http://0blog.test.upcdn.net/20190505210507.png" alt></p>
+<p>文章标题及详情处不存在XSS；</p>
+<p><img src="http://0blog.test.upcdn.net/20190505210519.png" alt></p>
+<p>评论处不存在XSS。</p>
+<h2 id="登录验证码"><a href="#登录验证码" class="headerlink" title="登录验证码"></a>登录验证码</h2><p>小时候我一直以为，验证码是网络的另一端有人在肉眼比对，现在我明白不用了，因为它本来就是由我生成的：</p>
+<pre><code>$str = Array(); 
+$string = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&quot;;
+for($i = 0;$i &lt; 4;$i++){
+   $str[$i] = $string[rand(0,35)];
+   $vcode .= $str[$i];
+}
+</code></pre><p>之后就是图像处理的部分了，这一部分剽窃了他人的成果。</p>
+<pre><code>if(isset($_POST[&#39;username&#39;]) &amp;&amp; isset($_POST[&#39;password&#39;]) &amp;&amp; isset($_POST[&#39;verify&#39;])){
+      if($_POST[&#39;verify&#39;] == $_SESSION[&#39;vcode&#39;]){
+</code></pre><p>传递变量，校验即可。</p>
+<p><img src="http://0blog.test.upcdn.net/20190505210539.png" alt></p>
+<h2 id="防止弱口令登录"><a href="#防止弱口令登录" class="headerlink" title="防止弱口令登录"></a>防止弱口令登录</h2><p>在注册处添加一句正则判断：</p>
+<p><img src="http://0blog.test.upcdn.net/20190505210621.png" alt></p>
+<p>前端加placeholder提示用户，增强体验：</p>
+<p><img src="http://0blog.test.upcdn.net/20190505210635.png" alt></p>
+<h2 id="杜绝密码明文存储"><a href="#杜绝密码明文存储" class="headerlink" title="杜绝密码明文存储"></a>杜绝密码明文存储</h2><p><img src="http://0blog.test.upcdn.net/20190505210650.png" alt></p>
+<p>单次md5的加密现在已经比较脆弱了，可以考虑加salt或其它加密算法。</p>
+<h1 id="网站备份"><a href="#网站备份" class="headerlink" title="网站备份"></a>网站备份</h1><p>利用Linux的例行性排程(<code>crontab</code>)定时备份数据库文件与网站:</p>
+<p><img src="http://0blog.test.upcdn.net/20190505210704.png" alt></p>
+<h3 id="sh-脚本编写"><a href="#sh-脚本编写" class="headerlink" title=".sh 脚本编写"></a>.sh 脚本编写</h3><pre><code>#!/bin/bash
+# /backup/backupday.sh
+# =========================================================
+# 备份数据的目录
+basedir=/backup/daily/
+# =========================================================
+PATH=/bin:/usr/bin:/sbin:/usr/sbin; export PATH
+export LANG=C
+basefile1=$basedir/mysql.$(date +%Y-%m-%d).tar.bz2
+basefile2=$basedir/html.$(date +%Y-%m-%d).tar.bz2
+[ ! -d &quot;$basedir&quot; ] &amp;&amp; mkdir $basedir
+# 为了防止mysql读写错误(备份的时候有人写入数据库，备份前关闭服务)
+systemctl stop mysql.service
+systemctl stop apache2.service
+# 1. MysQL (数据库目录在 /var/lib/mysql)
+cd /var/lib
+ tar -jpc -f $basefile1 mysql
+# 2. 
+cd /var/www
+ tar -jpc -f $basefile2 html
+# 恢复 
+systemctl start mysql.service
+systemctl start apache2.service
+</code></pre><h3 id="设置权限脚本权限"><a href="#设置权限脚本权限" class="headerlink" title="设置权限脚本权限"></a>设置权限脚本权限</h3><p><code>chmod 700 /backup/backupwk.sh</code></p>
+<h3 id="添加到例行性排程中"><a href="#添加到例行性排程中" class="headerlink" title="添加到例行性排程中"></a>添加到例行性排程中</h3><p>每天2:30 进行备份</p>
+<pre><code>vim /etc/crontab
+# 加入两行
+30 2 * * * root /backup/backupday.sh
+</code></pre><h1 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h1><p>用户表在创建时区分了管理员和普通用户，区分了被封禁与未被封禁的用户：</p>
+<pre><code>user_type TINYINT(3) NOT NULL DEFAULT &#39;0&#39;,  # 0 为普通用户，1 为管理员
+user_lock TINYINT(3) NOT NULL DEFAULT &#39;0&#39;,  # 用户违规，则锁定
+</code></pre><p>普通用户在登录状态下可以发表文章及删除自己发表的文章，管理员在登录状态下可以<strong>删除任意文章</strong>以及<strong>封禁用户</strong>。</p>
+<p><img src="http://0blog.test.upcdn.net/20190505210738.png" alt></p>
+<p>进行发表/删除文章/用户时始终先判断登录状态和当前权限:</p>
+<p><img src="http://0blog.test.upcdn.net/20190505210751.png" alt></p>
+<p><img src="http://0blog.test.upcdn.net/20190505210803.png" alt></p>
+<h1 id="session相关"><a href="#session相关" class="headerlink" title="session相关"></a>session相关</h1><h2 id="session创建"><a href="#session创建" class="headerlink" title="session创建"></a>session创建</h2><p>session在login.php中创建，设置的变量有用户名、登录状态、用户类型和用户id。同时将验证码$vcode的值也写进了session中进行比对。</p>
+<pre><code>$_SESSION[&quot;username&quot;] = $_POST[&quot;username&quot;];
+$_SESSION[&quot;isLogin&quot;] = 1;
+$_SESSION[&quot;usertype&quot;] = $usertype;
+$_SESSION[&quot;userid&quot;] = $id;
+</code></pre><h2 id="session回收"><a href="#session回收" class="headerlink" title="session回收"></a>session回收</h2><p>session在logout.php中进行销毁<code>session_destroy()</code>，因为<code>print_r($_COOKIE)</code>发现cookie中有session的相关信息，所以在注销时将cookie一并清理</p>
+<pre><code>&lt;?php 
+session_start();
+$_SESSION = array();
+if(isset($_COOKIE[session_name()])){
+    setcookie(session_name(),&#39;&#39;, time()-42000, &#39;/&#39;);
+}
+session_destroy();
+echo &#39;注销成功&#39;;
+header(&#39;refresh:1;url=./index.php&#39;);
+</code></pre><h2 id="session存放位置"><a href="#session存放位置" class="headerlink" title="session存放位置"></a>session存放位置</h2><p>经过序列化后的session数据存放在<code>/var/lib/php/sessions</code></p>
+<p><img src="http://0blog.test.upcdn.net/20190505210829.png" alt></p>
+<h1 id="线上调试、其他特性优化"><a href="#线上调试、其他特性优化" class="headerlink" title="线上调试、其他特性优化"></a>线上调试、其他特性优化</h1><h2 id="返回HTTP错误状态码-5xx"><a href="#返回HTTP错误状态码-5xx" class="headerlink" title="返回HTTP错误状态码(5xx)"></a>返回HTTP错误状态码(5xx)</h2><p>5xx的HTTP状态码代表服务器错误，此时要学会利用<strong>Apache日志</strong>(/var/log/apache2/error.log)进行分析排错，这种情况大多是PHP语法错误:</p>
+<p><img src="http://0blog.test.upcdn.net/20190505210841.png" alt></p>
+<h2 id="网页显示错乱-不全"><a href="#网页显示错乱-不全" class="headerlink" title="网页显示错乱/不全"></a>网页显示错乱/不全</h2><p>大多情况下是css js HTML的 编写错误，如引用缺失等。使用F12<strong>开发者工具</strong>可以很清楚地定位到问题，或者查看源代码。</p>
+<h2 id="一般排错"><a href="#一般排错" class="headerlink" title="一般排错"></a>一般排错</h2><p>类似于编程中的“<strong>单步调试法</strong>”，一步一步跟踪程序执行的流程，根据变量的值，找到错误的原因。在Web系统的调试过程中，将COOKIE、SESSION或各种变量用echo，print_r打印出来，确定值的变化进行排错。</p>
+<p>另：Session值存在<code>/var/lib/php/session</code>中，必要时可以直接查看session文件内容。</p>
+<hr>
+<h2 id="搜索引擎优化-SEO"><a href="#搜索引擎优化-SEO" class="headerlink" title="搜索引擎优化(SEO)"></a>搜索引擎优化(SEO)</h2><p>进行<strong>META标签优化</strong>，在detail.php中添加</p>
+<p><code>&lt;meta name=&quot;description&quot; content=&quot;&lt;?php echo $articleexcerpt; ?&gt;&quot;&gt;</code></p>
+<h2 id="代码复用"><a href="#代码复用" class="headerlink" title="代码复用"></a>代码复用</h2><p>为了减少冗余的代码，方便管理，/incluede下的header.php、articleheader.php、connect.php等“组件”都是一次写好多处使用。如connect.php负责与数据库的连接操作，写好这一个组件，之后与数据库连接时只需要添加</p>
+<p><code>require &#39;./includes/connect.php&#39;;</code></p>
+<p>即可；header.php中包含了Web页面顶部的LOGO、用户登入登出、搜索框的代码实现，在其它页面php中也仅需要包含过去。类似的，每个页面右侧显示的最新文章、文章分类依赖于pageright.php；页面移动端的显示效果依赖于mobile.php。</p>
+<p><img src="http://0blog.test.upcdn.net/20190505210854.png" alt></p>
+<h2 id="美化-ico、移动端"><a href="#美化-ico、移动端" class="headerlink" title="美化(ico、移动端)"></a>美化(ico、移动端)</h2><ul>
+<li>网站图标：</li>
+</ul>
+<p><code>&lt;link rel=&quot;shortcut icon&quot; href=&quot;./images/favicon.ico&quot;&gt;</code></p>
+<ul>
+<li>添加了移动端模板，适配手机端页面，登录注册搜索等功能都隐藏在了弹出式的js中，便于使用。</li>
+</ul>
+<h2 id="其他细节"><a href="#其他细节" class="headerlink" title="其他细节"></a>其他细节</h2><ul>
+<li>在detail.php和search.php对网页title进行设置:</li>
+</ul>
+<p><code>&lt;title&gt;&lt;?p echo $key; ?&gt;&lt;/title&gt;</code></p>
+<p>进行了优化，提升用户体验。</p>
+<ul>
+<li>顶部栏(header.php)、侧边栏(pageright.php)使用户能方便跳转页面</li>
+</ul>
+<p><img src="http://0blog.test.upcdn.net/20190505210907.png" alt></p>
+<ul>
+<li>阅读数量显示，每点击一次阅读数+1</li>
+</ul>
+<pre><code>if($result -&gt; num_rows == 1){
+        # 文章存在则浏览数加一
+        $result -&gt; close();
+        $sql_statement = &quot;UPDATE articles SET article_click=article_click+&#39;1&#39; WHERE article_id = &#39;&quot; . $_GET[&#39;articleid&#39;] .&quot;&#39;&quot;;
+        $result = $mysqli -&gt; prepare($sql_statement);
+        $result -&gt; execute();
+        $result -&gt; close();
+    }
+</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018-12-01/">
+                    使用Aircrack-ng破解WPA2协议无线网络
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018-10-10/">
+                    环境配置踩坑记录
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#服务端LAMP环境配置、运行与维护"><span class="toc-number">1.</span> <span class="toc-text">服务端LAMP环境配置、运行与维护</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Ubuntu-Linux运维"><span class="toc-number">1.1.</span> <span class="toc-text">Ubuntu(Linux运维)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mysql"><span class="toc-number">1.2.</span> <span class="toc-text">Mysql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache2"><span class="toc-number">1.3.</span> <span class="toc-text">Apache2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#php7"><span class="toc-number">1.4.</span> <span class="toc-text">php7</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据库的设计与操作"><span class="toc-number">2.</span> <span class="toc-text">数据库的设计与操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库的建立"><span class="toc-number">2.1.</span> <span class="toc-text">数据库的建立</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表的建立"><span class="toc-number">2.2.</span> <span class="toc-text">表的建立</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#用户表"><span class="toc-number">2.2.1.</span> <span class="toc-text">用户表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文章类别表-系统默认-用户不能设置"><span class="toc-number">2.2.2.</span> <span class="toc-text">文章类别表 系统默认 用户不能设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文章表"><span class="toc-number">2.2.3.</span> <span class="toc-text">文章表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#评论功能数据库设计"><span class="toc-number">2.2.4.</span> <span class="toc-text">评论功能数据库设计</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表中的插入数据范例"><span class="toc-number">2.3.</span> <span class="toc-text">表中的插入数据范例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#用户表中插入数据"><span class="toc-number">2.3.1.</span> <span class="toc-text">用户表中插入数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#向类别表中插入数据"><span class="toc-number">2.3.2.</span> <span class="toc-text">向类别表中插入数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#向文章表中插入数据"><span class="toc-number">2.3.3.</span> <span class="toc-text">向文章表中插入数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库的连接"><span class="toc-number">2.4.</span> <span class="toc-text">数据库的连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库的插入"><span class="toc-number">2.5.</span> <span class="toc-text">数据库的插入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库的查询"><span class="toc-number">2.6.</span> <span class="toc-text">数据库的查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库的更新-修改"><span class="toc-number">2.7.</span> <span class="toc-text">数据库的更新(修改)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库的删除"><span class="toc-number">2.8.</span> <span class="toc-text">数据库的删除</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#服务端运维安全"><span class="toc-number">3.</span> <span class="toc-text">服务端运维安全</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码安全"><span class="toc-number">4.</span> <span class="toc-text">代码安全</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#确认用户session防止越权"><span class="toc-number">4.1.</span> <span class="toc-text">确认用户session防止越权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#防SQL注入"><span class="toc-number">4.2.</span> <span class="toc-text">防SQL注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参数为-int-型"><span class="toc-number">4.2.1.</span> <span class="toc-text">参数为 int 型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参数为-字符串-型"><span class="toc-number">4.2.2.</span> <span class="toc-text">参数为 字符串 型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#防止-一般姿势的-XSS攻击"><span class="toc-number">4.3.</span> <span class="toc-text">防止(一般姿势的)XSS攻击</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#登录验证码"><span class="toc-number">4.4.</span> <span class="toc-text">登录验证码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#防止弱口令登录"><span class="toc-number">4.5.</span> <span class="toc-text">防止弱口令登录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#杜绝密码明文存储"><span class="toc-number">4.6.</span> <span class="toc-text">杜绝密码明文存储</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网站备份"><span class="toc-number">5.</span> <span class="toc-text">网站备份</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sh-脚本编写"><span class="toc-number">5.0.1.</span> <span class="toc-text">.sh 脚本编写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置权限脚本权限"><span class="toc-number">5.0.2.</span> <span class="toc-text">设置权限脚本权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加到例行性排程中"><span class="toc-number">5.0.3.</span> <span class="toc-text">添加到例行性排程中</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#权限管理"><span class="toc-number">6.</span> <span class="toc-text">权限管理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#session相关"><span class="toc-number">7.</span> <span class="toc-text">session相关</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#session创建"><span class="toc-number">7.1.</span> <span class="toc-text">session创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#session回收"><span class="toc-number">7.2.</span> <span class="toc-text">session回收</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#session存放位置"><span class="toc-number">7.3.</span> <span class="toc-text">session存放位置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#线上调试、其他特性优化"><span class="toc-number">8.</span> <span class="toc-text">线上调试、其他特性优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#返回HTTP错误状态码-5xx"><span class="toc-number">8.1.</span> <span class="toc-text">返回HTTP错误状态码(5xx)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网页显示错乱-不全"><span class="toc-number">8.2.</span> <span class="toc-text">网页显示错乱/不全</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一般排错"><span class="toc-number">8.3.</span> <span class="toc-text">一般排错</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#搜索引擎优化-SEO"><span class="toc-number">8.4.</span> <span class="toc-text">搜索引擎优化(SEO)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码复用"><span class="toc-number">8.5.</span> <span class="toc-text">代码复用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#美化-ico、移动端"><span class="toc-number">8.6.</span> <span class="toc-text">美化(ico、移动端)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他细节"><span class="toc-number">8.7.</span> <span class="toc-text">其他细节</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-4 i,
+        .toc-level-4 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"PHP博客管理系统开发全记录　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018-12-01/" title="上一篇: 使用Aircrack-ng破解WPA2协议无线网络">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018-10-10/" title="下一篇: 环境配置踩坑记录">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2023-10-28/">窗口期的OSCP(PEN-200-2023)总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-07-14/">OSCP NOTE (Cheatsheet)</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-04-30/">50台Vulnhub靶机Walkthrough</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-02-13/">Honeypot-Factory: The Use of Deception in ICS/OT Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-08-21/">Pass the Hash再思考：场景、补丁与监测</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-26/">RFID初探之M1卡的分析与复制（使用PN532模块）</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-13/">Websocket渗透测试指北</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-12-14/">关于log4j、log4shell的一些记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-11-27/">红队视角下的信息收集（备忘 && 持续收集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-07-30/">Linux Basic for Hackers</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-02-09/">安全相关HTTP响应头解读、配置、示例与检测</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-10-31/">Cobaltstrike Server持久化 & Cobaltstrike与Metasploit相互派生shell</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-08-21/">深入了解子域名挖掘tricks</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-05-14/">Android开发实践之计算器&记事助手</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-13/">用Origin请求头防御CSRF攻击(译文)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-07/">PHP中的随机数安全问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-03-20/">WordPress 5.1.1 CSRF to RCE 跟进分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-02-15/">XML外部实体注入(XXE攻击)小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-01-26/">Django开发小记 & Docker笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-22/">前端安全之CSP、同源策略与跨域请求(JSONP/CORS)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-01/">使用Aircrack-ng破解WPA2协议无线网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-11-11/">PHP博客管理系统开发全记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-10-10/">环境配置踩坑记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-30/">区块链基础[待补充]</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-05/">校园网免流攻略(基于逻辑漏洞、DNS伪装包或IPv6)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-07-11/">基于Scrapy-Redis框架与Mongodb的分布式爬虫-elasticsearch搜索引擎打造</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-26/">《渗透测试实践指南》阅读笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-16/">「Web向」XCTF联赛2018年度考点知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-14/">「娱乐向」 Hack for Fun</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-12/">从一道取证题目谈NTFS交换数据流</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-10/">关于Xdebug的那些事儿</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-26/">PHP弱类型&&md5碰撞总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-24/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2024 Fazx
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+            
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "!!!∑(ﾟДﾟノ)ノ快回来!!!  " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "" + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

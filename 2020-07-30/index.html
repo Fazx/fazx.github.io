@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Fazx">
+
+
+
+<meta name="description" content="Linux Basic for Hackers一书的阅读笔记。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux Basic for Hackers">
+<meta property="og:url" content="0sec.com.cn/2020-07-30/index.html">
+<meta property="og:site_name" content="Cosmic Fragments">
+<meta property="og:description" content="Linux Basic for Hackers一书的阅读笔记。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/b12bdb25ly1g1yxiaruygj20pz078q5j.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/b12bdb25ly1g22h5k5x2pj20jn0500th.jpg">
+<meta property="og:image" content="http://0blog.test.upcdn.net/20200425200802.png">
+<meta property="og:updated_time" content="2022-01-15T02:53:56.734Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux Basic for Hackers">
+<meta name="twitter:description" content="Linux Basic for Hackers一书的阅读笔记。">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/b12bdb25ly1g1yxiaruygj20pz078q5j.jpg">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Cosmic Fragments" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Linux Basic for Hackers | Cosmic Fragments</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?16b144395cc20d4a7b4ab64227601921";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Fazx</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">OSCP,OSWP,Security+,@Orange Cyberdefense,请使用HTTP访问本站以加载图片</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">一个喜欢读和写的伪理科生。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Fazx</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Fazx</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">OSCP,OSWP,Security+,@Orange Cyberdefense,请使用HTTP访问本站以加载图片</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" target="_blank" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Linux-Basic-for-Hackers" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020-07-30/" class="article-date">
+      <time datetime="2020-07-30T12:25:13.000Z" itemprop="datePublished">2020-07-30</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linux Basic for Hackers
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><a href="https://github.com/OpenCyberTranslationProject/Linux-Basics-for-Hackers/" target="_blank" rel="noopener">Linux Basic for Hackers</a>一书的阅读笔记。<br><a id="more"></a></p>
+<p>Hackers-Arise</p>
+<hr>
+<h2 id="GETTING-START"><a href="#GETTING-START" class="headerlink" title="GETTING START"></a>GETTING START</h2><h3 id="FINDING-STUFF"><a href="#FINDING-STUFF" class="headerlink" title="FINDING STUFF"></a>FINDING STUFF</h3><p><code>locate</code> is the easiest: locate the keyword through the entire filesystem:</p>
+<pre><code>kali &gt;locate aircrack-ng
+/usr/bin/aircrack-ng
+/usr/share/applications/kali-aircrack-ng.desktop
+...
+/var/lib/dpkg/info/aircrack-ng.mg5sums
+</code></pre><p><code>locate</code>‘s results can be overwhelming, and it uses a database that usually updated once a day.</p>
+<p><code>whereis</code> is to locate binary files.</p>
+<p><code>which</code> only returns the location of the binaries in the <code>PATH</code> variable in Linux.</p>
+<p><code>find / -type f(for an ordinary file) -name apache2</code></p>
+<p>补充：</p>
+<p>搜索etc目录下所有以sh开头的文件：<br><code>locate /etc/sh</code></p>
+<p>搜索用户主目录下，所有以m开头的文件，并且忽略大小写：<br><code>locate -i ~/m</code></p>
+<p>相当于<code>find -name</code>对自动生成的数据库<code>/var/lib/locatedb</code>的搜索</p>
+<p>通配符：<code>?</code>单个字符 <code>*</code>任何长度字符</p>
+<p><code>kali &gt;sed s/mysql/MySQL/g /etc/snort/snort.conf &gt; snort2.conf</code></p>
+<p>使sed查找替换关键词或字段</p>
+<ul>
+<li>s 参数提供搜索，你先提供想要搜索的关键词 (mysql) 然后提供想要替换成的关键词 (MySQL), 用斜杠<br>(/)分开。 </li>
+<li>g 参数告诉 Linux 你希望全局替换，然后将结果保存到一个新文件 snort2.conf</li>
+</ul>
+<h3 id="concatenation-with-cat"><a href="#concatenation-with-cat" class="headerlink" title="concatenation with cat"></a>concatenation with cat</h3><p><code>cat</code> with a redirect symbol(<code>&gt;</code>):</p>
+<pre><code>cat &gt; test
+</code></pre><p>Linux will go into interactive mode and wait for you to start entering content. Press Ctrl-D to exit.</p>
+<p>And use double redirect(<code>&gt;&gt;</code>) to append more content to it: <code>cat &gt;&gt; test</code></p>
+<h2 id="ANALYZING-AND-MANAGING-NETWORKS"><a href="#ANALYZING-AND-MANAGING-NETWORKS" class="headerlink" title="ANALYZING AND MANAGING NETWORKS"></a>ANALYZING AND MANAGING NETWORKS</h2><pre><code>ifconfig eth0 192.168.111.11
+ifconfig eth0 192.168.181.115 netmask 255.255.0.0 broadcast
+192.168.1.255
+</code></pre><pre><code>kali &gt;ifconfig eth0 down
+kali &gt;ifconfig eth0 hw ether 00:11:22:33:44:55
+kali &gt;ifconfig eth0 up
+</code></pre><p><code>dhclient eth0</code></p>
+<h2 id="ADDING-AND-REMOVING-SOFTWARE"><a href="#ADDING-AND-REMOVING-SOFTWARE" class="headerlink" title="ADDING AND REMOVING SOFTWARE"></a>ADDING AND REMOVING SOFTWARE</h2><p><code>apt-get remove ...</code>  删除包</p>
+<p><code>apt-get purge ...</code>  删除包和配置文件</p>
+<p><code>chmod u-w,o+x hashcat.hcstat</code> 用户组u中删除w权限</p>
+<p><img src="http://ww1.sinaimg.cn/large/b12bdb25ly1g1yxiaruygj20pz078q5j.jpg" alt></p>
+<p>设置SUID临时授予所有者的权限以执行该文件：在常规权限之前输入4 <code>chmod 4644 filename</code>；SGID授予文件所有组的权限，组中成员均会有权限，文件权限属于文件夹创建者而不是文件创建者，在常规权限前输入2。</p>
+<h2 id="PROCESS-MANAGEMENT"><a href="#PROCESS-MANAGEMENT" class="headerlink" title="PROCESS MANAGEMENT"></a>PROCESS MANAGEMENT</h2><h3 id="MANAGING-PROCESSES"><a href="#MANAGING-PROCESSES" class="headerlink" title="MANAGING PROCESSES"></a>MANAGING PROCESSES</h3><p><code>ps</code> without any options lists the processes started by the currently logged-in user and processes running on that terminal.</p>
+<p><code>aux</code> shows all processes running on the system for all users.don’t prefix these options with a dash(-).</p>
+<p><code>top</code>  ordered by resources used rather than PID(started time).</p>
+<p><code>nice</code> ranges from -20 to +19,with 0 being default value,low nice value tranlates into a high priority.<strong>Process inherits the <code>nice</code> value of its parent process.</strong></p>
+<p><img src="http://ww1.sinaimg.cn/large/b12bdb25ly1g22h5k5x2pj20jn0500th.jpg" alt></p>
+<p>use <code>renice</code> to alter the priority after process has started</p>
+<pre><code># increase `nice` value by -10,increase its priority and allocate it more resources.
+kali&gt;nice -n -10 /bin/process
+# give it a lower priority
+kali&gt;nice -n 10 /bin/process
+
+# `renice` sets its value rather than increasing or decreasing,give it lower priority like:
+kail&gt;renice 20 6996(PID)
+</code></pre><p>with <code>top</code> utility running and press the R key,supply the PID and <code>nice</code> value can also change the <code>nice</code> value.</p>
+<pre><code># restart a process with the HUP signal
+kail&gt;kill -1 PID
+# absolute kill
+kali&gt;kill -9 PID
+# name instead of PID
+kali&gt;killall -9 zombieprocess
+</code></pre><p>or u can press K with <code>top</code> utility running.</p>
+<p><code>gedit .bashsrc &amp;</code> : running processes in the background;<code>fg PID</code> moves a process to the foreground.</p>
+<p><code>at</code> daemon to schedule the execution:</p>
+<pre><code>kali &gt;at 7:20am
+at &gt;/root/myscanningscript
+</code></pre><h2 id="MANAGING-USER-ENVIRONMENT-VARIABLES"><a href="#MANAGING-USER-ENVIRONMENT-VARIABLES" class="headerlink" title="MANAGING USER ENVIRONMENT VARIABLES"></a>MANAGING USER ENVIRONMENT VARIABLES</h2><p><code>env</code> to view EV</p>
+<p><code>set | more</code> to view all EV</p>
+<p><code>HISTSIZE=0</code> can be stealthy 直接赋值</p>
+<pre><code>kali&gt;PS1=&quot;World&#39;s Best Hacker: #&quot;
+kali&gt;export PS1
+# without export,it&#39;s only in this session
+</code></pre><pre><code>kali&gt;export HISTSIZE
+# for backup
+kali&gt;echo $HISTSIZE &gt; ~/HISTSIZE.txt
+kali&gt;set &gt; ~/env.txt
+</code></pre><p>PATH variable:<code>PATH=$PATH:/root/hackingtool</code><br><code>PATH=/root/hackingtool</code> will replace it rather than appending it.</p>
+<p><code>unset xxx</code>deletes the variable along with its value.</p>
+<h2 id="BASH-SCRIPTING"><a href="#BASH-SCRIPTING" class="headerlink" title="BASH SCRIPTING"></a>BASH SCRIPTING</h2><p>shell allows you to customize your tasks to your needs.</p>
+<p>shebang(#!) <code>chmod 755</code> <code>-rwx-r-x-r-x</code></p>
+<p><code>nmap -sT server (-p 3306)</code></p>
+<h3 id="common-built-in-bash-commands"><a href="#common-built-in-bash-commands" class="headerlink" title="common built-in bash commands"></a>common built-in bash commands</h3><p><code>fg/bg</code> puts a job in the foreground/background</p>
+<p><code>jobs</code> lists background jobs</p>
+<p><code>set</code> lists all variables</p>
+<h2 id="COMPRESSING-AND-ARCHIVING"><a href="#COMPRESSING-AND-ARCHIVING" class="headerlink" title="COMPRESSING AND ARCHIVING"></a>COMPRESSING AND ARCHIVING</h2><p><code>tar -cvf  file.tar file1 file2 file3</code></p>
+<ul>
+<li>c means create</li>
+<li>v verbose, listing files(optional)</li>
+<li>f means write to the following file</li>
+</ul>
+<p><code>tar -xvf file.tar</code></p>
+<ul>
+<li>x extract</li>
+</ul>
+<h3 id="compressing-compare"><a href="#compressing-compare" class="headerlink" title="compressing compare"></a>compressing compare</h3><p>different compression ratios:</p>
+<ul>
+<li>compress:fastest,larger</li>
+<li>bzip2:slowest,smallest</li>
+<li>gzip:between above</li>
+</ul>
+<pre><code>gunzip file.tar.gz
+bunzip2 file.tar.bz2
+uncompress file.tar.Z
+</code></pre><h3 id="bit-by-bit-copies-of-storage-devices"><a href="#bit-by-bit-copies-of-storage-devices" class="headerlink" title="bit-by-bit copies of storage devices"></a>bit-by-bit copies of storage devices</h3><p><code>dd</code> command makes a bit-by-bit copy of a file,a filesystem,or even an entire hard drive.Even deleted files are copied,it can be used for forensic investigators.</p>
+<p><code>dd</code> is very slow,<code>cp</code> is commen command.</p>
+<p><code>dd if=/dev/media of=/root/flashcopy bs=4096 conv:noerror</code></p>
+<ul>
+<li><code>noerror</code> option continues to copy even if errors are encountered.</li>
+<li><code>bs</code> option allow you to determine the block size(the number of bytes read/written per block) of the data being copied.</li>
+</ul>
+<h2 id="FILESYSTEM-AND-STORAGE-DEVICE-MANAGEMENT"><a href="#FILESYSTEM-AND-STORAGE-DEVICE-MANAGEMENT" class="headerlink" title="FILESYSTEM AND STORAGE DEVICE MANAGEMENT"></a>FILESYSTEM AND STORAGE DEVICE MANAGEMENT</h2><p><code>fdisk -l</code> lists all the partitions of all the drives.</p>
+<p>Device files in the /dev directory,first position contains either <code>c</code> or <code>b</code>,each stands for <em>character devices</em> or <em>block devices</em>:</p>
+<pre><code>crw-------  1 root root     10,  59 Oct 29  2018 cpu_dma_latency
+</code></pre><h3 id="mounting-and-unmounting"><a href="#mounting-and-unmounting" class="headerlink" title="mounting and unmounting"></a>mounting and unmounting</h3><p>Two <em>mount points</em> in Linux are <code>/mnt</code> and <code>/media</code>:</p>
+<pre><code>mount /dev/sdb1 /mnt
+mount /dev/sdc1 /media
+umount /dev/sdb1
+</code></pre><h3 id="monitoring-filesystems"><a href="#monitoring-filesystems" class="headerlink" title="monitoring filesystems"></a>monitoring filesystems</h3><p><code>df</code>(disk free) provide us with basic information on any hard disks or mounted devices.Without any options,<code>df</code><br>defaults to the first drive on your system. If you want to check a different drive,simply follow the df command with the drive representation you want to check (for example,<code>df sdb</code> ).</p>
+<p><code>fsck</code>(filesystem check) checks the filesystem for errors and repairs the damage.(running device must be umount first)</p>
+<p><code>-p</code> option automatically repairs any problems with the device:</p>
+<p><code>fsck -p /dev/sdb1</code></p>
+<h2 id="THE-LOGGING-SYSTEM"><a href="#THE-LOGGING-SYSTEM" class="headerlink" title="THE LOGGING SYSTEM"></a>THE LOGGING SYSTEM</h2><h3 id="RSYSLOG-LOGGING-DAEMON"><a href="#RSYSLOG-LOGGING-DAEMON" class="headerlink" title="RSYSLOG LOGGING DAEMON"></a>RSYSLOG LOGGING DAEMON</h3><p>Linux uses a daemon called <code>syslogd</code> to automatically log events.</p>
+<p><code>rsyslog</code> and <code>syslog-ng</code> are used on different distributions of Linux.</p>
+<p><code>kali&gt; locate rsyslog</code></p>
+<p>/etc/rsyslog.conf is the conf file and <code>RULES</code> allows hacker to find out what is being logged and where those logs are written.</p>
+<pre><code>###############
+#### RULES ####
+###############
+#cron.*              /var/log/cron.log
+daemon.*              /var/log/daemon.log
+
+mail.info              /var/log/mail.info
+mail.warn              /var/log/mail.warn
+mail.err              /var/log/mail.err
+
+# facility.priority     action
+</code></pre><p>each line is a separate logging rule that says what message are logged and where they’re logged to.</p>
+<p>Generally log files are sent to the /var/log directory.</p>
+<p><code>*.emerg*</code> will log all events of the emergency priority to all logged-on users. With this rules, Hackers can even disable specific logging rules.</p>
+<h3 id="AUTOMATICALLY-CLEANING-UP-LOGS-WITH-LOGROTATE"><a href="#AUTOMATICALLY-CLEANING-UP-LOGS-WITH-LOGROTATE" class="headerlink" title="AUTOMATICALLY CLEANING UP LOGS WITH LOGROTATE"></a>AUTOMATICALLY CLEANING UP LOGS WITH LOGROTATE</h3><p>System rotates log files using a <code>cron</code> job that employs the <code>logrotate</code> utility. </p>
+<pre><code>cat /etc/logrotate.conf # choose the regularity
+man logrotate # learn to use
+</code></pre><h3 id="REMAINING-STEALTHY-stealthy隐秘的"><a href="#REMAINING-STEALTHY-stealthy隐秘的" class="headerlink" title="REMAINING STEALTHY (stealthy隐秘的)"></a>REMAINING STEALTHY (stealthy隐秘的)</h3><p>compromise a Linux system 侵入系统</p>
+<p>manually delete logs line by line will leave time gaps in log files, and can be recovered by others.</p>
+<p><code>shred</code>(撕碎) is a built-in command for just this purpose.<code>-f</code> option gives us permission.</p>
+<pre><code>shred -f -n 10 /var/log/auth.log.* # shred 10 times
+</code></pre><p>Now the log files’ contents are indecipherable gibberish(难以破译的乱码):</p>
+<p><img src="http://0blog.test.upcdn.net/20200425200802.png" alt></p>
+<p>Or disable logging requires root privileges:</p>
+<pre><code>service rsyslog stop
+</code></pre><p>这里入侵系统后隐藏痕迹的方法给了两个，一个抹掉log一个禁止登录，既暴力也不全面。真正渗透测试中的反取证工作应该至少围绕以下方面：</p>
+<ul>
+<li>还原文件的修改/访问/更改时间</li>
+<li>修改 last, w, lastlog 日志</li>
+<li>删除.viminfo</li>
+<li>使用history -c 还原.bash_history</li>
+<li>删除 ~/.ssh/known_hosts 中记录</li>
+</ul>
+<blockquote>
+<p>invaluable 是无价的非常贵重的 不是无价值的</p>
+</blockquote>
+<h2 id="USING-AND-ABUSING-SERVICES"><a href="#USING-AND-ABUSING-SERVICES" class="headerlink" title="USING AND ABUSING SERVICES"></a>USING AND ABUSING SERVICES</h2><p>Linux,<br>Apache, MySQL, and PHP or Perl forms a powerful and robust platform,known collectively as LAMP.</p>
+<p>SSH is a replacement for the insecure <code>telnet</code> that was so common years ago.</p>
+<p>Metasploit uses PostgreSQL to store its modules and results of scans and exploits:</p>
+<pre><code>kali&gt; service postgresql start
+kali&gt; msfconsole
+msf&gt; msfdb init
+msf&gt;db_status
+</code></pre><h2 id="BECOMING-SECURE-AND-ANONYMOUS"><a href="#BECOMING-SECURE-AND-ANONYMOUS" class="headerlink" title="BECOMING SECURE AND ANONYMOUS"></a>BECOMING SECURE AND ANONYMOUS</h2><blockquote>
+<p>relatively 相当地，相对地</p>
+</blockquote>
+<p><code>traceroute</code> command will send out packets to the destination and trace the route of those packets.</p>
+<pre><code>traceroute google.com
+</code></pre><h3 id="THE-ONION-ROUTER-SYSTEM"><a href="#THE-ONION-ROUTER-SYSTEM" class="headerlink" title="THE ONION ROUTER SYSTEM"></a>THE ONION ROUTER SYSTEM</h3><p><strong>The Onion Router(Tor) Project</strong>: Setting up a network of routers that was separate from the internet’s routers,that could encrypt the traffic, and only stored the unencrypted IP address of the <strong>previous</strong> router.</p>
+<p>Over 7000 routers around the world are thanks to volunteers who are allow their computers to be used by Tor. At each hop, the information is encrypted and then decrypted by the next hop.</p>
+<p>Without being tracked by Big Brother.</p>
+<blockquote>
+<p>infamous 声名狼藉的 邪恶的</p>
+</blockquote>
+<blockquote>
+<p>ambitious 雄心勃勃的</p>
+</blockquote>
+<p>The NSA runs its own Tor routers, it’s worse if your traffic is exiting the NSA’s routers because the exit router always konws your destination. The NSA also has a method known as <strong> traffic correlation</strong>, which involves looking for patterns in incoming and outgoing traffic.</p>
+<h3 id="PROXY-SERVERS"><a href="#PROXY-SERVERS" class="headerlink" title="PROXY SERVERS"></a>PROXY SERVERS</h3><p>You can set up <strong>proxychains</strong> to obscure your traffic, like scanning a site anonymously:</p>
+<pre><code>proxychains &lt;the command you want proxied&gt; &lt;arguments&gt;
+proxychains nmap -sT -Pn &lt;IP address&gt;
+</code></pre><pre><code>/etc/proxychains.conf:
+
+[ProxyList] # line 61
+# add proxy here...
+# meanwhile
+# defaults set to &quot;tor&quot;
+socks4 127.0.0.1 9050
+</code></pre><p>9050 is the default Tor configuration; proxies can be added a few more.</p>
+<p>Uncomment the <code>dynamic_chain</code> line in <code>/etc/proxychains</code> will enable dynamic chaining of our proxies; </p>
+<p><code>random_chain</code> will randomly choose IP, uncomment <code>chain_len</code> and give it a reasonable number:</p>
+<pre><code># Make sense only if random_chain
+chain_len = 3
+</code></pre><p>Bruce Schneier said, “If something is free, you’re not the customer; you’re the product.”</p>
+<h3 id="VIRTUAL-PRIVATE-NETWORKS"><a href="#VIRTUAL-PRIVATE-NETWORKS" class="headerlink" title="VIRTUAL PRIVATE NETWORKS"></a>VIRTUAL PRIVATE NETWORKS</h3><p>A VPN can be effective in evading government-controlled content and information censors, or access limitations like Netflix, HBO, which limit access to IP originating from their own nation.</p>
+<blockquote>
+<p>cloak 斗篷，掩盖，隐匿</p>
+</blockquote>
+<h3 id="ENCRYPTED-EMAIL"><a href="#ENCRYPTED-EMAIL" class="headerlink" title="ENCRYPTED EMAIL"></a>ENCRYPTED EMAIL</h3><p>Servers of the email provider(Google Yahoo etc.) have access to the unencrypted contents of your email. </p>
+<p><code>ProtonMail</code> encrypts your email from end to end or browser to browser.</p>
+<h2 id="UNDERSTANDING-AND-INSPECTING-WIRELESS-NETWORKS"><a href="#UNDERSTANDING-AND-INSPECTING-WIRELESS-NETWORKS" class="headerlink" title="UNDERSTANDING AND INSPECTING WIRELESS NETWORKS"></a>UNDERSTANDING AND INSPECTING WIRELESS NETWORKS</h2><h3 id="WI-FI-NETWORKS"><a href="#WI-FI-NETWORKS" class="headerlink" title="WI-FI NETWORKS"></a>WI-FI NETWORKS</h3><ul>
+<li><strong>SSID</strong>(service set identifier) is the name of the network.</li>
+<li><strong>AP</strong>(access point) is the device user connect for internet access.</li>
+<li><strong>ESSID</strong>(extended service set identifier)</li>
+<li><strong>BSSID</strong>(basic service set identifier)</li>
+<li><strong>Channels</strong> WI-FI can operate on any one of 14 channels, it is limited to 11 channel in the United  States.</li>
+<li><strong>Modes</strong> : managed,master,monitor</li>
+<li><strong>Security</strong> : three primary security protocols, Wired Equivalent Privacy(WEP) was badly flawed and easily cracked; Wi-Fi Protected Axxess(WPA) was a bit more secure; WPA2-PSK is much more secure and uses a preshared key(PSK).</li>
+<li><strong>Wireless range</strong> : a WiFi AP must boradcast its signal at an upper limit of 0.5 watts in US. It has a normal range of about 300 feet(100 meters).</li>
+<li><strong>Frequency</strong> : WiFi is designed to oprate on 2.4GHz and 5GHz. Modern WiFi APs and wireless network cards often use both.</li>
+<li><strong>Power</strong> : The closer you are to the WiFi AP, the greater the power, and the easier the connection is to crack.</li>
+</ul>
+<p><code>iwconfig</code> only displays your wireless interfaces and their key data.</p>
+<p>You can see all the wireless access points your network card can reach using the <code>iwlist</code> command:</p>
+<pre><code>iwlist wlan0 scan //to see all the APs
+</code></pre><p><code>nmcli</code>(network manager command line interface) can be used to view the WiFi APs near you and their key data. It gives us a little more info:</p>
+<pre><code>nmcli dev wifi //dev is short for devices
+</code></pre><p><code>nmcli</code> can be used to connect to APs:</p>
+<pre><code>nmcli dev wifi connect (AP-SSID) password (password)
+</code></pre><p>aircrack-ng教程 略</p>
+<blockquote>
+<p>respectively 分别地</p>
+</blockquote>
+<h3 id="DETECTING-AND-CONNECTING-TO-BLUETOOTH"><a href="#DETECTING-AND-CONNECTING-TO-BLUETOOTH" class="headerlink" title="DETECTING AND CONNECTING TO BLUETOOTH"></a>DETECTING AND CONNECTING TO BLUETOOTH</h3><p>Bluetooth is a universal protocol for low-power, near-field communication operating at 2.4-2.485GHz using spread spctrum(扩展频谱), frequency hopping at 1600 hops per second.</p>
+<p>The Bluetooth specification has a minimum range of 10 meters, upper range can be larger than 100 meters with special antennas.</p>
+<p>We use <code>BlueZ</code> to scan for Bluetooth signals:</p>
+<pre><code>kali &gt;hciconfig
+hci0: Type: BR/EDR  Bus: USB
+      BD Address: 10:AE:60:58:F1:37  ACL  MTU: 310:10  SCO  MTU:  64:8
+      UP RUNNING PSCAN INQUIRY
+      RX bytes:131433 acl:45 sco:0 events:10519  errors:0
+      TX bytes:42881  acl:45 sco:0 commands:5081 errors:0
+kali &gt;hciconfig hci0 up
+</code></pre><p>look for Bluetooth devices that are sending out discover beacons(in discovery mode):</p>
+<pre><code>kali &gt;hcitool scan
+Scanning...
+      72:6E:46:65:72:66      ANDROID BT
+      22:C5:96:08:5D:32      SCHI535
+</code></pre><p>gather more info about detected devices with the inquiry function <code>inq</code>:</p>
+<pre><code>kali &gt;hcitool inq
+Inquiring...
+    24:C6:96:08:5D:33    clock offset:0x4e8b      class:0x5a020c
+    76:6F:46:65:72:67    clock offset:0x21c0      class:0x5a020c
+</code></pre><p>Service Discovery Protocol(SDP) is a Bluetooth protocol for searching for Bluetooth service(Bluetooth is suite of services). BlueZ provides the <code>sdptool</code> for browsing a device for the services it provides.</p>
+<pre><code>kali &gt;sdptool browse 76:6E:46:63:72:66
+Browsing 76:6E:46:63:72:66...
+Service RecHandle: 0x10002
+Service Class ID List:
+  &quot;&quot;(0x1800)
+Protocol Descriptor List:
+  &quot;L2CAP&quot;  (0x0100)
+    PSM: 31
+  &quot;ATT&quot; (0x0007)
+    uint16: 0x1
+    uint16: 0x5
+</code></pre><p><code>l2ping (MACaddress)</code> can send out a ping.</p>
+<h2 id="MANAGING-THE-LINUX-KERNEL-AND-LOADABLE-KERNEL-MODULES"><a href="#MANAGING-THE-LINUX-KERNEL-AND-LOADABLE-KERNEL-MODULES" class="headerlink" title="MANAGING THE LINUX KERNEL AND LOADABLE KERNEL MODULES"></a>MANAGING THE LINUX KERNEL AND LOADABLE KERNEL MODULES</h2><p>Loadable Kernal Modules, or LKMs are <strong>rootkits</strong> usually embeds with. By which a hacker can take total control of the system and kernal.</p>
+<p>check the kernal by <code>uname -a</code> or <code>cat /proc/version</code></p>
+<p>kernal tuning with <code>sysctl</code> remains effect only until you reboot the system, edit <code>/etc/sysctl.conf</code> to make changes permanent.</p>
+<pre><code>kali &gt;sysctl -a | less
+dev.cdrom.autoclose = 1
+dev.cdrom.autoeject = 0
+dev.cdrom.check_media = 0
+--snip--
+</code></pre><p>some parameters can be useful to a hacker, for example doing MITM attack, enable packet forwarding:</p>
+<pre><code>kali &gt;sysctl -w net.ipv4.ip_forward=1
+</code></pre><p>and uncomment the line <code>#net.ipv4.ip_forward=1</code> in <code>/etc/sysctl.conf</code> to make this change permanent.</p>
+<p>By adding <code>net.ipv4.icmp_echo_ignore_all=1</code> and run <code>sysctl -p</code> can disable ICMP echo requests.</p>
+<h3 id="MANAGING-KERNEL-MODULES"><a href="#MANAGING-KERNEL-MODULES" class="headerlink" title="MANAGING KERNEL MODULES"></a>MANAGING KERNEL MODULES</h3><p><code>lsmod</code> command lists all the kernel modules.</p>
+<p>We can load or insert a module with <code>insmod</code> and remove a module with <code>rmmod</code>. These commands may not take into account module dependencies and leave your kernel unstable. Modern distributions of Linux have added <code>modprobe</code>, which automatically loads dependencies.</p>
+<p>Finding more info about kernel modules: <code>modinfo</code> followed by the name of the module you saw with <code>lsmod</code> command. And the module dependencies will be listed. This is useful info when troubleshooting why a particular hardware device is not working.</p>
+<pre><code>kali &gt; modprobe -a &lt;module&gt; # add
+# point out the message buffer from the kernal to test whether the mod loaded properly
+kali &gt; dmesg | grep &lt;module&gt; 
+kali &gt; modprobe -r &lt;module&gt; # remove
+</code></pre><h2 id="AUTOMATING-TASKS-WITH-JOB-SCHEDULING"><a href="#AUTOMATING-TASKS-WITH-JOB-SCHEDULING" class="headerlink" title="AUTOMATING TASKS WITH JOB SCHEDULING"></a>AUTOMATING TASKS WITH JOB SCHEDULING</h2><p><code>crond</code> is a daemon which checks the <code>cron</code> table. <code>cron</code> table located at <code>/etc/crontab</code>. <code>cron</code> table has 7 fileds:</p>
+<p>The first five are used to schedule the time to run the task, the sixth field specifies the user, and the seventh field is used for the absolute path to the command you want to execute:</p>
+<table>
+<thead>
+<tr>
+<th>FieldTime unit</th>
+<th>Representation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 Minute</td>
+<td>0–59</td>
+</tr>
+<tr>
+<td>2 Hour</td>
+<td>0–23</td>
+</tr>
+<tr>
+<td>3 Day of the month</td>
+<td>1–31</td>
+</tr>
+<tr>
+<td>4 Month</td>
+<td>1–12</td>
+</tr>
+<tr>
+<td>5 Day of the week</td>
+<td>0–7(Sunday(0) and Saturday(6))</td>
+</tr>
+</tbody>
+</table>
+<p>run every night at 2:30  AM , Monday through Friday:</p>
+<pre><code>M  H  DOM  MON  DOW  USER  COMMAND
+30 2   *    *    1-5  root  /root/myscanningscript
+</code></pre><p>the fifth field defines a range by using a dash(-), also you can separate those days with commas(,):2,4</p>
+<p><code>crontab -e</code> or <code>leafpad /etc/crontab</code> to edit crontab.</p>
+<blockquote>
+<p>Note that, Say you, vigilant</p>
+</blockquote>
+<p><strong>crontab shotcuts</strong>:</p>
+<p>@yearly/@annually/@monthly/@weekly/@daily/@midnight/@noon/@reboot</p>
+<pre><code>@midnight    user   /usr/share/MySQLsscanner.sh
+</code></pre><h3 id="Using-rc-scripts-to-run-jobs-as-startup"><a href="#Using-rc-scripts-to-run-jobs-as-startup" class="headerlink" title="Using rc scripts to run jobs as startup"></a>Using rc scripts to run jobs as startup</h3><p>The kernal starts a daemon known as <code>init</code> or <code>init.d</code> after it initialized and loaded all its modules. This deamon then begins to run a number of scripts found in <code>/etc/init.d/rc</code></p>
+<p>Linux has multiple run levels that indicate what services should be started at bootup. Runlevel 1 is single-user mode and service such as networking are not started in runlevel 1. The rc scripts are set to run depending on what run level is selected:</p>
+<ul>
+<li>0 Halt the system</li>
+<li>1 Single­user/minimal mode</li>
+<li>2–5 Multiuser modes</li>
+<li>6 Reboot the system</li>
+</ul>
+<p>add services using <code>update-rc.d</code> command from <code>rc.d</code> script:</p>
+<pre><code>kali &gt; update-rc.d &lt;name of script or service&gt; &lt;remove|defaults|disable|enable&gt;
+kali &gt; update-rc.d postgresql defaults
+</code></pre><p>rcconf GUI:</p>
+<pre><code>kali &gt; apt-get install rcconf
+kali &gt; rcconf
+</code></pre><h2 id="PYTHON-SCRIPTING-BASICS-FOR-HACKERS"><a href="#PYTHON-SCRIPTING-BASICS-FOR-HACKERS" class="headerlink" title="PYTHON SCRIPTING BASICS FOR HACKERS"></a>PYTHON SCRIPTING BASICS FOR HACKERS</h2><blockquote>
+<p>A beginner hacker who simply uses tools created by someone else will be condemned to the realm of <em>script kiddies</em>.</p>
+</blockquote>
+<p>PyPI (the Python Package Index) at <a href="http://www.pypi.org/" target="_blank" rel="noopener">http://www.pypi.org/</a>.</p>
+<pre><code>kali &gt; apt-get install python3-pip
+kali &gt; pip3 install &lt;package name&gt;
+kali &gt; pip3 show &lt;package name&gt; #version/location
+</code></pre><p>the packages are automatically placed in <code>/usr/local//lib/&lt;python-version&gt;/dist-packages</code> directory.</p>
+<p>or download a package from PyPI, unpack it and run <code>python setup.py install</code>.</p>
+<blockquote>
+<p>terminology, demonstrate</p>
+</blockquote>
+<p>Formatting is critically important in Python, particularly with your indentation levels. If you start with double indentation, you must be consistent with the double indentation throughout the entire block.</p>
+<p>In Python each variable type is treated like a class. A class is a kind of template for creating objects : Object-Oriented Programming(OOP).</p>
+<p>In Python there is no need to declare a variable before assigning a value to it.</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># creating a TCP Listener</span>
+<span class="token keyword">import</span> socket
+
+TCP_IP <span class="token operator">=</span> <span class="token string">"192.168.181.190"</span>
+TCP_PORT <span class="token operator">=</span> <span class="token number">9999</span>
+BUFFER_SIZE <span class="token operator">=</span> <span class="token number">100</span>
+
+s <span class="token operator">=</span> socket<span class="token punctuation">.</span>socket<span class="token punctuation">(</span>socket<span class="token punctuation">.</span>AF_INET<span class="token punctuation">,</span>socket<span class="token punctuation">.</span>SOCK_STREAM<span class="token punctuation">)</span>
+s<span class="token punctuation">.</span>bind<span class="token punctuation">(</span><span class="token punctuation">(</span>TCP_IP<span class="token punctuation">,</span>TCP_PORT<span class="token punctuation">)</span><span class="token punctuation">)</span>
+s<span class="token punctuation">.</span>listen<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+
+conn<span class="token punctuation">,</span>addr <span class="token operator">=</span> s<span class="token punctuation">.</span>accept<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Connection address:'</span><span class="token punctuation">,</span>addr<span class="token punctuation">)</span>
+
+<span class="token keyword">while</span> <span class="token number">1</span><span class="token punctuation">:</span>
+
+    data <span class="token operator">=</span> conn<span class="token punctuation">.</span>recv<span class="token punctuation">(</span>BUFFER_SIZE<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token operator">not</span> data<span class="token punctuation">:</span><span class="token keyword">break</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Received data:"</span><span class="token punctuation">,</span>data<span class="token punctuation">)</span>
+    conn<span class="token punctuation">.</span>send<span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># echo</span>
+
+conn<span class="token punctuation">.</span>close
+</code></pre>
+<p>This act of gathering information prior to a hack is often referred to as <strong>reconnaissance</strong>.</p>
+<ul>
+<li>Variables/Comments/Functions/Modules</li>
+<li>Lists/Sets/Dictionaries</li>
+<li>Control Statements/Loops/Exception handling</li>
+</ul>
+<blockquote>
+<p>false negative, versatility</p>
+</blockquote>
+
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2021-11-27/">
+                    红队视角下的信息收集（备忘 &amp;&amp; 持续收集）
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2020-02-09/">
+                    安全相关HTTP响应头解读、配置、示例与检测
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#GETTING-START"><span class="toc-number">1.</span> <span class="toc-text">GETTING START</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FINDING-STUFF"><span class="toc-number">1.1.</span> <span class="toc-text">FINDING STUFF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#concatenation-with-cat"><span class="toc-number">1.2.</span> <span class="toc-text">concatenation with cat</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ANALYZING-AND-MANAGING-NETWORKS"><span class="toc-number">2.</span> <span class="toc-text">ANALYZING AND MANAGING NETWORKS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ADDING-AND-REMOVING-SOFTWARE"><span class="toc-number">3.</span> <span class="toc-text">ADDING AND REMOVING SOFTWARE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PROCESS-MANAGEMENT"><span class="toc-number">4.</span> <span class="toc-text">PROCESS MANAGEMENT</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MANAGING-PROCESSES"><span class="toc-number">4.1.</span> <span class="toc-text">MANAGING PROCESSES</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MANAGING-USER-ENVIRONMENT-VARIABLES"><span class="toc-number">5.</span> <span class="toc-text">MANAGING USER ENVIRONMENT VARIABLES</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BASH-SCRIPTING"><span class="toc-number">6.</span> <span class="toc-text">BASH SCRIPTING</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#common-built-in-bash-commands"><span class="toc-number">6.1.</span> <span class="toc-text">common built-in bash commands</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#COMPRESSING-AND-ARCHIVING"><span class="toc-number">7.</span> <span class="toc-text">COMPRESSING AND ARCHIVING</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#compressing-compare"><span class="toc-number">7.1.</span> <span class="toc-text">compressing compare</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bit-by-bit-copies-of-storage-devices"><span class="toc-number">7.2.</span> <span class="toc-text">bit-by-bit copies of storage devices</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FILESYSTEM-AND-STORAGE-DEVICE-MANAGEMENT"><span class="toc-number">8.</span> <span class="toc-text">FILESYSTEM AND STORAGE DEVICE MANAGEMENT</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mounting-and-unmounting"><span class="toc-number">8.1.</span> <span class="toc-text">mounting and unmounting</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#monitoring-filesystems"><span class="toc-number">8.2.</span> <span class="toc-text">monitoring filesystems</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#THE-LOGGING-SYSTEM"><span class="toc-number">9.</span> <span class="toc-text">THE LOGGING SYSTEM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RSYSLOG-LOGGING-DAEMON"><span class="toc-number">9.1.</span> <span class="toc-text">RSYSLOG LOGGING DAEMON</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AUTOMATICALLY-CLEANING-UP-LOGS-WITH-LOGROTATE"><span class="toc-number">9.2.</span> <span class="toc-text">AUTOMATICALLY CLEANING UP LOGS WITH LOGROTATE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#REMAINING-STEALTHY-stealthy隐秘的"><span class="toc-number">9.3.</span> <span class="toc-text">REMAINING STEALTHY (stealthy隐秘的)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#USING-AND-ABUSING-SERVICES"><span class="toc-number">10.</span> <span class="toc-text">USING AND ABUSING SERVICES</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BECOMING-SECURE-AND-ANONYMOUS"><span class="toc-number">11.</span> <span class="toc-text">BECOMING SECURE AND ANONYMOUS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#THE-ONION-ROUTER-SYSTEM"><span class="toc-number">11.1.</span> <span class="toc-text">THE ONION ROUTER SYSTEM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PROXY-SERVERS"><span class="toc-number">11.2.</span> <span class="toc-text">PROXY SERVERS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VIRTUAL-PRIVATE-NETWORKS"><span class="toc-number">11.3.</span> <span class="toc-text">VIRTUAL PRIVATE NETWORKS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ENCRYPTED-EMAIL"><span class="toc-number">11.4.</span> <span class="toc-text">ENCRYPTED EMAIL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UNDERSTANDING-AND-INSPECTING-WIRELESS-NETWORKS"><span class="toc-number">12.</span> <span class="toc-text">UNDERSTANDING AND INSPECTING WIRELESS NETWORKS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#WI-FI-NETWORKS"><span class="toc-number">12.1.</span> <span class="toc-text">WI-FI NETWORKS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DETECTING-AND-CONNECTING-TO-BLUETOOTH"><span class="toc-number">12.2.</span> <span class="toc-text">DETECTING AND CONNECTING TO BLUETOOTH</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MANAGING-THE-LINUX-KERNEL-AND-LOADABLE-KERNEL-MODULES"><span class="toc-number">13.</span> <span class="toc-text">MANAGING THE LINUX KERNEL AND LOADABLE KERNEL MODULES</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MANAGING-KERNEL-MODULES"><span class="toc-number">13.1.</span> <span class="toc-text">MANAGING KERNEL MODULES</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AUTOMATING-TASKS-WITH-JOB-SCHEDULING"><span class="toc-number">14.</span> <span class="toc-text">AUTOMATING TASKS WITH JOB SCHEDULING</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Using-rc-scripts-to-run-jobs-as-startup"><span class="toc-number">14.1.</span> <span class="toc-text">Using rc scripts to run jobs as startup</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PYTHON-SCRIPTING-BASICS-FOR-HACKERS"><span class="toc-number">15.</span> <span class="toc-text">PYTHON SCRIPTING BASICS FOR HACKERS</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-4 i,
+        .toc-level-4 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Linux Basic for Hackers　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2021-11-27/" title="上一篇: 红队视角下的信息收集（备忘 &amp;&amp; 持续收集）">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2020-02-09/" title="下一篇: 安全相关HTTP响应头解读、配置、示例与检测">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2023-10-28/">窗口期的OSCP(PEN-200-2023)总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-07-14/">OSCP NOTE (Cheatsheet)</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-04-30/">50台Vulnhub靶机Walkthrough</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-02-13/">Honeypot-Factory: The Use of Deception in ICS/OT Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-08-21/">Pass the Hash再思考：场景、补丁与监测</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-26/">RFID初探之M1卡的分析与复制（使用PN532模块）</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-13/">Websocket渗透测试指北</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-12-14/">关于log4j、log4shell的一些记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-11-27/">红队视角下的信息收集（备忘 && 持续收集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-07-30/">Linux Basic for Hackers</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-02-09/">安全相关HTTP响应头解读、配置、示例与检测</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-10-31/">Cobaltstrike Server持久化 & Cobaltstrike与Metasploit相互派生shell</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-08-21/">深入了解子域名挖掘tricks</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-05-14/">Android开发实践之计算器&记事助手</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-13/">用Origin请求头防御CSRF攻击(译文)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-07/">PHP中的随机数安全问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-03-20/">WordPress 5.1.1 CSRF to RCE 跟进分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-02-15/">XML外部实体注入(XXE攻击)小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-01-26/">Django开发小记 & Docker笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-22/">前端安全之CSP、同源策略与跨域请求(JSONP/CORS)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-01/">使用Aircrack-ng破解WPA2协议无线网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-11-11/">PHP博客管理系统开发全记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-10-10/">环境配置踩坑记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-30/">区块链基础[待补充]</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-05/">校园网免流攻略(基于逻辑漏洞、DNS伪装包或IPv6)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-07-11/">基于Scrapy-Redis框架与Mongodb的分布式爬虫-elasticsearch搜索引擎打造</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-26/">《渗透测试实践指南》阅读笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-16/">「Web向」XCTF联赛2018年度考点知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-14/">「娱乐向」 Hack for Fun</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-12/">从一道取证题目谈NTFS交换数据流</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-10/">关于Xdebug的那些事儿</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-26/">PHP弱类型&&md5碰撞总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-24/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2024 Fazx
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+            
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "!!!∑(ﾟДﾟノ)ノ快回来!!!  " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "" + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
