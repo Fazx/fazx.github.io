@@ -23,29 +23,29 @@
 <meta property="og:site_name" content="Cosmic Fragments">
 <meta property="og:description" content="安逸的小学期开发生活结束了。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505200110.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505200133.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505200149.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505200205.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505200442.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505200506.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505200522.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505200543.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505200558.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505200611.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505200629.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505200646.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505200657.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505200710.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505200743.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505200807.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505200823.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505200839.png">
-<meta property="og:updated_time" content="2019-05-19T11:29:35.713Z">
+<meta property="og:image" content="/img/20190505200110.png">
+<meta property="og:image" content="/img/20190505200133.png">
+<meta property="og:image" content="/img/20190505200149.png">
+<meta property="og:image" content="/img/20190505200205.png">
+<meta property="og:image" content="/img/20190505200442.png">
+<meta property="og:image" content="/img/20190505200506.png">
+<meta property="og:image" content="/img/20190505200522.png">
+<meta property="og:image" content="/img/20190505200543.png">
+<meta property="og:image" content="/img/20190505200558.png">
+<meta property="og:image" content="/img/20190505200611.png">
+<meta property="og:image" content="/img/20190505200629.png">
+<meta property="og:image" content="/img/20190505200646.png">
+<meta property="og:image" content="/img/20190505200657.png">
+<meta property="og:image" content="/img/20190505200710.png">
+<meta property="og:image" content="/img/20190505200743.png">
+<meta property="og:image" content="/img/20190505200807.png">
+<meta property="og:image" content="/img/20190505200823.png">
+<meta property="og:image" content="/img/20190505200839.png">
+<meta property="og:updated_time" content="2024-05-29T07:02:02.998Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于Scrapy-Redis框架与Mongodb的分布式爬虫-elasticsearch搜索引擎打造">
 <meta name="twitter:description" content="安逸的小学期开发生活结束了。">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20190505200110.png">
+<meta name="twitter:image" content="/img/20190505200110.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -313,7 +313,7 @@ http.cors.allow-origin: &quot;*&quot;
 http.cors.allow-methods: OPTIONS,HEAD,GET,POST,PUT,DELETE
 http.cors.allow-headers: &quot;X-Requested-With,Content-Type,Content-Length,X-User&quot;
 </code></pre><p>配置好后执行<code>elasticsearch.bat</code>，服务<strong>映射在本地9200端口</strong>。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505200110.png" alt></p>
+<p><img src="/img/20190505200110.png" alt></p>
 <p>还需额外安装插件：</p>
 <ul>
 <li><a href="https://github.com/mobz/elasticsearch-head" target="_blank" rel="noopener">elasticsearch-head 5.1.1</a></li>
@@ -322,14 +322,14 @@ http.cors.allow-headers: &quot;X-Requested-With,Content-Type,Content-Length,X-Us
 <p><code>npm run start</code>启动服务，<strong>映射在本地9100端口</strong>。</p>
 <p><code>npm install</code>可能由于源的问题安装失败，推荐<a href="https://npm.taobao.org/" target="_blank" rel="noopener">淘宝NPM镜像cnpm</a>。</p>
 <p>执行<code>npm install -g cnpm --registry=https://registry.npm.taobao.org</code>后，将所有<code>npm</code>命令换为<code>cnpm</code>。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505200133.png" alt></p>
+<p><img src="/img/20190505200133.png" alt></p>
 <p>(编辑elasticsearch.yml后从elasticsearch-head连接，集群健康值代表连接成功。)</p>
 <ul>
 <li><a href="https://www.elastic.co/downloads/past-releases/kibana-5-1-2" target="_blank" rel="noopener">Kibana 5.1.2</a></li>
 </ul>
 <p><strong>Kibana需要和head的版本对应。</strong></p>
 <p>执行/bin目录下的kibana.bat启动服务，<strong>映射在本地5601端口</strong>。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505200149.png" alt></p>
+<p><img src="/img/20190505200149.png" alt></p>
 <h4 id="连接Mongodb数据库："><a href="#连接Mongodb数据库：" class="headerlink" title="连接Mongodb数据库："></a>连接Mongodb数据库：</h4><ul>
 <li>Mongodb开启副本集</li>
 </ul>
@@ -355,27 +355,27 @@ http.cors.allow-headers: &quot;X-Requested-With,Content-Type,Content-Length,X-Us
 <p>在上一步中保持mongo服务运行，开启elasticsearch服务，执行：</p>
 <p><code>mongo-connector -m 127.0.0.1:27017 -t 127.0.0.1:9200 -d elastic_doc_manager</code></p>
 <p>即可连接mongo和es，此后对Mongodb的增删改查都将同步到elasticsearch。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505200205.png" alt></p>
+<p><img src="/img/20190505200205.png" alt></p>
 <p>注意看我的命令，Windows下我做了许多细微的调整。</p>
 <p>接下来重新爬取并存储Mongodb：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505200442.png" alt></p>
+<p><img src="/img/20190505200442.png" alt></p>
 <p>查看elasticsearch：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505200506.png" alt></p>
-<p><img src="http://0blog.test.upcdn.net/20190505200522.png" alt></p>
+<p><img src="/img/20190505200506.png" alt></p>
+<p><img src="/img/20190505200522.png" alt></p>
 <p>索引建立成功了！鸡冻！！</p>
 <p>这一部分我经过了漫长的调试和排错，每重试一次都要开上十个不同地方的shell一步一步输命令…如果在Linux下会好很多。</p>
 <p>elasticsearch此时已经自动建立了mapping映射：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505200543.png" alt></p>
+<p><img src="/img/20190505200543.png" alt></p>
 <p>查看数据：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505200558.png" alt></p>
+<p><img src="/img/20190505200558.png" alt></p>
 <p>通过Kibana的命令行已经可以实现搜索，用_search方法：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505200611.png" alt></p>
+<p><img src="/img/20190505200611.png" alt></p>
 <p>可以看出来还是比较智能的，已经实现了中文分词。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505200629.png" alt></p>
+<p><img src="/img/20190505200629.png" alt></p>
 <h3 id="利用Scrapy框架和Xpath解析网页信息并抓取"><a href="#利用Scrapy框架和Xpath解析网页信息并抓取" class="headerlink" title="利用Scrapy框架和Xpath解析网页信息并抓取"></a>利用Scrapy框架和Xpath解析网页信息并抓取</h3><p>scrapy中文文档：<a href="http://scrapy-chs.readthedocs.io/zh_CN/latest/index.html" target="_blank" rel="noopener">http://scrapy-chs.readthedocs.io/zh_CN/latest/index.html</a></p>
-<h4 id="Scrapy整体架构图："><a href="#Scrapy整体架构图：" class="headerlink" title="Scrapy整体架构图："></a>Scrapy整体架构图：</h4><p><img src="http://0blog.test.upcdn.net/20190505200646.png" alt></p>
+<h4 id="Scrapy整体架构图："><a href="#Scrapy整体架构图：" class="headerlink" title="Scrapy整体架构图："></a>Scrapy整体架构图：</h4><p><img src="/img/20190505200646.png" alt></p>
 <p>直接爬取25页结果：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505200657.png" alt></p>
+<p><img src="/img/20190505200657.png" alt></p>
 <p>(DEBUG:200可能是由于js的解析问题，其实已经成功爬取。)</p>
 <h3 id="scrapy-redis实现分布式"><a href="#scrapy-redis实现分布式" class="headerlink" title="scrapy-redis实现分布式"></a>scrapy-redis实现分布式</h3><blockquote>
 <p>使用redis数据库来替换scrapy原本使用的队列结构（deque）<br>scrapy-redis提供了Scheduler、Dupefilter、Pipeline、Spider组件。</p>
@@ -389,13 +389,13 @@ http.cors.allow-headers: &quot;X-Requested-With,Content-Type,Content-Length,X-Us
 <p>并且，由于scrapy-redis自身的队列机制，slave获取的链接不会相互冲突。这样各个slave在完成抓取任务之后，再把获取的结果汇总到服务器上（这时的数据存储不再在是redis，而是mongodb或者 mysql等存放具体内容的数据库了）。</p>
 <p>这种方法的还有好处就是程序移植性强，只要处理好路径问题，把slave上的程序移植到另一台机器上运行，基本上就是复制粘贴的事情。</p>
 </blockquote>
-<p><img src="http://0blog.test.upcdn.net/20190505200710.png" alt></p>
+<p><img src="/img/20190505200710.png" alt></p>
 <p>改写爬虫文件后，执行<code>scrapy crawl top250</code>时不再爬取数据，而是处于监听状态。</p>
 <p>启用redis服务并在redis-cli中添加start url，则爬虫开始多进程执行。</p>
 <p><code>lpush myspider:start_urls https://movie.douban.com/top250</code></p>
-<p><img src="http://0blog.test.upcdn.net/20190505200743.png" alt></p>
+<p><img src="/img/20190505200743.png" alt></p>
 <p>此处的演示为伪-分布式，如果在多机器执行则为分布式。</p>
-<h3 id="分页抓取并存储到Mongodb数据库"><a href="#分页抓取并存储到Mongodb数据库" class="headerlink" title="分页抓取并存储到Mongodb数据库"></a>分页抓取并存储到Mongodb数据库</h3><p>在不连接数据库的情况下，数据存储也很方便，Scrapy提供了直接的数据导出功能，可以添加<code>-o</code>参数，将结果导出到csv、json文件。<br><img src="http://0blog.test.upcdn.net/20190505200807.png" alt></p>
+<h3 id="分页抓取并存储到Mongodb数据库"><a href="#分页抓取并存储到Mongodb数据库" class="headerlink" title="分页抓取并存储到Mongodb数据库"></a>分页抓取并存储到Mongodb数据库</h3><p>在不连接数据库的情况下，数据存储也很方便，Scrapy提供了直接的数据导出功能，可以添加<code>-o</code>参数，将结果导出到csv、json文件。<br><img src="/img/20190505200807.png" alt></p>
 <p>这里为练习数据库操作直接存储到数据库。使用<code>pymongo</code>库后在scrapy中只需要简单的配置：</p>
 <pre><code>class DoubanPipeline(object):
 #连接 Mongodb
@@ -407,7 +407,7 @@ http.cors.allow-headers: &quot;X-Requested-With,Content-Type,Content-Length,X-Us
         client = pymongo.MongoClient(host=host,port=port)
         mydb = client[dbname]
         self.post = mydb[sheetname]
-</code></pre><p>对于Mongodb这个nosql数据库我使用了<code>NoSQL Manager for MongoDB</code>进行管理。<br><img src="http://0blog.test.upcdn.net/20190505200823.png" alt></p>
+</code></pre><p>对于Mongodb这个nosql数据库我使用了<code>NoSQL Manager for MongoDB</code>进行管理。<br><img src="/img/20190505200823.png" alt></p>
 <p>(此处是玄学之字体重叠)</p>
 <p>shell中的查询操作也很简单：</p>
 <pre><code>use douban
@@ -418,7 +418,7 @@ db.douban_top250.find().pretty()
 <p>crawlera官方网址：<a href="http://scrapinghub.com/crawlera" target="_blank" rel="noopener">http://scrapinghub.com/crawlera</a></p>
 <p>crawlera帮助文档：<a href="http://doc.scrapinghub.com/crawlera.html" target="_blank" rel="noopener">http://doc.scrapinghub.com/crawlera.html</a></p>
 <p>使用介绍：<a href="https://www.cnblogs.com/rwxwsblog/p/4582127.html" target="_blank" rel="noopener">https://www.cnblogs.com/rwxwsblog/p/4582127.html</a></p>
-<h4 id="随机UA"><a href="#随机UA" class="headerlink" title="随机UA"></a>随机UA</h4><p><img src="http://0blog.test.upcdn.net/20190505200839.png" alt></p>
+<h4 id="随机UA"><a href="#随机UA" class="headerlink" title="随机UA"></a>随机UA</h4><p><img src="/img/20190505200839.png" alt></p>
 <h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>这是一个为期6天的开发项目。多亏Python爬虫领域已经有完善的资料供搜查，让我这个开发小白体会到更多的是乐趣而不是困难。</p>
 
       

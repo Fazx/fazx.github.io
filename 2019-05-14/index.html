@@ -23,17 +23,17 @@
 <meta property="og:site_name" content="Cosmic Fragments">
 <meta property="og:description" content="-">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190518203530.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190519163647.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190519172600.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190519173527.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190519173921.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190519174344.png">
-<meta property="og:updated_time" content="2019-05-28T08:01:35.187Z">
+<meta property="og:image" content="/img/20190518203530.png">
+<meta property="og:image" content="/img/20190519163647.png">
+<meta property="og:image" content="/img/20190519172600.png">
+<meta property="og:image" content="/img/20190519173527.png">
+<meta property="og:image" content="/img/20190519173921.png">
+<meta property="og:image" content="/img/20190519174344.png">
+<meta property="og:updated_time" content="2024-05-29T07:02:59.289Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android开发实践之计算器&amp;记事助手">
 <meta name="twitter:description" content="-">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20190518203530.png">
+<meta name="twitter:image" content="/img/20190518203530.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -269,7 +269,7 @@
 <blockquote>
 <p>技术领域大多数牛人靠自学成才，但不能否认的是自学中踩坑与探索的过程非常消耗时间，合适的引导能让人的效率大大提高。</p>
 </blockquote>
-<h2 id="计算器"><a href="#计算器" class="headerlink" title="计算器"></a>计算器</h2><p><img src="http://0blog.test.upcdn.net/20190518203530.png" alt></p>
+<h2 id="计算器"><a href="#计算器" class="headerlink" title="计算器"></a>计算器</h2><p><img src="/img/20190518203530.png" alt></p>
 <h3 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h3><p>文件结构作为Android而不是Project进行解析后如图很清晰：第一个(也就是main而非android或test路径下)的<code>/java/com.example.calc/</code>中为后端处理逻辑的Java类。<code>/res/layout/activity_main.xml</code>是主要的样式文件，资源文件可以放到<code>/drawable</code>、<code>/values</code>中进行引用。</p>
 <h3 id="UI开发"><a href="#UI开发" class="headerlink" title="UI开发"></a>UI开发</h3><p>Android布局主要有：</p>
 <ul>
@@ -281,7 +281,7 @@
 <li>AbsoluteLayout 绝对布局：指定xy坐标表示位置，由于屏幕尺寸和分辨率的不同非常低效，基本淘汰。</li>
 </ul>
 <p>在这里我在线性布局中嵌套了网格布局，属性看这个图就一目了然(图源菜鸟教程)：</p>
-<p><img src="http://0blog.test.upcdn.net/20190519163647.png" alt></p>
+<p><img src="/img/20190519163647.png" alt></p>
 <p><code>GridLayout</code>的属性是这样的：</p>
 <pre><code>&lt;GridLayout
     android:layout_width=&quot;match_parent&quot;
@@ -302,13 +302,13 @@
     android:textSize=&quot;30sp&quot; /&gt;
 </code></pre><p>网格被设置成了五行(row)四列(column)，button0占一行、横跨两列，<code>layout_width</code>设为0，背景资源从<code>drawable</code>中调用添加1dp边框后的版本。</p>
 <h3 id="后端实现"><a href="#后端实现" class="headerlink" title="后端实现"></a>后端实现</h3><p>创建<code>MainActivity</code>继承自<code>AppCompatActivity</code>，并重写了<code>OnCreate()</code>方法，初始化生命周期：</p>
-<p><img src="http://0blog.test.upcdn.net/20190519172600.png" alt></p>
+<p><img src="/img/20190519172600.png" alt></p>
 <p><code>initViews()</code>初始化按键布局，<code>initButtons</code>使用<code>HashMap</code>建立了一个键值映射：</p>
-<p><img src="http://0blog.test.upcdn.net/20190519173527.png" alt></p>
+<p><img src="/img/20190519173527.png" alt></p>
 <p>退格和等号的处理，这里的异常处理相当于利用了Java的异常，简洁有效：</p>
-<p><img src="http://0blog.test.upcdn.net/20190519173921.png" alt></p>
+<p><img src="/img/20190519173921.png" alt></p>
 <p>运算逻辑处理写在DoCalc中，建立了一个伪的“元组”存储运算表达式，判断运算符or数字并进行强制类型转换，相比<strong>运算栈</strong>要简单但是只能支持双目运算：</p>
-<p><img src="http://0blog.test.upcdn.net/20190519174344.png" alt></p>
+<p><img src="/img/20190519174344.png" alt></p>
 <p><strong>BigBang</strong>这个类名取自 Smartisan OS 中的大爆炸功能，有些异曲同工之妙。之后就是进行拼接和计算操作，并处理除以零的异常，不再赘述。</p>
 <h2 id="记事助手"><a href="#记事助手" class="headerlink" title="记事助手"></a>记事助手</h2><p>待开发</p>
 

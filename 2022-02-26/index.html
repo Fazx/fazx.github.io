@@ -23,20 +23,20 @@
 <meta property="og:description" content="无需NFC手机与MIFARE Classic Tool (MCT)">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="/img/20220226203544.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220220193212.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220220200459.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220220200636.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220220204855.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220220205107.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220223235502.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220226115129.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220226115339.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220127164335.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220127163554.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220224213339.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220224215236.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220224215826.png">
-<meta property="og:updated_time" content="2024-05-29T06:45:56.882Z">
+<meta property="og:image" content="/img/20220220193212.png">
+<meta property="og:image" content="/img/20220220200459.png">
+<meta property="og:image" content="/img/20220220200636.png">
+<meta property="og:image" content="/img/20220220204855.png">
+<meta property="og:image" content="/img/20220220205107.png">
+<meta property="og:image" content="/img/20220223235502.png">
+<meta property="og:image" content="/img/20220226115129.png">
+<meta property="og:image" content="/img/20220226115339.png">
+<meta property="og:image" content="/img/20220127164335.png">
+<meta property="og:image" content="/img/20220127163554.png">
+<meta property="og:image" content="/img/20220224213339.png">
+<meta property="og:image" content="/img/20220224215236.png">
+<meta property="og:image" content="/img/20220224215826.png">
+<meta property="og:updated_time" content="2024-05-29T07:04:29.185Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RFID初探之M1卡的分析与复制（使用PN532模块）">
 <meta name="twitter:description" content="无需NFC手机与MIFARE Classic Tool (MCT)">
@@ -275,19 +275,19 @@
 <li><strong>无源RFID</strong>是本文讨论重点，因为无需供电，成本低、使用广，但只能做近距离的无线传输，工作在包括但不仅限于125KHz、13.56MHz的低频段（这里的低频是相对于有源RFID频段）</li>
 </ul>
 <p>而NFC(Near-field communication，近场通信) 技术是RFID技术的<strong>子集</strong>，NFC只工作在13.56MHz这一个频率。你想，有源RFID的传输距离那么远，当然也就不能叫“近场通信”了。这里放一张好图：</p>
-<p><img src="http://0blog.test.upcdn.net/20220220193212.png" alt></p>
+<p><img src="/img/20220220193212.png" alt></p>
 <p>而IC卡 (Integrated Circuit Card，集成电路卡，智能卡) 和ID卡 (Identification Card，身份识别卡) 就属于无源RFID的应用。其中IC卡只工作在13.56MHz频率，这点看起来没有争议。但<strong>ID卡不只工作在125KHz</strong>，实际上有三个主要频率：</p>
-<p><img src="http://0blog.test.upcdn.net/20220220200459.png" alt></p>
+<p><img src="/img/20220220200459.png" alt></p>
 <p>并且我搜到了一个UHF(超高频) ID Card的<a href="http://two-red-cells.com/products/rfid/tags/id%20cards/CS6820" target="_blank" rel="noopener">实际应用</a>，挂在脖子上据称可以最远11米外识别：</p>
-<p><img src="http://0blog.test.upcdn.net/20220220200636.png" alt></p>
+<p><img src="/img/20220220200636.png" alt></p>
 <p>因此，</p>
 <ul>
 <li>将ID卡称为“低频卡”、IC卡称为“高频卡”是不准确的</li>
 <li>NFC技术仅工作在13.56MHz，因此无法识别125KHz的ID卡(绝大部分ID卡都是125KHz)</li>
 <li>上面那条也是为什么手环、手机的NFC模块不可能复制某些门禁卡(125KHz ID卡)</li>
 </ul>
-<p>搜到SMZDM有人用手环复制了ID卡：<br><img src="http://0blog.test.upcdn.net/20220220204855.png" alt></p>
-<p>结果是钻开表带把线圈塞进去了。。。<br><img src="http://0blog.test.upcdn.net/20220220205107.png" alt></p>
+<p>搜到SMZDM有人用手环复制了ID卡：<br><img src="/img/20220220204855.png" alt></p>
+<p>结果是钻开表带把线圈塞进去了。。。<br><img src="/img/20220220205107.png" alt></p>
 <p>此外，</p>
 <ul>
 <li>ID卡只能一次性写入，而IC卡可以反复读写</li>
@@ -301,7 +301,7 @@
 <li>MF1卡又分为S50与S70，他们的存储空间与认证过程有略微差异，本文研究S50</li>
 </ul>
 <h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><p>S50卡有16个扇区，1K的存储空间 (64x16=1024)：</p>
-<p><img src="http://0blog.test.upcdn.net/20220223235502.png" alt></p>
+<p><img src="/img/20220223235502.png" alt></p>
 <ul>
 <li>0扇区0区块：厂商块</li>
 <li>0-15扇区3区块：控制块</li>
@@ -309,9 +309,9 @@
 </ul>
 <p>从结构图中可以看出，0扇区0区块存放着卡号与厂商信息，按规范这部分是固定不可修改的只读块，但据说是国内厂商制作出了0扇区0区块可写的魔卡（白卡/UID卡/CUID卡），这也是实现M1卡复制的基础。</p>
 <p>需要强调的是，每个扇区都会有一组独立的密码及访问控制块（在第3区块），而IC卡的UID是不通过密码控制的（也就是0扇区0区块），可以直接通过读卡器获得。</p>
-<p><img src="http://0blog.test.upcdn.net/20220226115129.png" alt></p>
+<p><img src="/img/20220226115129.png" alt></p>
 <h3 id="认证流程"><a href="#认证流程" class="headerlink" title="认证流程"></a>认证流程</h3><p>读写器向卡片发出一组固定频率的电磁波，卡片内有一个<strong>LC串联谐振电路</strong>，其频率与读写器发射的频率相同，在电磁波的激励下，LC串联谐振电路产生<strong>共振</strong>，从而使电容内有了电荷。电容另一端接有一个单向导通的<strong>电子泵</strong>，此电子泵可将电容内的电荷输送到另一个电容内存储。当电容所积累的电荷达到2V时，此电容可作为电源为其他电路提供工作电压，将卡内数据发送出去或接收读写器的数据。（来源；《近源渗透测试》）</p>
-<p><img src="http://0blog.test.upcdn.net/20220226115339.png" alt><br>来源：<a href="https://www.blackhat.com/docs/sp-14/materials/arsenal/sp-14-Almeida-Hacking-MIFARE-Classic-Cards-Slides.pdf" target="_blank" rel="noopener">BlackHat 2014 - Hacking Mifare Classic Cards</a></p>
+<p><img src="/img/20220226115339.png" alt><br>来源：<a href="https://www.blackhat.com/docs/sp-14/materials/arsenal/sp-14-Almeida-Hacking-MIFARE-Classic-Cards-Slides.pdf" target="_blank" rel="noopener">BlackHat 2014 - Hacking Mifare Classic Cards</a></p>
 <p>图中Tag指卡片0扇区存储的信息标签（UID），它接收到读卡器发来的校验请求后：</p>
 <ol>
 <li>发送UID号给读卡器，进入防冲突循环，防止读卡器同时读到多张卡片</li>
@@ -351,9 +351,9 @@ a0478cc39091
 <p>Darkside攻击利用的是M1卡通信验证中算法存在的一个缺陷：当读卡器发送的加密数据中的某8bit全部正确的时候，tag会给读卡器发送一个加密的4bit NACK（否定应答）数据回复，其他任何情况下tag都会直接停止。</p>
 <p>通过这种方式可以猜解密钥，但耗时会比较长。当破解出任意一个扇区的密钥时，就可以使用Nested Authentication攻击继续获得其他扇区的密钥。</p>
 <h2 id="M1卡复制"><a href="#M1卡复制" class="headerlink" title="M1卡复制"></a>M1卡复制</h2><p>整体思路：小米手环对存在加密区的卡片默认无法模拟，因此需要一张白卡做中转。先复制一张非加密卡到手环，再将加密部分直接通过PN532写入手环。</p>
-<h3 id="道具"><a href="#道具" class="headerlink" title="道具"></a>道具</h3><p><img src="http://0blog.test.upcdn.net/20220127164335.png" alt></p>
+<h3 id="道具"><a href="#道具" class="headerlink" title="道具"></a>道具</h3><p><img src="/img/20220127164335.png" alt></p>
 <p>PN532模块 + USB2TTL(CH340模块) + 杜邦线 + UID/CUID卡(T5577)</p>
-<h3 id="接线"><a href="#接线" class="headerlink" title="接线"></a>接线</h3><p><img src="http://0blog.test.upcdn.net/20220127163554.png" alt></p>
+<h3 id="接线"><a href="#接线" class="headerlink" title="接线"></a>接线</h3><p><img src="/img/20220127163554.png" alt></p>
 <p>使用杜邦线连接PN532模块与USB2TTL(CH340)：</p>
 <table>
 <thead>
@@ -383,9 +383,9 @@ a0478cc39091
 </table>
 <p>黄色跳线帽不用管。接线接错使用模块可能会烧掉。</p>
 <h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><p>模块接入电脑后在设备管理器中可以看到，可以将波特率调高一些：</p>
-<p><img src="http://0blog.test.upcdn.net/20220224213339.png" alt></p>
+<p><img src="/img/20220224213339.png" alt></p>
 <p>我用的WIN10虚拟机无需安装驱动，直接使用经典的NFC上位机软件即可读卡：</p>
-<p><img src="http://0blog.test.upcdn.net/20220224215236.png" alt></p>
+<p><img src="/img/20220224215236.png" alt></p>
 <p>这里NFC上位机软件其实就是用默认密钥碰撞一些扇区，当某些扇区密钥被找到以后，再使用Nested Authentication攻击获取其他扇区的密钥。而像Proxmark3这样更高端的工具会集成Darkside攻击。</p>
 <ol>
 <li>点击左上三角将整个卡存为dump文件，再额外记录下0扇区0区块（厂商块）的内容备用</li>
@@ -395,7 +395,7 @@ a0478cc39091
 <li>使用<code>nfc-mfclassic</code>工具将数据块信息直接写入手环：</li>
 </ol>
 <pre><code>nfc-mfclassic.exe w A xxxxx.dump # 这是第1步的dump文件
-</code></pre><p><img src="http://0blog.test.upcdn.net/20220224215826.png" alt></p>
+</code></pre><p><img src="/img/20220224215826.png" alt></p>
 <p>同目录下还需要有配置文件libnfc.conf：</p>
 <pre><code>allow_autoscan = true
 log_level=2

@@ -22,19 +22,19 @@
 <meta property="og:site_name" content="Cosmic Fragments">
 <meta property="og:description" content="‮">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195539.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195625.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195647.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195658.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195710.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195723.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195741.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195758.png">
-<meta property="og:updated_time" content="2019-05-05T13:12:53.561Z">
+<meta property="og:image" content="/img/20190505195539.png">
+<meta property="og:image" content="/img/20190505195625.png">
+<meta property="og:image" content="/img/20190505195647.png">
+<meta property="og:image" content="/img/20190505195658.png">
+<meta property="og:image" content="/img/20190505195710.png">
+<meta property="og:image" content="/img/20190505195723.png">
+<meta property="og:image" content="/img/20190505195741.png">
+<meta property="og:image" content="/img/20190505195758.png">
+<meta property="og:updated_time" content="2024-05-29T07:02:34.853Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Aircrack-ng破解WPA2协议无线网络">
 <meta name="twitter:description" content="‮">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20190505195539.png">
+<meta name="twitter:image" content="/img/20190505195539.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -263,7 +263,7 @@
           
         <p>‮<br><a id="more"></a></p>
 <p>无线网络的加密协议分为WEP，WPA与WPA2，其中WEP使用一个静态的密钥来加密所有通信，由于安全性弱已经被淘汰；而WPA使用RC4加密、TKIP进行密钥管理和更新，WPA2使用更可靠的CCMP和AES(都是密码学课讲过的)，是现在广泛使用的协议。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195539.png" alt></p>
+<p><img src="/img/20190505195539.png" alt></p>
 <p>WPA/WPA2协议也并非绝对安全，比如路由器开启WPS(Wi-Fi Protected Setup)功能可以使用Reaver获取到PIN码从而获得密码：</p>
 <blockquote>
 <p><a href="https://code.google.com/archive/p/reaver-wps/wikis/README.wiki" target="_blank" rel="noopener">reaver-wps - Reaver README</a></p>
@@ -285,19 +285,19 @@ lo        no wireless extensions.
 eth0      no wireless extensions.
 </code></pre><p>历经一番搜索得出结论，Linux如果是物理机可以直接开工，装在虚拟机里则需要额外的无线网卡，通过USB接入。</p>
 <p>于是我从百宝箱中翻出来了一个(虚了焦的)360随身WiFi：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195625.png" alt></p>
+<p><img src="/img/20190505195625.png" alt></p>
 <p>不用关机直接热拔插，效果立竿见影：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195647.png" alt></p>
+<p><img src="/img/20190505195647.png" alt></p>
 <p>开启无线网卡wlan0的监听模式：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195658.png" alt></p>
+<p><img src="/img/20190505195658.png" alt></p>
 <p><code>airodump-ng wlan0mon</code>扫描附近无线网络：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195710.png" alt></p>
+<p><img src="/img/20190505195710.png" alt></p>
 <p>选取攻击目标，参数为MAC地址、信道数以及生成cap包名，开始嗅探：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195723.png" alt></p>
+<p><img src="/img/20190505195723.png" alt></p>
 <p>不要停止上一步的嗅探，在另一个shell中对连接WiFi的设备进行DOS攻击，使其断线重连，当上一步shell中出现WPA handshake时说明握手包抓取成功(仅仅看到cap包生成是不行的，有可能是个空包)：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195741.png" alt></p>
+<p><img src="/img/20190505195741.png" alt></p>
 <p>使用字典爆破cap包，图中有相关涉及的所有文件。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195758.png" alt></p>
+<p><img src="/img/20190505195758.png" alt></p>
 <p>KEY FOUND.</p>
 
       

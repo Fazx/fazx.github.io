@@ -22,28 +22,28 @@
 <meta property="og:site_name" content="Cosmic Fragments">
 <meta property="og:description" content="QQ定位？WiFi渗透？">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195139.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195241.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195257.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195338.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195359.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195417.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195434.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195449.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195524.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195539.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195625.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195647.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195658.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195710.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195723.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195741.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195758.png">
-<meta property="og:updated_time" content="2019-05-05T11:58:02.993Z">
+<meta property="og:image" content="/img/20190505195139.png">
+<meta property="og:image" content="/img/20190505195241.png">
+<meta property="og:image" content="/img/20190505195257.png">
+<meta property="og:image" content="/img/20190505195338.png">
+<meta property="og:image" content="/img/20190505195359.png">
+<meta property="og:image" content="/img/20190505195417.png">
+<meta property="og:image" content="/img/20190505195434.png">
+<meta property="og:image" content="/img/20190505195449.png">
+<meta property="og:image" content="/img/20190505195524.png">
+<meta property="og:image" content="/img/20190505195539.png">
+<meta property="og:image" content="/img/20190505195625.png">
+<meta property="og:image" content="/img/20190505195647.png">
+<meta property="og:image" content="/img/20190505195658.png">
+<meta property="og:image" content="/img/20190505195710.png">
+<meta property="og:image" content="/img/20190505195723.png">
+<meta property="og:image" content="/img/20190505195741.png">
+<meta property="og:image" content="/img/20190505195758.png">
+<meta property="og:updated_time" content="2024-05-29T07:00:16.445Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="「娱乐向」 Hack for Fun">
 <meta name="twitter:description" content="QQ定位？WiFi渗透？">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20190505195139.png">
+<meta name="twitter:image" content="/img/20190505195139.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -275,27 +275,27 @@
 <p>Windows下的Wireshark配置出了问题不能识别网卡接口，之前一直只封包分析。想尝试从kali的Wireshark直接抓取物理机流量，未果，原因需要了解VMware的三种网络模式原理：</p>
 <p><a href="https://blog.csdn.net/Noob_f/article/details/51099040" target="_blank" rel="noopener">Vmware虚拟机三种网络模式详解</a></p>
 <p>重装WinPcap，net start npf启动npf服务(管理员CMD)，以管理员权限运行Wireshark，成功捕获网卡流量。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195139.png" alt></p>
+<p><img src="/img/20190505195139.png" alt></p>
 <p>大部分选项都是VMware的虚拟网卡，可以去适配器选项中找到正确的对应网卡，开始捕获所有流量。</p>
 <p>拨通QQ电话，这时候已经能看到大量的流量数据包正在传送。此时Ctrl+F，将“显示过滤器”改为“字符串”，“分组列表”改为“分组详情”，在搜索框中输入“020048”，QQ语音通话走的是UDP协议，而这串数字就是QQ UDP 72字节的报文头。当查找可以定位到数据流时，就可以停止捕获以避免产生过多的数据包。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195241.png" alt></p>
+<p><img src="/img/20190505195241.png" alt></p>
 <p>此时我们已经可以找到相应的数据包，停止捕获。10.255.213.136是我的本地局域网ip，而14.148.203.125即为骗子的IP。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195257.png" alt></p>
+<p><img src="/img/20190505195257.png" alt></p>
 <p>当对方没有接听通话时，也有一定几率得到对方的IP。有些类似NtrQQ这样的插件也可以实现，去年我试这个插件还需要在线传输文件，最近在52pojie上见到的版本只需要分享一首歌就好。</p>
 <p>得到IP后使用类似<a href="https://www.opengps.cn/" target="_blank" rel="noopener">OpenGPS</a>这样的高精度定位即可。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195338.png" alt></p>
+<p><img src="/img/20190505195338.png" alt></p>
 <p>精度确实不够高，但是再高就要被制裁了。且用且珍惜。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195359.png" alt></p>
+<p><img src="/img/20190505195359.png" alt></p>
 <h2 id="对某宾馆WiFi环境的简单测试"><a href="#对某宾馆WiFi环境的简单测试" class="headerlink" title="对某宾馆WiFi环境的简单测试"></a>对某宾馆WiFi环境的简单测试</h2><p>连接宾馆WiFi后直接在Android上用Fing进行快速主机发现。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195417.png" alt></p>
+<p><img src="/img/20190505195417.png" alt></p>
 <p>弱密码直接进入路由器管理界面，得到全部配置信息。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195434.png" alt></p>
+<p><img src="/img/20190505195434.png" alt></p>
 <p>后台功能存在漏洞，提供的ping命令接口处可以利用管道符执行其它命令。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195449.png" alt></p>
+<p><img src="/img/20190505195449.png" alt></p>
 <p>WiFi信号不太好，用WiFi分析仪分析一波，帮宾馆老板换个更好的信道，深藏功与名。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195524.png" alt></p>
+<p><img src="/img/20190505195524.png" alt></p>
 <h2 id="Aircrack-ng破解WPA2协议无线网络"><a href="#Aircrack-ng破解WPA2协议无线网络" class="headerlink" title="Aircrack-ng破解WPA2协议无线网络"></a>Aircrack-ng破解WPA2协议无线网络</h2><p>无线网络的加密协议分为WEP，WPA与WPA2，其中WEP使用一个静态的密钥来加密所有通信，由于安全性弱已经被淘汰；而WPA使用RC4加密、TKIP进行密钥管理和更新，WPA2使用更可靠的CCMP和AES(都是密码学课讲过的)，是现在广泛使用的协议。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195539.png" alt></p>
+<p><img src="/img/20190505195539.png" alt></p>
 <p>WPA/WPA2协议也并非绝对安全，比如路由器开启WPS(Wi-Fi Protected Setup)功能可以使用Reaver获取到PIN码从而获得密码：</p>
 <blockquote>
 <p><a href="https://code.google.com/archive/p/reaver-wps/wikis/README.wiki" target="_blank" rel="noopener">reaver-wps - Reaver README</a></p>
@@ -317,19 +317,19 @@ lo        no wireless extensions.
 eth0      no wireless extensions.
 </code></pre><p>历经一番搜索得出结论，Linux如果是物理机可以直接开工，装在虚拟机里则需要额外的无线网卡，通过USB接入。</p>
 <p>于是我从百宝箱中翻出来了一个(虚了焦的)360随身WiFi：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195625.png" alt></p>
+<p><img src="/img/20190505195625.png" alt></p>
 <p>不用关机直接热拔插，效果立竿见影：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195647.png" alt></p>
+<p><img src="/img/20190505195647.png" alt></p>
 <p>开启无线网卡wlan0的监听模式：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195658.png" alt></p>
+<p><img src="/img/20190505195658.png" alt></p>
 <p><code>airodump-ng wlan0mon</code>扫描附近无线网络：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195710.png" alt></p>
+<p><img src="/img/20190505195710.png" alt></p>
 <p>选取攻击目标，参数为MAC地址、信道数以及生成cap包名，开始嗅探：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195723.png" alt></p>
+<p><img src="/img/20190505195723.png" alt></p>
 <p>不要停止上一步的嗅探，在另一个shell中对连接WiFi的设备进行DOS攻击，使其断线重连，当上一步shell中出现WPA handshake时说明握手包抓取成功(仅仅看到cap包生成是不行的，有可能是个空包)：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195741.png" alt></p>
+<p><img src="/img/20190505195741.png" alt></p>
 <p>使用字典爆破cap包，图中有相关涉及的所有文件。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195758.png" alt></p>
+<p><img src="/img/20190505195758.png" alt></p>
 <p>KEY FOUND.</p>
 
       

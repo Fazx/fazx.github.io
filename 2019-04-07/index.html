@@ -23,15 +23,15 @@
 <meta property="og:site_name" content="Cosmic Fragments">
 <meta property="og:description" content="About rand() &amp;amp; mt_rand() in PHP.">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505212505.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505212518.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505212531.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505212548.png">
-<meta property="og:updated_time" content="2019-08-25T10:03:39.383Z">
+<meta property="og:image" content="/img/20190505212505.png">
+<meta property="og:image" content="/img/20190505212518.png">
+<meta property="og:image" content="/img/20190505212531.png">
+<meta property="og:image" content="/img/20190505212548.png">
+<meta property="og:updated_time" content="2024-05-29T07:04:22.106Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP中的随机数安全问题">
 <meta name="twitter:description" content="About rand() &amp;amp; mt_rand() in PHP.">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20190505212505.png">
+<meta name="twitter:image" content="/img/20190505212505.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -264,13 +264,13 @@
           
         <p>About <code>rand()</code> &amp; <code>mt_rand()</code> in PHP.<br><a id="more"></a></p>
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>西湖论剑杯线上预选赛线上赌场一题，明文攻击出来的hint中给了<code>/flag/seed.txt</code>以及一个字符串<code>code</code>，这里需要稍微脑洞一点想到seed是指随机数种子，以及Web页面上的code值是每小时更换的”随机数”：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505212505.png" alt></p>
+<p><img src="/img/20190505212505.png" alt></p>
 <p>我们利用<code>php_mt_seed</code>工具(C编写，速度很快)可以根据随机数碰撞出随机数的种子，从而获取flag：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505212518.png" alt></p>
+<p><img src="/img/20190505212518.png" alt></p>
 <p>以下是原理分析：</p>
 <hr>
 <h2 id="随机数的安全缺陷"><a href="#随机数的安全缺陷" class="headerlink" title="随机数的安全缺陷"></a>随机数的安全缺陷</h2><p>随机数广泛应用于生成验证码、Token、密钥等场景中，分为<strong>真随机数</strong>和<strong>伪随机数</strong>。我们通过算法(常用线性同余)和种子(常用时钟)得到的随机数属于伪随机数：当知道种子或已产生的随机数时，随机数序列是可以被预测的。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505212531.png" alt></p>
+<p><img src="/img/20190505212531.png" alt></p>
 <p>可以看到PHP Manual其实提示了生成随机数用于加密是不安全的，但是这个<strong>Caution</strong>不知为何只存在于英文版的PHP Manual中，中文版被遗漏了…这可能也是很多国内的开发应用出现过此缺陷的一个原因。</p>
 <p>PHP中生成随机数的函数有<code>rand()</code>和<code>mt_rand()</code>，它们分别对应<code>srand()</code>和<code>mt_strand()</code>两个用于播种随机数种子的函数。我们建立<code>rand.php</code>进行测试：</p>
 <pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
@@ -287,7 +287,7 @@
 <span class="token delimiter">?></span>
 </code></pre>
 <p>执行：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505212548.png" alt></p>
+<p><img src="/img/20190505212548.png" alt></p>
 <p>可以看出当随机数种子相同时，不管是<code>rand()</code>还是<code>mt_rand()</code>产生的随机数序列都是相同的，如果seed泄露则会导致随机数序列的泄露。当种子值为固定如<code>mt_srand(1000)</code>时，随机数形同虚设；而使用动态种子也未必安全，如：</p>
 <pre><code>//seed值较小，直接遍历爆破
 mt_srand(mt_rand(0,1000));

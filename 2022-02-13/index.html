@@ -22,16 +22,16 @@
 <meta property="og:site_name" content="Cosmic Fragments">
 <meta property="og:description" content="‮">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220111213554.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220106192035.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220106200604.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220106201908.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220314200646.png">
-<meta property="og:updated_time" content="2022-03-14T12:06:59.942Z">
+<meta property="og:image" content="/img/20220111213554.png">
+<meta property="og:image" content="/img/20220106192035.png">
+<meta property="og:image" content="/img/20220106200604.png">
+<meta property="og:image" content="/img/20220106201908.png">
+<meta property="og:image" content="/img/20220314200646.png">
+<meta property="og:updated_time" content="2024-05-29T07:04:37.551Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Websocket渗透测试指北">
 <meta name="twitter:description" content="‮">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20220111213554.png">
+<meta name="twitter:image" content="/img/20220111213554.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -267,7 +267,7 @@
 </ul>
 <p>这就导致如果服务端出现状态变化，客户端就要不断主动Request获取时不时的状态变化，即“<strong>轮询</strong>”。又由于HTTP协议是<strong>无状态的</strong>，没有记忆，websocket协议的出现就弥补了这些不足，其在通过HTTP协议进行初次握手后，可以双向主动发起会话，这在股票基金交易、聊天室/弹幕以及多人协同文档等场景下有着很好的应用。</p>
 <p>比如B站的弹幕：</p>
-<p><img src="http://0blog.test.upcdn.net/20220111213554.png" alt></p>
+<p><img src="/img/20220111213554.png" alt></p>
 <p>可以理解为HTTP 1.1是半双工模式，而后来的HTTP 2.0已经是全双工模式，允许服务端主动向客户端发送数据。这是后话了。</p>
 <p>更多细节，参见<a href="https://datatracker.ietf.org/doc/html/rfc6455" target="_blank" rel="noopener">RFC 6455</a></p>
 <h2 id="Websocket长啥样"><a href="#Websocket长啥样" class="headerlink" title="Websocket长啥样"></a>Websocket长啥样</h2><p>先看最初的HTTP握手包：</p>
@@ -288,19 +288,19 @@ Sec-WebSocket-Accept: X4IZXBk8yPzOx/jXop7coNUT+m8=
 </code></pre><p>服务器回应了 101 状态码表示切换协议，Upgrade到websocket。且服务端计算后回返回<code>Sec-WebSocket-Accept</code>作为加密后的key。</p>
 <p>接下来就开始了Websocket的传输，在完成一次HTTP握手后就已经建立了这一次持久连接，接下来的通讯就都是在这一次持久连接中的。</p>
 <p>之后的websocket传输内容如图：</p>
-<p><img src="http://0blog.test.upcdn.net/20220106192035.png" alt></p>
+<p><img src="/img/20220106192035.png" alt></p>
 <p>在Chrome的开发者工具中可以对Websocket内容单独过滤查看，但注意，<strong>必须要从一开始就开启开发者工具栏，抓到最初的HTTP握手包以后，才能看到后续的Message内容</strong>。比如你已经在看着直播，中途打开Network面板是看不到此时加载的Websocket Messages的。所以有些情况下你按F12看不到页面明明正在传输的内容，这时候刷新再重新看WS就好了。这也会是某些情况下，你在与页面交互却没有观察到任何网络请求的可能原因。</p>
 <p>在Chrome中，WS Messages的Data左侧有两种小箭头，绿色向上是客户端发给服务端的，红色向下是服务端发给客户端的，可以用这个来区分传统意义上的“请求”与“响应”。这里可以看到两种数据包的数量并不是相等的（可以先忽略ping/pong的心跳包）。</p>
-<p><img src="http://0blog.test.upcdn.net/20220106200604.png" alt></p>
+<p><img src="/img/20220106200604.png" alt></p>
 <p>同样的，Burp在获取到最初的握手包后也可以看到WS通信内容，也标注了传输方向。在较新版本的Burp中（1.7我看还不行）可以右键Send to repeater，此时终于可以重放包和改包，事情变得有意思了起来：</p>
-<p><img src="http://0blog.test.upcdn.net/20220106201908.png" alt></p>
+<p><img src="/img/20220106201908.png" alt></p>
 <p>点击Reconnect，箭头所指开关打开，表示此时已经建立了一个HTTP连接，可以进行WS数据的传输，左侧也区分了To server和To client的数据包。</p>
 <p>此外，python也可以使用<code>websockets</code>库与ws连接进行交互：</p>
 <pre><code>python3 -m websockets ws://0sec.com.cn/ws/
 </code></pre><h2 id="Websocket测什么"><a href="#Websocket测什么" class="headerlink" title="Websocket测什么"></a>Websocket测什么</h2><p><strong>如果通信是目的，那么协议只是手段</strong>——这点在车联网、IOT中也同样适用。当我们能获取到明文的数据包传输后，安全测试的内容也就大同小异了。</p>
 <p>简单的，</p>
 <p>发送的验证码被ws包传递到C/S端，从而可以任意重置用户密码：</p>
-<p><img src="http://0blog.test.upcdn.net/20220314200646.png" alt></p>
+<p><img src="/img/20220314200646.png" alt></p>
 <p>重放传输中的某一个包，无限抽奖：</p>
 <video src="http://0blog.test.upcdn.net/video/recording.mp4" controls="controls" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;"><br>your browser does not support the video tag<br></video>
 

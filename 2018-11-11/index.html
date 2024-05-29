@@ -23,31 +23,31 @@
 <meta property="og:site_name" content="Cosmic Fragments">
 <meta property="og:description" content="包含Linux运维/数据库设计/用户权限/安全维护…">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210325.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210345.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210400.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210425.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210440.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210453.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210507.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210519.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210539.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210621.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210635.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210650.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210704.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210738.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210751.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210803.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210829.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210841.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210854.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505210907.png">
-<meta property="og:updated_time" content="2019-05-19T11:29:30.603Z">
+<meta property="og:image" content="/img/20190505210325.png">
+<meta property="og:image" content="/img/20190505210345.png">
+<meta property="og:image" content="/img/20190505210400.png">
+<meta property="og:image" content="/img/20190505210425.png">
+<meta property="og:image" content="/img/20190505210440.png">
+<meta property="og:image" content="/img/20190505210453.png">
+<meta property="og:image" content="/img/20190505210507.png">
+<meta property="og:image" content="/img/20190505210519.png">
+<meta property="og:image" content="/img/20190505210539.png">
+<meta property="og:image" content="/img/20190505210621.png">
+<meta property="og:image" content="/img/20190505210635.png">
+<meta property="og:image" content="/img/20190505210650.png">
+<meta property="og:image" content="/img/20190505210704.png">
+<meta property="og:image" content="/img/20190505210738.png">
+<meta property="og:image" content="/img/20190505210751.png">
+<meta property="og:image" content="/img/20190505210803.png">
+<meta property="og:image" content="/img/20190505210829.png">
+<meta property="og:image" content="/img/20190505210841.png">
+<meta property="og:image" content="/img/20190505210854.png">
+<meta property="og:image" content="/img/20190505210907.png">
+<meta property="og:updated_time" content="2024-05-29T07:04:05.998Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP博客管理系统开发全记录">
 <meta name="twitter:description" content="包含Linux运维/数据库设计/用户权限/安全维护…">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20190505210325.png">
+<meta name="twitter:image" content="/img/20190505210325.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -279,7 +279,7 @@
       
           
         <p>包含Linux运维/数据库设计/用户权限/安全维护…<br><a id="more"></a></p>
-<p><img src="http://0blog.test.upcdn.net/20190505210325.png" alt></p>
+<p><img src="/img/20190505210325.png" alt></p>
 <p>本项目是Web安全课的课程设计项目，以php语言不依托任何后端框架开发的一个博客管理系统，环境为Ubuntu 16.04TLS + Apache2 + Mysql。实现了基本的博客功能：注册、登录、发表博客、评论、管理博客、封禁用户（管理员）；完善了安全防护措施：可防御SQL注入、XSS攻击、越权攻击、暴力破解；全站使用markdown 编辑器和解析器，主页显示文章分类、最新文章以及博文的预览，进行了简单的搜索引擎优化和移动端美化。</p>
 <blockquote>
 <p><a href="https://github.com/Fazx/SdusterBlog" target="_blank" rel="noopener">Github地址</a></p>
@@ -303,7 +303,7 @@ iptables -I INPUT -s 123.4.5.1/24 -j DROP
 <p><code>awk -F: &#39;{if($3==0)print $1}&#39; /etc/passwd</code>　　//查看root权限的账号</p>
 <p>查看页面访问排名前十的IP</p>
 <p><code>cat /var/log/apache2/access.log  | cut -f1 -d &quot; &quot; | sort | uniq -c | sort -k 1 -r | head -10</code></p>
-<p><img src="http://0blog.test.upcdn.net/20190505210345.png" alt></p>
+<p><img src="/img/20190505210345.png" alt></p>
 <p>查看页面访问排名前十的URL</p>
 <p><code>cat /var/log/apache2/access.log  | cut -f4 -d &quot; &quot; | sort | uniq -c | sort -k 1 -r | head -10</code></p>
 <p><strong>备份Web目录:</strong></p>
@@ -329,7 +329,7 @@ mysqldump --all-databases &gt; back.sql　　　　//备份所有数据库
 </code></pre><p>去除<code>Indexes</code>即关闭列目录。</p>
 <p><strong>要善于用Apache日志(/var/log/apache2/error.log)解决网站报错、发现用户恶意行为。</strong></p>
 <p>如图有人在恶意扫描我们的Web目录：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505210400.png" alt></p>
+<p><img src="/img/20190505210400.png" alt></p>
 <h2 id="php7"><a href="#php7" class="headerlink" title="php7"></a>php7</h2><p><code>sudo apt-get install php7.0</code></p>
 <p>安装php7 module进行解析</p>
 <p><code>sudo apt-get install libapache2-mod-php7.0</code></p>
@@ -453,7 +453,7 @@ ALTER TABLE articles ADD article_click INT(10) NOT NULL DEFAULT &#39;0&#39; AFTE
 <p>以上见<a href="http://47.101.56.247/detail.php?articleid=2" target="_blank" rel="noopener">《服务端LAMP环境配置、运行与维护》</a>。</p>
 <h1 id="代码安全"><a href="#代码安全" class="headerlink" title="代码安全"></a>代码安全</h1><p>主要防止SQL注入和XSS漏洞，防止了简单的越权漏洞，防止暴力破解攻击。<strong>遵循一个原则：不相信用户的任何输入。</strong></p>
 <h2 id="确认用户session防止越权"><a href="#确认用户session防止越权" class="headerlink" title="确认用户session防止越权"></a>确认用户session防止越权</h2><p>大量使用了 <code>$_SESSION</code> 中数据，确定是否为管理员在进行操作，主要有 ./manageuser.php、 ./delete.php、 ./requires/ban.php、 ./requires/restore.php </p>
-<p><img src="http://0blog.test.upcdn.net/20190505210425.png" alt></p>
+<p><img src="/img/20190505210425.png" alt></p>
 <h2 id="防SQL注入"><a href="#防SQL注入" class="headerlink" title="防SQL注入"></a>防SQL注入</h2><p>主要分为确认参数安全，大体分为查询时的安全和插入时的安全，提交参数主要分为两类：</p>
 <h3 id="参数为-int-型"><a href="#参数为-int-型" class="headerlink" title="参数为 int 型"></a>参数为 int 型</h3><p>主要出现在查看文章的URL处<br><code>http://47.101.56.247/detail.php?articleid=16</code><br>此时参数应该为int整形，所以没必要使用复杂的过滤，直接使用 <code>is_numeric()</code> 函数判断即可，如果数据不符合或未提交完成参数， PHP页面返回错误，不进行数据库的操作。</p>
 <pre><code># 如果未带参数跳转则返回首页 
@@ -466,8 +466,8 @@ if(!isset($_GET[&#39;articleid&#39;]) || !$_GET[&#39;articleid&#39;] || !is_nume
 <li>去除空白符(<code>trim()</code>函数)；</li>
 <li>在登录和注册页增加SQL过滤函数：</li>
 </ul>
-<p><img src="http://0blog.test.upcdn.net/20190505210440.png" alt></p>
-<p><img src="http://0blog.test.upcdn.net/20190505210453.png" alt></p>
+<p><img src="/img/20190505210440.png" alt></p>
+<p><img src="/img/20190505210453.png" alt></p>
 <ul>
 <li>最后使用 <code>htmlspecialchars(addslashes($yourworld),ENT_QUOTES,&#39;UTF-8&#39;)</code>处理后存入数据库；</li>
 </ul>
@@ -496,9 +496,9 @@ $articledetails = htmlspecialchars(addslashes($articledetails),ENT_QUOTES,&#39;U
 </tbody>
 </table>
 <p>效果验证：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505210507.png" alt></p>
+<p><img src="/img/20190505210507.png" alt></p>
 <p>文章标题及详情处不存在XSS；</p>
-<p><img src="http://0blog.test.upcdn.net/20190505210519.png" alt></p>
+<p><img src="/img/20190505210519.png" alt></p>
 <p>评论处不存在XSS。</p>
 <h2 id="登录验证码"><a href="#登录验证码" class="headerlink" title="登录验证码"></a>登录验证码</h2><p>小时候我一直以为，验证码是网络的另一端有人在肉眼比对，现在我明白不用了，因为它本来就是由我生成的：</p>
 <pre><code>$str = Array(); 
@@ -511,15 +511,15 @@ for($i = 0;$i &lt; 4;$i++){
 <pre><code>if(isset($_POST[&#39;username&#39;]) &amp;&amp; isset($_POST[&#39;password&#39;]) &amp;&amp; isset($_POST[&#39;verify&#39;])){
       if($_POST[&#39;verify&#39;] == $_SESSION[&#39;vcode&#39;]){
 </code></pre><p>传递变量，校验即可。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505210539.png" alt></p>
+<p><img src="/img/20190505210539.png" alt></p>
 <h2 id="防止弱口令登录"><a href="#防止弱口令登录" class="headerlink" title="防止弱口令登录"></a>防止弱口令登录</h2><p>在注册处添加一句正则判断：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505210621.png" alt></p>
+<p><img src="/img/20190505210621.png" alt></p>
 <p>前端加placeholder提示用户，增强体验：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505210635.png" alt></p>
-<h2 id="杜绝密码明文存储"><a href="#杜绝密码明文存储" class="headerlink" title="杜绝密码明文存储"></a>杜绝密码明文存储</h2><p><img src="http://0blog.test.upcdn.net/20190505210650.png" alt></p>
+<p><img src="/img/20190505210635.png" alt></p>
+<h2 id="杜绝密码明文存储"><a href="#杜绝密码明文存储" class="headerlink" title="杜绝密码明文存储"></a>杜绝密码明文存储</h2><p><img src="/img/20190505210650.png" alt></p>
 <p>单次md5的加密现在已经比较脆弱了，可以考虑加salt或其它加密算法。</p>
 <h1 id="网站备份"><a href="#网站备份" class="headerlink" title="网站备份"></a>网站备份</h1><p>利用Linux的例行性排程(<code>crontab</code>)定时备份数据库文件与网站:</p>
-<p><img src="http://0blog.test.upcdn.net/20190505210704.png" alt></p>
+<p><img src="/img/20190505210704.png" alt></p>
 <h3 id="sh-脚本编写"><a href="#sh-脚本编写" class="headerlink" title=".sh 脚本编写"></a>.sh 脚本编写</h3><pre><code>#!/bin/bash
 # /backup/backupday.sh
 # =========================================================
@@ -552,10 +552,10 @@ systemctl start apache2.service
 <pre><code>user_type TINYINT(3) NOT NULL DEFAULT &#39;0&#39;,  # 0 为普通用户，1 为管理员
 user_lock TINYINT(3) NOT NULL DEFAULT &#39;0&#39;,  # 用户违规，则锁定
 </code></pre><p>普通用户在登录状态下可以发表文章及删除自己发表的文章，管理员在登录状态下可以<strong>删除任意文章</strong>以及<strong>封禁用户</strong>。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505210738.png" alt></p>
+<p><img src="/img/20190505210738.png" alt></p>
 <p>进行发表/删除文章/用户时始终先判断登录状态和当前权限:</p>
-<p><img src="http://0blog.test.upcdn.net/20190505210751.png" alt></p>
-<p><img src="http://0blog.test.upcdn.net/20190505210803.png" alt></p>
+<p><img src="/img/20190505210751.png" alt></p>
+<p><img src="/img/20190505210803.png" alt></p>
 <h1 id="session相关"><a href="#session相关" class="headerlink" title="session相关"></a>session相关</h1><h2 id="session创建"><a href="#session创建" class="headerlink" title="session创建"></a>session创建</h2><p>session在login.php中创建，设置的变量有用户名、登录状态、用户类型和用户id。同时将验证码$vcode的值也写进了session中进行比对。</p>
 <pre><code>$_SESSION[&quot;username&quot;] = $_POST[&quot;username&quot;];
 $_SESSION[&quot;isLogin&quot;] = 1;
@@ -572,9 +572,9 @@ session_destroy();
 echo &#39;注销成功&#39;;
 header(&#39;refresh:1;url=./index.php&#39;);
 </code></pre><h2 id="session存放位置"><a href="#session存放位置" class="headerlink" title="session存放位置"></a>session存放位置</h2><p>经过序列化后的session数据存放在<code>/var/lib/php/sessions</code></p>
-<p><img src="http://0blog.test.upcdn.net/20190505210829.png" alt></p>
+<p><img src="/img/20190505210829.png" alt></p>
 <h1 id="线上调试、其他特性优化"><a href="#线上调试、其他特性优化" class="headerlink" title="线上调试、其他特性优化"></a>线上调试、其他特性优化</h1><h2 id="返回HTTP错误状态码-5xx"><a href="#返回HTTP错误状态码-5xx" class="headerlink" title="返回HTTP错误状态码(5xx)"></a>返回HTTP错误状态码(5xx)</h2><p>5xx的HTTP状态码代表服务器错误，此时要学会利用<strong>Apache日志</strong>(/var/log/apache2/error.log)进行分析排错，这种情况大多是PHP语法错误:</p>
-<p><img src="http://0blog.test.upcdn.net/20190505210841.png" alt></p>
+<p><img src="/img/20190505210841.png" alt></p>
 <h2 id="网页显示错乱-不全"><a href="#网页显示错乱-不全" class="headerlink" title="网页显示错乱/不全"></a>网页显示错乱/不全</h2><p>大多情况下是css js HTML的 编写错误，如引用缺失等。使用F12<strong>开发者工具</strong>可以很清楚地定位到问题，或者查看源代码。</p>
 <h2 id="一般排错"><a href="#一般排错" class="headerlink" title="一般排错"></a>一般排错</h2><p>类似于编程中的“<strong>单步调试法</strong>”，一步一步跟踪程序执行的流程，根据变量的值，找到错误的原因。在Web系统的调试过程中，将COOKIE、SESSION或各种变量用echo，print_r打印出来，确定值的变化进行排错。</p>
 <p>另：Session值存在<code>/var/lib/php/session</code>中，必要时可以直接查看session文件内容。</p>
@@ -584,7 +584,7 @@ header(&#39;refresh:1;url=./index.php&#39;);
 <h2 id="代码复用"><a href="#代码复用" class="headerlink" title="代码复用"></a>代码复用</h2><p>为了减少冗余的代码，方便管理，/incluede下的header.php、articleheader.php、connect.php等“组件”都是一次写好多处使用。如connect.php负责与数据库的连接操作，写好这一个组件，之后与数据库连接时只需要添加</p>
 <p><code>require &#39;./includes/connect.php&#39;;</code></p>
 <p>即可；header.php中包含了Web页面顶部的LOGO、用户登入登出、搜索框的代码实现，在其它页面php中也仅需要包含过去。类似的，每个页面右侧显示的最新文章、文章分类依赖于pageright.php；页面移动端的显示效果依赖于mobile.php。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505210854.png" alt></p>
+<p><img src="/img/20190505210854.png" alt></p>
 <h2 id="美化-ico、移动端"><a href="#美化-ico、移动端" class="headerlink" title="美化(ico、移动端)"></a>美化(ico、移动端)</h2><ul>
 <li>网站图标：</li>
 </ul>
@@ -600,7 +600,7 @@ header(&#39;refresh:1;url=./index.php&#39;);
 <ul>
 <li>顶部栏(header.php)、侧边栏(pageright.php)使用户能方便跳转页面</li>
 </ul>
-<p><img src="http://0blog.test.upcdn.net/20190505210907.png" alt></p>
+<p><img src="/img/20190505210907.png" alt></p>
 <ul>
 <li>阅读数量显示，每点击一次阅读数+1</li>
 </ul>

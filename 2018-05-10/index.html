@@ -23,13 +23,13 @@
 <meta property="og:site_name" content="Cosmic Fragments">
 <meta property="og:description" content="Xdebug是一个PHP扩展，为 PHP 脚本与调试器客户端提供了一个接口，可以远程调试服务器上的PHP代码，使用DBGp协议进行交互。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505194516.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505194619.png">
-<meta property="og:updated_time" content="2019-05-05T11:48:40.655Z">
+<meta property="og:image" content="/img/20190505194516.png">
+<meta property="og:image" content="/img/20190505194619.png">
+<meta property="og:updated_time" content="2024-05-29T07:01:06.469Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于Xdebug的那些事儿">
 <meta name="twitter:description" content="Xdebug是一个PHP扩展，为 PHP 脚本与调试器客户端提供了一个接口，可以远程调试服务器上的PHP代码，使用DBGp协议进行交互。">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20190505194516.png">
+<meta name="twitter:image" content="/img/20190505194516.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -266,14 +266,14 @@
 <h2 id="Xdebug的工作原理"><a href="#Xdebug的工作原理" class="headerlink" title="Xdebug的工作原理"></a>Xdebug的工作原理</h2><p>IDE(如phpstorm)已经集成了一个遵循DBGp的Xdebug插件，当开启它的时候，会在本地开一个Xdebug调试服务，监听在调试端口(默认是9000)上，这个服务会监听所有到9000端口的连接。</p>
 <p>当浏览器发送一个带<code>XDEBUG_SESSION_START</code>的参数的请求到服务器时，服务器接手后将其转到后端的php处理，如果php开启了Xdebug模块，则会将debug信息转发到客户端IP的IDE的调试端口上。</p>
 <p>Xdebug有两种调试模式，一种是固定IP调试：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505194516.png" alt></p>
+<p><img src="/img/20190505194516.png" alt></p>
 <p>这是Xdebug的默认模式，参数为</p>
 <blockquote>
 <p><code>xdebug.remote_connect_back</code> = 0</p>
 </blockquote>
 <p>这种情况下，Xdebug 在收到调试通知时会读取配置 <code>xdebug.remote_host</code> 和 <code>xdebug.remote_port</code> ，默认是向 localhost:9000发送通知，这种方式只适合单一客户端开发调试。</p>
 <p>另一种是动态IP调试：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505194619.png" alt></p>
+<p><img src="/img/20190505194619.png" alt></p>
 <blockquote>
 <p><code>xdebug.remote_connect_back</code> = 1</p>
 </blockquote>

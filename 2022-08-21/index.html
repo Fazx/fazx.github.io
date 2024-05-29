@@ -22,27 +22,27 @@
 <meta property="og:site_name" content="Cosmic Fragments">
 <meta property="og:description" content="‮">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220821001111.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220821001404.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220821001621.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220821171139.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220821002959.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220821003533.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220816155023.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220816155131.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220821005854.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220821013752.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220821115435.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220821165633.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220825195329.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220821172324.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220821174441.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20220825195116.png">
-<meta property="og:updated_time" content="2022-08-30T11:05:36.705Z">
+<meta property="og:image" content="/img/20220821001111.png">
+<meta property="og:image" content="/img/20220821001404.png">
+<meta property="og:image" content="/img/20220821001621.png">
+<meta property="og:image" content="/img/20220821171139.png">
+<meta property="og:image" content="/img/20220821002959.png">
+<meta property="og:image" content="/img/20220821003533.png">
+<meta property="og:image" content="/img/20220816155023.png">
+<meta property="og:image" content="/img/20220816155131.png">
+<meta property="og:image" content="/img/20220821005854.png">
+<meta property="og:image" content="/img/20220821013752.png">
+<meta property="og:image" content="/img/20220821115435.png">
+<meta property="og:image" content="/img/20220821165633.png">
+<meta property="og:image" content="/img/20220825195329.png">
+<meta property="og:image" content="/img/20220821172324.png">
+<meta property="og:image" content="/img/20220821174441.png">
+<meta property="og:image" content="/img/20220825195116.png">
+<meta property="og:updated_time" content="2024-05-29T07:03:54.124Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Pass the Hash再思考：场景、补丁与监测">
 <meta name="twitter:description" content="‮">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20220821001111.png">
+<meta name="twitter:image" content="/img/20220821001111.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -280,14 +280,14 @@
 <blockquote>
 <p>攻击机：192.168.146.76 / Windows Server 2019<br>被攻击机：192.168.146.78 / Windows Server 2012 Standard(Build 9200)<br>均已加域，Administrator为本地管理员账号，拥有相同的密码</p>
 </blockquote>
-<p><img src="http://0blog.test.upcdn.net/20220821001111.png" alt></p>
+<p><img src="/img/20220821001111.png" alt></p>
 <p>在2019这台上用本地管理员Administrator，mimikatz读到Administrator的NTLM值，直接PTH：</p>
 <pre><code>mimikatz &quot;privilege::debug&quot; &quot;sekurlsa::pth /user:administrator /domain:OCDCHINA /ntlm:xxxxxxxxxxx&quot;
-</code></pre><p><img src="http://0blog.test.upcdn.net/20220821001404.png" alt></p>
-<p><img src="http://0blog.test.upcdn.net/20220821001621.png" alt></p>
+</code></pre><p><img src="/img/20220821001404.png" alt></p>
+<p><img src="/img/20220821001621.png" alt></p>
 <p>从结果来看PTH是成功的，文件列出了，用PsExec也能获取到受害机的权限</p>
 <p>但是思考这个攻击的场景，是使用本地管理员攻击，获取到的另一个本地管理员权限，虽然这两台都加域了，但其实整个攻击流程和域没有什么关系。并且这两个Administrator账号密码其实是相同的，直接用PsExec也能相互获取到权限，并不需要打这一个PTH。</p>
-<p><img src="http://0blog.test.upcdn.net/20220821171139.png" alt></p>
+<p><img src="/img/20220821171139.png" alt></p>
 <p>（PsExec是通过SMB服务连接文件共享，上传文件，使用SCM创建/启动服务来获取权限的，详细原理见<a href="https://mp.weixin.qq.com/s?__biz=MzkxNDMxMTQyMg==&amp;mid=2247493127&amp;idx=1&amp;sn=a0b0e55b42e6623dc5ded37504797a15" target="_blank" rel="noopener">psexec原理分析和实现</a>，作者：想做嘉然小姐的狗）</p>
 <h2 id="更好的攻击场景"><a href="#更好的攻击场景" class="headerlink" title="更好的攻击场景"></a>更好的攻击场景</h2><p>更好的攻击场景，我理解应该是拿下一台<strong>域内机器</strong>的权限（比如获取到webshell）后，提权到Adninistrator或SYSTEM这样的<strong>高权限</strong>，然后从这台机器上试图抓到<strong>域管账号哈希</strong>，使用这个哈希控制任意的域内终端。</p>
 <h3 id="缓存域管NTLM-HASH"><a href="#缓存域管NTLM-HASH" class="headerlink" title="缓存域管NTLM HASH"></a>缓存域管NTLM HASH</h3><p>为了抓到NTLM HASH进行下一步横向，这里一共模拟了4种域管账号认证过程，看看是否会将NTLM HASH缓存到本地：</p>
@@ -296,47 +296,47 @@
 </blockquote>
 <p>从域控使用域管账号3389登录攻击机（横移起点）</p>
 <p>4624 <code>Logon Type=3(Network)</code></p>
-<p><img src="http://0blog.test.upcdn.net/20220821002959.png" alt></p>
+<p><img src="/img/20220821002959.png" alt></p>
 <blockquote>
 <p>SMB：抓不到</p>
 </blockquote>
 <p>先开启SMB服务，可以直接开启一个文件共享，然后从域控</p>
 <pre><code>\\192.168.146.56\c$
 </code></pre><p>注意这里要输入IP而不是主机名， IP会使用NTLM协议，而主机名会使用Kerberos。</p>
-<p><img src="http://0blog.test.upcdn.net/20220821003533.png" alt></p>
+<p><img src="/img/20220821003533.png" alt></p>
 <p>从Windows Security日志可以看到4624登录成功中的详情也是NTLM认证，但是很奇怪这种方式抓不到缓存的哈希。</p>
 <blockquote>
 <p>Windows Credential Manager：抓到密码明文</p>
 </blockquote>
-<p><img src="http://0blog.test.upcdn.net/20220816155023.png" alt></p>
+<p><img src="/img/20220816155023.png" alt></p>
 <blockquote>
 <p>加域后重启前：抓到密码明文</p>
 </blockquote>
-<p><img src="http://0blog.test.upcdn.net/20220816155131.png" alt></p>
+<p><img src="/img/20220816155131.png" alt></p>
 <p>注意：以上所有的认证过程发生在DC和攻击机这两台2019之间，所以不存在2012低于R2版本导致明文存储的问题。</p>
 <h3 id="攻击流程复现"><a href="#攻击流程复现" class="headerlink" title="攻击流程复现"></a>攻击流程复现</h3><blockquote>
 <p>DC：192.168.146.76 / Windows Server 2019<br>攻击机：192.168.146.73(56) / Windows Server 2019 （横向移动的起点）<br>受害机：192.168.146.78 / Winodows Server 2012 Standard(Build 9200)<br>域管账号adminE*</p>
 </blockquote>
 <p>域管3389登录攻击机以后，在攻击机本地缓存了NTLM HASH</p>
-<p><img src="http://0blog.test.upcdn.net/20220821005854.png" alt></p>
+<p><img src="/img/20220821005854.png" alt></p>
 <p>模拟内网中横向移动的场景，攻击者在这台2019上抓到哈希且无法解出明文的时候使用PTH。由于这里抓到的是域管账号的哈希，攻击者可以使用其登录任意一台域内主机，即获取到了整个域的权限。</p>
-<p><img src="http://0blog.test.upcdn.net/20220821013752.png" alt></p>
+<p><img src="/img/20220821013752.png" alt></p>
 <p>当然，更直接的利用是直接打域控。</p>
 <h2 id="关于KB22871997补丁"><a href="#关于KB22871997补丁" class="headerlink" title="关于KB22871997补丁"></a>关于KB22871997补丁</h2><p>在<a href="https://xz.aliyun.com/t/9842#toc-9" target="_blank" rel="noopener">谭谈哈希传递那些世人皆知的事</a> 这篇文章里作者写的：</p>
-<p><img src="http://0blog.test.upcdn.net/20220821115435.png" alt></p>
+<p><img src="/img/20220821115435.png" alt></p>
 <blockquote>
 <p>“PTH杀手”的更新使本地帐号不再可以用于远程接入系统…无法通过本地管理员权限对远程计算机…</p>
 </blockquote>
 <p>但其实通过我们上面对攻击场景的思考可以知道，PTH攻击的场景应该是用<strong>域管而非本地管理员</strong>的权限做横向移动，包括他这篇文章里复现的也是用域管账号打PTH，所以1997这个补丁对这种情况的攻击并不起作用。1997补丁最主要的作用就是使内存中默认不再缓存明文密码，而这个作用对哈希传递也没有影响，相反恰恰是给了PTH真正的应用价值，即在明文口令未知的情况下做内网横向移动。</p>
 <p>此外他第二段写的SID 500的账号是例外，以及<a href="https://xz.aliyun.com/t/8117#toc-11" target="_blank" rel="noopener">PTH的”转折点”</a>这里也写的1997补丁之后没法使用SID非500的账户做PTH，但是我实测了一下还是可以的，在Server2012上使用本地管理员账号，读到SID非500的域管账号，利用这个仍然可以做PTH的横移（这里打的是Server2019）：</p>
-<p><img src="http://0blog.test.upcdn.net/20220821165633.png" alt></p>
+<p><img src="/img/20220821165633.png" alt></p>
 <p>获得的是域管账号权限：</p>
-<p><img src="http://0blog.test.upcdn.net/20220825195329.png" alt></p>
+<p><img src="/img/20220825195329.png" alt></p>
 <p>所以究其根本，Pass the Hash是NTLM协议挑战/响应(challenge/response)机制的缺陷，只要使用了NTLM协议，用户容易遭受Pass the Hash攻击的问题就会一直存在。微软也只能建议使用更安全的Kerberos协议来代替NTLM协议。</p>
-<h2 id="基于Windows（原生）日志的攻击监测"><a href="#基于Windows（原生）日志的攻击监测" class="headerlink" title="基于Windows（原生）日志的攻击监测"></a>基于Windows（原生）日志的攻击监测</h2><p><img src="http://0blog.test.upcdn.net/20220821172324.png" alt></p>
+<h2 id="基于Windows（原生）日志的攻击监测"><a href="#基于Windows（原生）日志的攻击监测" class="headerlink" title="基于Windows（原生）日志的攻击监测"></a>基于Windows（原生）日志的攻击监测</h2><p><img src="/img/20220821172324.png" alt></p>
 <p>上图分别是从攻击源、目的和域控三个位置，汇总的在正常NTLM认证过程中和PTH攻击过程中产生的Windows事件日志。<a href="https://blog.netwrix.com/2021/11/30/how-to-detect-pass-the-hash-attacks/" target="_blank" rel="noopener">来自</a></p>
 <p>从蓝队视角做基于日志的攻击行为监测，可以看到受害终端在经历PTH攻击后产生的日志，与一次正常的NTLM认证过程是完全一致的（4624 <code>Logon Type=3</code> &amp; 4672），因此从受害方并不能感知到此次NTLM认证过程是一次PTH攻击。DC的日志上相应都产生了4776验证账户凭据的事件，区别是正常过程还会跟两条Kerberos的验证请求。也不是很好做，比较直观的还是应该从攻击源看4624的<code>Logon Type=9</code>的日志，在我的环境里面也找到了这一条的详细内容：</p>
-<p><img src="http://0blog.test.upcdn.net/20220821174441.png" alt></p>
+<p><img src="/img/20220821174441.png" alt></p>
 <pre><code>An account was successfully logged on.
 
 Subject:
@@ -384,7 +384,7 @@ Detailed Authentication Information:
 | table  _time Account_Name Source_Network_Address Security_ID ComputerName Keywords       
 | sort  -_time
 </code></pre><p>4672日志：</p>
-<p><img src="http://0blog.test.upcdn.net/20220825195116.png" alt></p>
+<p><img src="/img/20220825195116.png" alt></p>
 <p>4672日志里就只有进行攻击的本地管理员账户，没有冒充的域管账户，如果要监测的话只能针对本地管理员而非SYSTEM的4672事件做监控。</p>
 <p>可能会有点反直觉哪有从攻击源监测攻击的，但是这已经是右移到了内网的横向阶段，所以其实对Source Host的监测是完全可以做的。</p>
 <p>当然，我这里写的是基于原生Windows日志的监测，如果装了一些Agent比如Sysmon，那能产生进程调用日志的时候思路就更多更简单了。</p>

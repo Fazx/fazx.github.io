@@ -22,15 +22,15 @@
 <meta property="og:site_name" content="Cosmic Fragments">
 <meta property="og:description" content="设置HTTP响应头是在浏览器层面上提高Web安全性的一种方法，相比代码层的变动要更简单方便。由于HTTP协议是一个可扩展的协议，这些内容也在不断地变化，本文会试着做一个较为全面的总结。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20200209173910.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20200209223115.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20200209223705.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20200209223309.png">
-<meta property="og:updated_time" content="2020-02-10T05:45:27.040Z">
+<meta property="og:image" content="/img/20200209173910.png">
+<meta property="og:image" content="/img/20200209223115.png">
+<meta property="og:image" content="/img/20200209223705.png">
+<meta property="og:image" content="/img/20200209223309.png">
+<meta property="og:updated_time" content="2024-05-29T07:00:36.087Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安全相关HTTP响应头解读、配置、示例与检测">
 <meta name="twitter:description" content="设置HTTP响应头是在浏览器层面上提高Web安全性的一种方法，相比代码层的变动要更简单方便。由于HTTP协议是一个可扩展的协议，这些内容也在不断地变化，本文会试着做一个较为全面的总结。">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20200209173910.png">
+<meta name="twitter:image" content="/img/20200209173910.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -260,7 +260,7 @@
         <p>设置HTTP响应头是在浏览器层面上提高Web安全性的一种方法，相比代码层的变动要更简单方便。由于HTTP协议是一个可扩展的协议，这些内容也在不断地变化，本文会试着做一个较为全面的总结。<br><a id="more"></a></p>
 <p>关于众多浏览器的对响应头的支持、兼容性问题可以在<a href="https://caniuse.com/" target="_blank" rel="noopener">CANIUSE网站</a>搜索了解，示例：</p>
 <p><a href="https://caniuse.com/#feat=referrer-policy" target="_blank" rel="noopener">https://caniuse.com/#feat=referrer-policy</a></p>
-<p><img src="http://0blog.test.upcdn.net/20200209173910.png" alt></p>
+<p><img src="/img/20200209173910.png" alt></p>
 <p>部分响应头会有很细节的点无法展开总结，可以参考文末的Web文档进一步了解。</p>
 <h2 id="响应头解读与示例"><a href="#响应头解读与示例" class="headerlink" title="响应头解读与示例"></a>响应头解读与示例</h2><h3 id="HSTS"><a href="#HSTS" class="headerlink" title="HSTS"></a>HSTS</h3><p><strong>HTTP严格传输安全(HTTP Strict Transport Security)</strong></p>
 <p>本响应头，一言以蔽之，是为了防止非HTTPS连接带来的安全隐患。在设置<code>Strict-Transport-Security</code>响应头后，浏览器将会强制所有的HTTP请求使用HTTPS连接，且在证书错误或到期的情况下拒绝用户访问网站。</p>
@@ -625,11 +625,11 @@ x-content-type-options: nosniff
 x-frame-options: DENY
 x-xss-protection: 0
 </code></pre><h2 id="设置检测工具"><a href="#设置检测工具" class="headerlink" title="设置检测工具"></a>设置检测工具</h2><p><a href="https://securityheaders.com/" target="_blank" rel="noopener">Analyse your HTTP response headers</a>  在线分析</p>
-<p><img src="http://0blog.test.upcdn.net/20200209223115.png" alt></p>
+<p><img src="/img/20200209223115.png" alt></p>
 <p><a href="http://cyh.herokuapp.com/cyh" target="_blank" rel="noopener">Check Your HTTP Security Headers</a>  在线分析</p>
-<p><img src="http://0blog.test.upcdn.net/20200209223705.png" alt></p>
+<p><img src="/img/20200209223705.png" alt></p>
 <p><a href="https://chrome.google.com/webstore/detail/recx-security-analyser/ljafjhbjenhgcgnikniijchkngljgjda" target="_blank" rel="noopener">Recx Security Analyser</a>  Chrome插件</p>
-<p><img src="http://0blog.test.upcdn.net/20200209223309.png" alt></p>
+<p><img src="/img/20200209223309.png" alt></p>
 <hr>
 <p>参考</p>
 <ul>

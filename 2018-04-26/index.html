@@ -23,13 +23,13 @@
 <meta property="og:site_name" content="Cosmic Fragments">
 <meta property="og:description" content="PHP is the best language in the world">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505194140.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505194239.png">
-<meta property="og:updated_time" content="2019-05-05T11:43:38.909Z">
+<meta property="og:image" content="/img/20190505194140.png">
+<meta property="og:image" content="/img/20190505194239.png">
+<meta property="og:updated_time" content="2024-05-29T07:04:14.214Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP弱类型&amp;&amp;md5碰撞总结">
 <meta name="twitter:description" content="PHP is the best language in the world">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20190505194140.png">
+<meta name="twitter:image" content="/img/20190505194140.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -307,7 +307,7 @@ $test=1+&quot;-1.3e3&quot;; //$test=-1299(float)
 $test=1+&quot;bob-1.3e3&quot;;//$test=1(int)
 ?&gt;
 </code></pre><p>附一个图：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505194140.png" alt></p>
+<p><img src="/img/20190505194140.png" alt></p>
 <hr>
 <h2 id="2-Hash比较缺陷-md5绕过"><a href="#2-Hash比较缺陷-md5绕过" class="headerlink" title="2.Hash比较缺陷(md5绕过)"></a>2.Hash比较缺陷(md5绕过)</h2><h3 id="Level-1"><a href="#Level-1" class="headerlink" title="Level 1"></a>Level 1</h3><p>来看这段代码：</p>
 <pre><code>&lt;?php
@@ -415,7 +415,7 @@ if __name__ == &#39;__main__&#39;:
 <p>文件传递时可使用Burpsuite的paste from files功能。</p>
 <p>字符串传参时要注意不能直接POST参数的值，因为在传递时会被二次url编码，应该进行一次urldecode后再传递。</p>
 <p>如图：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505194239.png" alt></p>
+<p><img src="/img/20190505194239.png" alt></p>
 <hr>
 <h2 id="JSON比较绕过"><a href="#JSON比较绕过" class="headerlink" title="JSON比较绕过"></a>JSON比较绕过</h2><pre><code>&lt;?php
 

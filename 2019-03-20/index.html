@@ -23,19 +23,19 @@
 <meta property="og:site_name" content="Cosmic Fragments">
 <meta property="og:description" content="-">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505211818.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505211829.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505212406.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505211909.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505212013.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505212025.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505212035.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505212051.png">
-<meta property="og:updated_time" content="2019-05-05T13:24:41.293Z">
+<meta property="og:image" content="/img/20190505211818.png">
+<meta property="og:image" content="/img/20190505211829.png">
+<meta property="og:image" content="/img/20190505212406.png">
+<meta property="og:image" content="/img/20190505211909.png">
+<meta property="og:image" content="/img/20190505212013.png">
+<meta property="og:image" content="/img/20190505212025.png">
+<meta property="og:image" content="/img/20190505212035.png">
+<meta property="og:image" content="/img/20190505212051.png">
+<meta property="og:updated_time" content="2024-05-29T07:04:44.599Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WordPress 5.1.1 CSRF to RCE 跟进分析">
 <meta name="twitter:description" content="-">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20190505211818.png">
+<meta name="twitter:image" content="/img/20190505211818.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -276,13 +276,13 @@
 <li>普通用户 = <code>wp_filter_kses()</code>过滤</li>
 </ul>
 <p>关于nonce检验的关键代码在<code>/wp-includes/comment.php</code>第3240行，<code>wp_handle_comment_submission()</code>函数中：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505211818.png" alt></p>
+<p><img src="/img/20190505211818.png" alt></p>
 <p>当创建评论的是具备<code>unfiltered_html</code>属性的管理员且nonce值正确时，不做任何处理；当nonce校验失败后，进入<code>kses_init_filters()</code>函数：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505211829.png" alt></p>
+<p><img src="/img/20190505211829.png" alt></p>
 <p>发现nonce校验失败则添加<code>wp_filter_post_kses()</code>过滤器来过滤评论，否则使用<code>wp_filter_kses()</code>过滤。而两者的严格程度不同：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505212406.png" alt></p>
+<p><img src="/img/20190505212406.png" alt></p>
 <p>此处可以看到传入的第二参数不同，来看看<code>wp_filter_kses()</code>的<code>current_filter()</code>：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505211909.png" alt></p>
+<p><img src="/img/20190505211909.png" alt></p>
 <p>跟进<code>$wp_current_filter()</code>：</p>
 <pre class=" language-php"><code class="language-php"><span class="token comment" spellcheck="true">//comment.php:1943</span>
 <span class="token keyword">function</span> <span class="token function">wp_filter_comment</span><span class="token punctuation">(</span> <span class="token variable">$commentdata</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -323,16 +323,16 @@
             <span class="token punctuation">}</span>
 </code></pre>
 <p>而<code>$allowedposttags</code>将<code>&lt;a&gt;</code>标签的<code>rel</code>属性设置为了白名单：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505212013.png" alt></p>
+<p><img src="/img/20190505212013.png" alt></p>
 <p>接下来，WordPress为适配SEO会将<code>&lt;a&gt;</code>标签的属性解析成一个关联数组：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505212025.png" alt></p>
+<p><img src="/img/20190505212025.png" alt></p>
 <p>之后再将原本的<code>&lt;a&gt;</code>标签拼接起来：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505212035.png" alt></p>
+<p><img src="/img/20190505212035.png" alt></p>
 <p>当我们设置<code>&lt;a&gt;</code>标签中的<code>title=&#39;XSS &quot; onmouseover=alert(1) id=&quot;&#39;</code>时，有<code>$name</code>值为<code>title</code>，<code>$value</code>值为<code>XSS &quot; onmouseover=alert(1) id=&quot;</code>，拆分到数组中再拼接到<code>$html</code>，则</p>
 <p><code>$html</code> = <code>title=&quot;XSS &quot; onmouseover=alert(1) id=&quot;&quot;</code></p>
 <p>则返回的是<code>&lt;a title=&quot;XSS&quot; onmouseover=alert(1) id=&quot;&quot; rel=\&quot;$rel\&quot;&gt;</code></p>
 <p>这样也就实现了基于事件的存储型XSS攻击(不论<code>rel</code>属性值是否被修改)，我们可以执行任意JS脚本的攻击，对管理员的触发请求进行伪造即完成了原文所谓的CSRF，而伪造管理员身份写php文件也就能成功getshell，完成RCE。</p>
-<h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><p><img src="http://0blog.test.upcdn.net/20190505212051.png" alt></p>
+<h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><p><img src="/img/20190505212051.png" alt></p>
 
       
     </div>

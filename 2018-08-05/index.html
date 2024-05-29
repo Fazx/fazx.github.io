@@ -22,15 +22,15 @@
 <meta property="og:site_name" content="Cosmic Fragments">
 <meta property="og:description" content="仅供技术探讨">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505201002.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505201016.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505201027.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505201042.png">
-<meta property="og:updated_time" content="2019-05-05T12:11:07.216Z">
+<meta property="og:image" content="/img/20190505201002.png">
+<meta property="og:image" content="/img/20190505201016.png">
+<meta property="og:image" content="/img/20190505201027.png">
+<meta property="og:image" content="/img/20190505201042.png">
+<meta property="og:updated_time" content="2024-05-29T07:02:45.775Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="校园网免流攻略(基于逻辑漏洞、DNS伪装包或IPv6)">
 <meta name="twitter:description" content="仅供技术探讨">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20190505201002.png">
+<meta name="twitter:image" content="/img/20190505201002.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -283,13 +283,13 @@
 <li>一个可用域名(dust1.top)(懒得码了)</li>
 </ul>
 <h3 id="判断端口是否可用："><a href="#判断端口是否可用：" class="headerlink" title="判断端口是否可用："></a>判断端口是否可用：</h3><p>在<strong>未登录</strong>校园网状态下<strong>清空DNS缓存</strong>并使用<strong>校外</strong>DNS服务器进行nslookup查询。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505201002.png" alt></p>
+<p><img src="/img/20190505201002.png" alt></p>
 <p>如图查询成功，则此方法理论可行。</p>
 <p>接下来进行的操作是：正常的上网请求数据包被伪装成查询dust1.top的DNS请求包，而dust1.top被预先设定了一个NS记录，指定140.143.38.75来进行解析。140.143.38.75中的dns2tcp将伪装的DNS数据包还原成正常的http数据包，获取http响应后再伪装成DNS响应包返回主机，主机上的程序再对它还原，则完成了一次完整的上网操作。</p>
 <p>通过以上的原理介绍，应该可以感觉出这种方法就算可行，速度也会比较慢。但为了技术（免费）还是进行下去了。</p>
 <p>首先要注意服务器的安全组规则，53、80、443端口都不要拦截。</p>
 <p>然后是域名解析记录，如图：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505201016.png" alt></p>
+<p><img src="/img/20190505201016.png" alt></p>
 <p>NS记录指定的域名，A记录中给出IP地址。</p>
 <p>在服务器上安装dns2tcp，编辑/etc/dns2tcpd.conf中<code>listen</code>值为服务器内网IP，<code>domain</code>值为域名。</p>
 <p>服务器执行：</p>
@@ -297,13 +297,13 @@
 dns2tcpd -f /etc/dns2tcpd.conf -F -d 2　   　 #启动dns2tcp
 </code></pre><p>Windows本地执行：</p>
 <pre><code>dns2tcpc -r ssh -z dust1.top 140.143.38.75  -l 8888 -d 2
-</code></pre><p><img src="http://0blog.test.upcdn.net/20190505201027.png" alt></p>
+</code></pre><p><img src="/img/20190505201027.png" alt></p>
 <p>再新建一个本地shell，IP地址127.0.0.1，端口8888 ；然后点击隧道，类型选择socks4/5，端口填1080。</p>
 <p>Internet选项中，依次选择”连接”-&gt;”局域网设置”-&gt;”为LAN使用代理服务器”-&gt;”高级”</p>
 <p>在socks/套接字输入框中，要使用的代理服务器地址填127.0.0.1，端口填1080。</p>
 <p>通过此代理访问网页，shell中出现大量数据包。</p>
 <p>最终效果：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505201042.png" alt></p>
+<p><img src="/img/20190505201042.png" alt></p>
 <h2 id="搭建基于Ipv6的Shadowsocks实现免流"><a href="#搭建基于Ipv6的Shadowsocks实现免流" class="headerlink" title="搭建基于Ipv6的Shadowsocks实现免流"></a>搭建基于Ipv6的Shadowsocks实现免流</h2><p>Ipv6号称“让地球上每粒沙子都有一个IP地址，<a href="https://zhuanlan.zhihu.com/p/41268584" target="_blank" rel="noopener">这里</a>有一篇科普性的文章。</p>
 <p>从<a href="https://test-ipv6.com/index.html.zh_CN" target="_blank" rel="noopener">这里</a>可以检测你的网络是否接入了IPv6。</p>
 <p>此方法需要：</p>

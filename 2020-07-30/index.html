@@ -24,8 +24,8 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/b12bdb25ly1g1yxiaruygj20pz078q5j.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/b12bdb25ly1g22h5k5x2pj20jn0500th.jpg">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20200425200802.png">
-<meta property="og:updated_time" content="2022-01-15T02:53:56.734Z">
+<meta property="og:image" content="/img/20200425200802.png">
+<meta property="og:updated_time" content="2024-05-29T07:03:44.036Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux Basic for Hackers">
 <meta name="twitter:description" content="Linux Basic for Hackers一书的阅读笔记。">
@@ -402,7 +402,7 @@ man logrotate # learn to use
 <p><code>shred</code>(撕碎) is a built-in command for just this purpose.<code>-f</code> option gives us permission.</p>
 <pre><code>shred -f -n 10 /var/log/auth.log.* # shred 10 times
 </code></pre><p>Now the log files’ contents are indecipherable gibberish(难以破译的乱码):</p>
-<p><img src="http://0blog.test.upcdn.net/20200425200802.png" alt></p>
+<p><img src="/img/20200425200802.png" alt></p>
 <p>Or disable logging requires root privileges:</p>
 <pre><code>service rsyslog stop
 </code></pre><p>这里入侵系统后隐藏痕迹的方法给了两个，一个抹掉log一个禁止登录，既暴力也不全面。真正渗透测试中的反取证工作应该至少围绕以下方面：</p>

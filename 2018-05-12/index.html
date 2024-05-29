@@ -23,16 +23,16 @@
 <meta property="og:site_name" content="Cosmic Fragments">
 <meta property="og:description" content="这是我出的一道磁盘分析+NTFS数据流隐写的取证题目。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505194923.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505194937.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505194958.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195032.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190505195043.png">
-<meta property="og:updated_time" content="2019-05-05T11:50:49.238Z">
+<meta property="og:image" content="/img/20190505194923.png">
+<meta property="og:image" content="/img/20190505194937.png">
+<meta property="og:image" content="/img/20190505194958.png">
+<meta property="og:image" content="/img/20190505195032.png">
+<meta property="og:image" content="/img/20190505195043.png">
+<meta property="og:updated_time" content="2024-05-29T07:00:46.419Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从一道取证题目谈NTFS交换数据流">
 <meta name="twitter:description" content="这是我出的一道磁盘分析+NTFS数据流隐写的取证题目。">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20190505194923.png">
+<meta name="twitter:image" content="/img/20190505194923.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -265,8 +265,8 @@
           
         <p>这是我出的一道磁盘分析+NTFS数据流隐写的取证题目。<br><a id="more"></a></p>
 <p>磁盘分析的部分很简单，知道vmdk是虚拟磁盘格式即可利用VMware直接映射。</p>
-<p><img src="http://0blog.test.upcdn.net/20190505194923.png" alt></p>
-<p><img src="http://0blog.test.upcdn.net/20190505194937.png" alt></p>
+<p><img src="/img/20190505194923.png" alt></p>
+<p><img src="/img/20190505194937.png" alt></p>
 <p>磁盘空间内得到nothing.rar，打开却是空白的nothing.gif。此时需要你很敏锐，意识到以下两个问题：</p>
 <p>1.为什么给的是<strong>rar压缩包</strong>？CTF中大部分见到的都是zip压缩包，虽然由于加密算法的不同rar包的爆破速度远低于zip的爆破速度，但是这道题又没有加密；</p>
 <p>2.查看nothing.gif的基本信息，我们发现GIF图的大小只有3.5KB，但是占用的磁盘空间却达到了44KB，这一点尤为奇怪。</p>
@@ -279,11 +279,11 @@
 <pre><code>type &quot;flag.gif&quot; &gt; &quot;nothing.gif&quot;:&quot;flag.gif&quot;
 </code></pre><p>此时需要注意，尽管可以向文本/图像/可执行文件等各类文件类型的ADS中写入数据，但<strong>最好保持宿主文件和附加文件文件类型的一致性</strong>。我第一次尝试是向png附加gif，结果测试发现这种隐写不够隐蔽，可以直接被foremost察觉并分离…</p>
 <p>另一个要点是，你需要用<strong>WinRAR这样支持NTFS数据流的压缩软件</strong>对压缩包进行操作。如果没有了解到这个点，就一直在坑里找路。WinRAR解压缩不会丢失数据流，但是加压缩时不会默认保存数据流，这一点是我反复尝试失败后，去找pcat师傅求助，才知道压缩高级选项中有保存文件流数据的选项：</p>
-<p><img src="http://0blog.test.upcdn.net/20190505194958.png" alt></p>
+<p><img src="/img/20190505194958.png" alt></p>
 <p>使用WinRAR解压后，我们使用lads.exe执行 /s 递归查询，发现被隐写的flag.gif文件</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195032.png" alt></p>
+<p><img src="/img/20190505195032.png" alt></p>
 <p>提取数据则可以使用Ntfs Streams Editor</p>
-<p><img src="http://0blog.test.upcdn.net/20190505195043.png" alt></p>
+<p><img src="/img/20190505195043.png" alt></p>
 <p>导出得到GIF图，分帧即可看到flag。</p>
 <h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><p>这道题目到这里就告一段落了，但是关于NTFS交换数据流的运用还不止如此。</p>
 <p>由于常规的系统命令和文件管理器都检查不到其存在，ADS也被用于<strong>隐藏后门</strong>，大多数防病毒软件默认不会扫描Windows交换数据流，如果启用这个功能，扫描速度会降低90%。隐藏交换数据流还有一个更隐蔽的方式，就是将交换数据流绑定到一个保留设备名中，这样就算使用LDS或streams.exe也无法检测到交换数据流。Windows有很多不应该用作文件名的保留设备名如CON、PRN、COM1、LPT1等等。这些设备名是用来将输出数据发送到周边硬件设备的，但这些保留设备名是“不应该”作为文件名，但并没有禁止使用。</p>

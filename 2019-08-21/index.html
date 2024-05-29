@@ -22,17 +22,17 @@
 <meta property="og:site_name" content="Cosmic Fragments">
 <meta property="og:description" content="细化总结，包括DNS、证书和枚举工具的具体原理，泛解析问题的解决和对抗策略，优秀的收集和监控子域名工具推荐等。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190821175403.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190825170930.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190821150148.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20200211204739.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190823114023.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20190821173313.png">
-<meta property="og:updated_time" content="2020-02-11T12:50:48.591Z">
+<meta property="og:image" content="/img/20190821175403.png">
+<meta property="og:image" content="/img/20190825170930.png">
+<meta property="og:image" content="/img/20190821150148.png">
+<meta property="og:image" content="/img/20200211204739.png">
+<meta property="og:image" content="/img/20190823114023.png">
+<meta property="og:image" content="/img/20190821173313.png">
+<meta property="og:updated_time" content="2024-05-29T07:02:24.948Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入了解子域名挖掘tricks">
 <meta name="twitter:description" content="细化总结，包括DNS、证书和枚举工具的具体原理，泛解析问题的解决和对抗策略，优秀的收集和监控子域名工具推荐等。">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20190821175403.png">
+<meta name="twitter:image" content="/img/20190821175403.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -260,7 +260,7 @@
       
           
         <p>细化总结，包括DNS、证书和枚举工具的具体原理，<strong>泛解析问题</strong>的解决和对抗策略，优秀的收集和<strong>监控</strong>子域名工具推荐等。<br><a id="more"></a></p>
-<h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS:"></a>DNS:</h2><h3 id="DNS域传送漏洞"><a href="#DNS域传送漏洞" class="headerlink" title="DNS域传送漏洞"></a>DNS域传送漏洞</h3><p><img src="http://0blog.test.upcdn.net/20190821175403.png" alt></p>
+<h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS:"></a>DNS:</h2><h3 id="DNS域传送漏洞"><a href="#DNS域传送漏洞" class="headerlink" title="DNS域传送漏洞"></a>DNS域传送漏洞</h3><p><img src="/img/20190821175403.png" alt></p>
 <p>Windows下的漏洞利用如上图所示，图源网络。</p>
 <h3 id="深入了解DNS域传送漏洞"><a href="#深入了解DNS域传送漏洞" class="headerlink" title="深入了解DNS域传送漏洞"></a>深入了解DNS域传送漏洞</h3><p>DNS区域传送(DNS transfer)指后备DNS服务器从主服务器获取数据，以更新自己的zone数据库。这可以防止因主DNS服务器故障造成的业务中断，为DNS服务提供了冗余备份。但是许多DNS服务器却被错误配置成只要收到AXFR请求，就向对方进行域传送。</p>
 <p>当存在这种错误配置时，攻击者就可以获取整个域的所有记录，造成整个网络架构泄露。正确的配置包括</p>
@@ -277,7 +277,7 @@
 <p>Linux下只需要一条dig命令，对DNS服务器尝试AXFR请求:</p>
 <pre><code>dig @1.1.1.1 0sec.com.cn axfr
 </code></pre><p>Kali下可以使用dnswalk获取对象全部的DNS 解析记录信息，注意域名后有一个点:</p>
-<p><img src="http://0blog.test.upcdn.net/20190825170930.png" alt></p>
+<p><img src="/img/20190825170930.png" alt></p>
 <p>除此之外nmap也有扫描的脚本：</p>
 <pre><code>nmap --script dns-zone-transfer --script-args dns-zone-trans
 fer.domain=0sec.com.cn -p 53 -Pn dns30.hichina.com
@@ -291,10 +291,10 @@ fer.domain=0sec.com.cn -p 53 -Pn dns30.hichina.com
 <h2 id="HTTPS证书"><a href="#HTTPS证书" class="headerlink" title="HTTPS证书"></a>HTTPS证书</h2><h3 id="证书透明度"><a href="#证书透明度" class="headerlink" title="证书透明度"></a>证书透明度</h3><ul>
 <li><a href="https://transparencyreport.google.com/https/certificates" target="_blank" rel="noopener">Google透明度报告中的证书透明度项目</a></li>
 </ul>
-<p><img src="http://0blog.test.upcdn.net/20190821150148.png" alt></p>
+<p><img src="/img/20190821150148.png" alt></p>
 <h3 id="证书信息"><a href="#证书信息" class="headerlink" title="证书信息"></a>证书信息</h3><p>根据我的理解，从证书信息获取子域名有三种方法：</p>
 <ul>
-<li>证书中的「使用者可选名称」字段值 <img src="http://0blog.test.upcdn.net/20200211204739.png" alt></li>
+<li>证书中的「使用者可选名称」字段值 <img src="/img/20200211204739.png" alt></li>
 <li>通过Censys这种资产搜索引擎收集的证书信息：<a href="https://censys.io/certificates?q=0sec.com.cn" target="_blank" rel="noopener">https://censys.io/certificates?q=0sec.com.cn</a></li>
 <li>向域名A记录IP的443端口发送请求，获取证书支持的域名和子域名</li>
 </ul>
@@ -328,12 +328,12 @@ fer.domain=0sec.com.cn -p 53 -Pn dns30.hichina.com
 <ul>
 <li><a href="https://d.chinacycc.com/" target="_blank" rel="noopener">在线子域名自动化收集 by CYWL TEAM</a></li>
 </ul>
-<p><img src="http://0blog.test.upcdn.net/20190823114023.png" alt></p>
+<p><img src="/img/20190823114023.png" alt></p>
 <ul>
 <li><a href="https://www.freebuf.com/sectool/198396.html" target="_blank" rel="noopener">Sublert：子域名监控工具</a></li>
 </ul>
 <p>监控证书，在VPS上搭建服务端后，可将新监控到的子域名推送到Slack工作区，实现发现新上线业务的功能，方便Bug bounty。</p>
-<p><img src="http://0blog.test.upcdn.net/20190821173313.png" alt></p>
+<p><img src="/img/20190821173313.png" alt></p>
 <p>参考链接：</p>
 <p><a href="https://feei.cn/esd" target="_blank" rel="noopener">https://feei.cn/esd</a></p>
 <p><a href="https://larry.ngrep.me/2015/09/02/DNS-zone-transfer-studying/" target="_blank" rel="noopener">https://larry.ngrep.me/2015/09/02/DNS-zone-transfer-studying/</a></p>

