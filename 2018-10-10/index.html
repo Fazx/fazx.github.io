@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Fazx">
+
+
+
+<meta name="description" content="关于环境配置的坑总是层出不穷的，本文意在整理最佳解决方法，避免再次踩坑。为防止网上原文遗失记录主要步骤。谷歌是最好的帮手。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="环境配置踩坑记录">
+<meta property="og:url" content="0sec.com.cn/2018-10-10/index.html">
+<meta property="og:site_name" content="Cosmic Fragments">
+<meta property="og:description" content="关于环境配置的坑总是层出不穷的，本文意在整理最佳解决方法，避免再次踩坑。为防止网上原文遗失记录主要步骤。谷歌是最好的帮手。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="/img/20190505205131.png">
+<meta property="og:image" content="/img/20190505205205.png">
+<meta property="og:image" content="/img/20190505205248.png">
+<meta property="og:image" content="/img/20190505205320.png">
+<meta property="og:image" content="/img/20190505205339.png">
+<meta property="og:image" content="/img/20190505205921.png">
+<meta property="og:image" content="/img/20190505205940.png">
+<meta property="og:image" content="/img/20190505210000.png">
+<meta property="og:image" content="/img/20190505210022.png">
+<meta property="og:image" content="/img/20190505210039.png">
+<meta property="og:image" content="/img/20190505210056.png">
+<meta property="og:image" content="/img/20190505210115.png">
+<meta property="og:image" content="/img/20190505210134.png">
+<meta property="og:image" content="/img/20190505210156.png">
+<meta property="og:image" content="/img/20190828105629.png">
+<meta property="og:updated_time" content="2024-05-29T07:01:55.652Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="环境配置踩坑记录">
+<meta name="twitter:description" content="关于环境配置的坑总是层出不穷的，本文意在整理最佳解决方法，避免再次踩坑。为防止网上原文遗失记录主要步骤。谷歌是最好的帮手。">
+<meta name="twitter:image" content="/img/20190505205131.png">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Cosmic Fragments" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>环境配置踩坑记录 | Cosmic Fragments</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?16b144395cc20d4a7b4ab64227601921";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Fazx</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">OSCP, OSWP, Security+, @Orange Cyberdefense</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">一个喜欢读和写的伪理科生。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Fazx</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Fazx</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">OSCP, OSWP, Security+, @Orange Cyberdefense</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" target="_blank" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-环境配置踩坑记录" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018-10-10/" class="article-date">
+      <time datetime="2018-10-10T13:01:16.000Z" itemprop="datePublished">2018-10-10</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      环境配置踩坑记录
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>关于环境配置的坑总是层出不穷的，本文意在整理最佳解决方法，避免再次踩坑。为防止网上原文遗失记录主要步骤。谷歌是最好的帮手。<br><a id="more"></a></p>
+<blockquote>
+<p>置顶：</p>
+<p><a href="https://pypi.org/" target="_blank" rel="noopener">PyPI – the Python Package Index</a> </p>
+<p><a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="noopener">Python Extension Packages for Windows</a> </p>
+</blockquote>
+<hr>
+<h2 id="Ubuntu-Could-not-get-lock-var-lib-dpkg-lock"><a href="#Ubuntu-Could-not-get-lock-var-lib-dpkg-lock" class="headerlink" title="Ubuntu:Could not get lock /var/lib/dpkg/lock"></a>Ubuntu:Could not get lock /var/lib/dpkg/lock</h2><pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">rm</span> /var/cache/apt/archives/lock
+<span class="token function">sudo</span> <span class="token function">rm</span> /var/lib/dpkg/lock
+</code></pre>
+<h2 id="阿里云Docker镜像加速"><a href="#阿里云Docker镜像加速" class="headerlink" title="阿里云Docker镜像加速"></a>阿里云Docker镜像加速</h2><p>最近在阿里云ECS上<code>docker pull</code>很慢，换中科大源也无济于事。</p>
+<pre><code>sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json &lt;&lt;-&#39;EOF&#39;
+{
+  &quot;registry-mirrors&quot;: [&quot;https://9vk4rkxv.mirror.aliyuncs.com&quot;]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+</code></pre><p>Docker版本需要大于1.10.0。再吐槽一下ECS上这些包管理服务都不给预先优化的，<code>git clone`</code>docker pull`这种常见操作都体验极差。</p>
+<h2 id="npm-install-报错-node-sass问题"><a href="#npm-install-报错-node-sass问题" class="headerlink" title="npm install 报错 node-sass问题"></a><a href="https://github.com/PanJiaChen/vue-element-admin/issues/24" target="_blank" rel="noopener">npm install 报错 node-sass问题</a></h2><pre><code>Module build failed: Error: Missing binding F:\GP\vue-admin-flask-example\node_modules\node-sass\vendor\win32-x64-57\binding.node
+Node Sass could not find a binding for your current environment: Windows 64-bit with Node.js 8.x
+
+Found bindings for the following environments:
+  - Windows 64-bit with Node.js 8.x
+
+This usually happens because your environment has changed since running `npm install`.
+Run `npm rebuild node-sass` to download the binding for your current environment.
+</code></pre><p><code>node-sass</code>这个包比较特殊，就算使用了<code>npm install --registry=https://registry.npm.taobao.org</code>安装也会出现问题。涉及到这个包的项目，一律在项目根目录下<code>touch .npmrc</code>，输入两行配置：</p>
+<pre><code>sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
+registry=https://registry.npm.taobao.org
+</code></pre><p>保存后再<code>npm install</code>或<code>npm rebuild node-sass</code>即可。</p>
+<h2 id="RSA解题环境配置"><a href="#RSA解题环境配置" class="headerlink" title="RSA解题环境配置"></a>RSA解题环境配置</h2><h3 id="安装pycrypto报错unable-to-find-vcvarsall-bat"><a href="#安装pycrypto报错unable-to-find-vcvarsall-bat" class="headerlink" title="安装pycrypto报错unable to find vcvarsall.bat"></a><a href="https://www.jianshu.com/p/a73fd1af5e99" target="_blank" rel="noopener">安装pycrypto报错unable to find vcvarsall.bat</a></h3><p>在<code>\Lib\distutils_msvccompiler.py</code>中找到<code>_find_vcvarsall(plat_spec)</code>函数的version版本，安装对应版本Visual Studio，勾选VC++2015、Python Tools和Web Deveolper Tools。</p>
+<p>添加<strong>用户</strong>环境变量：</p>
+<p>变量名：VCINSTALLDIR<br>变量值：C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC</p>
+<p><code>set CL=/FI&quot;%VCINSTALLDIR%\\INCLUDE\\stdint.h&quot; %CL%</code></p>
+<p><img src="/img/20190505205131.png" alt></p>
+<p>然后就可以直接pip install了。</p>
+<h3 id="gmpy2安装"><a href="#gmpy2安装" class="headerlink" title="gmpy2安装"></a>gmpy2安装</h3><p>从置顶的第二个链接下载对应Python版本(即CPxx)的包：</p>
+<p><img src="/img/20190505205205.png" alt></p>
+<p>Linux下参考 <a href="https://www.cnblogs.com/pcat/p/5746821.html" target="_blank" rel="noopener">https://www.cnblogs.com/pcat/p/5746821.html</a></p>
+<h3 id="winrandom"><a href="#winrandom" class="headerlink" title="winrandom"></a>winrandom</h3><p><img src="/img/20190505205248.png" alt></p>
+<h2 id="Vmware配置虚拟机静态IP-Ubuntu为例"><a href="#Vmware配置虚拟机静态IP-Ubuntu为例" class="headerlink" title="Vmware配置虚拟机静态IP(Ubuntu为例)"></a><a href="https://www.jianshu.com/p/2e5fecf2a7df" target="_blank" rel="noopener">Vmware配置虚拟机静态IP(Ubuntu为例)</a></h2><p>编辑-虚拟网络编辑器-VMnet8-取消勾选DHCP，此处子网IP末字节必须填0，否则会提示子网掩码不匹配。</p>
+<p><img src="/img/20190505205320.png" alt></p>
+<p>虚拟机设置-网络适配器-自定义中选择对应虚拟网卡</p>
+<p><img src="/img/20190505205339.png" alt></p>
+<p><strong>GUI配置</strong>：Ubuntu 连接方式从DHCP改为手动，在这里编辑具体的主机地址。网关可以在步骤1中查看。</p>
+<p><img src="/img/20190505205921.png" alt></p>
+<p><strong>终端配置</strong></p>
+<blockquote>
+<p>sudo vi /etc/network/interfaces</p>
+</blockquote>
+<pre><code>auto lo
+iface lo inet loopback
+
+auto ens0//要注意默认网卡名在Ubuntu15后改为了ens33
+iface ens0 inet static
+address 192.168.2.66
+netmask 255.255.255.0
+gateway 192.168.2.2
+</code></pre><p>两种方式等效，从GUI添加后此文件也会被修改。</p>
+<p><strong>注意别忘了配置DNS：</strong></p>
+<blockquote>
+<p> sudo vi /etc/resolv.conf</p>
+</blockquote>
+<p><code>nameserver 223.5.5.5 //阿里dns</code></p>
+<blockquote>
+<p>ip link set eth0 up</p>
+</blockquote>
+<h2 id="LAMP环境配置（以Ubuntu16-04-LTS为例）"><a href="#LAMP环境配置（以Ubuntu16-04-LTS为例）" class="headerlink" title="LAMP环境配置（以Ubuntu16.04 LTS为例）"></a><a href="https://segmentfault.com/a/1190000005786808" target="_blank" rel="noopener">LAMP环境配置（以Ubuntu16.04 LTS为例）</a></h2><p><code>apt-get update</code>更新源</p>
+<p><code>/etc/hostname</code>、<code>/etc/hosts</code>美化主机名</p>
+<pre><code>127.0.0.1    localhost
+
+127.0.0.1    Fazx
+</code></pre><p><code>sudo apt-get install apache2</code></p>
+<p><code>service apache2 status</code></p>
+<p><code>service apache2 restart</code></p>
+<p><code>sudo apt-get install php7.0</code></p>
+<p><code>sudo apt-get install libapache2-mod-php7.0 #否则不能解析</code></p>
+<p><code>sudo apt-get install mysql-server</code></p>
+<p><code>sudo apt-get install phpmyadmin php-mbstring php-gettext</code>,选择apache2。</p>
+<p>安装完成之后使用如下两个命令修改支持模块:</p>
+<p><code>sudo phpenmod mcrypt</code></p>
+<p><code>sudo phpenmod mbstring</code></p>
+<p><code>sudo systemctl restart apache2</code></p>
+<h2 id="angr安装-符号执行"><a href="#angr安装-符号执行" class="headerlink" title="angr安装(符号执行)"></a><a href="https://bestwing.me/2017/03/08/angr-study/" target="_blank" rel="noopener">angr安装(符号执行)</a></h2><p>安装依赖：</p>
+<p><code>sudo apt-get install python-dev libffi-dev build-essential virtualenvwrapper</code></p>
+<p>如果你正在尝试angr管理，你会需要安装：</p>
+<p><code>sudo apt-get install libqt4-dev graphviz-dev</code></p>
+<p><code>pip install angr</code></p>
+<h2 id="git-bash-上传新项目"><a href="#git-bash-上传新项目" class="headerlink" title="git bash 上传新项目"></a>git bash 上传新项目</h2><pre><code>#新建空文件夹
+git init
+
+#从github创建repo
+git remote add origin git@github.com:Fazx/SdusterBlog.git
+
+git add .
+
+git commit -m &quot;xxx&quot;
+</code></pre><p>由于远程库是空的，第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。</p>
+<p><code>git push -u origin master</code></p>
+<p>若出现<br><code>error: failed to push some refs to &#39;git@github.com:.....&quot;</code>报错，<br>则应现将本地和远程的文件合并后再上传:<br><code>git pull origin master</code></p>
+<h2 id="git-撤销修改-版本回退"><a href="#git-撤销修改-版本回退" class="headerlink" title="git 撤销修改/版本回退"></a>git 撤销修改/版本回退</h2><h3 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h3><p>未添加到暂存区：</p>
+<p><code>git checkout -- file</code>丢弃工作区的修改</p>
+<p>经<code>git add</code>添加到暂存区后：</p>
+<p><code>git reset HEAD &lt;file&gt;</code></p>
+<h3 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h3><p>已经<code>git commit</code>提交到版本库：</p>
+<p><code>git log</code>查看commit id</p>
+<p><code>git reset --hard commit_id #前几位即可</code> </p>
+<h2 id="VNC访问Ubuntu-16-04"><a href="#VNC访问Ubuntu-16-04" class="headerlink" title="VNC访问Ubuntu 16.04"></a><a href="https://www.cnblogs.com/xuliangxing/p/7642650.html" target="_blank" rel="noopener">VNC访问Ubuntu 16.04</a></h2><p>从桌面共享设置允许进行远程控制<br><img src="/img/20190505205940.png" alt></p>
+<p>安装vncserver的基础服务:<br><code>sudo apt-get install xrdp vnc4server xbase-clients</code></p>
+<p>安装dconf-editor工具以取消加密：</p>
+<p><code>sudo apt-get install dconf-editor</code></p>
+<p><img src="/img/20190505210000.png" alt></p>
+<p>使用<a href="https://www.realvnc.com/en/connect/download/viewer/" target="_blank" rel="noopener">VNC viewer</a>或直接mstsc连接：</p>
+<p><img src="/img/20190505210022.png" alt></p>
+<h2 id="Ubuntu更换PHP启用版本"><a href="#Ubuntu更换PHP启用版本" class="headerlink" title="Ubuntu更换PHP启用版本"></a><a href="https://segmentfault.com/a/1190000011986836" target="_blank" rel="noopener">Ubuntu更换PHP启用版本</a></h2><pre class=" language-php"><code class="language-php"><span class="token shell-comment comment">#查看已经安装的 PHP 包</span>
+dpkg <span class="token operator">-</span>l <span class="token operator">|</span> grep php<span class="token operator">|</span> awk <span class="token string">'{print $2}'</span> <span class="token operator">|</span>tr <span class="token string">"\n"</span> <span class="token string">" "</span>
+
+<span class="token shell-comment comment">#添加 PHP PPA</span>
+sudo add<span class="token operator">-</span>apt<span class="token operator">-</span>repository ppa<span class="token punctuation">:</span>ondrej<span class="token operator">/</span>php
+
+<span class="token shell-comment comment">#安装 PHP5.6</span>
+sudo apt<span class="token operator">-</span>get install php5<span class="token number">.6</span><span class="token operator">-</span>mbstring php5<span class="token number">.6</span><span class="token operator">-</span>mcrypt php5<span class="token number">.6</span><span class="token operator">-</span>mysql php5<span class="token number">.6</span><span class="token operator">-</span>xml libapache2<span class="token operator">-</span>mod<span class="token operator">-</span>php5<span class="token number">.6</span>
+
+<span class="token shell-comment comment">#禁用 Apache 中的 PHP7</span>
+sudo a2dismod php7
+
+<span class="token shell-comment comment">#启用 PHP5.6</span>
+sudo a2enmod php5<span class="token number">.6</span>
+
+<span class="token shell-comment comment">#重启 Apache</span>
+sudo systemctl restart apache2<span class="token punctuation">.</span>service
+
+<span class="token shell-comment comment">#切换 CLI </span>
+sudo update<span class="token operator">-</span>alternatives <span class="token operator">--</span>set php <span class="token operator">/</span>usr<span class="token operator">/</span>bin<span class="token operator">/</span>php5<span class="token number">.6</span>
+</code></pre>
+<h2 id="burp返回包乱码"><a href="#burp返回包乱码" class="headerlink" title="burp返回包乱码"></a>burp返回包乱码</h2><p><img src="/img/20190505210039.png" alt></p>
+<h2 id="Docker中科大源"><a href="#Docker中科大源" class="headerlink" title="Docker中科大源"></a>Docker中科大源</h2><pre><code>curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo add-apt-repository \
+    &quot;deb [arch=amd64] https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu \
+    $(lsb_release -cs) \
+    stable&quot;
+
+sudo apt-get update
+
+sudo apt-get install docker-ce
+</code></pre><h2 id="Docker-compose"><a href="#Docker-compose" class="headerlink" title="Docker compose"></a><a href="https://docs.docker.com/compose/install/#install-compose" target="_blank" rel="noopener">Docker compose</a></h2><pre><code>sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose
+
+# 最新版本从https://github.com/docker/compose/releases
+
+sudo chmod +x /usr/local/bin/docker-compose
+</code></pre><h2 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h2><p>sudo apt-get remove vim-common</p>
+<p>sudo apt-get install vim</p>
+<h2 id="cmder设置代理"><a href="#cmder设置代理" class="headerlink" title="cmder设置代理"></a>cmder设置代理</h2><p>cmd在默认情况下，即使开启全局代理也不会走代理，可以如下设置：</p>
+<pre><code># 在一个cmder session中有效
+Set http_proxy=http://[proxy]:[port]
+Set https_proxy=http://[proxy]:[port]
+# 取消
+set http_proxy=
+set https_proxy=
+
+# Ubuntu下set改为export
+</code></pre><p>看图：</p>
+<p><img src="/img/20190505210056.png" alt></p>
+<p>也不知道为啥挂上代理给我定宿迁去了。。</p>
+<p><code>set http_proxy=http://127.0.0.1:1080 &amp;&amp; set https_proxy=http://127.0.0.1:1080</code></p>
+<p>git clone嗖嗖的</p>
+<h2 id="sublime编译python乱码问题"><a href="#sublime编译python乱码问题" class="headerlink" title="sublime编译python乱码问题"></a><a href="https://blog.csdn.net/acsunqi/article/details/50812469" target="_blank" rel="noopener">sublime编译python乱码问题</a></h2><p>写网页爬虫时经常遇到错误提示<code>UnicodeDecodeError: &#39;gbk&#39; codec can&#39;t decode bytes</code></p>
+<p>在<code>Python3.sublime-build</code>文件里添加<code>&quot;env&quot;:{&quot;PYTHONIOENCODING&quot;:&quot;utf8&quot;}</code></p>
+<h2 id="Apache2下多IP对应多站点-虚拟主机"><a href="#Apache2下多IP对应多站点-虚拟主机" class="headerlink" title="Apache2下多IP对应多站点(虚拟主机)"></a>Apache2下多IP对应多站点(虚拟主机)</h2><p>基本没找到什么靠谱的教程，老旧的文章还在让配置<code>/etc/httpd/conf/httpd.conf</code>，配置文件的目录都已经换了。</p>
+<p>主配置文件<code>/etc/apache2/apache2.conf</code>的最后两行描述了有关虚拟站点的配置：</p>
+<pre><code># Include the virtual host configurations:
+IncludeOptional sites-enabled/*.conf
+</code></pre><p>以下是配置流程：</p>
+<pre><code>$sudo ifconfig eth0:0 10.1.1.120 up
+$sudo ifconfig eth0:1 10.1.1.121 up  //注意，此时的设备名为eth0:1
+</code></pre><p>在<code>/etc/apache2/sites-available</code>下建立<code>a.conf</code>和<code>b.conf</code>，从<code>000-default.conf</code>修改配置文件如下图：</p>
+<p><img src="/img/20190505210115.png" alt></p>
+<p>注意是加一行<code>ServerName</code>，<code>/var/www/</code>下是自己新建的网站目录。接下来在<code>/etc/apache2/sites-enabled</code>下添加符号链接(又叫软链接，类似win下的快捷方式)：</p>
+<p><img src="/img/20190505210134.png" alt></p>
+<pre><code>sudo ln -s /etc/apache2/sites-available/www-linuxidc-com.conf /etc/apache2/sites-enabled/www-linuxidc-com.conf
+sudo ln -s /etc/apache2/sites-available/www-wordpress-com.conf /etc/apache2/sites-enabled/www-wordpress-com.conf
+</code></pre><p><img src="/img/20190505210156.png" alt></p>
+<p>如果是从域名访问，记得还要改hosts的映射。</p>
+<h2 id="SSH代理服务"><a href="#SSH代理服务" class="headerlink" title="SSH代理服务"></a>SSH代理服务</h2><p><code>ssh -N -f -D 0.0.0.0:2080 192.168.211.168 -p22 -b 0.0.0.0</code></p>
+<h2 id="migrate-进程注入"><a href="#migrate-进程注入" class="headerlink" title="migrate 进程注入"></a>migrate 进程注入</h2><p>接收到 meterpreter 之后就应该将自己的进程迁移到一个隐蔽的进程中去，防止被查杀，直接在meterpreter中使用migrate PID；</p>
+<pre><code>meterpreter &gt; getpid
+Current pid: 1784
+meterpreter &gt; ps
+
+Process List
+============
+ PID   PPID  Name                       Arch  Session  User          Path
+ ---   ----  ----                       ----  -------  ----          ----
+ 1784  3016  shell.exe                  x86   2        Go0s-PC\Go0s  C:\Users\Go0s\Desktop\shell.exe
+ 3016  1124  explorer.exe               x64   2        Go0s-PC\Go0s  C:\Windows\explorer.exe
+
+meterpreter &gt; migrate 3016
+[*] Migrating from 1784 to 3016...
+[*] Migration completed successfully.
+meterpreter &gt; getpid
+Current pid: 3016
+</code></pre><h2 id="Pentestbox-update-all后msf报错"><a href="#Pentestbox-update-all后msf报错" class="headerlink" title="Pentestbox update all后msf报错"></a>Pentestbox update all后msf报错</h2><p><img src="/img/20190828105629.png" alt></p>
+<p>pentestbox在通过<code>update all</code>更新后，使用<code>msfconsole</code>会报错：</p>
+<pre><code>Bundler could not find compatible versions for gem &quot;aws-sdk-iam&quot;:
+  In Gemfile:
+    metasploit-framework x86-mingw32 was resolved to 5.0.43, which depends on
+      aws-sdk-iam x86-mingw32
+
+Could not find gem &#39;aws-sdk-iam&#39;, which is required by gem &#39;metasploit-framework&#39;, in any of the sources.
+</code></pre><pre><code>#cd到msf的目录下
+git reset --hard
+git pull
+#再次安装依赖
+bundle install
+gem uninstall bcrypt
+gem uninstall bcrypt-ruby
+gem install bcrypt --platform=ruby
+</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018-11-11/">
+                    PHP博客管理系统开发全记录
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018-08-30/">
+                    区块链基础[待补充]
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Ubuntu-Could-not-get-lock-var-lib-dpkg-lock"><span class="toc-number">1.</span> <span class="toc-text">Ubuntu:Could not get lock /var/lib/dpkg/lock</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#阿里云Docker镜像加速"><span class="toc-number">2.</span> <span class="toc-text">阿里云Docker镜像加速</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#npm-install-报错-node-sass问题"><span class="toc-number">3.</span> <span class="toc-text">npm install 报错 node-sass问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RSA解题环境配置"><span class="toc-number">4.</span> <span class="toc-text">RSA解题环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装pycrypto报错unable-to-find-vcvarsall-bat"><span class="toc-number">4.1.</span> <span class="toc-text">安装pycrypto报错unable to find vcvarsall.bat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gmpy2安装"><span class="toc-number">4.2.</span> <span class="toc-text">gmpy2安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#winrandom"><span class="toc-number">4.3.</span> <span class="toc-text">winrandom</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vmware配置虚拟机静态IP-Ubuntu为例"><span class="toc-number">5.</span> <span class="toc-text">Vmware配置虚拟机静态IP(Ubuntu为例)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LAMP环境配置（以Ubuntu16-04-LTS为例）"><span class="toc-number">6.</span> <span class="toc-text">LAMP环境配置（以Ubuntu16.04 LTS为例）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#angr安装-符号执行"><span class="toc-number">7.</span> <span class="toc-text">angr安装(符号执行)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-bash-上传新项目"><span class="toc-number">8.</span> <span class="toc-text">git bash 上传新项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-撤销修改-版本回退"><span class="toc-number">9.</span> <span class="toc-text">git 撤销修改/版本回退</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#撤销修改"><span class="toc-number">9.1.</span> <span class="toc-text">撤销修改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#版本回退"><span class="toc-number">9.2.</span> <span class="toc-text">版本回退</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VNC访问Ubuntu-16-04"><span class="toc-number">10.</span> <span class="toc-text">VNC访问Ubuntu 16.04</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ubuntu更换PHP启用版本"><span class="toc-number">11.</span> <span class="toc-text">Ubuntu更换PHP启用版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#burp返回包乱码"><span class="toc-number">12.</span> <span class="toc-text">burp返回包乱码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker中科大源"><span class="toc-number">13.</span> <span class="toc-text">Docker中科大源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-compose"><span class="toc-number">14.</span> <span class="toc-text">Docker compose</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vim"><span class="toc-number">15.</span> <span class="toc-text">vim</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cmder设置代理"><span class="toc-number">16.</span> <span class="toc-text">cmder设置代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sublime编译python乱码问题"><span class="toc-number">17.</span> <span class="toc-text">sublime编译python乱码问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache2下多IP对应多站点-虚拟主机"><span class="toc-number">18.</span> <span class="toc-text">Apache2下多IP对应多站点(虚拟主机)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH代理服务"><span class="toc-number">19.</span> <span class="toc-text">SSH代理服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#migrate-进程注入"><span class="toc-number">20.</span> <span class="toc-text">migrate 进程注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pentestbox-update-all后msf报错"><span class="toc-number">21.</span> <span class="toc-text">Pentestbox update all后msf报错</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-4 i,
+        .toc-level-4 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"环境配置踩坑记录　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018-11-11/" title="上一篇: PHP博客管理系统开发全记录">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018-08-30/" title="下一篇: 区块链基础[待补充]">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2023-10-28/">窗口期的OSCP(PEN-200-2023)总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-07-14/">OSCP NOTE (Cheatsheet)</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-04-30/">50台Vulnhub靶机Walkthrough</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-02-13/">Honeypot-Factory: The Use of Deception in ICS/OT Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-08-21/">Pass the Hash再思考：场景、补丁与监测</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-26/">RFID初探之M1卡的分析与复制（使用PN532模块）</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-13/">Websocket渗透测试指北</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-12-14/">关于log4j、log4shell的一些记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-11-27/">红队视角下的信息收集（备忘 && 持续收集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-07-30/">Linux Basic for Hackers</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-02-09/">安全相关HTTP响应头解读、配置、示例与检测</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-10-31/">Cobaltstrike Server持久化 & Cobaltstrike与Metasploit相互派生shell</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-08-21/">深入了解子域名挖掘tricks</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-05-14/">Android开发实践之计算器&记事助手</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-13/">用Origin请求头防御CSRF攻击(译文)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-07/">PHP中的随机数安全问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-03-20/">WordPress 5.1.1 CSRF to RCE 跟进分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-02-15/">XML外部实体注入(XXE攻击)小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-01-26/">Django开发小记 & Docker笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-22/">前端安全之CSP、同源策略与跨域请求(JSONP/CORS)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-01/">使用Aircrack-ng破解WPA2协议无线网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-11-11/">PHP博客管理系统开发全记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-10-10/">环境配置踩坑记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-30/">区块链基础[待补充]</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-05/">校园网免流攻略(基于逻辑漏洞、DNS伪装包或IPv6)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-07-11/">基于Scrapy-Redis框架与Mongodb的分布式爬虫-elasticsearch搜索引擎打造</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-26/">《渗透测试实践指南》阅读笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-16/">「Web向」XCTF联赛2018年度考点知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-14/">「娱乐向」 Hack for Fun</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-12/">从一道取证题目谈NTFS交换数据流</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-10/">关于Xdebug的那些事儿</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-26/">PHP弱类型&&md5碰撞总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-24/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2024 Fazx
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+            
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "!!!∑(ﾟДﾟノ)ノ快回来!!!  " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "" + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

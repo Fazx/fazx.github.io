@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Fazx">
+
+
+
+<meta name="description" content="仅供技术探讨">
+<meta property="og:type" content="article">
+<meta property="og:title" content="校园网免流攻略(基于逻辑漏洞、DNS伪装包或IPv6)">
+<meta property="og:url" content="0sec.com.cn/2018-08-05/index.html">
+<meta property="og:site_name" content="Cosmic Fragments">
+<meta property="og:description" content="仅供技术探讨">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="/img/20190505201002.png">
+<meta property="og:image" content="/img/20190505201016.png">
+<meta property="og:image" content="/img/20190505201027.png">
+<meta property="og:image" content="/img/20190505201042.png">
+<meta property="og:updated_time" content="2024-05-29T07:02:45.775Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="校园网免流攻略(基于逻辑漏洞、DNS伪装包或IPv6)">
+<meta name="twitter:description" content="仅供技术探讨">
+<meta name="twitter:image" content="/img/20190505201002.png">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Cosmic Fragments" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>校园网免流攻略(基于逻辑漏洞、DNS伪装包或IPv6) | Cosmic Fragments</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?16b144395cc20d4a7b4ab64227601921";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Fazx</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">OSCP, OSWP, Security+, @Orange Cyberdefense</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">一个喜欢读和写的伪理科生。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Fazx</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Fazx</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">OSCP, OSWP, Security+, @Orange Cyberdefense</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" target="_blank" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-校园网免流攻略" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018-08-05/" class="article-date">
+      <time datetime="2018-08-05T06:38:38.000Z" itemprop="datePublished">2018-08-05</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      校园网免流攻略(基于逻辑漏洞、DNS伪装包或IPv6)
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>仅供技术探讨</p>
+<a id="more"></a>
+<h2 id="利用校园网业务逻辑漏洞实现免流"><a href="#利用校园网业务逻辑漏洞实现免流" class="headerlink" title="利用校园网业务逻辑漏洞实现免流"></a>利用校园网业务逻辑漏洞实现免流</h2><p>逻辑漏洞涵盖非常广，它的思路大体都是一个方向，但是具体的实现要因“洞”而异了。</p>
+<p>这里举的是我们学校<a href="https://down.gwifi.com.cn/" target="_blank" rel="noopener">giwifi</a>的例子，由于漏洞在被很多人知道和使用后已经修复，也就不必遮掩了。这个漏洞的出现已经不能说是开发人员的疏忽了，简直就是开发人员为了免费上网而故意留的后门。。。</p>
+<p>移动端Giwifi在连接后需要客户端的登录认证，当未检测到Giwifi客户端时，会自动向<code>http://down.gwifi.com.cn/getApp.htm?os=android</code>这个接口发送请求以下载客户端。几秒钟之内客户端下载完成，若你在这期间进行了抓包或其他访问请求，你会发现所有的请求都是成功的！也就是说，在这几秒钟之内，Giwifi的外网访问是完全开放的。并且此时的Giwifi是不限速的。</p>
+<p>于是利用方法就很简单了：对这个接口不断发送请求，获取开放权限。于是便出现了所谓“三行代码上网法”：</p>
+<pre><code>while True:
+    requests.get(url=&#39;http://down.gwifi.com.cn/getApp.htm?os=android&#39;)
+    time.sleep(10)
+</code></pre><p>如果出现网络不稳定，将延时调低即可。</p>
+<p>防范的方法也很简单(本来也就该这么做</p>
+<ul>
+<li>将客户端放在内网，直接通过内网传输</li>
+<li>过滤请求</li>
+</ul>
+<h2 id="利用DNS伪装包实现免流"><a href="#利用DNS伪装包实现免流" class="headerlink" title="利用DNS伪装包实现免流"></a>利用DNS伪装包实现免流</h2><blockquote>
+<p>原理：连接校园网后，上网请求会从TCP443端口发出，未登录校园网时请求被拦截。但UDP53端口也就是DNS解析服务所在端口的请求一般不会被拦截，而我们要做的就是将正常的上网请求数据包伪装成DNS数据包，从53端口通过，实现免流上网。</p>
+</blockquote>
+<p>此方法需要</p>
+<ul>
+<li>Windows平台</li>
+<li><a href="https://github.com/alex-sector/dns2tcp" target="_blank" rel="noopener">dns2tcp</a></li>
+<li>一台服务器(140.143.38.75)(过期了就不码了)</li>
+<li>一个可用域名(dust1.top)(懒得码了)</li>
+</ul>
+<h3 id="判断端口是否可用："><a href="#判断端口是否可用：" class="headerlink" title="判断端口是否可用："></a>判断端口是否可用：</h3><p>在<strong>未登录</strong>校园网状态下<strong>清空DNS缓存</strong>并使用<strong>校外</strong>DNS服务器进行nslookup查询。</p>
+<p><img src="/img/20190505201002.png" alt></p>
+<p>如图查询成功，则此方法理论可行。</p>
+<p>接下来进行的操作是：正常的上网请求数据包被伪装成查询dust1.top的DNS请求包，而dust1.top被预先设定了一个NS记录，指定140.143.38.75来进行解析。140.143.38.75中的dns2tcp将伪装的DNS数据包还原成正常的http数据包，获取http响应后再伪装成DNS响应包返回主机，主机上的程序再对它还原，则完成了一次完整的上网操作。</p>
+<p>通过以上的原理介绍，应该可以感觉出这种方法就算可行，速度也会比较慢。但为了技术（免费）还是进行下去了。</p>
+<p>首先要注意服务器的安全组规则，53、80、443端口都不要拦截。</p>
+<p>然后是域名解析记录，如图：</p>
+<p><img src="/img/20190505201016.png" alt></p>
+<p>NS记录指定的域名，A记录中给出IP地址。</p>
+<p>在服务器上安装dns2tcp，编辑/etc/dns2tcpd.conf中<code>listen</code>值为服务器内网IP，<code>domain</code>值为域名。</p>
+<p>服务器执行：</p>
+<pre><code>screen -S dns2tcpd　　　　　　　　　    　 #创建后台会话 
+dns2tcpd -f /etc/dns2tcpd.conf -F -d 2　   　 #启动dns2tcp
+</code></pre><p>Windows本地执行：</p>
+<pre><code>dns2tcpc -r ssh -z dust1.top 140.143.38.75  -l 8888 -d 2
+</code></pre><p><img src="/img/20190505201027.png" alt></p>
+<p>再新建一个本地shell，IP地址127.0.0.1，端口8888 ；然后点击隧道，类型选择socks4/5，端口填1080。</p>
+<p>Internet选项中，依次选择”连接”-&gt;”局域网设置”-&gt;”为LAN使用代理服务器”-&gt;”高级”</p>
+<p>在socks/套接字输入框中，要使用的代理服务器地址填127.0.0.1，端口填1080。</p>
+<p>通过此代理访问网页，shell中出现大量数据包。</p>
+<p>最终效果：</p>
+<p><img src="/img/20190505201042.png" alt></p>
+<h2 id="搭建基于Ipv6的Shadowsocks实现免流"><a href="#搭建基于Ipv6的Shadowsocks实现免流" class="headerlink" title="搭建基于Ipv6的Shadowsocks实现免流"></a>搭建基于Ipv6的Shadowsocks实现免流</h2><p>Ipv6号称“让地球上每粒沙子都有一个IP地址，<a href="https://zhuanlan.zhihu.com/p/41268584" target="_blank" rel="noopener">这里</a>有一篇科普性的文章。</p>
+<p>从<a href="https://test-ipv6.com/index.html.zh_CN" target="_blank" rel="noopener">这里</a>可以检测你的网络是否接入了IPv6。</p>
+<p>此方法需要：</p>
+<ul>
+<li>校园网本身接入IPv6</li>
+<li>一台支持IPv6连接的vps</li>
+<li>shadowsocks</li>
+</ul>
+<p>这种方法所谓的免流，其实就是部分校园网走IPv6协议时流量不计费。所以你需要做的只是在服务器上配置好基于IPv6的ss，方法和普通的ss配置大同小异。</p>
+<p>需要注意的是，即使ss开启全局代理，也不是所有的应用流量都会经过代理。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018-08-30/">
+                    区块链基础[待补充]
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018-07-11/">
+                    基于Scrapy-Redis框架与Mongodb的分布式爬虫-elasticsearch搜索引擎打造
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#利用校园网业务逻辑漏洞实现免流"><span class="toc-number">1.</span> <span class="toc-text">利用校园网业务逻辑漏洞实现免流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用DNS伪装包实现免流"><span class="toc-number">2.</span> <span class="toc-text">利用DNS伪装包实现免流</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#判断端口是否可用："><span class="toc-number">2.1.</span> <span class="toc-text">判断端口是否可用：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#搭建基于Ipv6的Shadowsocks实现免流"><span class="toc-number">3.</span> <span class="toc-text">搭建基于Ipv6的Shadowsocks实现免流</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-4 i,
+        .toc-level-4 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"校园网免流攻略(基于逻辑漏洞、DNS伪装包或IPv6)　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018-08-30/" title="上一篇: 区块链基础[待补充]">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018-07-11/" title="下一篇: 基于Scrapy-Redis框架与Mongodb的分布式爬虫-elasticsearch搜索引擎打造">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2023-10-28/">窗口期的OSCP(PEN-200-2023)总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-07-14/">OSCP NOTE (Cheatsheet)</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-04-30/">50台Vulnhub靶机Walkthrough</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-02-13/">Honeypot-Factory: The Use of Deception in ICS/OT Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-08-21/">Pass the Hash再思考：场景、补丁与监测</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-26/">RFID初探之M1卡的分析与复制（使用PN532模块）</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-13/">Websocket渗透测试指北</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-12-14/">关于log4j、log4shell的一些记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-11-27/">红队视角下的信息收集（备忘 && 持续收集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-07-30/">Linux Basic for Hackers</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-02-09/">安全相关HTTP响应头解读、配置、示例与检测</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-10-31/">Cobaltstrike Server持久化 & Cobaltstrike与Metasploit相互派生shell</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-08-21/">深入了解子域名挖掘tricks</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-05-14/">Android开发实践之计算器&记事助手</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-13/">用Origin请求头防御CSRF攻击(译文)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-07/">PHP中的随机数安全问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-03-20/">WordPress 5.1.1 CSRF to RCE 跟进分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-02-15/">XML外部实体注入(XXE攻击)小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-01-26/">Django开发小记 & Docker笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-22/">前端安全之CSP、同源策略与跨域请求(JSONP/CORS)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-01/">使用Aircrack-ng破解WPA2协议无线网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-11-11/">PHP博客管理系统开发全记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-10-10/">环境配置踩坑记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-30/">区块链基础[待补充]</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-05/">校园网免流攻略(基于逻辑漏洞、DNS伪装包或IPv6)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-07-11/">基于Scrapy-Redis框架与Mongodb的分布式爬虫-elasticsearch搜索引擎打造</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-26/">《渗透测试实践指南》阅读笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-16/">「Web向」XCTF联赛2018年度考点知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-14/">「娱乐向」 Hack for Fun</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-12/">从一道取证题目谈NTFS交换数据流</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-10/">关于Xdebug的那些事儿</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-26/">PHP弱类型&&md5碰撞总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-24/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2024 Fazx
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+            
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "!!!∑(ﾟДﾟノ)ノ快回来!!!  " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "" + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

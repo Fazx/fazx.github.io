@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Fazx">
+
+
+
+<meta name="description" content="-">
+<meta name="keywords" content="php,CodeAudit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WordPress 5.1.1 CSRF to RCE 跟进分析">
+<meta property="og:url" content="0sec.com.cn/2019-03-20/index.html">
+<meta property="og:site_name" content="Cosmic Fragments">
+<meta property="og:description" content="-">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="/img/20190505211818.png">
+<meta property="og:image" content="/img/20190505211829.png">
+<meta property="og:image" content="/img/20190505212406.png">
+<meta property="og:image" content="/img/20190505211909.png">
+<meta property="og:image" content="/img/20190505212013.png">
+<meta property="og:image" content="/img/20190505212025.png">
+<meta property="og:image" content="/img/20190505212035.png">
+<meta property="og:image" content="/img/20190505212051.png">
+<meta property="og:updated_time" content="2024-05-29T07:04:44.599Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WordPress 5.1.1 CSRF to RCE 跟进分析">
+<meta name="twitter:description" content="-">
+<meta name="twitter:image" content="/img/20190505211818.png">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Cosmic Fragments" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>WordPress 5.1.1 CSRF to RCE 跟进分析 | Cosmic Fragments</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?16b144395cc20d4a7b4ab64227601921";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Fazx</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">OSCP, OSWP, Security+, @Orange Cyberdefense</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">一个喜欢读和写的伪理科生。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Fazx</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Fazx</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">OSCP, OSWP, Security+, @Orange Cyberdefense</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" target="_blank" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-WordPress-5-1-1-CSRF-to-RCE-跟进分析" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019-03-20/" class="article-date">
+      <time datetime="2019-03-20T14:39:42.000Z" itemprop="datePublished">2019-03-20</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      WordPress 5.1.1 CSRF to RCE 跟进分析
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CodeAudit/">CodeAudit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>-<br><a id="more"></a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><em>CSRF to RCE</em> 这个标题是原作者在<a href="https://blog.ripstech.com/2019/wordpress-csrf-to-rce/" target="_blank" rel="noopener">博文</a>中的写法，其实颇有些标题党的意味。通篇分析下来我们会发现这个漏洞其实就是一个存储型XSS，而RCE是因为获取管理权限后在WordPress后台可以直接编辑php文件写马，也就能实现RCE…</p>
+<p>很多地方包括面试会提到XSS与CSRF的区别，其实从这个漏洞就能看出，XSS是实现CSRF的一种方式。可以说两者是不同维度的东西，XSS强调攻击的代码实现，而CSRF着重于攻击达成的结果。</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>WordPress引入了Nonce安全机制，nonce值与用户的身份以及操作的属性有关，因此不同用户或不同操作都会产生不同的nonce值。由于校验nonce并阻止请求会影响评论处的某些功能，WP选择根据nonce值进行不同的过滤，比较直观的概括出来就是：</p>
+<ul>
+<li>管理员权限 + nonce值校验成功 = 无任何过滤</li>
+<li>管理员权限 + nonce值校验失败 = <code>wp_filter_post_kses()</code>过滤</li>
+<li>普通用户 = <code>wp_filter_kses()</code>过滤</li>
+</ul>
+<p>关于nonce检验的关键代码在<code>/wp-includes/comment.php</code>第3240行，<code>wp_handle_comment_submission()</code>函数中：</p>
+<p><img src="/img/20190505211818.png" alt></p>
+<p>当创建评论的是具备<code>unfiltered_html</code>属性的管理员且nonce值正确时，不做任何处理；当nonce校验失败后，进入<code>kses_init_filters()</code>函数：</p>
+<p><img src="/img/20190505211829.png" alt></p>
+<p>发现nonce校验失败则添加<code>wp_filter_post_kses()</code>过滤器来过滤评论，否则使用<code>wp_filter_kses()</code>过滤。而两者的严格程度不同：</p>
+<p><img src="/img/20190505212406.png" alt></p>
+<p>此处可以看到传入的第二参数不同，来看看<code>wp_filter_kses()</code>的<code>current_filter()</code>：</p>
+<p><img src="/img/20190505211909.png" alt></p>
+<p>跟进<code>$wp_current_filter()</code>：</p>
+<pre class=" language-php"><code class="language-php"><span class="token comment" spellcheck="true">//comment.php:1943</span>
+<span class="token keyword">function</span> <span class="token function">wp_filter_comment</span><span class="token punctuation">(</span> <span class="token variable">$commentdata</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token function">isset</span><span class="token punctuation">(</span> <span class="token variable">$commentdata</span><span class="token punctuation">[</span><span class="token string">'user_ID'</span><span class="token punctuation">]</span> <span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token variable">$commentdata</span><span class="token punctuation">[</span><span class="token string">'comment_content'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">apply_filters</span><span class="token punctuation">(</span> <span class="token string">'pre_comment_content'</span><span class="token punctuation">,</span> <span class="token variable">$commentdata</span><span class="token punctuation">[</span><span class="token string">'comment_content'</span><span class="token punctuation">]</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p><code>pre_comment_content</code>会为<code>&lt;a&gt;</code>标签中的<code>rel</code>属性添加<code>nofollow</code>属性值。注意以上这部分说的是<code>wp_filter_kses()</code>函数，而<code>wp_filter_post_kses()</code>函数会完全保留<code>&lt;a&gt;</code>标签中的<code>rel</code>属性，来看<code>wp_filter_post_kses()</code>第二参数为<code>post</code>的情况：</p>
+<pre class=" language-php"><code class="language-php"><span class="token comment" spellcheck="true">//kses.php:829</span>
+<span class="token keyword">function</span> <span class="token function">wp_kses_allowed_html</span><span class="token punctuation">(</span> <span class="token variable">$context</span> <span class="token operator">=</span> <span class="token string">''</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">global</span> <span class="token variable">$allowedposttags</span><span class="token punctuation">,</span> <span class="token variable">$allowedtags</span><span class="token punctuation">,</span> <span class="token variable">$allowedentitynames</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token function">is_array</span><span class="token punctuation">(</span> <span class="token variable">$context</span> <span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">apply_filters</span><span class="token punctuation">(</span> <span class="token string">'wp_kses_allowed_html'</span><span class="token punctuation">,</span> <span class="token variable">$context</span><span class="token punctuation">,</span> <span class="token string">'explicit'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">switch</span> <span class="token punctuation">(</span> <span class="token variable">$context</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">case</span> <span class="token string">'post'</span><span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true">/** This filter is documented in wp-includes/kses.php */</span>
+            <span class="token variable">$tags</span> <span class="token operator">=</span> <span class="token function">apply_filters</span><span class="token punctuation">(</span> <span class="token string">'wp_kses_allowed_html'</span><span class="token punctuation">,</span> <span class="token variable">$allowedposttags</span><span class="token punctuation">,</span> <span class="token variable">$context</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token comment" spellcheck="true">// 5.0.1 removed the `</span><span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span><span class="token punctuation">></span></span></span>` tag<span class="token punctuation">,</span> allow it <span class="token keyword">if</span> a filter is allowing it's sub<span class="token operator">-</span>elements `<span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span><span class="token punctuation">></span></span></span>` <span class="token keyword">or</span> `<span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span><span class="token punctuation">></span></span></span>`<span class="token punctuation">.</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token operator">!</span> <span class="token constant">CUSTOM_TAGS</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span> <span class="token function">isset</span><span class="token punctuation">(</span> <span class="token variable">$tags</span><span class="token punctuation">[</span><span class="token string">'form'</span><span class="token punctuation">]</span> <span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span> <span class="token function">isset</span><span class="token punctuation">(</span> <span class="token variable">$tags</span><span class="token punctuation">[</span><span class="token string">'input'</span><span class="token punctuation">]</span> <span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token function">isset</span><span class="token punctuation">(</span> <span class="token variable">$tags</span><span class="token punctuation">[</span><span class="token string">'select'</span><span class="token punctuation">]</span> <span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token variable">$tags</span> <span class="token operator">=</span> <span class="token variable">$allowedposttags</span><span class="token punctuation">;</span>
+
+                <span class="token variable">$tags</span><span class="token punctuation">[</span><span class="token string">'form'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span>
+                    <span class="token string">'action'</span>         <span class="token operator">=</span><span class="token operator">></span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+                    <span class="token string">'accept'</span>         <span class="token operator">=</span><span class="token operator">></span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+                    <span class="token string">'accept-charset'</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+                    <span class="token string">'enctype'</span>        <span class="token operator">=</span><span class="token operator">></span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+                    <span class="token string">'method'</span>         <span class="token operator">=</span><span class="token operator">></span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+                    <span class="token string">'name'</span>           <span class="token operator">=</span><span class="token operator">></span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+                    <span class="token string">'target'</span>         <span class="token operator">=</span><span class="token operator">></span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                <span class="token comment" spellcheck="true">/** This filter is documented in wp-includes/kses.php */</span>
+                <span class="token variable">$tags</span> <span class="token operator">=</span> <span class="token function">apply_filters</span><span class="token punctuation">(</span> <span class="token string">'wp_kses_allowed_html'</span><span class="token punctuation">,</span> <span class="token variable">$tags</span><span class="token punctuation">,</span> <span class="token variable">$context</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+</code></pre>
+<p>而<code>$allowedposttags</code>将<code>&lt;a&gt;</code>标签的<code>rel</code>属性设置为了白名单：</p>
+<p><img src="/img/20190505212013.png" alt></p>
+<p>接下来，WordPress为适配SEO会将<code>&lt;a&gt;</code>标签的属性解析成一个关联数组：</p>
+<p><img src="/img/20190505212025.png" alt></p>
+<p>之后再将原本的<code>&lt;a&gt;</code>标签拼接起来：</p>
+<p><img src="/img/20190505212035.png" alt></p>
+<p>当我们设置<code>&lt;a&gt;</code>标签中的<code>title=&#39;XSS &quot; onmouseover=alert(1) id=&quot;&#39;</code>时，有<code>$name</code>值为<code>title</code>，<code>$value</code>值为<code>XSS &quot; onmouseover=alert(1) id=&quot;</code>，拆分到数组中再拼接到<code>$html</code>，则</p>
+<p><code>$html</code> = <code>title=&quot;XSS &quot; onmouseover=alert(1) id=&quot;&quot;</code></p>
+<p>则返回的是<code>&lt;a title=&quot;XSS&quot; onmouseover=alert(1) id=&quot;&quot; rel=\&quot;$rel\&quot;&gt;</code></p>
+<p>这样也就实现了基于事件的存储型XSS攻击(不论<code>rel</code>属性值是否被修改)，我们可以执行任意JS脚本的攻击，对管理员的触发请求进行伪造即完成了原文所谓的CSRF，而伪造管理员身份写php文件也就能成功getshell，完成RCE。</p>
+<h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><p><img src="/img/20190505212051.png" alt></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2019-04-07/">
+                    PHP中的随机数安全问题
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019-02-15/">
+                    XML外部实体注入(XXE攻击)小结
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分析"><span class="toc-number">2.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修复"><span class="toc-number">3.</span> <span class="toc-text">修复</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-4 i,
+        .toc-level-4 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"WordPress 5.1.1 CSRF to RCE 跟进分析　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2019-04-07/" title="上一篇: PHP中的随机数安全问题">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019-02-15/" title="下一篇: XML外部实体注入(XXE攻击)小结">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2023-10-28/">窗口期的OSCP(PEN-200-2023)总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-07-14/">OSCP NOTE (Cheatsheet)</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-04-30/">50台Vulnhub靶机Walkthrough</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-02-13/">Honeypot-Factory: The Use of Deception in ICS/OT Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-08-21/">Pass the Hash再思考：场景、补丁与监测</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-26/">RFID初探之M1卡的分析与复制（使用PN532模块）</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-13/">Websocket渗透测试指北</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-12-14/">关于log4j、log4shell的一些记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-11-27/">红队视角下的信息收集（备忘 && 持续收集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-07-30/">Linux Basic for Hackers</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-02-09/">安全相关HTTP响应头解读、配置、示例与检测</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-10-31/">Cobaltstrike Server持久化 & Cobaltstrike与Metasploit相互派生shell</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-08-21/">深入了解子域名挖掘tricks</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-05-14/">Android开发实践之计算器&记事助手</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-13/">用Origin请求头防御CSRF攻击(译文)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-07/">PHP中的随机数安全问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-03-20/">WordPress 5.1.1 CSRF to RCE 跟进分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-02-15/">XML外部实体注入(XXE攻击)小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-01-26/">Django开发小记 & Docker笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-22/">前端安全之CSP、同源策略与跨域请求(JSONP/CORS)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-01/">使用Aircrack-ng破解WPA2协议无线网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-11-11/">PHP博客管理系统开发全记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-10-10/">环境配置踩坑记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-30/">区块链基础[待补充]</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-05/">校园网免流攻略(基于逻辑漏洞、DNS伪装包或IPv6)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-07-11/">基于Scrapy-Redis框架与Mongodb的分布式爬虫-elasticsearch搜索引擎打造</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-26/">《渗透测试实践指南》阅读笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-16/">「Web向」XCTF联赛2018年度考点知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-14/">「娱乐向」 Hack for Fun</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-12/">从一道取证题目谈NTFS交换数据流</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-10/">关于Xdebug的那些事儿</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-26/">PHP弱类型&&md5碰撞总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-24/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2024 Fazx
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+            
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "!!!∑(ﾟДﾟノ)ノ快回来!!!  " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "" + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
