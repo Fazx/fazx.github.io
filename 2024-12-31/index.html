@@ -15,27 +15,25 @@
 
 
 
-<meta name="description" content="-">
-<meta name="keywords" content="CodeAudit,php">
+<meta name="description" content="CISSP认证的内容号称“一英里宽，一英寸深”，我在2024年年末通过了（改版后CAT考试形式的）CISSP考试，这次CISSP之旅确实是比较奇妙的体验。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="WordPress 5.1.1 CSRF to RCE 跟进分析">
-<meta property="og:url" content="0sec.com.cn/2019-03-20/index.html">
+<meta property="og:title" content="我的CISSP Review">
+<meta property="og:url" content="0sec.com.cn/2024-12-31/index.html">
 <meta property="og:site_name" content="Cosmic Fragments">
-<meta property="og:description" content="-">
+<meta property="og:description" content="CISSP认证的内容号称“一英里宽，一英寸深”，我在2024年年末通过了（改版后CAT考试形式的）CISSP考试，这次CISSP之旅确实是比较奇妙的体验。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="/img/20190505211818.png">
-<meta property="og:image" content="/img/20190505211829.png">
-<meta property="og:image" content="/img/20190505212406.png">
-<meta property="og:image" content="/img/20190505211909.png">
-<meta property="og:image" content="/img/20190505212013.png">
-<meta property="og:image" content="/img/20190505212025.png">
-<meta property="og:image" content="/img/20190505212035.png">
-<meta property="og:image" content="/img/20190505212051.png">
-<meta property="og:updated_time" content="2024-05-29T07:04:44.599Z">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/228585/1735634213495-4965c28c-0dc6-415d-ac72-f2243266ad67.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/228585/1735634257905-ae8d1c87-98c6-4abd-bbf5-429a7bbdc989.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/228585/1735634834862-b4cc4917-4b5d-4441-aa74-ad6523061a5c.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/228585/1733300184016-2388da1e-bf23-48ea-b3e5-6932415c443a.png?x-oss-process=image%2Fformat%2Cwebp%2Fresize%2Cw_746%2Climit_0">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/228585/1736845657497-b32295ee-b0c9-4212-b8b7-d7abf20832ac.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/228585/1736846551101-08a412ea-b9b0-444d-a75a-f87e931df587.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/228585/1736847562636-2e10c2e1-479f-4aa8-9a8f-0c7033785100.png">
+<meta property="og:updated_time" content="2025-01-14T09:55:17.562Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="WordPress 5.1.1 CSRF to RCE 跟进分析">
-<meta name="twitter:description" content="-">
-<meta name="twitter:image" content="/img/20190505211818.png">
+<meta name="twitter:title" content="我的CISSP Review">
+<meta name="twitter:description" content="CISSP认证的内容号称“一英里宽，一英寸深”，我在2024年年末通过了（改版后CAT考试形式的）CISSP考试，这次CISSP之旅确实是比较奇妙的体验。">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2024/png/228585/1735634213495-4965c28c-0dc6-415d-ac72-f2243266ad67.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -67,7 +65,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>WordPress 5.1.1 CSRF to RCE 跟进分析 | Cosmic Fragments</title>
+<title>我的CISSP Review | Cosmic Fragments</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -226,11 +224,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-WordPress-5-1-1-CSRF-to-RCE-跟进分析" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-我的CISSP-Review" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019-03-20/" class="article-date">
-      <time datetime="2019-03-20T14:39:42.000Z" itemprop="datePublished">2019-03-20</time>
+      <a href="/2024-12-31/" class="article-date">
+      <time datetime="2024-12-31T09:51:13.000Z" itemprop="datePublished">2024-12-31</time>
 </a>
 
 
@@ -245,7 +243,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      WordPress 5.1.1 CSRF to RCE 跟进分析
+      我的CISSP Review
     </h1>
   
 
@@ -255,10 +253,6 @@
         
 
         
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CodeAudit/">CodeAudit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-    </div>
-
         <div class="clearfix"></div>
       </div>
       
@@ -266,73 +260,76 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>-<br><a id="more"></a></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><em>CSRF to RCE</em> 这个标题是原作者在<a href="https://blog.ripstech.com/2019/wordpress-csrf-to-rce/" target="_blank" rel="noopener">博文</a>中的写法，其实颇有些标题党的意味。通篇分析下来我们会发现这个漏洞其实就是一个存储型XSS，而RCE是因为获取管理权限后在WordPress后台可以直接编辑php文件写马，也就能实现RCE…</p>
-<p>很多地方包括面试会提到XSS与CSRF的区别，其实从这个漏洞就能看出，XSS是实现CSRF的一种方式。可以说两者是不同维度的东西，XSS强调攻击的代码实现，而CSRF着重于攻击达成的结果。</p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>WordPress引入了Nonce安全机制，nonce值与用户的身份以及操作的属性有关，因此不同用户或不同操作都会产生不同的nonce值。由于校验nonce并阻止请求会影响评论处的某些功能，WP选择根据nonce值进行不同的过滤，比较直观的概括出来就是：</p>
+        <p>CISSP认证的内容号称“一英里宽，一英寸深”，我在2024年年末通过了（改版后CAT考试形式的）CISSP考试，这次CISSP之旅确实是比较奇妙的体验。</p>
+<a id="more"></a>
+<p>CISSP认证的内容号称“一英里宽，一英寸深”，我在2024年年末通过了（改版后CAT考试形式的）CISSP考试，这次CISSP之旅确实是比较奇妙的体验：</p>
 <ul>
-<li>管理员权限 + nonce值校验成功 = 无任何过滤</li>
-<li>管理员权限 + nonce值校验失败 = <code>wp_filter_post_kses()</code>过滤</li>
-<li>普通用户 = <code>wp_filter_kses()</code>过滤</li>
+<li>报名的时候书还没看完，抱着“再不报又要下个季度，逼自己一把”的想法上了车</li>
+<li>考前两天晚上都复习到凌晨一两点，和大学期末前差不多的临阵磨枪，但是也只磨了两天</li>
+<li>考场上对着题目左思右想，纠结好久心一横，点击【下一题】，心想这都什么破题目背的都没考</li>
+<li>考场上感觉今天可能要翻车了，如果做到150道还没通过怎么办，结果刚100道就通过了，一道没多做</li>
 </ul>
-<p>关于nonce检验的关键代码在<code>/wp-includes/comment.php</code>第3240行，<code>wp_handle_comment_submission()</code>函数中：</p>
-<p><img src="/img/20190505211818.png" alt></p>
-<p>当创建评论的是具备<code>unfiltered_html</code>属性的管理员且nonce值正确时，不做任何处理；当nonce校验失败后，进入<code>kses_init_filters()</code>函数：</p>
-<p><img src="/img/20190505211829.png" alt></p>
-<p>发现nonce校验失败则添加<code>wp_filter_post_kses()</code>过滤器来过滤评论，否则使用<code>wp_filter_kses()</code>过滤。而两者的严格程度不同：</p>
-<p><img src="/img/20190505212406.png" alt></p>
-<p>此处可以看到传入的第二参数不同，来看看<code>wp_filter_kses()</code>的<code>current_filter()</code>：</p>
-<p><img src="/img/20190505211909.png" alt></p>
-<p>跟进<code>$wp_current_filter()</code>：</p>
-<pre class=" language-php"><code class="language-php"><span class="token comment" spellcheck="true">//comment.php:1943</span>
-<span class="token keyword">function</span> <span class="token function">wp_filter_comment</span><span class="token punctuation">(</span> <span class="token variable">$commentdata</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token function">isset</span><span class="token punctuation">(</span> <span class="token variable">$commentdata</span><span class="token punctuation">[</span><span class="token string">'user_ID'</span><span class="token punctuation">]</span> <span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-    <span class="token variable">$commentdata</span><span class="token punctuation">[</span><span class="token string">'comment_content'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">apply_filters</span><span class="token punctuation">(</span> <span class="token string">'pre_comment_content'</span><span class="token punctuation">,</span> <span class="token variable">$commentdata</span><span class="token punctuation">[</span><span class="token string">'comment_content'</span><span class="token punctuation">]</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
-<p><code>pre_comment_content</code>会为<code>&lt;a&gt;</code>标签中的<code>rel</code>属性添加<code>nofollow</code>属性值。注意以上这部分说的是<code>wp_filter_kses()</code>函数，而<code>wp_filter_post_kses()</code>函数会完全保留<code>&lt;a&gt;</code>标签中的<code>rel</code>属性，来看<code>wp_filter_post_kses()</code>第二参数为<code>post</code>的情况：</p>
-<pre class=" language-php"><code class="language-php"><span class="token comment" spellcheck="true">//kses.php:829</span>
-<span class="token keyword">function</span> <span class="token function">wp_kses_allowed_html</span><span class="token punctuation">(</span> <span class="token variable">$context</span> <span class="token operator">=</span> <span class="token string">''</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">global</span> <span class="token variable">$allowedposttags</span><span class="token punctuation">,</span> <span class="token variable">$allowedtags</span><span class="token punctuation">,</span> <span class="token variable">$allowedentitynames</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token function">is_array</span><span class="token punctuation">(</span> <span class="token variable">$context</span> <span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token function">apply_filters</span><span class="token punctuation">(</span> <span class="token string">'wp_kses_allowed_html'</span><span class="token punctuation">,</span> <span class="token variable">$context</span><span class="token punctuation">,</span> <span class="token string">'explicit'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">switch</span> <span class="token punctuation">(</span> <span class="token variable">$context</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">case</span> <span class="token string">'post'</span><span class="token punctuation">:</span>
-            <span class="token comment" spellcheck="true">/** This filter is documented in wp-includes/kses.php */</span>
-            <span class="token variable">$tags</span> <span class="token operator">=</span> <span class="token function">apply_filters</span><span class="token punctuation">(</span> <span class="token string">'wp_kses_allowed_html'</span><span class="token punctuation">,</span> <span class="token variable">$allowedposttags</span><span class="token punctuation">,</span> <span class="token variable">$context</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-            <span class="token comment" spellcheck="true">// 5.0.1 removed the `</span><span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span><span class="token punctuation">></span></span></span>` tag<span class="token punctuation">,</span> allow it <span class="token keyword">if</span> a filter is allowing it's sub<span class="token operator">-</span>elements `<span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span><span class="token punctuation">></span></span></span>` <span class="token keyword">or</span> `<span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span><span class="token punctuation">></span></span></span>`<span class="token punctuation">.</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token operator">!</span> <span class="token constant">CUSTOM_TAGS</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span> <span class="token function">isset</span><span class="token punctuation">(</span> <span class="token variable">$tags</span><span class="token punctuation">[</span><span class="token string">'form'</span><span class="token punctuation">]</span> <span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span> <span class="token function">isset</span><span class="token punctuation">(</span> <span class="token variable">$tags</span><span class="token punctuation">[</span><span class="token string">'input'</span><span class="token punctuation">]</span> <span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token function">isset</span><span class="token punctuation">(</span> <span class="token variable">$tags</span><span class="token punctuation">[</span><span class="token string">'select'</span><span class="token punctuation">]</span> <span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token variable">$tags</span> <span class="token operator">=</span> <span class="token variable">$allowedposttags</span><span class="token punctuation">;</span>
-
-                <span class="token variable">$tags</span><span class="token punctuation">[</span><span class="token string">'form'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span>
-                    <span class="token string">'action'</span>         <span class="token operator">=</span><span class="token operator">></span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-                    <span class="token string">'accept'</span>         <span class="token operator">=</span><span class="token operator">></span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-                    <span class="token string">'accept-charset'</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-                    <span class="token string">'enctype'</span>        <span class="token operator">=</span><span class="token operator">></span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-                    <span class="token string">'method'</span>         <span class="token operator">=</span><span class="token operator">></span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-                    <span class="token string">'name'</span>           <span class="token operator">=</span><span class="token operator">></span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-                    <span class="token string">'target'</span>         <span class="token operator">=</span><span class="token operator">></span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-                <span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-                <span class="token comment" spellcheck="true">/** This filter is documented in wp-includes/kses.php */</span>
-                <span class="token variable">$tags</span> <span class="token operator">=</span> <span class="token function">apply_filters</span><span class="token punctuation">(</span> <span class="token string">'wp_kses_allowed_html'</span><span class="token punctuation">,</span> <span class="token variable">$tags</span><span class="token punctuation">,</span> <span class="token variable">$context</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-</code></pre>
-<p>而<code>$allowedposttags</code>将<code>&lt;a&gt;</code>标签的<code>rel</code>属性设置为了白名单：</p>
-<p><img src="/img/20190505212013.png" alt></p>
-<p>接下来，WordPress为适配SEO会将<code>&lt;a&gt;</code>标签的属性解析成一个关联数组：</p>
-<p><img src="/img/20190505212025.png" alt></p>
-<p>之后再将原本的<code>&lt;a&gt;</code>标签拼接起来：</p>
-<p><img src="/img/20190505212035.png" alt></p>
-<p>当我们设置<code>&lt;a&gt;</code>标签中的<code>title=&#39;XSS &quot; onmouseover=alert(1) id=&quot;&#39;</code>时，有<code>$name</code>值为<code>title</code>，<code>$value</code>值为<code>XSS &quot; onmouseover=alert(1) id=&quot;</code>，拆分到数组中再拼接到<code>$html</code>，则</p>
-<p><code>$html</code> = <code>title=&quot;XSS &quot; onmouseover=alert(1) id=&quot;&quot;</code></p>
-<p>则返回的是<code>&lt;a title=&quot;XSS&quot; onmouseover=alert(1) id=&quot;&quot; rel=\&quot;$rel\&quot;&gt;</code></p>
-<p>这样也就实现了基于事件的存储型XSS攻击(不论<code>rel</code>属性值是否被修改)，我们可以执行任意JS脚本的攻击，对管理员的触发请求进行伪造即完成了原文所谓的CSRF，而伪造管理员身份写php文件也就能成功getshell，完成RCE。</p>
-<h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><p><img src="/img/20190505212051.png" alt></p>
+<p>很难说针对这个考试我实际备考了多久，因为我实际的学习就只包括：</p>
+<ul>
+<li>通读了第9版OSG，划重点，做课后题并对答案（这一部分题只作为熟悉概念用，考试前没有再复习）</li>
+<li>用汤季洪老师的免费答题系统分domain做了所有官方习题，整理了部分错题到语雀（建议只选取有价值的，不要不分好坏全收集起来，最后也不一定看）</li>
+</ul>
+<p>非常感谢汤老师提供的资源：<a href="https://mp.weixin.qq.com/s?__biz=MzUyODA0MzYxMg==&amp;mid=2247489604&amp;idx=1&amp;sn=5ffd8326d64457773d0c4b3af28aabd3&amp;chksm=fbe7079424845b472d9234cc2eed7e798a62b72caaeaa3c31d3bb0c51afac455337c6fef910c&amp;mpshare=1&amp;scene=1&amp;srcid=1130YjOYI0NLSq4gMRc1nJcT&amp;sharer_shareinfo=4223d34e7ba6e1fb9c789d65daa5f5dd&amp;sharer_shareinfo_first=c0c1e5f57a9fe415b5d06567f0f5c310#rd" target="_blank" rel="noopener">【免费】CISSP官方习题集第4版</a></p>
+<ul>
+<li>考前两天复习了一遍上面官方习题的所有错题，这时候对知识点的理解已经加深了很多</li>
+</ul>
+<p>也很难说我的考试里面有多少运气成分，基于我的复习时间，我估计是有一些的。我其实有点同意我们leader说的，以我现在的工作经验考CISSP还有一些早，对有一些内容还没法理解太深入。所以也是从学习领会而非通过考试的角度，我希望能够记录下一些知识点，以供后面翻阅和回顾。</p>
+<p><a href="https://mp.weixin.qq.com/mp/appmsgalbum?action=getalbum&amp;__biz=MzUyODA0MzYxMg==&amp;scene=1&amp;album_id=2418176055661461505&amp;count=3#wechat_redirect" target="_blank" rel="noopener">CISSP考点拾遗</a></p>
+<h3 id="CPTED"><a href="#CPTED" class="headerlink" title="CPTED"></a>CPTED</h3><p>CPTED (Crime prevention through environmental design) 是我在看OSG教材时第一个让我感觉耳目一新，眼前一亮的东西。它并不是一种实际的安全防护措施，但是却巧妙地通过布置环境，降低了区域发生犯罪的可能性，包括“提供长椅和桌子，鼓励人们坐下来四处看看；它们提供了自动监视功能”这样的措施建议让人拍案叫绝。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/228585/1735634213495-4965c28c-0dc6-415d-ac72-f2243266ad67.png" alt></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/228585/1735634257905-ae8d1c87-98c6-4abd-bbf5-429a7bbdc989.png" alt></p>
+<h3 id="AUP"><a href="#AUP" class="headerlink" title="AUP"></a>AUP</h3><p>AUP的重点其实就是对个人/员工实施一定的安全教育和控制，以实现企业安全管理者的风险转移，通俗点说就是完成了甩锅（从领导的角度讲），当员工经过了AUP培训并签名确认后，再违背AUP的规定内容就可以有一个追责的依据。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/228585/1735634834862-b4cc4917-4b5d-4441-aa74-ad6523061a5c.png" alt></p>
+<h3 id="MTD-RTO-RPO"><a href="#MTD-RTO-RPO" class="headerlink" title="MTD RTO RPO"></a>MTD RTO RPO</h3><p><strong>BCP的目标就是确保RTO小于MTD。</strong></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/228585/1733300184016-2388da1e-bf23-48ea-b3e5-6932415c443a.png?x-oss-process=image%2Fformat%2Cwebp%2Fresize%2Cw_746%2Climit_0" alt></p>
+<h3 id="BCP文档化"><a href="#BCP文档化" class="headerlink" title="BCP文档化"></a>BCP文档化</h3><blockquote>
+<p>BCP文档化非常的重要，也是甩锅神器，试想一下：分析出一个重大风险，老板因为投入资源过大而选择接受风险，但未使其文档化并签字确认，那么风险一旦真正发生，你必然要背锅，为什么当时你没有好好劝我？</p>
+</blockquote>
+<ul>
+<li>数据中心的温度应保持在15-32摄氏度，湿度应保持在20%-80%</li>
+<li>湿管、干管、预响应系统、密集洒水系统</li>
+</ul>
+<h3 id="版权-商标-专利-商业秘密"><a href="#版权-商标-专利-商业秘密" class="headerlink" title="版权 商标 专利 商业秘密"></a>版权 商标 专利 商业秘密</h3><p>版权的保护时间为创造者离世后的70年。</p>
+<p>商标的保护时间为无限期，但需每10年申请延续。商标不保护软件。</p>
+<p>专利的保护时间为20年。这项发明必须是新的，必须有用，不能是显而易见的。</p>
+<h3 id="GDPR"><a href="#GDPR" class="headerlink" title="GDPR"></a>GDPR</h3><p>GDPR绝对是CISSP内容的一个重中之重，它监管的范围涵盖收集或处理欧盟居民数据的任何实体，不管位置上是不是位于欧盟。</p>
+<p>从我个人的理解角度讲，GDPR法规的核心其实是给予了用户“遗忘权”，允许人们要求公司在不再需要时删除他们的信息。</p>
+<h3 id="数据销毁方法"><a href="#数据销毁方法" class="headerlink" title="数据销毁方法"></a>数据销毁方法</h3><p>直接看  <a href="https://mp.weixin.qq.com/s?__biz=MzUyODA0MzYxMg==&amp;mid=2247488436&amp;idx=3&amp;sn=27e8ea49f80d5103daa80af8f735b8eb&amp;chksm=fa770887cd008191106c3170f0ff21784be77134f468c06b2ff8fb3af7cbd7d2632a46d4ec04&amp;scene=178&amp;cur_album_id=2418176055661461505#rd" target="_blank" rel="noopener">CISSP考点拾遗——介质净化</a>  和  <a href="https://mp.weixin.qq.com/s?__biz=MzUyODA0MzYxMg==&amp;mid=2247488384&amp;idx=1&amp;sn=2f34c2720a5c5cce6f49d12bfeda522a" target="_blank" rel="noopener">CISSP考点拾遗——介质净化之加密擦除</a></p>
+<h3 id="柯克霍夫原则"><a href="#柯克霍夫原则" class="headerlink" title="柯克霍夫原则"></a>柯克霍夫原则</h3><p>密码学<font style="color:rgb(32, 33, 34);">上的</font><strong><font style="color:rgb(32, 33, 34);">柯克霍夫原则</font></strong><font style="color:rgb(32, 33, 34);">（Kerckhoffs’s principle，也称为柯克霍夫假说、公理、或定律）系由</font><a href="https://zh.wikipedia.org/w/index.php?title=%E5%A5%A7%E5%8F%A4%E6%96%AF%E7%89%B9%C2%B7%E6%9F%AF%E5%85%8B%E9%9C%8D%E5%A4%AB&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener"><font style="color:rgb(32, 33, 34);">奥古斯特·柯克霍夫</font></a><font style="color:rgb(32, 33, 34);">在19世纪提出：即使密码系统的任何细节已为人悉知，只要密匙（key，又称密钥或密钥）未泄漏，它也应是安全的。 </font>信息论<font style="color:rgb(32, 33, 34);">的发明者</font>克劳德·香农<font style="color:rgb(32, 33, 34);">则改成说：“敌人了解系统”，这样的说法则称为</font><strong><font style="color:rgb(32, 33, 34);">香农箴言</font></strong><font style="color:rgb(32, 33, 34);">。 它和传统上使用隐密的设计、实现、或其他等等来提供加密的</font>隐晦式安全<font style="color:rgb(32, 33, 34);">想法相对。</font></p>
+<h3 id="失效安全"><a href="#失效安全" class="headerlink" title="失效安全"></a>失效安全</h3><blockquote>
+<p>在物理世界语境下，失效打开与失效保障是同义词，失效关闭与失效安全是同义词。</p>
+<p>当语境从物理世界切换到数字世界时，失效保障的定义会发生变化。</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/228585/1736845657497-b32295ee-b0c9-4212-b8b7-d7abf20832ac.png" alt></p>
+<h3 id="边缘计算-（Edge-Computing）-和雾计算-（Fog-Computing）"><a href="#边缘计算-（Edge-Computing）-和雾计算-（Fog-Computing）" class="headerlink" title="边缘计算 （Edge Computing）  和雾计算 （Fog Computing）"></a>边缘计算 （Edge Computing）  和雾计算 （Fog Computing）</h3><p>边缘计算是在数据生成的边缘设备或靠近数据源的位置执行数据处理和计算的一种架构  ，可以降低延迟，典型的示例是CDN。</p>
+<p>雾计算使用边缘设备收集和处理数据后，将加工后的数据传输回中心位置进行处理。</p>
+<ul>
+<li><strong>边缘计算</strong>适用于单一设备或小型网络中需要快速响应和处理的任务。</li>
+<li><strong>雾计算</strong>适用于复杂分布式场景，强调多个层级的协同和资源的高效利用。</li>
+</ul>
+<h3 id="移动设备的部署策略"><a href="#移动设备的部署策略" class="headerlink" title="移动设备的部署策略"></a>移动设备的部署策略</h3><p><strong>自带设备 (Bring Your Own Device，BYOD）</strong></p>
+<p>该策略允许员工自带个人移动设备工作，可提高员工士气和工作满意度，但会增加组织的安全风险，可能涉及采集设备上员工的个人信息。</p>
+<p><strong>公司所有、个人使用 (Corporate Owned, Personally Enabled. COPE)</strong></p>
+<p>该策略是组织购买设备并提供给员工，组织可以控制移动设备符合安全镇路要求，也可能涉及采集设备上员工的个人信息。</p>
+<p><strong>自选设备 (Choose Your Own Device, CYOD)</strong></p>
+<p>该策略为用户提供了一个经批准的设备列表，用户可以从中选择要使用的设备。如果是员工自己买，则是 BYOD 变体，该策咯通常会导致员工不太爽；如果是公司买，则是 COPE变体。</p>
+<h3 id="NIST的非常规密码建议"><a href="#NIST的非常规密码建议" class="headerlink" title="NIST的非常规密码建议"></a>NIST的非常规密码建议</h3><p>NIST针对密码的建议是比较违背直觉，或者说违背我们习以为常的密码安全策略的。但是细看感觉非常有道理，直击痛点。主要就是密码不应该过期，以及长度比特殊字符更重要：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/228585/1736846551101-08a412ea-b9b0-444d-a75a-f87e931df587.png" alt></p>
+<ul>
+<li>多因素身份认证的Type123，视网膜泄露PHI</li>
+<li>FRR、FAR相等的点是CER或者ERR</li>
+<li>能力表关注主体，访问控制列表关注个体，访问控制矩阵=能力表+访问控制列表</li>
+<li>Kerberos认证流程、KDC存在单点</li>
+<li>冷站点、热站点、温站点</li>
+</ul>
+<h3 id="增量备份和差异备份"><a href="#增量备份和差异备份" class="headerlink" title="增量备份和差异备份"></a>增量备份和差异备份</h3><p>差异备份的概念我刚开始理解错了，到第二遍做题的时候才发现，差异备份指的是只复制<strong>最近一次完整备份之后</strong>有变化的数据。所以还是完整+增量的备份方式最快、占空间最小。</p>
+<h3 id="敏捷软件开发"><a href="#敏捷软件开发" class="headerlink" title="敏捷软件开发"></a>敏捷软件开发</h3><p>越来越同意敏捷开发的原则，尤其是和日本客户打交道多了以后。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/228585/1736847562636-2e10c2e1-479f-4aa8-9a8f-0c7033785100.png" alt></p>
 
       
     </div>
@@ -344,16 +341,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019-04-07/">
-                    PHP中的随机数安全问题
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019-02-15/">
-                    XML外部实体注入(XXE攻击)小结
+                <a href="/2023-10-28/">
+                    窗口期的OSCP(PEN-200-2023)总结
                 </a>
             </div>
         
@@ -365,7 +356,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分析"><span class="toc-number">2.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修复"><span class="toc-number">3.</span> <span class="toc-text">修复</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#CPTED"><span class="toc-number">1.</span> <span class="toc-text">CPTED</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AUP"><span class="toc-number">2.</span> <span class="toc-text">AUP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MTD-RTO-RPO"><span class="toc-number">3.</span> <span class="toc-text">MTD RTO RPO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BCP文档化"><span class="toc-number">4.</span> <span class="toc-text">BCP文档化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#版权-商标-专利-商业秘密"><span class="toc-number">5.</span> <span class="toc-text">版权 商标 专利 商业秘密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GDPR"><span class="toc-number">6.</span> <span class="toc-text">GDPR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据销毁方法"><span class="toc-number">7.</span> <span class="toc-text">数据销毁方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#柯克霍夫原则"><span class="toc-number">8.</span> <span class="toc-text">柯克霍夫原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#失效安全"><span class="toc-number">9.</span> <span class="toc-text">失效安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#边缘计算-（Edge-Computing）-和雾计算-（Fog-Computing）"><span class="toc-number">10.</span> <span class="toc-text">边缘计算 （Edge Computing）  和雾计算 （Fog Computing）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#移动设备的部署策略"><span class="toc-number">11.</span> <span class="toc-text">移动设备的部署策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NIST的非常规密码建议"><span class="toc-number">12.</span> <span class="toc-text">NIST的非常规密码建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#增量备份和差异备份"><span class="toc-number">13.</span> <span class="toc-text">增量备份和差异备份</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#敏捷软件开发"><span class="toc-number">14.</span> <span class="toc-text">敏捷软件开发</span></a></li></ol>
         
     </div>
     <style>
@@ -401,7 +392,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"WordPress 5.1.1 CSRF to RCE 跟进分析　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"我的CISSP Review　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -421,15 +412,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019-04-07/" title="上一篇: PHP中的随机数安全问题">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019-02-15/" title="下一篇: XML外部实体注入(XXE攻击)小结">
+            <a href="/2023-10-28/" title="下一篇: 窗口期的OSCP(PEN-200-2023)总结">
                 <i class="fa fa-angle-right"></i>
             </a>
         
