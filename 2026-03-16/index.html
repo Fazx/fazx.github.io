@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Fazx">
+
+
+
+<meta name="description" content="‮">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenClaw实践之钓鱼邮件识别小助手">
+<meta property="og:url" content="0sec.com.cn/2026-03-16/index.html">
+<meta property="og:site_name" content="Cosmic Fragments">
+<meta property="og:description" content="‮">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="/img/openclaw1.png">
+<meta property="og:image" content="/img/openclaw2.png">
+<meta property="og:image" content="/img/openclaw3.png">
+<meta property="og:image" content="/img/openclaw4.png">
+<meta property="og:image" content="/img/openclaw5.png">
+<meta property="og:image" content="/img/openclaw6.png">
+<meta property="og:image" content="/img/openclaw7.png">
+<meta property="og:image" content="/img/openclaw8.png">
+<meta property="og:image" content="/img/openclaw9.png">
+<meta property="og:image" content="/img/openclaw10.png">
+<meta property="og:image" content="/img/openclaw11.png">
+<meta property="og:image" content="/img/openclaw12.png">
+<meta property="og:image" content="/img/openclaw13.png">
+<meta property="og:image" content="/img/openclaw14.png">
+<meta property="og:updated_time" content="2026-04-21T03:58:29.672Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenClaw实践之钓鱼邮件识别小助手">
+<meta name="twitter:description" content="‮">
+<meta name="twitter:image" content="/img/openclaw1.png">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Cosmic Fragments" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>OpenClaw实践之钓鱼邮件识别小助手 | Cosmic Fragments</title>
+
+<script src="//cdn.jsdelivr.net/gh/jquery/jquery@3.2.1/dist/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.1/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdnjs.cloudflare.com/ajax/libs/scrollReveal.js/3.4.0/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?16b144395cc20d4a7b4ab64227601921";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Fazx</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">OSCP, OSWP, CISSP, Security+, @Orange Cyberdefense</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">一个喜欢读和写的伪理科生。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Fazx</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Fazx</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">OSCP, OSWP, CISSP, Security+, @Orange Cyberdefense</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 豆瓣" target="_blank" href="https://www.douban.com/people/faithandchange/" title="豆瓣"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/ping2u" title="知乎"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Fazx" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-OpenClaw实践之钓鱼邮件识别小助手" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2026-03-16/" class="article-date">
+      <time datetime="2026-03-16T03:47:28.000Z" itemprop="datePublished">2026-03-16</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      OpenClaw实践之钓鱼邮件识别小助手
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>‮<br><a id="more"></a></p>
+<p><img src="/img/openclaw1.png" alt></p>
+<p>2026年3月，全国上下掀起一股<del>气功</del>（OpenClaw）热，公司老板看到后产生好奇，遂发起为期一周的OpenClaw小挑战，鼓励大家基于OpenClaw自行搭建 Demo，探索在实际工作场景中的应用。因此有了这个小项目。</p>
+<p>我挑选的方向是识别和处理钓鱼邮件，由于只是个demo且不能接入实际工作环境，很多环节做了简化，比如工作环境的O365邮箱用Gmail代替（API比较多，qq邮箱就没有给拉黑发件人的API），比如应该在邮件网关上做的封禁操作，暂且用Gmail个人配置中的拉黑代替。</p>
+<h2 id="研究背景和意义"><a href="#研究背景和意义" class="headerlink" title="研究背景和意义"></a>研究背景和意义</h2><p><img src="/img/openclaw2.png" alt><br>在经过基本的钓鱼邮件安全意识培训后，员工具备识别恶意特征的能力，但是在企业邮件繁多的条件下，工作繁忙的财务/管理层仍然可能出错，因此有必要进行研究。</p>
+<p>设想：</p>
+<p><img src="/img/openclaw3.png" alt></p>
+<p>挑战：</p>
+<p><img src="/img/openclaw4.png" alt></p>
+<p>（概念介绍）</p>
+<p><img src="/img/openclaw5.png" alt></p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><p><img src="/img/openclaw6.png" alt></p>
+<p>SKILL：</p>
+<p><img src="/img/openclaw7.png" alt></p>
+<p><strong>获取邮件内容、查VT等这些固定的操作其实完全可以用SOAR类似的自动化编排实现，没有必要引入AI Agent，</strong>在这里更贴切的点我认为是</p>
+<ul>
+<li><ol>
+<li><strong>分析域名仿冒(typosquatting)等</strong>。由于相关技术目的就是迷惑人眼、让人看错误以为是可信地址点进去，AI具有天然的分辨出大写i还是小写L、察觉仿冒的拉丁字母的能力。在企业环境中，大量邮件会使人眼疲劳警惕性下降，但是AI可以较好地避免此类情况；</li>
+</ol>
+</li>
+<li><ol start="2">
+<li><strong>分析邮件中的紧迫性、不合理性</strong>。在除了URL/附件/二维码的钓鱼方式外，还有发票财务欺诈等方式不易被传统的安全扫描发现，AI作为大语言模型有着天然的分析优势。</li>
+</ol>
+</li>
+</ul>
+<p><img src="/img/openclaw8.png" alt></p>
+<p>架构图和相关脚本：</p>
+<p><strong>gen_token.py</strong></p>
+<p>需要在windows上执行，调出浏览器完成谷歌的授权认证过程，本地生成token.json和credential.json文件</p>
+<p>这里需要的权限是modify而不是read，是因为后面要添加发件人黑名单</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">import</span> os.path
+from google.auth.transport.requests <span class="token function">import</span> Request
+from google.oauth2.credentials <span class="token function">import</span> Credentials
+from google_auth_oauthlib.flow <span class="token function">import</span> InstalledAppFlow
+
+SCOPES <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token string">"https://www.googleapis.com/auth/gmail.modify"</span>,
+    <span class="token string">"https://www.googleapis.com/auth/gmail.settings.basic"</span>
+<span class="token punctuation">]</span>
+
+def main<span class="token punctuation">(</span><span class="token punctuation">)</span>:
+    creds <span class="token operator">=</span> None
+
+    <span class="token keyword">if</span> os.path.exists<span class="token punctuation">(</span><span class="token string">"token.json"</span><span class="token punctuation">)</span>:
+        creds <span class="token operator">=</span> Credentials.from_authorized_user_file<span class="token punctuation">(</span><span class="token string">"token.json"</span>, SCOPES<span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> not creds or not creds.valid:
+        <span class="token keyword">if</span> creds and creds.expired and creds.refresh_token:
+            creds.refresh<span class="token punctuation">(</span>Request<span class="token punctuation">(</span><span class="token punctuation">))</span>
+        else:
+            flow <span class="token operator">=</span> InstalledAppFlow.from_client_secrets_file<span class="token punctuation">(</span>
+                <span class="token string">"credentials.json"</span>,
+                SCOPES
+            <span class="token punctuation">)</span>
+            creds <span class="token operator">=</span> flow.run_local_server<span class="token punctuation">(</span>port<span class="token operator">=</span>0<span class="token punctuation">)</span>
+
+        with open<span class="token punctuation">(</span><span class="token string">"token.json"</span>, <span class="token string">"w"</span>, encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span> as token:
+            token.write<span class="token punctuation">(</span>creds.to_json<span class="token punctuation">(</span><span class="token punctuation">))</span>
+
+    print<span class="token punctuation">(</span><span class="token string">"token.json generated successfully"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token keyword">:</span>
+    main<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>fetch_email.py太长了就不放了，让AI写个拿下来邮件的邮件头和邮件正文就行。</p>
+<p>vt_check.py，会输出有几个malicious或suspicious的标记：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">import</span> base64
+<span class="token function">import</span> requests
+<span class="token function">import</span> argparse
+
+API_KEY <span class="token operator">=</span> <span class="token string">"XXX"</span>
+
+<span class="token comment" spellcheck="true"># 解析命令行参数</span>
+parser <span class="token operator">=</span> argparse.ArgumentParser<span class="token punctuation">(</span>description<span class="token operator">=</span><span class="token string">"Query VirusTotal URL reputation"</span><span class="token punctuation">)</span>
+parser.add_argument<span class="token punctuation">(</span><span class="token string">"--url"</span>, required<span class="token operator">=</span>True, help<span class="token operator">=</span><span class="token string">"URL to check"</span><span class="token punctuation">)</span>
+args <span class="token operator">=</span> parser.parse_args<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+url <span class="token operator">=</span> args.url
+
+<span class="token comment" spellcheck="true"># URL safe base64</span>
+url_id <span class="token operator">=</span> base64.urlsafe_b64encode<span class="token punctuation">(</span>url.encode<span class="token punctuation">(</span><span class="token punctuation">))</span>.decode<span class="token punctuation">(</span><span class="token punctuation">)</span>.strip<span class="token punctuation">(</span><span class="token string">"="</span><span class="token punctuation">)</span>
+
+endpoint <span class="token operator">=</span> f<span class="token string">"https://www.virustotal.com/api/v3/urls/{url_id}"</span>
+
+headers <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">"x-apikey"</span><span class="token keyword">:</span> API_KEY
+<span class="token punctuation">}</span>
+
+response <span class="token operator">=</span> requests.get<span class="token punctuation">(</span>endpoint, headers<span class="token operator">=</span>headers<span class="token punctuation">)</span>
+data <span class="token operator">=</span> response.json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+stats <span class="token operator">=</span> data<span class="token punctuation">[</span><span class="token string">"data"</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">"attributes"</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">"last_analysis_stats"</span><span class="token punctuation">]</span>
+
+print<span class="token punctuation">(</span><span class="token string">"malicious:"</span>, stats<span class="token punctuation">[</span><span class="token string">"malicious"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+print<span class="token punctuation">(</span><span class="token string">"suspicious:"</span>, stats<span class="token punctuation">[</span><span class="token string">"suspicious"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+<p>block_sender.py，添加过滤器操作</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">import</span> argparse
+<span class="token function">import</span> os
+
+from google.oauth2.credentials <span class="token function">import</span> Credentials
+from google.auth.transport.requests <span class="token function">import</span> Request
+from googleapiclient.discovery <span class="token function">import</span> build
+
+SCOPES <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token string">"https://www.googleapis.com/auth/gmail.modify"</span>,
+    <span class="token string">"https://www.googleapis.com/auth/gmail.settings.basic"</span>
+<span class="token punctuation">]</span>
+
+def gmail_auth<span class="token punctuation">(</span>token_path<span class="token operator">=</span><span class="token string">"token.json"</span><span class="token punctuation">)</span>:
+    creds <span class="token operator">=</span> None
+
+    <span class="token keyword">if</span> os.path.exists<span class="token punctuation">(</span>token_path<span class="token punctuation">)</span>:
+        creds <span class="token operator">=</span> Credentials.from_authorized_user_file<span class="token punctuation">(</span>token_path, SCOPES<span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> not creds:
+        raise RuntimeError<span class="token punctuation">(</span><span class="token string">"token.json not found"</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> not creds.valid:
+        <span class="token keyword">if</span> creds.expired and creds.refresh_token:
+            creds.refresh<span class="token punctuation">(</span>Request<span class="token punctuation">(</span><span class="token punctuation">))</span>
+            with open<span class="token punctuation">(</span>token_path, <span class="token string">"w"</span><span class="token punctuation">)</span> as f:
+                f.write<span class="token punctuation">(</span>creds.to_json<span class="token punctuation">(</span><span class="token punctuation">))</span>
+        else:
+            raise RuntimeError<span class="token punctuation">(</span><span class="token string">"token.json invalid"</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> build<span class="token punctuation">(</span><span class="token string">"gmail"</span>, <span class="token string">"v1"</span>, credentials<span class="token operator">=</span>creds<span class="token punctuation">)</span>
+
+
+def block_address<span class="token punctuation">(</span>service, address<span class="token punctuation">)</span>:
+    filter_body <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token string">"criteria"</span><span class="token keyword">:</span> <span class="token punctuation">{</span>
+            <span class="token string">"from"</span><span class="token keyword">:</span> address
+        <span class="token punctuation">}</span>,
+        <span class="token string">"action"</span><span class="token keyword">:</span> <span class="token punctuation">{</span>
+            <span class="token string">"addLabelIds"</span><span class="token keyword">:</span> <span class="token punctuation">[</span><span class="token string">"TRASH"</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    result <span class="token operator">=</span> service.users<span class="token punctuation">(</span><span class="token punctuation">)</span>.settings<span class="token punctuation">(</span><span class="token punctuation">)</span>.filters<span class="token punctuation">(</span><span class="token punctuation">)</span>.create<span class="token punctuation">(</span>
+        userId<span class="token operator">=</span><span class="token string">"me"</span>,
+        body<span class="token operator">=</span>filter_body
+    <span class="token punctuation">)</span>.execute<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> result
+
+
+def main<span class="token punctuation">(</span><span class="token punctuation">)</span>:
+    parser <span class="token operator">=</span> argparse.ArgumentParser<span class="token punctuation">(</span>description<span class="token operator">=</span><span class="token string">"Block Gmail sender address"</span><span class="token punctuation">)</span>
+    parser.add_argument<span class="token punctuation">(</span><span class="token string">"--address"</span>, required<span class="token operator">=</span>True, help<span class="token operator">=</span><span class="token string">"email address to block"</span><span class="token punctuation">)</span>
+    parser.add_argument<span class="token punctuation">(</span><span class="token string">"--token"</span>, default<span class="token operator">=</span><span class="token string">"token.json"</span>, help<span class="token operator">=</span><span class="token string">"token.json path"</span><span class="token punctuation">)</span>
+
+    args <span class="token operator">=</span> parser.parse_args<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token function">service</span> <span class="token operator">=</span> gmail_auth<span class="token punctuation">(</span>args.token<span class="token punctuation">)</span>
+
+    result <span class="token operator">=</span> block_address<span class="token punctuation">(</span>service, args.address<span class="token punctuation">)</span>
+
+    print<span class="token punctuation">(</span><span class="token string">"Filter created successfully"</span><span class="token punctuation">)</span>
+    print<span class="token punctuation">(</span><span class="token string">"Filter ID:"</span>, result<span class="token punctuation">[</span><span class="token string">"id"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    print<span class="token punctuation">(</span><span class="token string">"Blocked address:"</span>, args.address<span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token keyword">:</span>
+    main<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+</code></pre>
+<h2 id="DEMO展示"><a href="#DEMO展示" class="headerlink" title="DEMO展示"></a>DEMO展示</h2><p><img src="/img/openclaw9.png" alt></p>
+<p>下达指令：分析我的谷歌邮箱中最新一封邮件是否为钓鱼邮件（如果是真实企业工作流中，就应该直接通过日志等方式触发预定义的分析流程，此处只是为了演示）</p>
+<p>可以看到openclaw读文件和执行脚本的顺序：</p>
+<p><img src="/img/openclaw10.png" alt></p>
+<p>读SKILL、执行脚本导出邮件，调用vt查询脚本</p>
+<p><img src="/img/openclaw11.png" alt></p>
+<p>Agent综合多项指标输出分析结论报告：</p>
+<p><img src="/img/openclaw12.png" alt></p>
+<p>SKILL中指示如果分析认为是钓鱼邮件则自动删除拉黑，因此可以看到添加了过滤器：</p>
+<p><img src="/img/openclaw13.png" alt></p>
+<h2 id="展望：更进一步的集成"><a href="#展望：更进一步的集成" class="headerlink" title="展望：更进一步的集成"></a>展望：更进一步的集成</h2><p><img src="/img/openclaw14.png" alt></p>
+<h2 id="感受"><a href="#感受" class="headerlink" title="感受"></a>感受</h2><p>由于时间有限，本demo只是一个简单的场景，比较初步也没有多个Agent协同工作，比较多的时间反而是花在了挑选邮箱上，126/163、qq、proton、yahoo都试了个遍，最终只有gmail符合要求能完成我想展示的功能。后端大模型使用的是阿里云的qwen3-max，openclaw在执行分析时可能遇到各种问题，重现并不是很稳定。在gmail侧，凭据有可能失效需要重新生成；在openclaw调用工具时可能出现相对路径不对的问题，导致读取不到文件，所以最好把所有的参数都直接写成绝对路径，包括SKILL和脚本中的调用。很多使用者都会陷入配好龙虾后寻找使用场景的问题，我们大多也一样，不过这个钓鱼邮件分析处置的场景我认为还是确实有实践意义的。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2024-12-31/">
+                    我的CISSP Review
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#研究背景和意义"><span class="toc-number">1.</span> <span class="toc-text">研究背景和意义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#具体实现"><span class="toc-number">2.</span> <span class="toc-text">具体实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DEMO展示"><span class="toc-number">3.</span> <span class="toc-text">DEMO展示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#展望：更进一步的集成"><span class="toc-number">4.</span> <span class="toc-text">展望：更进一步的集成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#感受"><span class="toc-number">5.</span> <span class="toc-text">感受</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-4 i,
+        .toc-level-4 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"OpenClaw实践之钓鱼邮件识别小助手　| Cosmic Fragments　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2024-12-31/" title="下一篇: 我的CISSP Review">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026-03-16/">OpenClaw实践之钓鱼邮件识别小助手</a></li><li class="post-list-item"><a class="post-list-link" href="/2024-12-31/">我的CISSP Review</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-10-28/">窗口期的OSCP(PEN-200-2023)总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-07-14/">OSCP NOTE (Cheatsheet)</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-04-30/">50台Vulnhub靶机Walkthrough</a></li><li class="post-list-item"><a class="post-list-link" href="/2023-02-13/">Honeypot-Factory: The Use of Deception in ICS/OT Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-08-21/">Pass the Hash再思考：场景、补丁与监测</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-26/">RFID初探之M1卡的分析与复制（使用PN532模块）</a></li><li class="post-list-item"><a class="post-list-link" href="/2022-02-13/">Websocket渗透测试指北</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-12-14/">关于log4j、log4shell的一些记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2021-11-27/">红队视角下的信息收集（备忘 && 持续收集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-07-30/">Linux Basic for Hackers</a></li><li class="post-list-item"><a class="post-list-link" href="/2020-02-09/">安全相关HTTP响应头解读、配置、示例与检测</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-10-31/">Cobaltstrike Server持久化 & Cobaltstrike与Metasploit相互派生shell</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-08-21/">深入了解子域名挖掘tricks</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-05-14/">Android开发实践之计算器&记事助手</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-13/">用Origin请求头防御CSRF攻击(译文)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-04-07/">PHP中的随机数安全问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-03-20/">WordPress 5.1.1 CSRF to RCE 跟进分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-02-15/">XML外部实体注入(XXE攻击)小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019-01-26/">Django开发小记 & Docker笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-22/">前端安全之CSP、同源策略与跨域请求(JSONP/CORS)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-12-01/">使用Aircrack-ng破解WPA2协议无线网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-11-11/">PHP博客管理系统开发全记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-10-10/">环境配置踩坑记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-30/">区块链基础[待补充]</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-08-05/">校园网免流攻略(基于逻辑漏洞、DNS伪装包或IPv6)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-07-11/">基于Scrapy-Redis框架与Mongodb的分布式爬虫-elasticsearch搜索引擎打造</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-26/">《渗透测试实践指南》阅读笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-16/">「Web向」XCTF联赛2018年度考点知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-14/">「娱乐向」 Hack for Fun</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-12/">从一道取证题目谈NTFS交换数据流</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-05-10/">关于Xdebug的那些事儿</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-26/">PHP弱类型&&md5碰撞总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018-04-24/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2026 Fazx
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+            
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "!!!∑(ﾟДﾟノ)ノ快回来!!!  " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "" + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
