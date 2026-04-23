@@ -22,26 +22,26 @@
 <meta property="og:site_name" content="Cosmic Fragments">
 <meta property="og:description" content="‮">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2026/png/228585/1776928306537-903840ca-3dcd-466b-98ab-993b88f3b66c.png">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2026/png/228585/1776929152847-0b51be0a-528c-4228-b04a-af2308295885.png">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2026/png/228585/1776929191188-ce77781b-4176-4d63-ae0d-aa902e552d2e.png">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2026/png/228585/1776929243574-3f25d111-a172-460e-b4b7-6de386a7ade5.png">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2026/png/228585/1776937328555-7aafcc20-4cee-4d5c-9038-d3fa43d2a7d6.png">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2026/png/228585/1776937440736-c506eb71-5eba-4507-8619-ff4cf25ec426.png">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2026/png/228585/1776937551072-054cb02f-57ff-4984-aaf9-1d00efff07be.png">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2026/png/228585/1776937705894-41548ec1-24bb-49d3-aa82-38c692427c77.png">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2026/png/228585/1776937748010-18054bab-f206-441f-a927-5e376a328854.png">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2026/png/228585/1776937754136-ed60a549-5f2d-4905-b2b8-b756e32b3f92.png">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2026/png/228585/1776937868913-7b88e33a-b64c-40ab-80a2-02cafbf4b287.png">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2026/png/228585/1776937937911-e4b699ef-32d1-4914-8ba0-0959333fd7cc.png">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2026/png/228585/1776938137504-6ea79a1c-8376-41b7-8976-ff45790b6cfd.png">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2026/png/228585/1776938151276-bb0c0ee7-f532-499c-9e56-3f80b902883d.png">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2026/png/228585/1776938174050-f38583e8-a937-44e4-b872-37516fc0171a.png">
-<meta property="og:updated_time" content="2026-04-23T10:11:49.289Z">
+<meta property="og:image" content="/img/xdr1.png">
+<meta property="og:image" content="/img/xdr2.png">
+<meta property="og:image" content="/img/xdr3.png">
+<meta property="og:image" content="/img/xdr4.png">
+<meta property="og:image" content="/img/xdr5.png">
+<meta property="og:image" content="/img/xdr6.png">
+<meta property="og:image" content="/img/xdr7.png">
+<meta property="og:image" content="/img/xdr8.png">
+<meta property="og:image" content="/img/xdr9.png">
+<meta property="og:image" content="/img/xdr10.png">
+<meta property="og:image" content="/img/xdr11.png">
+<meta property="og:image" content="/img/xdr12.png">
+<meta property="og:image" content="/img/xdr13.png">
+<meta property="og:image" content="/img/xdr14.png">
+<meta property="og:image" content="/img/xdr15.png">
+<meta property="og:updated_time" content="2026-04-23T09:23:03.559Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用合法微软工具干掉XDR">
 <meta name="twitter:description" content="‮">
-<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2026/png/228585/1776928306537-903840ca-3dcd-466b-98ab-993b88f3b66c.png">
+<meta name="twitter:image" content="/img/xdr1.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -273,7 +273,7 @@
 <p>2026.01.28的技术分享，主要内容和思路来源于酒仙桥六号部队，但是我做了一些延伸的尝试和思考</p>
 </blockquote>
 <h3 id="Process-Monitor"><a href="#Process-Monitor" class="headerlink" title="Process Monitor"></a>Process Monitor</h3><p>Process Monitor（ProcMon）是Sysinternals的免费高级 Windows 系统监控工具。它集成了文件系统监控、注册表监控、进程/线程活动监控以及网络监控等功能，能够实时记录操作系统中所有进程的详细活动，是系统调试、故障排查和安全分析的强大工具。</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2026/png/228585/1776928306537-903840ca-3dcd-466b-98ab-993b88f3b66c.png" alt></p>
+<p><img src="/img/xdr1.png" alt></p>
 <p>蓝队都应该使用的基本工具。</p>
 <p>Process Monitor（Procmon）的核心驱动是以 SYSTEM 权限运行的</p>
 <p>它需要管理员权限启动GUI，但以<strong>内核态（Ring 0）</strong>运行，具备<strong>驱动级别</strong>的权限</p>
@@ -285,23 +285,23 @@
 </ul>
 <p>这就导致，即使是管理员权限也无法在 Procmon 驱动运行时对它隐藏行为。</p>
 <h3 id="Windows-Defender"><a href="#Windows-Defender" class="headerlink" title="Windows Defender"></a>Windows Defender</h3><p>MsMpEng.exe（Microsoft Malware Protection Engine）是 Windows Defender 的核心实时杀毒引擎。</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2026/png/228585/1776929152847-0b51be0a-528c-4228-b04a-af2308295885.png" alt></p>
+<p><img src="/img/xdr2.png" alt></p>
 <p>如果想要干掉XDR，最直观的思路就是直接结束掉这个进程——当然是做不到的</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2026/png/228585/1776929191188-ce77781b-4176-4d63-ae0d-aa902e552d2e.png" alt></p>
+<p><img src="/img/xdr3.png" alt></p>
 <p>类似的，修改进程对应的文件也是被拒绝的，这是因为：</p>
 <ul>
 <li>运行身份：SYSTEM</li>
 <li>服务类型：Protected Service（受保护的服务）</li>
 <li>受控机制：Tamper Protection（防篡改保护）</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2026/png/228585/1776929243574-3f25d111-a172-460e-b4b7-6de386a7ade5.png" alt></p>
+<p><img src="/img/xdr4.png" alt></p>
 <h3 id="Procmon日志文件"><a href="#Procmon日志文件" class="headerlink" title="Procmon日志文件"></a>Procmon日志文件</h3><p>Procmon64.exe /accepteula  正常启动并加载其驱动</p>
 <p>taskkill /f /t /im Procmon64.exe  结束进程</p>
 <p>Procmon64.exe <strong><font style="color:#ED740C;">/EnableBootLogging</font></strong>   让 Procmon 记录开机时的系统活动生成日志文件</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2026/png/228585/1776937328555-7aafcc20-4cee-4d5c-9038-d3fa43d2a7d6.png" alt></p>
+<p><img src="/img/xdr5.png" alt></p>
 <p>Procmon 依赖内核驱动 PROCMON24.SYS（版本号可能不同），该驱动具备读写系统关键文件和日志记录的能力。其允许用户保存日志数据（默认路径：<strong><font style="color:#ED740C;">C:\Windows\ProcMon.pmb</font></strong>）</p>
 <p>利用这一特性，我们可以借助Procmon在高权限下创建或修改文件</p>
-<h3 id="符号链接"><a href="#符号链接" class="headerlink" title="符号链接"></a>符号链接</h3><p><img src="https://cdn.nlark.com/yuque/0/2026/png/228585/1776937440736-c506eb71-5eba-4507-8619-ff4cf25ec426.png" alt></p>
+<h3 id="符号链接"><a href="#符号链接" class="headerlink" title="符号链接"></a>符号链接</h3><p><img src="/img/xdr6.png" alt></p>
 <pre class=" language-bash"><code class="language-bash">mklink <span class="token operator">&lt;</span>Link_File<span class="token operator">></span> <span class="token operator">&lt;</span>Target_File<span class="token operator">></span>
 </code></pre>
 <p>Windows 支持 NTFS 符号链接 (mklink)，这意味着我们可以：</p>
@@ -312,28 +312,28 @@
 </code></pre>
 <p>创建一个符号链接，使得任何对C:\Windows\ProcMon.pmb进行的写入操作，都会实际写入 MsMpEng.exe。</p>
 <p>重启后，Procmon会尝试写入procMon.pmb文件，由于符号链接的存在，日志内容将直接写入MsMpEng.exe，从而破坏 Defender 可执行文件，使其无法正常运行。</p>
-<h3 id="demo效果"><a href="#demo效果" class="headerlink" title="demo效果"></a>demo效果</h3><p><img src="https://cdn.nlark.com/yuque/0/2026/png/228585/1776937551072-054cb02f-57ff-4984-aaf9-1d00efff07be.png" alt></p>
+<h3 id="demo效果"><a href="#demo效果" class="headerlink" title="demo效果"></a>demo效果</h3><p><img src="/img/xdr7.png" alt></p>
 <p>(文件被写入破坏，MsMpEng.exe进程也已经不再运行)</p>
 <h3 id="问题1：已经有了管理员权限，还有必要这么麻烦吗？"><a href="#问题1：已经有了管理员权限，还有必要这么麻烦吗？" class="headerlink" title="问题1：已经有了管理员权限，还有必要这么麻烦吗？"></a>问题1：已经有了管理员权限，还有必要这么麻烦吗？</h3><p>极端情况下，我甚至可以配置打开RDP，从病毒和威胁防护设置里把各种保护都关掉？</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2026/png/228585/1776937705894-41548ec1-24bb-49d3-aa82-38c692427c77.png" alt></p>
+<p><img src="/img/xdr8.png" alt></p>
 <p>回答：这种关闭方式 <strong>本质是“配置级关闭”</strong>，不是停止服务、不是终止进程。</p>
 <p>在管理员权限下，关闭 Windows Defender已经变得越来越难，尤其是 Windows 11 22H2 之后 + 2024-2026 年版本，Tamper Protection（防篡改保护） 默认开启，几乎所有传统方法（注册表、组策略、服务停止、PowerShell）都会被直接阻止或几分钟后自动恢复。</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2026/png/228585/1776937748010-18054bab-f206-441f-a927-5e376a328854.png" alt></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2026/png/228585/1776937754136-ed60a549-5f2d-4905-b2b8-b756e32b3f92.png" alt></p>
+<p><img src="/img/xdr9.png" alt></p>
+<p><img src="/img/xdr10.png" alt></p>
 <p>经测试，在Windows 11 21H2版本上仍然可以通过这种方式破坏防护（在防篡改保护开启的条件下）</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2026/png/228585/1776937868913-7b88e33a-b64c-40ab-80a2-02cafbf4b287.png" alt></p>
+<p><img src="/img/xdr11.png" alt></p>
 <p>为什么不用更新的版本测试呢，是因为我这台虚拟机的盗版系统升不上去了</p>
 <h3 id="问题2：市面上是否有一些成熟的工具可以用？"><a href="#问题2：市面上是否有一些成熟的工具可以用？" class="headerlink" title="问题2：市面上是否有一些成熟的工具可以用？"></a>问题2：市面上是否有一些成熟的工具可以用？</h3><p>defendernot</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2026/png/228585/1776937937911-e4b699ef-32d1-4914-8ba0-0959333fd7cc.png" alt></p>
+<p><img src="/img/xdr12.png" alt></p>
 <p>作者通过逆向WSC API禁用Defender。</p>
 <p>这种的缺陷是文件落地时本身就会被识别成VirTool:Win64/Defnot.A这种病毒类型，用它禁用Defender需要先关闭防护，成了一个死循环。相较于合法工具的利用这是它的劣势。</p>
 <h3 id="问题3：可否类似扩展到其他的XDR？"><a href="#问题3：可否类似扩展到其他的XDR？" class="headerlink" title="问题3：可否类似扩展到其他的XDR？"></a>问题3：可否类似扩展到其他的XDR？</h3><p>可以的，以公司有的PA XDR环境为例</p>
 <pre class=" language-bash"><code class="language-bash">mklink C:\Windows\ProcMon.pmb <span class="token string">"C:\Program Files\Palo Alto Networks\Traps\cyserver.exe"</span>
 </code></pre>
-<p><img src="https://cdn.nlark.com/yuque/0/2026/png/228585/1776938137504-6ea79a1c-8376-41b7-8976-ff45790b6cfd.png" alt></p>
+<p><img src="/img/xdr13.png" alt></p>
 <p>类似的方式破坏</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2026/png/228585/1776938151276-bb0c0ee7-f532-499c-9e56-3f80b902883d.png" alt></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2026/png/228585/1776938174050-f38583e8-a937-44e4-b872-37516fc0171a.png" alt></p>
+<p><img src="/img/xdr14.png" alt></p>
+<p><img src="/img/xdr15.png" alt></p>
 <p>可以看到防护功能已经disable</p>
 <h3 id="问题4：是否有其他合法工具可以被滥用？"><a href="#问题4：是否有其他合法工具可以被滥用？" class="headerlink" title="问题4：是否有其他合法工具可以被滥用？"></a>问题4：是否有其他合法工具可以被滥用？</h3><p>Procmon /EnableBootLogging 本质上是借助内核驱动（SYSTEM / Ring0）在用户登录前就把数据落盘，所以才能在C:\Windows\ProcMon.pmb这种普通管理员都没写权限的路径里生成文件。</p>
 <ul>
@@ -349,7 +349,9 @@
 </ul>
 <p>2.Permission, Permission is everything</p>
 <hr>
+<blockquote>
 <p>Reference: <a href="https://mp.weixin.qq.com/s?__biz=MzAwMzYxNzc1OA==&amp;mid=2247502047&amp;idx=1&amp;sn=c1a04bfdf83d879003fd53f059ee2690&amp;chksm=9a72ce4b83cf4f89de6b90f3f71807940e2561cdd9b87444d0beb7e3607f4e7408d283e1761e" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzAwMzYxNzc1OA==&amp;mid=2247502047&amp;idx=1&amp;sn=c1a04bfdf83d879003fd53f059ee2690&amp;chksm=9a72ce4b83cf4f89de6b90f3f71807940e2561cdd9b87444d0beb7e3607f4e7408d283e1761e</a></p>
+</blockquote>
 
       
     </div>
